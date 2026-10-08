@@ -17,6 +17,7 @@ class DataStoreUserPreferencesRepository @Inject constructor(
     override val preferences: Flow<UserPreferences> = dataStore.data.map { prefs ->
         UserPreferences(
             onboardingCompleted = prefs[Keys.ONBOARDING_COMPLETED] ?: false,
+            defaultProfilesSeeded = prefs[Keys.DEFAULT_PROFILES_SEEDED] ?: false,
         )
     }
 
@@ -24,7 +25,12 @@ class DataStoreUserPreferencesRepository @Inject constructor(
         dataStore.edit { it[Keys.ONBOARDING_COMPLETED] = completed }
     }
 
+    override suspend fun setDefaultProfilesSeeded(seeded: Boolean) {
+        dataStore.edit { it[Keys.DEFAULT_PROFILES_SEEDED] = seeded }
+    }
+
     private object Keys {
         val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
+        val DEFAULT_PROFILES_SEEDED = booleanPreferencesKey("default_profiles_seeded")
     }
 }

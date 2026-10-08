@@ -41,8 +41,24 @@ export JAVA_HOME="/c/Program Files/Android/Android Studio/jbr"
 
 ## Décisions d'architecture
 - **Détection du premier plan** : `MonitorAccessibilityService` est la source de vérité (temps réel). `UsageStatsManager` sert aux statistiques et au recoupement (il a du retard).
-- **Flux prévu** : événement d'accessibilité → `ForegroundTracker` → `ZoneDetector` (JSON) → `RuleEngine.evaluate()` (pur) → `Decision` (Allow / Block / Redirect / Interstitial) → `Enforcer`.
-- **Priorité des profils** (du plus fort au plus faible) : 1. session stricte en cours, 2. profil activé manuellement, 3. profils planifiés par priorité numérique, 4. règles globales. Fusion : la restriction la plus forte l'emporte, sauf autorisation explicite d'un niveau supérieur. La liste blanche système passe avant tout.
+- **Flux prévu** : événement d'accessibilité → `ForegroundTracker` → `ZoneDetector` (JSON) → `ProfileResolver.resolve()` + `RuleEngine.evaluate()` (purs) → `Decision` → `Enforcer`.
+
+### Moteur de règles (`:core:domain`, package `rules`)
+- **Modèle** : `Rule(Target, RuleAction)`. `Target` = `AllApps` < `App(pkg)` < `Zone(pkg, zone)` (précision croissante). `RuleAction` = `Allow` (exception explicite) / `Limit(dailyLimit)` / `Block`. Les plages horaires interdites = un profil avec `Rule(AllApps, Block)` + exceptions `Allow`.
+- **`Schedule`** : jours + début/fin locales ; `end <= start` → passe minuit (jours = jour de début) ; `start == end` → 24 h ; début inclus, fin exclue. `ScheduleEvaluator` gère le changement d'heure (heure inexistante → décalée vers l'avant ; heure doublée → les deux occurrences couvertes) et enchaîne les plages contiguës pour calculer la fin.
+- **`ProfileResolver`** → couches ordonnées : 1. session stricte en cours, 2. profil activé manuellement, 3. profils planifiés actifs (`priority` décroissante puis `id` croissant), 4. règles globales. Un profil manuel n'est pas répété en planifié ; profils `enabled = false` ignorés ; `autoActivation = false` = activable seulement à la main.
+- **`RuleEngine`** :
+  1. liste blanche système (`SystemWhitelist`) → autorisé, avant tout ;
+  2. dans chaque couche, seule la règle **la plus précise** compte (à précision égale : la plus restrictive) ;
+  3. parcours des couches de haut en bas : `Block`/`Limit` retenus, **`Allow` arrête le parcours** (les couches inférieures sont ignorées) ;
+  4. **la restriction la plus forte gagne** : `Block` > `Limit` ; entre limites, la plus courte ;
+  5. limite atteinte (`usage >= limite`) → bloqué jusqu'au minuit local suivant.
+  - Motif affiché = couche bloquante la plus prioritaire ; fin du blocage = fin la plus tardive des couches bloquantes (`null` si l'une est sans fin connue).
+  - Les règles `Zone` ne s'appliquent que si la zone est détectée (`AppRequest.zone != null`).
+- **Profils par défaut** (`DefaultProfiles`) créés une seule fois au premier lancement (`SeedDefaultProfiles`, indicateur DataStore), **tous désactivés** : Sommeil (00–06, tout bloqué, prio 100), Études (lun–ven 9–18, apps distrayantes bloquées, prio 50), Temps libre (18–00, 30 min/app, prio 10).
+
+### Base de données
+- v2 : `event_log`, `profile`, `profile_schedule` (jours en bitmask, bit 0 = lundi ; minutes depuis minuit), `rule` (`profile_id` NULL = règle globale). Migration 1 → 2 = `AutoMigration` (tables ajoutées). En pratique aucune base v1 n'existe sur un appareil (rien ne l'ouvrait en phase 1).
 - **Liste blanche système permanente** : horloge/réveil, téléphone, urgences, paramètres système, Mobile Manager lui-même.
 - **Mode strict** : dérogation possible uniquement après le délai de réflexion configuré avant la session ; la dérogation **termine la session** (et est enregistrée dans `event_log`). Session stockée par **heure de fin absolue** pour survivre au redémarrage.
 - **Paramètres pendant une session stricte** : accessibles, sauf les pages ciblées (Accessibilité › Mobile Manager, Infos de l'app Mobile Manager, Admin de l'appareil) → renvoi immédiat en arrière.
@@ -58,7 +74,7 @@ export JAVA_HOME="/c/Program Files/Android/Android Studio/jbr"
 
 ## Avancement
 - [x] **Phase 1 — Fondations** : modules Gradle, Hilt, Room (`event_log`), DataStore, navigation, thème, onboarding des permissions en direct, stubs accessibilité + admin.
-- [ ] Phase 2 — Moteur de règles (`ProfileResolver`, `RuleEngine`, tests)
+- [x] **Phase 2 — Moteur de règles** : modèle, `ScheduleEvaluator`, `ProfileResolver`, `RuleEngine` (70 tests domaine), persistance Room v2 des profils/règles, profils par défaut désactivés.
 - [ ] Phase 3 — Surveillance + blocage basique
 - [ ] Phase 4 — Sessions strictes + délai de réflexion + anti-désactivation
 - [ ] Phase 5 — UI des profils
