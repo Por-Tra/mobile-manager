@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aucune politique demandée : l'admin sert uniquement à ajouter une étape avant la désinstallation. -->
+<device-admin>
+    <uses-policies />
+</device-admin>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mobile Manager</string>
+
+    <string name="accessibility_service_label">Surveillance Mobile Manager</string>
+    <string name="accessibility_service_description">Détecte l\'application au premier plan pour appliquer tes règles de blocage. Seule la structure de l\'écran est lue, jamais le contenu de tes messages ou publications. Aucune donnée ne quitte le téléphone.</string>
+    <string name="device_admin_explanation">L\'administration de l\'appareil ajoute une étape avant la désinstallation pendant le mode strict. Elle ne donne aucun autre pouvoir à l\'app.</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title">Préparer Mobile Manager</string>
+    <string name="onboarding_subtitle">Quelques autorisations sont nécessaires pour que l\'app puisse faire son travail. Tout reste sur ton téléphone.</string>
+    <string name="onboarding_progress">Autorisations accordées : %1$d / %2$d</string>
+    <string name="onboarding_continue">Continuer</string>
+    <string name="onboarding_later">Configurer plus tard</string>
+    <string name="onboarding_ready">Tout est prêt pour la surveillance.</string>
+    <string name="permission_grant">Autoriser</string>
+    <string name="permission_granted">Accordée</string>
+    <string name="permission_required">Indispensable</string>
+    <string name="permission_recommended">Recommandée</string>
+    <string name="permission_strict_mode">Mode strict</string>
+
+    <string name="permission_accessibility_title">Service d\'accessibilité</string>
+    <string name="permission_accessibility_body">Permet de savoir quelle app est ouverte et de renvoyer vers l\'accueil quand elle est bloquée.</string>
+    <string name="permission_usage_stats_title">Accès aux statistiques d\'utilisation</string>
+    <string name="permission_usage_stats_body">Sert à calculer ton temps d\'écran par application.</string>
+    <string name="permission_battery_title">Pas d\'optimisation de batterie</string>
+    <string name="permission_battery_body">Évite qu\'Android arrête la surveillance en arrière-plan.</string>
+    <string name="permission_overlay_title">Affichage par-dessus les autres apps</string>
+    <string name="permission_overlay_body">Rend l\'écran de blocage plus fiable sur certains téléphones.</string>
+    <string name="permission_notifications_title">Notifications</string>
+    <string name="permission_notifications_body">Affiche l\'heure de fin d\'une session de concentration en cours.</string>
+    <string name="permission_device_admin_title">Administration de l\'appareil</string>
+    <string name="permission_device_admin_body">Ajoute une étape avant la désinstallation pendant le mode strict.</string>
+
+    <string name="restricted_settings_title">Le service est grisé ?</string>
+    <string name="restricted_settings_body">Android limite les apps installées hors Play Store. Ouvre « Infos de l\'application », touche le menu ⋮ en haut à droite puis « Autoriser les paramètres restreints ». Reviens ensuite activer le service.</string>
+    <string name="restricted_settings_action">Ouvrir les infos de l\'app</string>
+
+    <string name="samsung_battery_title">Réglage Samsung conseillé</string>
+    <string name="samsung_battery_body">Dans Paramètres › Batterie › Limites d\'utilisation en arrière-plan, ajoute Mobile Manager aux « Applis jamais en veille ». Sinon One UI peut arrêter la surveillance.</string>
+    <string name="samsung_battery_action">Ouvrir les paramètres de batterie</string>
+
+    <!-- Accueil -->
+    <string name="home_title">Mobile Manager</string>
+    <string name="home_status_ready">Surveillance prête</string>
+    <string name="home_status_ready_body">Les règles arrivent dans les prochaines versions.</string>
+    <string name="home_status_incomplete">Il manque des autorisations</string>
+    <string name="home_status_incomplete_body">La surveillance ne peut pas encore fonctionner de façon fiable.</string>
+    <string name="home_open_permissions">Voir les autorisations</string>
+    <string name="home_open_settings">Réglages</string>
+
+    <!-- Réglages -->
+    <string name="settings_title">Réglages</string>
+    <string name="settings_permissions">Autorisations</string>
+    <string name="settings_permissions_body">Vérifier et accorder les autorisations</string>
+    <string name="settings_version">Version %1$s</string>
+
+    <string name="navigate_back">Retour</string>
+</resources>
