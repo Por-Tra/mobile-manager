@@ -40,12 +40,29 @@ export JAVA_HOME="/c/Program Files/Android/Android Studio/jbr"
 - Schémas Room exportés dans `core/data/schemas/` (à committer) ; toute évolution = migration explicite.
 
 ## Décisions d'architecture
-- **Détection du premier plan** : `MonitorAccessibilityService` est la source de vérité (temps réel). `UsageStatsManager` sert aux statistiques et au recoupement (il a du retard).
-- **Flux prévu** : événement d'accessibilité → `ForegroundTracker` → `ZoneDetector` (JSON) → `ProfileResolver.resolve()` + `RuleEngine.evaluate()` (purs) → `Decision` → `Enforcer`.
+- **Détection du premier plan** : `MonitorAccessibilityService` est la source de vérité (temps réel, `TYPE_WINDOW_STATE_CHANGED` uniquement ; `typeWindowContentChanged` sera ajouté en phase 7).
+- **Temps d'usage du jour** : calculé à partir de `UsageStatsManager.queryEvents()` (événements `ACTIVITY_RESUMED`/`PAUSED`, quasi temps réel), lus depuis minuit − 6 h puis coupés à minuit par `UsageCalculator` (domaine, pur). Rien n'est stocké : le calcul survit à un arrêt du service et reste cohérent avec le Bien-être numérique.
+
+### Chaîne de surveillance (`app/enforcement`, `app/service`, `app/block`)
+```
+MonitorAccessibilityService (fenêtre au premier plan)
+  → ignore : volet système, claviers, doublons ; nos propres écrans arrêtent la surveillance
+  → EnforcementCoordinator.evaluate(pkg)  (profils gardés en mémoire via stateIn)
+       SystemWhitelistProvider + UsageStatsReader + ProfileResolver + RuleEngine
+  → Blocked : BlockActivity (tâche séparée, exclue des récents) + event_log APP_BLOCKED
+  → Allowed : réévaluation à min(temps restant, 30 s) tant que l'app reste ouverte
+```
+- **Pas de `GLOBAL_ACTION_HOME` avant l'écran de blocage** : l'action est asynchrone et l'accueil recouvrait l'écran. C'est `BlockActivity` qui renvoie à l'accueil (bouton ou retour arrière).
+- **Anti-doublon** : un re-blocage de la même app dans les 2 s est ignoré (une app qui s'ouvre émet plusieurs événements de fenêtre) → une seule entrée `event_log` par blocage.
+- Écran éteint → réévaluations suspendues ; rallumé → réévaluation de l'app courante.
+- **Liste blanche système** (`SystemWhitelistProvider`, cache 5 min) résolue via `PackageManager` : launcher(s), composeur par défaut + `ACTION_DIAL`, `SET_ALARM`/`SHOW_ALARMS`, `ACTION_SETTINGS`, claviers, Mobile Manager, plus une liste fixe de composants système (systemui, telecom, urgences, contrôleur de permissions, horloges/téléphones Samsung et Google). `<queries>` déclarés dans le manifest, sans `QUERY_ALL_PACKAGES`.
+- **Foreground service reporté à la phase 4** (heure de fin de session stricte) : en phase 3, il n'aurait servi qu'à une notification permanente.
+- Logs de diagnostic : `adb logcat -s MobileManager` (build debug uniquement) affiche chaque évaluation (`package usage=… -> Decision`).
+- **Outils de test (debug)** : Réglages › « Créer le profil Test » (24 h/24, Chrome limité à 1 min, YouTube bloqué).
 
 ### Moteur de règles (`:core:domain`, package `rules`)
 - **Modèle** : `Rule(Target, RuleAction)`. `Target` = `AllApps` < `App(pkg)` < `Zone(pkg, zone)` (précision croissante). `RuleAction` = `Allow` (exception explicite) / `Limit(dailyLimit)` / `Block`. Les plages horaires interdites = un profil avec `Rule(AllApps, Block)` + exceptions `Allow`.
-- **`Schedule`** : jours + début/fin locales ; `end <= start` → passe minuit (jours = jour de début) ; `start == end` → 24 h ; début inclus, fin exclue. `ScheduleEvaluator` gère le changement d'heure (heure inexistante → décalée vers l'avant ; heure doublée → les deux occurrences couvertes) et enchaîne les plages contiguës pour calculer la fin.
+- **`Schedule`** : jours + début/fin locales ; `end <= start` → passe minuit (jours = jour de début) ; `start == end` → 24 h ; début inclus, fin exclue. `ScheduleEvaluator` gère le changement d'heure (heure inexistante → décalée vers l'avant ; heure doublée → les deux occurrences couvertes) et enchaîne les plages contiguës pour calculer la fin. **Activité ≠ fin** : `isAnyActive()` dit si les plages s'appliquent ; `activeUntil()` renvoie `null` si la période ne se termine pas dans les 8 jours (ex. 24 h/24 tous les jours → « pas d'heure de fin prévue »).
 - **`ProfileResolver`** → couches ordonnées : 1. session stricte en cours, 2. profil activé manuellement, 3. profils planifiés actifs (`priority` décroissante puis `id` croissant), 4. règles globales. Un profil manuel n'est pas répété en planifié ; profils `enabled = false` ignorés ; `autoActivation = false` = activable seulement à la main.
 - **`RuleEngine`** :
   1. liste blanche système (`SystemWhitelist`) → autorisé, avant tout ;
@@ -71,11 +88,24 @@ export JAVA_HOME="/c/Program Files/Android/Android Studio/jbr"
 - **Samsung** coupe agressivement les services en arrière-plan : exclusion d'optimisation batterie + « Applis jamais en veille » (carte dédiée dans l'onboarding, affichée seulement si `Build.MANUFACTURER == samsung`, donc invisible sur l'émulateur).
 - **Détection de zones (Reels, Shorts)** à venir en phase 7 : fragile par nature, les sélecteurs UI changent à chaque mise à jour d'Instagram/YouTube → détecteurs externalisés en JSON + mode diagnostic.
 - `AppOpsManager.unsafeCheckOpNoThrow` est déprécié en API 37 mais reste nécessaire pour minSdk 29 (`@Suppress` documenté).
+- **Émulateur restauré depuis un snapshot** : le service d'usage d'Android se désynchronise après le saut d'horloge (« Unexpected activity event reported! » dans logcat) et `queryEvents()` ne renvoie plus rien → les limites quotidiennes ne se déclenchent pas. Toujours tester les limites après un démarrage à froid (`emulator -avd … -no-snapshot-load`). Problème propre à l'émulateur.
+- La liste blanche n'est pas exhaustive pour tous les constructeurs : à vérifier sur le Samsung (horloge, téléphone, appel en cours, urgences) avec `adb logcat -s MobileManager`.
+
+## Tester sur l'émulateur (sans toucher l'UI)
+```bash
+export MSYS_NO_PATHCONV=1   # Git Bash : sinon /sdcard/... est converti en chemin Windows
+P=com.lucas.mobilemanager
+adb shell settings put secure enabled_accessibility_services $P/$P.service.MonitorAccessibilityService
+adb shell appops set $P GET_USAGE_STATS allow
+adb shell dumpsys deviceidle whitelist +$P
+adb shell cmd alarm set-timezone Europe/Paris   # pour tester une plage horaire (ex. Sommeil la nuit)
+```
+Une réinstallation (`adb install -r`) peut désactiver le service d'accessibilité : relancer la première commande.
 
 ## Avancement
 - [x] **Phase 1 — Fondations** : modules Gradle, Hilt, Room (`event_log`), DataStore, navigation, thème, onboarding des permissions en direct, stubs accessibilité + admin.
 - [x] **Phase 2 — Moteur de règles** : modèle, `ScheduleEvaluator`, `ProfileResolver`, `RuleEngine` (70 tests domaine), persistance Room v2 des profils/règles, profils par défaut désactivés.
-- [ ] Phase 3 — Surveillance + blocage basique
+- [x] **Phase 3 — Surveillance + blocage basique** : service d'accessibilité, usage via `queryEvents`, écran de blocage, liste blanche système, interrupteurs de profils, profil Test (debug). Vérifié sur émulateur.
 - [ ] Phase 4 — Sessions strictes + délai de réflexion + anti-désactivation
 - [ ] Phase 5 — UI des profils
 - [ ] Phase 6 — Doomscrolling + écran de transition + TikTok
