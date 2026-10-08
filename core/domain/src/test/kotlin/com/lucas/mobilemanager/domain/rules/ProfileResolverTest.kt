@@ -137,6 +137,12 @@ class ProfileResolverTest {
     }
 
     @Test
+    fun `always-on profile is active with no known end`() {
+        val layer = resolver.resolve(listOf(profile(id = 1)), emptyList(), null, null, now).layers.single()
+        assertEquals(null, layer.activeUntil)
+    }
+
+    @Test
     fun `scheduled layer ends with its current window`() {
         val sleep = profile(id = 1, schedules = listOf(schedule(time(9), time(12))))
         val layer = resolver.resolve(listOf(sleep), emptyList(), null, null, now).layers.single()

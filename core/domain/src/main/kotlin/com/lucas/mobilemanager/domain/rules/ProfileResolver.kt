@@ -67,15 +67,13 @@ class ProfileResolver @Inject constructor() {
         layers += profiles
             .asSequence()
             .filter { it.enabled && it.autoActivation && it.id != manualProfile?.id }
-            .mapNotNull { profile ->
-                ScheduleEvaluator.activeUntil(profile.schedules, now)?.let { until -> profile to until }
-            }
-            .sortedWith(compareByDescending<Pair<Profile, Instant>> { it.first.priority }.thenBy { it.first.id })
-            .map { (profile, until) ->
+            .filter { ScheduleEvaluator.isAnyActive(it.schedules, now) }
+            .sortedWith(compareByDescending<Profile> { it.priority }.thenBy { it.id })
+            .map { profile ->
                 PolicyLayer(
                     source = LayerSource.ScheduledProfile(profile.id, profile.name, profile.priority),
                     rules = profile.rules,
-                    activeUntil = until,
+                    activeUntil = ScheduleEvaluator.activeUntil(profile.schedules, now),
                 )
             }
 

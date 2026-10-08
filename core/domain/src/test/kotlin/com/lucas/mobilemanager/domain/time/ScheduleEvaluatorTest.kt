@@ -163,9 +163,19 @@ class ScheduleEvaluatorTest {
         }
 
         @Test
-        fun `always-on schedule terminates`() {
+        fun `always-on schedule has no known end but is active`() {
             val allWeek = listOf(schedule(time(0), time(0)))
-            assertNotNull(ScheduleEvaluator.activeUntil(allWeek, at(MONDAY, 12)))
+            assertNull(ScheduleEvaluator.activeUntil(allWeek, at(MONDAY, 12)))
+            assertTrue(ScheduleEvaluator.isAnyActive(allWeek, at(MONDAY, 12)))
+        }
+
+        @Test
+        fun `full days on weekdays end on friday midnight`() {
+            val weekdays = listOf(schedule(time(0), time(0), *DayOfWeek.entries.take(5).toTypedArray()))
+            assertEquals(
+                at(MONDAY.plusDays(5), 0).toInstant(),
+                ScheduleEvaluator.activeUntil(weekdays, at(MONDAY, 12)),
+            )
         }
     }
 

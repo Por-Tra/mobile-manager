@@ -1,6 +1,7 @@
 package com.lucas.mobilemanager.domain.time
 
 import com.lucas.mobilemanager.domain.model.Schedule
+import java.time.Duration
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -38,23 +39,30 @@ object ScheduleEvaluator {
 
     fun isActive(schedule: Schedule, now: ZonedDateTime): Boolean = activeWindow(schedule, now) != null
 
+    fun isAnyActive(schedules: List<Schedule>, now: ZonedDateTime): Boolean = schedules.any { isActive(it, now) }
+
     /**
      * Fin de la période active formée par [schedules] autour de [now], en enchaînant les
-     * plages contiguës (ex. 22h–00h puis 00h–06h → 06h). `null` si aucune plage n'est active.
+     * plages contiguës (ex. 22h–00h puis 00h–06h → 06h).
+     *
+     * `null` si aucune plage n'est active **ou** si la période ne se termine pas dans les
+     * 8 prochains jours (ex. plage 24 h tous les jours) : la fin est alors inconnue.
+     * Utiliser [isAnyActive] pour savoir si les plages sont actives.
      */
     fun activeUntil(schedules: List<Schedule>, now: ZonedDateTime): Instant? {
         var end: Instant = schedules.mapNotNull { activeWindow(it, now)?.end }.maxOrNull() ?: return null
-        // Borne de sécurité : une semaine entière de plages 24 h ne doit pas boucler indéfiniment.
-        repeat(MAX_CHAINED_WINDOWS) {
+        val horizon = now.toInstant().plus(END_HORIZON)
+        while (end.isBefore(horizon)) {
             val at = end.atZone(now.zone)
             val next = schedules.mapNotNull { activeWindow(it, at)?.end }.maxOrNull()
             if (next == null || !next.isAfter(end)) return end
             end = next
         }
-        return end
+        return null
     }
 
-    private const val MAX_CHAINED_WINDOWS = 14
+    /** Au-delà, une période active est considérée comme sans fin (au moins une semaine complète). */
+    private val END_HORIZON: Duration = Duration.ofDays(8)
 }
 
 /** Bornes de la journée locale, pour le compteur quotidien remis à zéro à minuit. */
