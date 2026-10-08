@@ -1,7 +1,9 @@
 package com.lucas.mobilemanager.domain.repository
 
 import com.lucas.mobilemanager.domain.model.EventLogEntry
+import com.lucas.mobilemanager.domain.model.Profile
 import com.lucas.mobilemanager.domain.model.UserPreferences
+import com.lucas.mobilemanager.domain.rules.Rule
 import kotlinx.coroutines.flow.Flow
 import java.time.Instant
 
@@ -16,4 +18,20 @@ interface UserPreferencesRepository {
     val preferences: Flow<UserPreferences>
 
     suspend fun setOnboardingCompleted(completed: Boolean)
+
+    suspend fun setDefaultProfilesSeeded(seeded: Boolean)
+}
+
+interface ProfileRepository {
+    fun observeProfiles(): Flow<List<Profile>>
+
+    /** Règles globales par défaut (niveau le moins prioritaire). */
+    fun observeGlobalRules(): Flow<List<Rule>>
+
+    /** Crée le profil si `id == 0`, sinon le remplace entièrement (plages et règles). Renvoie l'id. */
+    suspend fun upsert(profile: Profile): Long
+
+    suspend fun delete(profileId: Long)
+
+    suspend fun replaceGlobalRules(rules: List<Rule>)
 }
