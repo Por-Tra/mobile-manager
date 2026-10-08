@@ -12,7 +12,15 @@
         android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"
         tools:ignore="BatteryLife" />
 
-    <!-- Visibilité des apps (Android 11+) : liste blanche système et nom/icône des apps bloquées. -->
+    <!--
+        App personnelle hors Play Store : voir toutes les apps est nécessaire pour reconnaître
+        leurs activités (détection du premier plan) et, en phase 5, pour le sélecteur d'apps.
+    -->
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
+
+    <!-- Intents résolus pour la liste blanche système. -->
     <queries>
         <intent>
             <action android:name="android.intent.action.MAIN" />
