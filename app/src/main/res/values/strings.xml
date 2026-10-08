@@ -43,17 +43,46 @@
     <!-- Accueil -->
     <string name="home_title">Mobile Manager</string>
     <string name="home_status_ready">Surveillance prête</string>
-    <string name="home_status_ready_body">Les règles arrivent dans les prochaines versions.</string>
+    <string name="home_status_ready_body">Les profils activés ci-dessous s\'appliquent automatiquement.</string>
     <string name="home_status_incomplete">Il manque des autorisations</string>
     <string name="home_status_incomplete_body">La surveillance ne peut pas encore fonctionner de façon fiable.</string>
     <string name="home_open_permissions">Voir les autorisations</string>
     <string name="home_open_settings">Réglages</string>
+    <string name="home_profiles">Profils</string>
+
+    <!-- Profils -->
+    <string name="profile_active_now">Actif maintenant</string>
+    <string name="profile_manual_only">Activation manuelle</string>
+    <plurals name="profile_rules_count">
+        <item quantity="one">%d règle</item>
+        <item quantity="many">%d règles</item>
+        <item quantity="other">%d règles</item>
+    </plurals>
+    <string name="days_every_day">Tous les jours</string>
+    <string name="days_weekdays">Lun.–ven.</string>
+    <string name="days_weekend">Week-end</string>
+    <string name="schedule_all_day">24 h/24</string>
 
     <!-- Réglages -->
     <string name="settings_title">Réglages</string>
     <string name="settings_permissions">Autorisations</string>
     <string name="settings_permissions_body">Vérifier et accorder les autorisations</string>
     <string name="settings_version">Version %1$s</string>
+    <string name="settings_debug_title">Outils de test (build debug)</string>
+    <string name="settings_debug_create_test">Créer le profil Test</string>
+    <string name="settings_debug_create_test_body">Toujours actif : Chrome limité à 1 min par jour, YouTube bloqué.</string>
+    <string name="settings_debug_delete_test">Supprimer le profil Test</string>
+
+    <!-- Écran de blocage : ton neutre, jamais culpabilisant -->
+    <string name="block_reason_strict">Session de concentration en cours.</string>
+    <string name="block_reason_profile">Le profil « %1$s » est actif.</string>
+    <string name="block_reason_global">Cette app est en pause selon tes règles.</string>
+    <string name="block_reason_daily_limit">Limite quotidienne de %1$s atteinte : l\'outil a fait son travail.</string>
+    <string name="block_until_today">Disponible à nouveau à %1$s</string>
+    <string name="block_until_tomorrow">Disponible à nouveau demain à %1$s</string>
+    <string name="block_until_later">Disponible à nouveau le %1$s</string>
+    <string name="block_until_unknown">Pas d\'heure de fin prévue pour l\'instant.</string>
+    <string name="block_go_home">Retour à l\'accueil</string>
 
     <string name="navigate_back">Retour</string>
 </resources>
