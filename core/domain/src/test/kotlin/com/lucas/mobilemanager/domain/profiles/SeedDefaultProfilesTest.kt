@@ -61,6 +61,9 @@ class SeedDefaultProfilesTest {
         }
 
         override suspend fun delete(profileId: Long) = state.update { list -> list.filterNot { it.id == profileId } }
+        override suspend fun setEnabled(profileId: Long, enabled: Boolean) =
+            state.update { list -> list.map { if (it.id == profileId) it.copy(enabled = enabled) else it } }
+
         override suspend fun replaceGlobalRules(rules: List<Rule>) = Unit
     }
 

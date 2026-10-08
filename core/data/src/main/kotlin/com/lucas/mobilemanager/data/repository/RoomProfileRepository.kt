@@ -29,6 +29,8 @@ class RoomProfileRepository @Inject constructor(
 
     override suspend fun delete(profileId: Long) = dao.deleteProfile(profileId)
 
+    override suspend fun setEnabled(profileId: Long, enabled: Boolean) = dao.setEnabled(profileId, enabled)
+
     override suspend fun replaceGlobalRules(rules: List<Rule>) =
         dao.replaceGlobalRules(rules.map { it.toEntity(profileId = null) })
 }

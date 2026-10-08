@@ -33,5 +33,7 @@ interface ProfileRepository {
 
     suspend fun delete(profileId: Long)
 
+    suspend fun setEnabled(profileId: Long, enabled: Boolean)
+
     suspend fun replaceGlobalRules(rules: List<Rule>)
 }

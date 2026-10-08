@@ -38,6 +38,9 @@ interface ProfileDao {
     @Query("DELETE FROM rule WHERE profile_id IS NULL")
     suspend fun deleteGlobalRules()
 
+    @Query("UPDATE profile SET enabled = :enabled WHERE id = :profileId")
+    suspend fun setEnabled(profileId: Long, enabled: Boolean)
+
     @Query("DELETE FROM profile WHERE id = :profileId")
     suspend fun deleteProfile(profileId: Long)
 
