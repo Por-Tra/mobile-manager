@@ -21,9 +21,11 @@ class ZoneMatcherTest {
         (ZoneDetectorParser.parse(text) as ZoneDetectorParser.Result.Valid).file
     }
 
+    private val json = Json { ignoreUnknownKeys = true }
+
     private fun fixture(name: String): List<UiNode> {
         val text = javaClass.getResource("/zones/$name.json")!!.readText()
-        return Json { ignoreUnknownKeys = true }.decodeFromString(ListSerializer(UiNode.serializer()), text)
+        return json.decodeFromString(ListSerializer(UiNode.serializer()), text)
     }
 
     @Nested

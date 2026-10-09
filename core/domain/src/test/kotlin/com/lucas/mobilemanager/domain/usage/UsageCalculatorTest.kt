@@ -118,4 +118,39 @@ class UsageCalculatorTest {
             UsageCalculator.usageSince(events, INSTAGRAM, from, at(FALL_BACK, 12).toInstant()),
         )
     }
+
+    @Test
+    fun `app left open without a pause is closed when another app opens`() {
+        // Coupure brutale : la pause d'Instagram n'a jamais été enregistrée.
+        val events = listOf(
+            event(INSTAGRAM, RESUMED, 9),
+            event(YOUTUBE, RESUMED, 9, 10), event(YOUTUBE, PAUSED, 9, 30),
+        )
+        assertEquals(
+            mapOf(INSTAGRAM to Duration.ofMinutes(10), YOUTUBE to Duration.ofMinutes(20)),
+            UsageCalculator.usageByPackage(events, midnight, at(MONDAY, 12).toInstant()),
+        )
+    }
+
+    @Test
+    fun `device shutdown closes the app in the foreground`() {
+        val shutdown = UsageEvent("android", UsageEvent.Type.INTERRUPTION, at(MONDAY, 9, 15).toInstant())
+        val events = listOf(event(INSTAGRAM, RESUMED, 9), shutdown)
+        assertEquals(mapOf(INSTAGRAM to Duration.ofMinutes(15)), UsageCalculator.usageByPackage(events, midnight, at(MONDAY, 12).toInstant()))
+        assertEquals(Duration.ofMinutes(15), usage(events, 12))
+    }
+
+    @Test
+    fun `late pause of an app already replaced is ignored`() {
+        val events = listOf(
+            event(INSTAGRAM, RESUMED, 9),
+            event(YOUTUBE, RESUMED, 9, 10),
+            event(INSTAGRAM, PAUSED, 9, 11),
+            event(YOUTUBE, PAUSED, 9, 20),
+        )
+        assertEquals(
+            mapOf(INSTAGRAM to Duration.ofMinutes(10), YOUTUBE to Duration.ofMinutes(10)),
+            UsageCalculator.usageByPackage(events, midnight, at(MONDAY, 12).toInstant()),
+        )
+    }
 }

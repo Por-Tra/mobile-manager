@@ -12,6 +12,7 @@ import com.lucas.mobilemanager.domain.usage.UsageEvent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Duration
 import java.time.Instant
+import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -42,21 +43,49 @@ class UsageStatsReader @Inject constructor(
     }
 
     /**
-     * Événements reprise/pause. On remonte un peu avant [from] pour retrouver la reprise d'une
-     * app ouverte avant minuit ; le calcul coupe ensuite à minuit.
+     * Temps d'écran de chaque app pendant le jour local [date] (jusqu'à maintenant pour
+     * aujourd'hui), ou `null` si Android n'a plus aucun événement pour ce jour (au-delà
+     * d'environ une semaine) : « pas de données », à ne pas confondre avec « aucun usage ».
      */
-    private fun readEvents(from: Instant, to: Instant, packageName: String): List<UsageEvent> {
+    fun usageByPackageOn(date: LocalDate): Map<String, Duration>? {
+        val zone = timeProvider.zone()
+        val start = date.atStartOfDay(zone).toInstant()
+        val end = minOf(date.plusDays(1).atStartOfDay(zone).toInstant(), timeProvider.now())
+        if (!end.isAfter(start)) return null
+        var anyEvent = false
+        val events = readEvents(start.minus(LOOKBACK_BEFORE_MIDNIGHT), end, packageName = null) { anyEvent = true }
+        if (!anyEvent) return null
+        return UsageCalculator.usageByPackage(events, start, end)
+    }
+
+    /**
+     * Événements reprise/pause, d'une app ou de toutes ([packageName] `null`). On remonte un peu
+     * avant minuit pour retrouver la reprise d'une app ouverte la veille ; le calcul coupe ensuite.
+     */
+    private fun readEvents(
+        from: Instant,
+        to: Instant,
+        packageName: String?,
+        onAnyEvent: () -> Unit = {},
+    ): List<UsageEvent> {
         val result = mutableListOf<UsageEvent>()
         val events = usageStatsManager.queryEvents(from.toEpochMilli(), to.toEpochMilli()) ?: return result
         val event = UsageEvents.Event()
         while (events.hasNextEvent()) {
             events.getNextEvent(event)
-            if (event.packageName != packageName) continue
+            onAnyEvent()
             val type = when (event.eventType) {
                 UsageEvents.Event.ACTIVITY_RESUMED -> UsageEvent.Type.RESUMED
                 UsageEvents.Event.ACTIVITY_PAUSED -> UsageEvent.Type.PAUSED
+                // Écran éteint, arrêt ou démarrage de l'appareil : clôt l'app au premier plan,
+                // même si sa pause n'a pas été enregistrée (coupure brutale).
+                UsageEvents.Event.SCREEN_NON_INTERACTIVE,
+                UsageEvents.Event.DEVICE_SHUTDOWN,
+                UsageEvents.Event.DEVICE_STARTUP,
+                -> UsageEvent.Type.INTERRUPTION
                 else -> continue
             }
+            if (packageName != null && type != UsageEvent.Type.INTERRUPTION && event.packageName != packageName) continue
             result += UsageEvent(event.packageName, type, Instant.ofEpochMilli(event.timeStamp))
         }
         return result

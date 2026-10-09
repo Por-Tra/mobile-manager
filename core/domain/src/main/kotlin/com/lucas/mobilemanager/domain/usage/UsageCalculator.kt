@@ -9,7 +9,17 @@ data class UsageEvent(
     val type: Type,
     val timestamp: Instant,
 ) {
-    enum class Type { RESUMED, PAUSED }
+    enum class Type {
+        RESUMED,
+        PAUSED,
+
+        /**
+         * Arrêt ou démarrage de l'appareil, écran éteint : plus aucune app n'est au premier plan.
+         * Sans cela, une app ouverte lors d'une coupure brutale (batterie, plantage) serait
+         * comptée comme ouverte indéfiniment, la pause n'ayant jamais été enregistrée.
+         */
+        INTERRUPTION,
+    }
 }
 
 /**
@@ -20,14 +30,47 @@ data class UsageEvent(
  */
 object UsageCalculator {
 
-    /** Temps passé dans chaque app sur `[from, now)`. */
-    fun usageByPackage(events: List<UsageEvent>, from: Instant, now: Instant): Map<String, Duration> =
-        events.groupBy { it.packageName }
-            .mapValues { (_, packageEvents) -> sumSessions(packageEvents, from, now) }
-            .filterValues { !it.isZero }
+    /**
+     * Temps passé dans chaque app sur `[from, now)`, en suivant la chronologie globale : une
+     * seule app est au premier plan à la fois, donc l'ouverture d'une app clôt la précédente,
+     * même si sa pause n'a pas été enregistrée.
+     */
+    fun usageByPackage(events: List<UsageEvent>, from: Instant, now: Instant): Map<String, Duration> {
+        val totals = HashMap<String, Duration>()
+        var open: Pair<String, Instant>? = null
+        var seenEvent = false
+
+        fun add(pkg: String, start: Instant, end: Instant) {
+            val duration = clipped(start, end, from, now)
+            if (!duration.isZero) totals.merge(pkg, duration, Duration::plus)
+        }
+
+        fun close(at: Instant) {
+            open?.let { (pkg, since) -> add(pkg, since, at) }
+            open = null
+        }
+
+        for (event in events.sortedBy { it.timestamp }) {
+            when (event.type) {
+                UsageEvent.Type.RESUMED -> if (open?.first != event.packageName) {
+                    close(event.timestamp)
+                    open = event.packageName to event.timestamp
+                }
+                UsageEvent.Type.PAUSED -> when {
+                    open?.first == event.packageName -> close(event.timestamp)
+                    // Toute première trace : l'app était déjà au premier plan au début de la fenêtre.
+                    open == null && !seenEvent -> add(event.packageName, from, event.timestamp)
+                }
+                UsageEvent.Type.INTERRUPTION -> close(event.timestamp)
+            }
+            seenEvent = true
+        }
+        close(now)
+        return totals
+    }
 
     fun usageSince(events: List<UsageEvent>, packageName: String, from: Instant, now: Instant): Duration =
-        sumSessions(events.filter { it.packageName == packageName }, from, now)
+        sumSessions(events.filter { it.packageName == packageName || it.type == UsageEvent.Type.INTERRUPTION }, from, now)
 
     private fun sumSessions(events: List<UsageEvent>, from: Instant, now: Instant): Duration {
         var total = Duration.ZERO
@@ -40,6 +83,10 @@ object UsageCalculator {
                 UsageEvent.Type.PAUSED -> {
                     val start = openSince ?: if (!seenEvent) from else null
                     if (start != null) total += clipped(start, event.timestamp, from, now)
+                    openSince = null
+                }
+                UsageEvent.Type.INTERRUPTION -> {
+                    openSince?.let { total += clipped(it, event.timestamp, from, now) }
                     openSince = null
                 }
             }

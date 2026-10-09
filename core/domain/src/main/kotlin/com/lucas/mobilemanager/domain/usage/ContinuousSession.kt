@@ -25,7 +25,8 @@ object ContinuousSessions {
         now: Instant,
         gap: Duration,
     ): ContinuousSession? {
-        val intervals = foregroundIntervals(events.filter { it.packageName == packageName }, from, now)
+        val relevant = events.filter { it.packageName == packageName || it.type == UsageEvent.Type.INTERRUPTION }
+        val intervals = foregroundIntervals(relevant, from, now)
         val last = intervals.lastOrNull() ?: return null
         if (last.second != null) return null // l'app n'est plus au premier plan
 
@@ -51,6 +52,10 @@ object ContinuousSessions {
                 UsageEvent.Type.PAUSED -> {
                     val start = openSince ?: if (!seenEvent) from else null
                     if (start != null) intervals += start to event.timestamp
+                    openSince = null
+                }
+                UsageEvent.Type.INTERRUPTION -> {
+                    openSince?.let { intervals += it to event.timestamp }
                     openSince = null
                 }
             }
