@@ -204,16 +204,18 @@ class MonitorAccessibilityService : AccessibilityService() {
      */
     private fun block(pkg: String, decision: Decision.Blocked) {
         tracker.reset()
-        // Une app qui s'ouvre émet souvent plusieurs événements de fenêtre : un seul blocage compte.
-        val nowMs = SystemClock.elapsedRealtime()
-        if (pkg == lastBlockedPackage && nowMs - lastBlockedAtMs < DUPLICATE_BLOCK_WINDOW_MS) return
-        lastBlockedPackage = pkg
-        lastBlockedAtMs = nowMs
+        // Toujours (ré)afficher l'écran : une app qui enchaîne deux écrans au démarrage
+        // (ex. Messages et sa page de connexion) repasse sinon par-dessus le blocage.
         startActivity(
             BlockScreenArgs(pkg, decision.reason, decision.until)
                 .toIntent(this, BlockActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
         )
+        // Mais un seul blocage compte dans le journal pour cette ouverture.
+        val nowMs = SystemClock.elapsedRealtime()
+        if (pkg == lastBlockedPackage && nowMs - lastBlockedAtMs < DUPLICATE_BLOCK_WINDOW_MS) return
+        lastBlockedPackage = pkg
+        lastBlockedAtMs = nowMs
         scope.launch(Dispatchers.Default) { coordinator.recordBlock(pkg, decision) }
     }
 
