@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.outlined.BugReport
+import androidx.compose.material.icons.outlined.Layers
 import androidx.compose.material.icons.outlined.Security
 import androidx.compose.material.icons.outlined.SelfImprovement
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,6 +39,8 @@ fun SettingsScreen(
     onBack: () -> Unit,
     onOpenPermissions: () -> Unit,
     onOpenScrollGuard: () -> Unit,
+    onOpenZones: () -> Unit,
+    onOpenDiagnostic: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
@@ -71,6 +75,23 @@ fun SettingsScreen(
                 supportingContent = { Text(stringResource(R.string.scroll_guard_entry_body)) },
                 leadingContent = { Icon(Icons.Outlined.SelfImprovement, contentDescription = null) },
                 modifier = Modifier.clickable(onClick = onOpenScrollGuard),
+            )
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.zones_title)) },
+                supportingContent = { Text(stringResource(R.string.zones_entry_body)) },
+                leadingContent = { Icon(Icons.Outlined.Layers, contentDescription = null) },
+                modifier = Modifier.clickable(onClick = onOpenZones),
+            )
+            Text(
+                stringResource(R.string.settings_advanced),
+                style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier.padding(start = 16.dp, top = 16.dp),
+            )
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.diagnostic_title)) },
+                supportingContent = { Text(stringResource(R.string.diagnostic_entry_body)) },
+                leadingContent = { Icon(Icons.Outlined.BugReport, contentDescription = null) },
+                modifier = Modifier.clickable(onClick = onOpenDiagnostic),
             )
             if (BuildConfig.DEBUG) {
                 val sessionRunning by viewModel.sessionRunning.collectAsStateWithLifecycle()

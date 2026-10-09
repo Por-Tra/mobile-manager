@@ -247,6 +247,42 @@
     <string name="pause_continue">Continuer</string>
     <string name="pause_wait">Continuer (%1$d s)</string>
 
+    <!-- Restrictions par zone -->
+    <string name="zones_title">Restrictions par zone</string>
+    <string name="zones_entry_body">Reels, Shorts : bloquer seulement les zones distrayantes</string>
+    <string name="zones_intro">Bloque seulement une partie d\'une app : la messagerie et les publications d\'Instagram restent accessibles, les Reels sont quittés automatiquement. Un profil peut autoriser une zone explicitement.</string>
+    <string name="zones_item">%1$s · %2$s</string>
+    <string name="zones_fragile">La détection dépend de l\'interface interne de chaque app et peut casser après une mise à jour. Réglages › Mode diagnostic permet de la réparer.</string>
+    <string name="zone_hidden">%1$s masqués</string>
+
+    <!-- Mode diagnostic -->
+    <string name="settings_advanced">Avancé</string>
+    <string name="diagnostic_title">Mode diagnostic</string>
+    <string name="diagnostic_entry_body">Voir ce que détecte le service et réparer un détecteur</string>
+    <string name="diagnostic_intro">Sert à réparer la détection des zones après une mise à jour d\'Instagram ou de YouTube. Les captures restent en mémoire et ne sont jamais enregistrées.</string>
+    <string name="diagnostic_overlay">Bandeau en direct</string>
+    <string name="diagnostic_overlay_help">Affiche par-dessus les apps la zone détectée et un bouton « Capturer ». Déplaçable au doigt.</string>
+    <string name="diagnostic_overlay_waiting">Diagnostic : en attente…</string>
+    <string name="diagnostic_overlay_no_zone">%1$s · aucune zone</string>
+    <string name="diagnostic_overlay_zone">%1$s · zone : %2$s (signal n°%3$d)</string>
+    <string name="diagnostic_capture">Capturer</string>
+    <string name="diagnostic_capture_title">Dernière capture</string>
+    <string name="diagnostic_no_capture">Aucune capture. Active le bandeau, ouvre l\'app concernée et touche « Capturer ».</string>
+    <string name="diagnostic_capture_zone">%1$s à %2$s · zone : %3$s (signal n°%4$d)</string>
+    <string name="diagnostic_capture_no_zone">%1$s à %2$s · aucune zone détectée</string>
+    <string name="diagnostic_capture_help">En surbrillance : les éléments qui ont déclenché la zone. Appui long sur une ligne : copie un signal JSON prêt à coller.</string>
+    <string name="diagnostic_clear">Effacer la capture</string>
+    <string name="diagnostic_copied">Copié : %1$s</string>
+    <string name="diagnostic_editor_title">Détecteurs (JSON)</string>
+    <string name="diagnostic_editor_shipped">Version livrée avec l\'app.</string>
+    <string name="diagnostic_editor_custom">Version personnalisée en vigueur.</string>
+    <string name="diagnostic_editor_check">Vérifier</string>
+    <string name="diagnostic_editor_save">Enregistrer</string>
+    <string name="diagnostic_editor_reset">Réinitialiser</string>
+    <string name="diagnostic_editor_valid">JSON valide.</string>
+    <string name="diagnostic_editor_saved">Enregistré : les nouveaux détecteurs sont actifs.</string>
+    <string name="diagnostic_editor_reset_done">Détecteurs d\'origine rétablis.</string>
+
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <string name="navigate_back">Retour</string>

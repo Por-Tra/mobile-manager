@@ -18,6 +18,12 @@ import androidx.core.content.ContextCompat
 import com.lucas.mobilemanager.block.BlockActivity
 import com.lucas.mobilemanager.block.BlockScreenArgs
 import com.lucas.mobilemanager.BuildConfig
+import com.lucas.mobilemanager.MainActivity
+import com.lucas.mobilemanager.diagnostic.DiagnosticOverlay
+import com.lucas.mobilemanager.diagnostic.DiagnosticStore
+import com.lucas.mobilemanager.domain.time.TimeProvider
+import com.lucas.mobilemanager.zones.ZoneDetectorStore
+import com.lucas.mobilemanager.zones.ZoneEnforcer
 import com.lucas.mobilemanager.R
 import com.lucas.mobilemanager.domain.foreground.ForegroundTracker
 import com.lucas.mobilemanager.domain.foreground.HomePanels
@@ -49,6 +55,11 @@ import javax.inject.Inject
 class MonitorAccessibilityService : AccessibilityService() {
 
     @Inject lateinit var coordinator: EnforcementCoordinator
+    @Inject lateinit var zoneDetectorStore: ZoneDetectorStore
+    @Inject lateinit var diagnosticStore: DiagnosticStore
+    @Inject lateinit var timeProvider: TimeProvider
+
+    private lateinit var zoneEnforcer: ZoneEnforcer
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var tracker: ForegroundTracker
@@ -76,6 +87,10 @@ class MonitorAccessibilityService : AccessibilityService() {
     override fun onServiceConnected() {
         super.onServiceConnected()
         tracker = ForegroundTracker(selfPackage = packageName)
+        zoneEnforcer = ZoneEnforcer(this, scope, coordinator, zoneDetectorStore, timeProvider, ::block)
+        scope.launch {
+            diagnosticStore.overlayEnabled.collect { enabled -> setDiagnosticOverlay(enabled) }
+        }
         overlayPackages = buildSet {
             add(SYSTEM_UI)
             getSystemService(InputMethodManager::class.java)?.inputMethodList?.forEach { add(it.packageName) }
@@ -97,6 +112,12 @@ class MonitorAccessibilityService : AccessibilityService() {
         if (eventPackage != null && eventPackage in ProtectedScreenDetector.PROTECTED_PACKAGES) {
             scheduleProtectedScreenCheck(eventPackage)
         }
+        if (eventPackage != null &&
+            (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED ||
+                event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED)
+        ) {
+            zoneEnforcer.onEvent(eventPackage)
+        }
         if (event.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return
         val pkg = eventPackage
         val className = event.className?.toString()
@@ -111,8 +132,14 @@ class MonitorAccessibilityService : AccessibilityService() {
         when (change) {
             ForegroundTracker.Change.None -> Unit
             // Nos propres écrans (dont l'écran de blocage) : rien à surveiller.
-            ForegroundTracker.Change.Self -> watchJob?.cancel()
-            is ForegroundTracker.Change.App -> watch(change.packageName)
+            ForegroundTracker.Change.Self -> {
+                watchJob?.cancel()
+                zoneEnforcer.onForegroundChanged()
+            }
+            is ForegroundTracker.Change.App -> {
+                zoneEnforcer.onForegroundChanged()
+                watch(change.packageName)
+            }
         }
     }
 
@@ -238,9 +265,33 @@ class MonitorAccessibilityService : AccessibilityService() {
         }
     }
 
+    /** Bandeau du mode diagnostic : zone détectée en direct + bouton « Capturer ». */
+    private fun setDiagnosticOverlay(enabled: Boolean) {
+        if (enabled) {
+            val overlay = zoneEnforcer.overlay ?: DiagnosticOverlay(this, ::captureForDiagnostic).also {
+                zoneEnforcer.overlay = it
+            }
+            overlay.show()
+        } else {
+            zoneEnforcer.overlay?.hide()
+            zoneEnforcer.overlay = null
+        }
+    }
+
+    private fun captureForDiagnostic() {
+        val capture = zoneEnforcer.capture() ?: return
+        diagnosticStore.store(capture)
+        startActivity(
+            Intent(this, MainActivity::class.java)
+                .putExtra(MainActivity.EXTRA_OPEN_DIAGNOSTIC, true)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK),
+        )
+    }
+
     override fun onInterrupt() = Unit
 
     override fun onDestroy() {
+        zoneEnforcer.overlay?.hide()
         unregisterReceiver(screenReceiver)
         scope.cancel()
         super.onDestroy()

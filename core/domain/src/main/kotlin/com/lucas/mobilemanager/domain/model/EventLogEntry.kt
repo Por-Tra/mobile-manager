@@ -15,6 +15,8 @@ data class EventLogEntry(
 enum class EventType {
     APP_BLOCKED,
     ZONE_REDIRECTED,
+    /** Temps passé dans une zone autorisée (détail : `zone:secondes`). */
+    ZONE_VISIT,
     INTERSTITIAL_SHOWN,
     STRICT_SESSION_STARTED,
     STRICT_SESSION_ENDED,

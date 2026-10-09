@@ -24,6 +24,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        // Ouverture depuis le bandeau du mode diagnostic, après une capture.
+        val openDiagnostic = savedInstanceState == null && intent.getBooleanExtra(EXTRA_OPEN_DIAGNOSTIC, false)
         setContent {
             MobileManagerTheme {
                 val startDestination by viewModel.startDestination.collectAsStateWithLifecycle()
@@ -32,9 +34,13 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                         .background(MaterialTheme.colorScheme.background),
                 ) {
-                    startDestination?.let { MobileManagerNavHost(startDestination = it) }
+                    startDestination?.let { MobileManagerNavHost(startDestination = it, openDiagnostic = openDiagnostic) }
                 }
             }
         }
+    }
+
+    companion object {
+        const val EXTRA_OPEN_DIAGNOSTIC = "open_diagnostic"
     }
 }

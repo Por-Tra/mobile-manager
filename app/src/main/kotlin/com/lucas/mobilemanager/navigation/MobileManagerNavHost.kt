@@ -1,9 +1,11 @@
 package com.lucas.mobilemanager.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.lucas.mobilemanager.ui.diagnostic.DiagnosticScreen
 import com.lucas.mobilemanager.ui.doomscroll.ScrollGuardScreen
 import com.lucas.mobilemanager.ui.home.HomeScreen
 import com.lucas.mobilemanager.ui.onboarding.OnboardingScreen
@@ -11,6 +13,7 @@ import com.lucas.mobilemanager.ui.profiles.ProfileEditScreen
 import com.lucas.mobilemanager.ui.session.OverrideScreen
 import com.lucas.mobilemanager.ui.session.StartSessionScreen
 import com.lucas.mobilemanager.ui.settings.SettingsScreen
+import com.lucas.mobilemanager.ui.zones.ZoneRulesScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -31,13 +34,20 @@ data object OverrideRoute
 @Serializable
 data object ScrollGuardRoute
 
+@Serializable
+data object ZoneRulesRoute
+
+@Serializable
+data object DiagnosticRoute
+
 /** Édition d'un profil (`profileId = 0` : nouveau) ou des règles par défaut. */
 @Serializable
 data class ProfileEditRoute(val profileId: Long = 0, val defaultRules: Boolean = false)
 
 @Composable
-fun MobileManagerNavHost(startDestination: Any) {
+fun MobileManagerNavHost(startDestination: Any, openDiagnostic: Boolean = false) {
     val navController = rememberNavController()
+    LaunchedEffect(openDiagnostic) { if (openDiagnostic) navController.navigate(DiagnosticRoute) }
 
     NavHost(navController = navController, startDestination = startDestination) {
         composable<OnboardingRoute> {
@@ -81,7 +91,15 @@ fun MobileManagerNavHost(startDestination: Any) {
                 onBack = { navController.popBackStack() },
                 onOpenPermissions = { navController.navigate(OnboardingRoute) },
                 onOpenScrollGuard = { navController.navigate(ScrollGuardRoute) },
+                onOpenZones = { navController.navigate(ZoneRulesRoute) },
+                onOpenDiagnostic = { navController.navigate(DiagnosticRoute) },
             )
+        }
+        composable<ZoneRulesRoute> {
+            ZoneRulesScreen(onBack = { navController.popBackStack() })
+        }
+        composable<DiagnosticRoute> {
+            DiagnosticScreen(onBack = { navController.popBackStack() })
         }
         composable<ScrollGuardRoute> {
             ScrollGuardScreen(onBack = { navController.popBackStack() })

@@ -25,6 +25,7 @@ import com.lucas.mobilemanager.domain.rules.ProfileResolver
 import com.lucas.mobilemanager.domain.rules.Rule
 import com.lucas.mobilemanager.domain.rules.RuleEngine
 import com.lucas.mobilemanager.domain.time.TimeProvider
+import com.lucas.mobilemanager.domain.zones.ZoneVisit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -104,9 +105,27 @@ class EnforcementCoordinator @Inject constructor(
     fun isWhitelisted(packageName: String): Boolean = packageName in whitelistProvider.current()
 
     suspend fun evaluate(packageName: String): Decision {
-        val whitelist = whitelistProvider.current()
-        if (packageName in whitelist) return Decision.Allowed(remainingToday = null)
+        if (packageName in whitelistProvider.current()) return Decision.Allowed(remainingToday = null)
+        val request = AppRequest(packageName, usageToday = usageStatsReader.usageToday(packageName))
+        val engineDecision = engineDecision(request)
+        return applyScrollGuard(packageName, engineDecision, request.usageToday).also {
+            if (BuildConfig.DEBUG) Log.d(TAG, "$packageName usage=${request.usageToday} -> $it")
+        }
+    }
 
+    /**
+     * Décision du moteur pour une **zone** de l'app (Reels, Shorts…). L'anti-doomscrolling ne
+     * s'applique pas ici : il concerne l'app entière et passe par [evaluate].
+     */
+    suspend fun evaluateZone(packageName: String, zone: String): Decision {
+        if (packageName in whitelistProvider.current()) return Decision.Allowed(remainingToday = null)
+        val request = AppRequest(packageName, zone = zone, usageToday = usageStatsReader.usageToday(packageName))
+        return engineDecision(request).also {
+            if (BuildConfig.DEBUG) Log.d(TAG, "$packageName zone=$zone -> $it")
+        }
+    }
+
+    private suspend fun engineDecision(request: AppRequest): Decision {
         val snapshot = rules.filterNotNull().first()
         currentSession.filterNotNull().first() // attend le premier chargement après un démarrage
         val now = timeProvider.localNow()
@@ -117,11 +136,25 @@ class EnforcementCoordinator @Inject constructor(
             strictSession = runningSession(),
             now = now,
         )
-        val request = AppRequest(packageName, usageToday = usageStatsReader.usageToday(packageName))
-        val engineDecision = ruleEngine.evaluate(policy, request, whitelist, now)
-        return applyScrollGuard(packageName, engineDecision, request.usageToday).also {
-            if (BuildConfig.DEBUG) Log.d(TAG, "$packageName usage=${request.usageToday} -> $it")
-        }
+        return ruleEngine.evaluate(policy, request, whitelistProvider.current(), now)
+    }
+
+    suspend fun recordZoneRedirect(packageName: String, zone: String) {
+        eventLogRepository.record(
+            EventLogEntry(type = EventType.ZONE_REDIRECTED, occurredAt = timeProvider.now(), packageName = packageName, zone = zone),
+        )
+    }
+
+    suspend fun recordZoneVisit(visit: ZoneVisit) {
+        eventLogRepository.record(
+            EventLogEntry(
+                type = EventType.ZONE_VISIT,
+                occurredAt = timeProvider.now(),
+                packageName = visit.packageName,
+                zone = visit.zone,
+                details = "${visit.zone}:${visit.duration.seconds}",
+            ),
+        )
     }
 
     /** Anti-doomscrolling, appliqué après le moteur : n'ajoute que des restrictions. */

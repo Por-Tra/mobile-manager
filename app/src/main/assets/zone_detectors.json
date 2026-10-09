@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "apps": [
+    {
+      "package": "com.google.android.youtube",
+      "zones": [
+        {
+          "id": "shorts",
+          "label": "Shorts",
+          "anyOf": [
+            { "viewId": "reel_watch_fragment_root" },
+            { "viewId": "reel_player_page_container" },
+            { "viewId": "reel_recycler" },
+            { "desc": ["Shorts"], "selected": true }
+          ],
+          "noneOf": [],
+          "exit": [
+            { "clickDesc": ["Accueil", "Home"] },
+            { "back": true }
+          ]
+        }
+      ]
+    },
+    {
+      "package": "com.instagram.android",
+      "zones": [
+        {
+          "id": "reels",
+          "label": "Reels",
+          "anyOf": [
+            { "viewIdContains": "clips_viewer" },
+            { "viewId": "clips_tab", "selected": true },
+            { "desc": ["Reels"], "selected": true }
+          ],
+          "noneOf": [
+            { "viewIdContains": "reel_viewer" }
+          ],
+          "exit": [
+            { "clickViewId": "feed_tab" },
+            { "clickDesc": ["Accueil", "Home"] },
+            { "back": true }
+          ]
+        }
+      ]
+    }
+  ]
+}

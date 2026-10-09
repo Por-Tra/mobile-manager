@@ -100,6 +100,20 @@ MonitorAccessibilityService (fenêtre au premier plan)
 - **`PauseActivity`** (tâche séparée) : respiration, « Tu es sur X depuis N min », objectif, boutons inactifs pendant le décompte ; « Fermer l'app » (principal) ou « Continuer » (retour à l'app). Journal : `INTERSTITIAL_SHOWN` (`session:N`), blocages `session_limit:N`.
 - Build debug : options 1 et 2 min disponibles dans les réglages pour tester vite.
 
+### Restrictions par zone (phase 7)
+- **Principe** : on ne modifie pas Instagram/YouTube. Le service détecte qu'on est dans une zone (Reels, Shorts) et **en sort** (clic sur l'onglet Accueil, sinon retour) + toast « Shorts masqués ». Une app entièrement bloquée garde l'écran de blocage ; les zones ne servent que si l'app est autorisée.
+- **Détecteurs JSON** : `app/src/main/assets/zone_detectors.json` (version livrée) ou `filesDir/zone_detectors.json` (version personnalisée, prioritaire si valide). Format (`ZoneDetectorFile`, domaine) : par app, des zones avec `anyOf` (au moins un signal), `noneOf` (aucun ne doit correspondre), `exit` (actions dans l'ordre). Un **signal** = conditions sur un même nœud : `viewId` (court ou complet), `viewIdContains`, `text`/`textContains`, `desc`/`descContains` (listes FR/EN, sans casse), `selected`.
+- **YouTube Shorts** : signaux réels capturés sur l'émulateur (`reel_watch_fragment_root`, `reel_player_page_container`, `reel_recycler`, onglet « Shorts » sélectionné). ⚠️ `reel_time_bar` existe aussi sur les vidéos classiques : ne jamais utiliser `viewIdContains: "reel"`. Captures de référence dans `core/domain/src/test/resources/zones/` ; `ZoneMatcherTest` vérifie le fichier livré contre elles.
+- **Instagram Reels** : signaux **non vérifiés** (pas d'Instagram sur l'émulateur) : `clips_viewer*`, onglet `clips_tab` ou « Reels » sélectionné ; `noneOf` `reel_viewer*` (les Stories s'appellent « reel » en interne). **À valider sur le téléphone** avec le mode diagnostic.
+- **Application** (`zones/ZoneEnforcer`) : événements de fenêtre/contenu des apps à détecteurs, ≤ 1 vérification / 300 ms, instantané borné à 800 nœuds, `ZoneMatcher` → `EnforcementCoordinator.evaluateZone` (moteur seul, sans anti-doomscrolling) → `ZoneExitPlanner`. Anti-boucle `ZoneExitThrottle` : 1 action / 700 ms, écran de blocage après 3 sorties sans succès.
+- **Règles** : zones bloquées par défaut (`DefaultZoneRules`, ajoutées une fois aux règles par défaut) ; Réglages › Restrictions par zone (Bloquée/Autorisée) ; un profil peut autoriser une zone (`Rule(Zone, Allow)`, conservée par l'éditeur de profil). Journal : `ZONE_REDIRECTED`, `ZONE_VISIT` (`zone:secondes`, visites ≥ 5 s des zones autorisées).
+
+### Mode diagnostic (Réglages › Avancé)
+- **Bandeau en direct** : fenêtre `TYPE_ACCESSIBILITY_OVERLAY` du service (vues Android classiques, déplaçable), « App · zone : X (signal n°N) » + « Capturer ». État en mémoire (`DiagnosticStore`), désactivé au redémarrage.
+- **Capture** : arbre de la fenêtre au premier plan (2 000 nœuds max), nœuds déclencheurs en surbrillance ; **appui long = copie d'un signal JSON** prêt à coller. Jamais écrite sur disque.
+- **Éditeur** : JSON en vigueur, Vérifier / Enregistrer (refusé si invalide, message lisible) / Réinitialiser ; clavier sans correction (type URI : Gboard ignore `autoCorrectEnabled` avec Ascii et transformait `anyOf` en `any of`). Enregistrement verrouillé pendant une session.
+- **Réparer un détecteur** : activer le bandeau → ouvrir l'app → « Capturer » sur l'écran fautif (et sur un écran qui ne doit pas déclencher) → appui long sur l'élément distinctif → coller le signal dans l'éditeur (`anyOf` ou `noneOf`) → Vérifier → Enregistrer → contrôler avec le bandeau.
+
 ### Base de données
 - v4 : `scroll_guard` en plus (`AutoMigration 3 → 4`).
 - v3 : `event_log`, `profile`, `profile_schedule` (jours en bitmask, bit 0 = lundi ; minutes depuis minuit), `rule` (`profile_id` NULL = règle globale), `strict_session` (packages séparés par un saut de ligne). Migrations 1 → 2 → 3 = `AutoMigration` (tables ajoutées).
@@ -118,6 +132,7 @@ MonitorAccessibilityService (fenêtre au premier plan)
 - **Détection de zones (Reels, Shorts)** à venir en phase 7 : fragile par nature, les sélecteurs UI changent à chaque mise à jour d'Instagram/YouTube → détecteurs externalisés en JSON + mode diagnostic.
 - `AppOpsManager.unsafeCheckOpNoThrow` est déprécié en API 37 mais reste nécessaire pour minSdk 29 (`@Suppress` documenté).
 - **Émulateur restauré depuis un snapshot** : le service d'usage d'Android se désynchronise après le saut d'horloge (« Unexpected activity event reported! » dans logcat) et `queryEvents()` ne renvoie plus rien → les limites quotidiennes ne se déclenchent pas. Toujours tester les limites après un démarrage à froid (`emulator -avd … -no-snapshot-load`). Problème propre à l'émulateur.
+- **Zones fragiles par nature** : chaque mise à jour d'Instagram/YouTube peut renommer ses identifiants → la détection cesse (la zone redevient visible) jusqu'à réparation via le mode diagnostic. Le détecteur Instagram livré n'a jamais été testé sur un vrai Instagram.
 - La liste blanche n'est pas exhaustive pour tous les constructeurs : à vérifier sur le Samsung (horloge, téléphone, appel en cours, urgences) avec `adb logcat -s MobileManager`.
 
 ## Tester sur l'émulateur (sans toucher l'UI)
@@ -144,6 +159,6 @@ Une réinstallation (`adb install -r`) peut désactiver le service d'accessibili
 - [x] **Phase 4 — Sessions strictes** : démarrage avec sélecteur d'apps, délai de réflexion + fenêtre de 2 min, foreground service, relance après redémarrage/mise à jour, écrans protégés, alerte si surveillance coupée, admin. Vérifié sur émulateur (dont redémarrage et fin automatique).
 - [x] **Phase 5 — Profils** : éditeur complet (plages, règles par app, « tout bloquer » + exceptions), ordre de priorité, activation manuelle, règles par défaut, suppression. Vérifié sur émulateur. Correctif : l'écran de blocage est toujours réaffiché (apps à deux écrans au démarrage).
 - [x] **Phase 6 — Anti-doomscrolling** : sessions continues, écran de pause, blocage + repos, régime strict TikTok, réglages par app. Vérifié sur émulateur (pause à 1 min, blocage à 2 min, repos, remise à zéro, interrupteur).
-- [ ] Phase 7 — Restrictions par zones (JSON, Reels, Shorts, diagnostic)
+- [x] **Phase 7 — Restrictions par zone** : détecteurs JSON, Shorts YouTube (vérifié sur émulateur avec captures réelles), Reels Instagram (à valider sur le téléphone), réglages par zone, mode diagnostic (bandeau, capture, éditeur).
 - [ ] Phase 8 — Dashboard
 - [ ] Phase 9 — Finitions
