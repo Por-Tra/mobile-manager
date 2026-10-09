@@ -8,12 +8,15 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import com.lucas.mobilemanager.data.db.EventLogDao
 import com.lucas.mobilemanager.data.db.ProfileDao
+import com.lucas.mobilemanager.data.db.StrictSessionDao
 import com.lucas.mobilemanager.data.db.MobileManagerDatabase
 import com.lucas.mobilemanager.data.repository.DataStoreUserPreferencesRepository
 import com.lucas.mobilemanager.data.repository.RoomProfileRepository
+import com.lucas.mobilemanager.data.repository.RoomStrictSessionRepository
 import com.lucas.mobilemanager.data.repository.RoomEventLogRepository
 import com.lucas.mobilemanager.domain.repository.EventLogRepository
 import com.lucas.mobilemanager.domain.repository.ProfileRepository
+import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.repository.UserPreferencesRepository
 import com.lucas.mobilemanager.domain.time.SystemTimeProvider
 import com.lucas.mobilemanager.domain.time.TimeProvider
@@ -42,6 +45,9 @@ object DataProvidersModule {
     fun provideProfileDao(db: MobileManagerDatabase): ProfileDao = db.profileDao()
 
     @Provides
+    fun provideStrictSessionDao(db: MobileManagerDatabase): StrictSessionDao = db.strictSessionDao()
+
+    @Provides
     @Singleton
     fun providePreferencesDataStore(@ApplicationContext context: Context): DataStore<Preferences> =
         PreferenceDataStoreFactory.create {
@@ -62,6 +68,9 @@ abstract class DataBindingsModule {
 
     @Binds
     abstract fun bindProfileRepository(impl: RoomProfileRepository): ProfileRepository
+
+    @Binds
+    abstract fun bindStrictSessionRepository(impl: RoomStrictSessionRepository): StrictSessionRepository
 
     @Binds
     abstract fun bindUserPreferencesRepository(
