@@ -2,6 +2,7 @@ package com.lucas.mobilemanager.zones
 
 import android.accessibilityservice.AccessibilityService
 import android.content.pm.PackageManager
+import android.graphics.Rect
 import android.os.SystemClock
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
@@ -12,6 +13,7 @@ import com.lucas.mobilemanager.domain.rules.Decision
 import com.lucas.mobilemanager.domain.time.TimeProvider
 import com.lucas.mobilemanager.domain.zones.ExitStep
 import com.lucas.mobilemanager.domain.zones.UiNode
+import com.lucas.mobilemanager.domain.zones.ZoneDefinition
 import com.lucas.mobilemanager.domain.zones.ZoneExitPlanner
 import com.lucas.mobilemanager.domain.zones.ZoneExitThrottle
 import com.lucas.mobilemanager.domain.zones.ZoneMatch
@@ -47,11 +49,17 @@ class ZoneEnforcer(
     private val visits = ZoneVisitTracker()
     private var lastToastAtMs = 0L
     private val labels = HashMap<String, String>()
+    private val mask = EntryPointMask(service)
+    private var maskShown = false
+
+    /** Dernière décision par zone (`pkg/zone`) et son heure, pour ne pas réévaluer à chaque événement. */
+    private val zoneDecisions = HashMap<String, Pair<Decision, Long>>()
 
     /** Changement de fenêtre ou de contenu. Les rafales sont regroupées (≤ 1 vérification / 300 ms). */
     fun onEvent(packageName: String) {
         val watched = packageName in detectorStore.detectors.value.packages
-        if (!watched && overlay == null) return
+        // Un masque affiché doit disparaître si une autre fenêtre (volet…) passe devant.
+        if (!watched && overlay == null && !maskShown) return
         if (checkJob?.isActive == true) return
         checkJob = scope.launch {
             delay(CHECK_DELAY_MS)
@@ -61,14 +69,16 @@ class ZoneEnforcer(
 
     /** Une autre app (ou Mobile Manager) est passée au premier plan : la visite en cours se termine. */
     fun onForegroundChanged() {
+        hideMask()
         visits.onAppLeft(timeProvider.now())?.let { scope.launch(Dispatchers.Default) { coordinator.recordZoneVisit(it) } }
     }
 
     private suspend fun check() {
-        val root = service.rootInActiveWindow ?: return
-        val pkg = root.packageName?.toString() ?: return
+        val root = service.rootInActiveWindow ?: return hideMask()
+        val pkg = root.packageName?.toString() ?: return hideMask()
         val detectors = detectorStore.detectors.value
         val watched = pkg in detectors.packages
+        if (!watched) hideMask()
         if (!watched && overlay == null) return
 
         val snapshot = AccessibilitySnapshot.capture(root, MAX_NODES)
@@ -78,13 +88,14 @@ class ZoneEnforcer(
 
         val now = timeProvider.now()
         val throttle = throttles.getOrPut(pkg) { ZoneExitThrottle() }
-        if (match == null) {
+        val decision = match?.let { zoneDecision(pkg, it.zone.id, fresh = true) }
+        updateMask(pkg, detectors.zonesFor(pkg), snapshot)
+        if (match == null || decision == null) {
             throttle.onZoneLeft()
             visits.onSnapshot(pkg, null, now)?.let { coordinator.recordZoneVisit(it) }
             return
         }
 
-        val decision = withContext(Dispatchers.Default) { coordinator.evaluateZone(pkg, match.zone.id) }
         if (decision !is Decision.Blocked) {
             // Zone autorisée (par un profil, ou réglée « Autorisée ») : on mesure le temps passé.
             visits.onSnapshot(pkg, match.zone.id, now)?.let { coordinator.recordZoneVisit(it) }
@@ -104,6 +115,31 @@ class ZoneEnforcer(
                 onEscalate(pkg, decision)
             }
         }
+    }
+
+    /** Décision du moteur pour une zone ; réutilisée quelques secondes sauf si [fresh]. */
+    private suspend fun zoneDecision(pkg: String, zone: String, fresh: Boolean = false): Decision {
+        val key = "$pkg/$zone"
+        val nowMs = SystemClock.elapsedRealtime()
+        zoneDecisions[key]?.let { (decision, atMs) -> if (!fresh && nowMs - atMs < DECISION_TTL_MS) return decision }
+        return withContext(Dispatchers.Default) { coordinator.evaluateZone(pkg, zone) }
+            .also { zoneDecisions[key] = it to nowMs }
+    }
+
+    /** Masque les points d'entrée visibles des zones inaccessibles maintenant. */
+    private suspend fun updateMask(pkg: String, zones: List<ZoneDefinition>, snapshot: AccessibilitySnapshot) {
+        val rects = zones.filter { it.hide.isNotEmpty() && zoneDecision(pkg, it.id) is Decision.Blocked }
+            .flatMap { zone -> ZoneMatcher.entryPoints(zone, snapshot.nodes).map { it to zone.hideColor } }
+            .map { (index, color) -> Rect().apply { snapshot.infos[index].getBoundsInScreen(this) } to color }
+            .filter { !it.first.isEmpty }
+        mask.show(rects)
+        maskShown = rects.isNotEmpty()
+    }
+
+    private fun hideMask() {
+        if (!maskShown) return
+        mask.clear()
+        maskShown = false
     }
 
     /** Capture complète de la fenêtre au premier plan, pour le mode diagnostic. */
@@ -148,6 +184,7 @@ class ZoneEnforcer(
 
     private companion object {
         const val CHECK_DELAY_MS = 300L
+        const val DECISION_TTL_MS = 5_000L
         const val TOAST_INTERVAL_MS = 3_000L
         const val MAX_NODES = 800
         const val MAX_NODES_DIAGNOSTIC = 2_000

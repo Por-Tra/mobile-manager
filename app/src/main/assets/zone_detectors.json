@@ -20,7 +20,8 @@
           ],
           "hide": [
             { "desc": ["Shorts"], "clickable": true }
-          ]
+          ],
+          "hideColor": { "light": "#FFFFFF", "dark": "#0F0F0F" }
         }
       ]
     },
@@ -44,7 +45,8 @@
           ],
           "hide": [
             { "viewId": "clips_tab" }
-          ]
+          ],
+          "hideColor": { "light": "#FFFFFF", "dark": "#0C1014" }
         }
       ]
     }

@@ -36,6 +36,20 @@ class ZoneDetectorParserTest {
         assertTrue(invalid(zoneJson(version = 2)).message.contains("Version 2"))
 
     @Test
+    fun `hide signals and colors are read`() {
+        val text = zoneJson().replace("\"label\": \"Z\"", "\"label\": \"Z\", \"hide\": [{\"viewId\": \"tab\"}], \"hideColor\": {\"dark\": \"#0C1014\"}")
+        val zone = (ZoneDetectorParser.parse(text) as ZoneDetectorParser.Result.Valid).file.zonesFor("pkg").single()
+        assertEquals(listOf(NodeSignal(viewId = "tab")), zone.hide)
+        assertEquals(MaskColor(light = "#FFFFFF", dark = "#0C1014"), zone.hideColor)
+    }
+
+    @Test
+    fun `badly formatted mask color is refused`() {
+        val text = zoneJson().replace("\"label\": \"Z\"", "\"label\": \"Z\", \"hideColor\": {\"dark\": \"noir\"}")
+        assertTrue(invalid(text).message.contains("hideColor"))
+    }
+
+    @Test
     fun `zone without signals is refused`() =
         assertTrue(invalid(zoneJson(anyOf = "[]")).message.contains("anyOf"))
 

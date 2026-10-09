@@ -44,6 +44,15 @@ data class ZoneDefinition(
     val exit: List<ExitAction> = listOf(ExitAction(back = true)),
     /** Points d'entrée à masquer quand la zone n'est pas accessible (bouton Reels, onglet Shorts). */
     val hide: List<NodeSignal> = emptyList(),
+    /** Couleur du masque (fond de la barre d'onglets de l'app), selon le thème clair ou sombre. */
+    val hideColor: MaskColor = MaskColor(),
+)
+
+/** Couleurs `#RRGGBB` du masque des points d'entrée. */
+@Serializable
+data class MaskColor(
+    val light: String = "#FFFFFF",
+    val dark: String = "#000000",
 )
 
 /**

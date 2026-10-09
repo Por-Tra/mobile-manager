@@ -28,6 +28,8 @@ object ZoneDetectorParser {
         return Result.Valid(file)
     }
 
+    private val COLOR = Regex("#[0-9A-Fa-f]{6}")
+
     fun encode(file: ZoneDetectorFile): String = json.encodeToString(ZoneDetectorFile.serializer(), file)
 
     private fun validate(file: ZoneDetectorFile): String? {
@@ -42,6 +44,9 @@ object ZoneDetectorParser {
                 if (zone.anyOf.isEmpty()) return "$where : « anyOf » doit contenir au moins un signal."
                 if ((zone.anyOf + zone.noneOf + zone.hide).any { it.isEmpty }) return "$where : un signal ne contient aucune condition."
                 if (zone.exit.any { it.definedActions != 1 }) return "$where : chaque action de sortie doit définir une seule action."
+                if (listOf(zone.hideColor.light, zone.hideColor.dark).any { !COLOR.matches(it) }) {
+                    return "$where : « hideColor » attend des couleurs au format #RRGGBB."
+                }
             }
         }
         return null
