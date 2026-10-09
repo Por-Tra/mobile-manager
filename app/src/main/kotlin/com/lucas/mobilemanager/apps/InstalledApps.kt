@@ -21,6 +21,16 @@ class InstalledApps @Inject constructor(
     @ApplicationContext private val context: Context,
     private val whitelistProvider: SystemWhitelistProvider,
 ) {
+    /** Nom affiché d'une app, ou `null` si elle n'est pas installée. */
+    suspend fun label(packageName: String): String? = withContext(Dispatchers.IO) {
+        try {
+            val packageManager = context.packageManager
+            packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0)).toString()
+        } catch (_: PackageManager.NameNotFoundException) {
+            null
+        }
+    }
+
     suspend fun blockable(): List<InstalledApp> = withContext(Dispatchers.IO) {
         val packageManager = context.packageManager
         val launcherIntent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)

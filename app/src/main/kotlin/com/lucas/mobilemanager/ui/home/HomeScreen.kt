@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
@@ -21,12 +21,14 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
@@ -36,10 +38,10 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lucas.mobilemanager.R
+import com.lucas.mobilemanager.domain.model.Profile
 import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.onboarding.OnboardingState
 import com.lucas.mobilemanager.ui.format.Formats
-import com.lucas.mobilemanager.ui.format.profileSummary
 import com.lucas.mobilemanager.ui.theme.LocalExtendedColors
 import java.time.ZoneId
 
@@ -50,11 +52,17 @@ fun HomeScreen(
     onOpenSettings: () -> Unit,
     onStartSession: () -> Unit,
     onRequestOverride: () -> Unit,
+    onEditProfile: (Long) -> Unit,
+    onNewProfile: () -> Unit,
+    onEditDefaultRules: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val permissions by viewModel.permissions.collectAsStateWithLifecycle()
     val profiles by viewModel.profiles.collectAsStateWithLifecycle()
     val session by viewModel.session.collectAsStateWithLifecycle()
+    var activating by remember { mutableStateOf<Profile?>(null) }
+    var deleting by remember { mutableStateOf<Profile?>(null) }
+    val editable = session == null
 
     LifecycleResumeEffect(Unit) {
         viewModel.refresh()
@@ -97,14 +105,64 @@ fun HomeScreen(
                     )
                 }
             }
-            items(profiles, key = { it.profile.id }) { item ->
+            itemsIndexed(profiles, key = { _, item -> item.profile.id }) { index, item ->
                 ProfileCard(
-                    item,
-                    editable = session == null,
+                    item = item,
+                    editable = editable,
+                    canMoveUp = index > 0,
+                    canMoveDown = index < profiles.lastIndex,
+                    onOpen = { onEditProfile(item.profile.id) },
                     onToggle = { viewModel.setEnabled(item.profile.id, it) },
+                    onActivate = { activating = item.profile },
+                    onDeactivate = viewModel::deactivateManual,
+                    onMoveUp = { viewModel.move(item.profile.id, -1) },
+                    onMoveDown = { viewModel.move(item.profile.id, +1) },
+                    onDelete = { deleting = item.profile },
+                )
+            }
+            item {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedButton(onClick = onNewProfile, enabled = editable) {
+                        Text(stringResource(R.string.home_new_profile))
+                    }
+                    TextButton(onClick = onEditDefaultRules, enabled = editable) {
+                        Text(stringResource(R.string.home_default_rules))
+                    }
+                }
+                Text(
+                    stringResource(R.string.home_priority_help),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 4.dp, bottom = 16.dp),
                 )
             }
         }
+    }
+
+    activating?.let { profile ->
+        ManualActivationSheet(
+            profile = profile,
+            replacing = profiles.firstOrNull { it.manual && it.profile.id != profile.id }?.profile,
+            onDismiss = { activating = null },
+            onChoose = { duration ->
+                viewModel.activateManually(profile, duration)
+                activating = null
+            },
+        )
+    }
+    deleting?.let { profile ->
+        AlertDialog(
+            onDismissRequest = { deleting = null },
+            title = { Text(stringResource(R.string.profile_delete_title, profile.name)) },
+            text = { Text(stringResource(R.string.profile_delete_body)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    viewModel.delete(profile.id)
+                    deleting = null
+                }) { Text(stringResource(R.string.profile_delete_confirm)) }
+            },
+            dismissButton = { TextButton(onClick = { deleting = null }) { Text(stringResource(R.string.cancel)) } },
+        )
     }
 }
 
@@ -144,38 +202,6 @@ private fun StatusCard(permissions: OnboardingState, onOpenPermissions: () -> Un
                     Text(stringResource(R.string.home_open_permissions))
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun ProfileCard(item: ProfileItem, editable: Boolean, onToggle: (Boolean) -> Unit) {
-    Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Column(Modifier.weight(1f)) {
-                Text(item.profile.name, style = MaterialTheme.typography.titleMedium)
-                Text(
-                    profileSummary(item.profile),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                if (item.activeNow) {
-                    Text(
-                        stringResource(R.string.profile_active_now),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(top = 4.dp),
-                    )
-                }
-            }
-            Spacer(Modifier.width(12.dp))
-            Switch(checked = item.profile.enabled, onCheckedChange = onToggle, enabled = editable)
         }
     }
 }

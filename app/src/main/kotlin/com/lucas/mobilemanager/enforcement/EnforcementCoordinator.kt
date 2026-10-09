@@ -5,9 +5,11 @@ import com.lucas.mobilemanager.BuildConfig
 import com.lucas.mobilemanager.di.ApplicationScope
 import com.lucas.mobilemanager.domain.model.EventLogEntry
 import com.lucas.mobilemanager.domain.model.EventType
+import com.lucas.mobilemanager.domain.model.ManualActivation
 import com.lucas.mobilemanager.domain.model.Profile
 import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.repository.EventLogRepository
+import com.lucas.mobilemanager.domain.repository.ManualActivationRepository
 import com.lucas.mobilemanager.domain.repository.ProfileRepository
 import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.rules.AppRequest
@@ -36,6 +38,7 @@ import javax.inject.Singleton
 class EnforcementCoordinator @Inject constructor(
     profileRepository: ProfileRepository,
     strictSessionRepository: StrictSessionRepository,
+    manualActivationRepository: ManualActivationRepository,
     @ApplicationScope appScope: CoroutineScope,
     private val profileResolver: ProfileResolver,
     private val ruleEngine: RuleEngine,
@@ -44,12 +47,17 @@ class EnforcementCoordinator @Inject constructor(
     private val whitelistProvider: SystemWhitelistProvider,
     private val eventLogRepository: EventLogRepository,
 ) {
-    private data class RulesSnapshot(val profiles: List<Profile>, val globalRules: List<Rule>)
+    private data class RulesSnapshot(
+        val profiles: List<Profile>,
+        val globalRules: List<Rule>,
+        val manualActivation: ManualActivation?,
+    )
 
-    /** Profils et règles gardés en mémoire : une évaluation ne relit pas la base. */
+    /** Profils, règles et activation manuelle gardés en mémoire : une évaluation ne relit pas la base. */
     private val rules = combine(
         profileRepository.observeProfiles(),
         profileRepository.observeGlobalRules(),
+        manualActivationRepository.activation,
         ::RulesSnapshot,
     ).stateIn(appScope, SharingStarted.Eagerly, initialValue = null)
 
@@ -77,7 +85,7 @@ class EnforcementCoordinator @Inject constructor(
         val policy = profileResolver.resolve(
             profiles = snapshot.profiles,
             globalRules = snapshot.globalRules,
-            manualActivation = null, // phase 5
+            manualActivation = snapshot.manualActivation,
             strictSession = runningSession(),
             now = now,
         )

@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.lucas.mobilemanager.ui.home.HomeScreen
 import com.lucas.mobilemanager.ui.onboarding.OnboardingScreen
+import com.lucas.mobilemanager.ui.profiles.ProfileEditScreen
 import com.lucas.mobilemanager.ui.session.OverrideScreen
 import com.lucas.mobilemanager.ui.session.StartSessionScreen
 import com.lucas.mobilemanager.ui.settings.SettingsScreen
@@ -25,6 +26,10 @@ data object StartSessionRoute
 
 @Serializable
 data object OverrideRoute
+
+/** Édition d'un profil (`profileId = 0` : nouveau) ou des règles par défaut. */
+@Serializable
+data class ProfileEditRoute(val profileId: Long = 0, val defaultRules: Boolean = false)
 
 @Composable
 fun MobileManagerNavHost(startDestination: Any) {
@@ -50,7 +55,13 @@ fun MobileManagerNavHost(startDestination: Any) {
                 onOpenSettings = { navController.navigate(SettingsRoute) },
                 onStartSession = { navController.navigate(StartSessionRoute) },
                 onRequestOverride = { navController.navigate(OverrideRoute) },
+                onEditProfile = { navController.navigate(ProfileEditRoute(profileId = it)) },
+                onNewProfile = { navController.navigate(ProfileEditRoute()) },
+                onEditDefaultRules = { navController.navigate(ProfileEditRoute(defaultRules = true)) },
             )
+        }
+        composable<ProfileEditRoute> {
+            ProfileEditScreen(onBack = { navController.popBackStack() })
         }
         composable<StartSessionRoute> {
             StartSessionScreen(

@@ -9,6 +9,7 @@ import com.lucas.mobilemanager.domain.profiles.DefaultProfiles
 import com.lucas.mobilemanager.domain.session.StrictSessionManager
 import com.lucas.mobilemanager.domain.session.StrictSessionManager.StartResult
 import com.lucas.mobilemanager.domain.session.StrictSessionPolicy.ValidationError
+import com.lucas.mobilemanager.domain.time.LocalTimes
 import com.lucas.mobilemanager.domain.time.TimeProvider
 import com.lucas.mobilemanager.session.StrictSessionService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -76,10 +77,7 @@ class StartSessionViewModel @Inject constructor(
         val now = timeProvider.localNow()
         return when (length) {
             is SessionLength.Preset -> now.plus(length.duration).toInstant()
-            is SessionLength.Until -> {
-                val today = now.with(length.time)
-                (if (today.isAfter(now)) today else today.plusDays(1)).toInstant()
-            }
+            is SessionLength.Until -> LocalTimes.nextOccurrence(length.time, now).toInstant()
         }
     }
 

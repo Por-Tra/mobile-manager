@@ -157,6 +157,66 @@
     <string name="protected_screen_closed">Indisponible pendant la session (fin à %1$s)</string>
     <string name="admin_disable_warning">Une session de concentration est en cours jusqu\'à %1$s.</string>
 
+    <!-- Profils : liste et activation manuelle -->
+    <string name="home_new_profile">Nouveau profil</string>
+    <string name="home_default_rules">Règles par défaut</string>
+    <string name="home_priority_help">L\'ordre de la liste est l\'ordre de priorité : quand deux profils se chevauchent, la restriction la plus forte s\'applique, sauf si un profil plus haut autorise explicitement l\'app.</string>
+    <string name="profile_menu">Options du profil</string>
+    <string name="profile_activate_now">Activer maintenant…</string>
+    <string name="profile_edit">Modifier</string>
+    <string name="profile_move_up">Monter</string>
+    <string name="profile_move_down">Descendre</string>
+    <string name="profile_delete">Supprimer</string>
+    <string name="profile_delete_title">Supprimer « %1$s » ?</string>
+    <string name="profile_delete_body">Ses plages et ses règles seront effacées.</string>
+    <string name="profile_delete_confirm">Supprimer</string>
+    <string name="profile_manual">Activé à la main</string>
+    <string name="profile_manual_until">Activé à la main jusqu\'à %1$s</string>
+    <string name="profile_manual_deactivate">Désactiver l\'activation manuelle</string>
+    <string name="manual_sheet_title">Activer « %1$s » maintenant</string>
+    <string name="manual_sheet_help">Ce profil s\'appliquera même en dehors de ses plages. Tu peux le désactiver à tout moment.</string>
+    <string name="manual_sheet_replaces">Remplace l\'activation manuelle de « %1$s ».</string>
+    <string name="manual_one_hour">Pendant 1 h</string>
+    <string name="manual_two_hours">Pendant 2 h</string>
+    <string name="manual_until">Jusqu\'à…</string>
+    <string name="manual_until_turned_off">Jusqu\'à ce que je le désactive</string>
+
+    <!-- Édition de profil -->
+    <string name="profile_edit_new">Nouveau profil</string>
+    <string name="profile_edit_title">Modifier le profil</string>
+    <string name="profile_edit_default_rules">Règles par défaut</string>
+    <string name="profile_edit_default_rules_help">Elles s\'appliquent toujours, quand aucun profil actif ne décide pour une app.</string>
+    <string name="profile_edit_name">Nom</string>
+    <string name="profile_edit_auto">Activation automatique selon les plages</string>
+    <string name="profile_edit_manual_only">Ce profil ne s\'active qu\'à la main.</string>
+    <string name="profile_edit_schedules">Plages horaires</string>
+    <string name="profile_edit_add_schedule">Ajouter une plage</string>
+    <string name="profile_edit_remove_schedule">Supprimer la plage</string>
+    <string name="profile_edit_block_all">Bloquer toutes les apps</string>
+    <string name="profile_edit_block_all_help">Seules les apps vitales (téléphone, horloge, paramètres) et les exceptions ci-dessous restent accessibles.</string>
+    <string name="profile_edit_app_rules">Règles par app</string>
+    <string name="profile_edit_exceptions">Exceptions</string>
+    <string name="profile_edit_add_apps">Ajouter des apps</string>
+    <string name="profile_edit_remove_app">Retirer l\'app</string>
+    <string name="profile_edit_not_installed">Non installée</string>
+    <string name="profile_edit_limit_value">Limite : %1$s par jour</string>
+    <string name="profile_edit_save">Enregistrer</string>
+    <string name="rule_block">Bloquée</string>
+    <string name="rule_limit">Limitée</string>
+    <string name="rule_allow">Autorisée</string>
+    <string name="schedule_from">De %1$s</string>
+    <string name="schedule_to">à %1$s</string>
+    <string name="schedule_pick_start">Début de la plage</string>
+    <string name="schedule_pick_end">Fin de la plage</string>
+    <string name="schedule_crosses_midnight">Passe minuit : se termine le lendemain à %1$s.</string>
+    <string name="profile_error_name_empty">Donne un nom au profil.</string>
+    <string name="profile_error_name_taken">Un autre profil porte déjà ce nom.</string>
+    <string name="profile_error_no_schedule">Ajoute au moins une plage, ou désactive l\'activation automatique.</string>
+    <string name="profile_error_no_days">Chaque plage doit avoir au moins un jour.</string>
+    <string name="profile_error_no_rules">Ajoute au moins une app, ou active « Bloquer toutes les apps ».</string>
+    <string name="profile_error_limit">Une limite va de 1 min à 10 h.</string>
+    <string name="profile_error_duplicate">Une même app apparaît deux fois.</string>
+
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <string name="navigate_back">Retour</string>

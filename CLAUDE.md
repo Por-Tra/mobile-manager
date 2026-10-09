@@ -54,7 +54,7 @@ MonitorAccessibilityService (fenêtre au premier plan)
   → Allowed : réévaluation à min(temps restant, 30 s) tant que l'app reste ouverte
 ```
 - **Pas de `GLOBAL_ACTION_HOME` avant l'écran de blocage** : l'action est asynchrone et l'accueil recouvrait l'écran. C'est `BlockActivity` qui renvoie à l'accueil (bouton ou retour arrière).
-- **Anti-doublon** : un re-blocage de la même app dans les 2 s est ignoré (une app qui s'ouvre émet plusieurs événements de fenêtre) → une seule entrée `event_log` par blocage.
+- **Anti-doublon du journal uniquement** : l'écran de blocage est **toujours** réaffiché (une app qui enchaîne deux écrans au démarrage, comme Messages et sa page de connexion, repassait sinon par-dessus), mais un re-blocage de la même app dans les 2 s ne crée pas de nouvelle entrée `event_log`.
 - Écran éteint → réévaluations suspendues ; rallumé → réévaluation de l'app courante.
 - **Liste blanche système** (`SystemWhitelistProvider`, cache 5 min) résolue via `PackageManager` : launcher(s), composeur par défaut + `ACTION_DIAL`, `SET_ALARM`/`SHOW_ALARMS`, `ACTION_SETTINGS`, claviers, Mobile Manager, plus une liste fixe de composants système (systemui, telecom, urgences, contrôleur de permissions, horloges/téléphones Samsung et Google).
 - Logs de diagnostic : `adb logcat -s MobileManager` (build debug uniquement) affiche chaque évaluation (`package usage=… -> Decision`).
@@ -83,6 +83,13 @@ MonitorAccessibilityService (fenêtre au premier plan)
 - **Écrans protégés** pendant une session : tout écran des Paramètres (AOSP/Samsung) ou de l'installateur de paquets dont le texte visible contient « Mobile Manager » est refermé (`GLOBAL_ACTION_BACK` + toast « Indisponible pendant la session »). Effet de bord assumé : la liste des applis / d'accessibilité se referme aussi si l'entrée est visible.
 - **Admin de l'appareil** : message dans la confirmation de désactivation pendant une session ; désactivation journalisée.
 - Pendant une session, les interrupteurs de profils et les outils de test sont désactivés (« Modifiable après la session »).
+
+### Profils (interface, phase 5)
+- **Ordre affiché = priorité** (`ProfileOrdering`) : le premier l'emporte en cas de chevauchement (même départage que `ProfileResolver`). « Monter / Descendre » réattribue des priorités espacées (…, 30, 20, 10) ; un nouveau profil va en bas.
+- **Éditeur** (`ui/profiles/ProfileEditScreen`) : nom, activation automatique, plages (jours, heures, raccourcis, mention « passe minuit » / « 24 h/24 »), « Bloquer toutes les apps » (= `Rule(AllApps, Block)`, les règles par app deviennent des exceptions), règles par app Bloquée / Limitée (5 min → 3 h) / Autorisée. Les règles non affichées (zones, phase 7) sont conservées telles quelles. Validation : `ProfileValidator` (domaine).
+- **Règles par défaut** : même éditeur sans nom ni plages (`ProfileEditRoute(defaultRules = true)`) → `ProfileRepository.replaceGlobalRules`. Niveau 4 du moteur.
+- **Activation manuelle** : DataStore (`manual_profile_id`, `manual_until_ms`), une seule à la fois, options 1 h / 2 h / jusqu'à HH:MM / jusqu'à désactivation (`ManualActivationPolicy`). **Désactivable à tout moment** (choix produit : l'engagement ferme, c'est la session). Activer un profil désactivé le réactive. Une activation expirée est ignorée par le moteur et nettoyée au retour sur l'accueil. `DeleteProfile` efface aussi l'activation du profil supprimé.
+- Pendant une session de concentration : éditeur, menu, ordre, activation et règles par défaut sont inaccessibles (et le ViewModel refuse toute modification).
 
 ### Base de données
 - v3 : `event_log`, `profile`, `profile_schedule` (jours en bitmask, bit 0 = lundi ; minutes depuis minuit), `rule` (`profile_id` NULL = règle globale), `strict_session` (packages séparés par un saut de ligne). Migrations 1 → 2 → 3 = `AutoMigration` (tables ajoutées).
@@ -125,7 +132,7 @@ Une réinstallation (`adb install -r`) peut désactiver le service d'accessibili
 - [x] **Phase 2 — Moteur de règles** : modèle, `ScheduleEvaluator`, `ProfileResolver`, `RuleEngine` (70 tests domaine), persistance Room v2 des profils/règles, profils par défaut désactivés.
 - [x] **Phase 3 — Surveillance + blocage basique** : service d'accessibilité, usage via `queryEvents`, écran de blocage, liste blanche système, interrupteurs de profils, profil Test (debug). Vérifié sur émulateur.
 - [x] **Phase 4 — Sessions strictes** : démarrage avec sélecteur d'apps, délai de réflexion + fenêtre de 2 min, foreground service, relance après redémarrage/mise à jour, écrans protégés, alerte si surveillance coupée, admin. Vérifié sur émulateur (dont redémarrage et fin automatique).
-- [ ] Phase 5 — UI des profils
+- [x] **Phase 5 — Profils** : éditeur complet (plages, règles par app, « tout bloquer » + exceptions), ordre de priorité, activation manuelle, règles par défaut, suppression. Vérifié sur émulateur. Correctif : l'écran de blocage est toujours réaffiché (apps à deux écrans au démarrage).
 - [ ] Phase 6 — Doomscrolling + écran de transition + TikTok
 - [ ] Phase 7 — Restrictions par zones (JSON, Reels, Shorts, diagnostic)
 - [ ] Phase 8 — Dashboard

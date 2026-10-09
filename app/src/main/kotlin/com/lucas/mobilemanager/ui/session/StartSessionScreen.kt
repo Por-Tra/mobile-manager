@@ -23,9 +23,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -43,6 +41,7 @@ import com.lucas.mobilemanager.domain.session.StrictSessionPolicy
 import com.lucas.mobilemanager.domain.session.StrictSessionPolicy.ValidationError
 import com.lucas.mobilemanager.ui.apps.AppSearchField
 import com.lucas.mobilemanager.ui.apps.appPickerItems
+import com.lucas.mobilemanager.ui.components.TimePickerDialog
 import com.lucas.mobilemanager.ui.format.Formats
 import java.time.LocalTime
 import java.time.ZoneId
@@ -164,7 +163,9 @@ fun StartSessionScreen(
     }
 
     if (pickingTime) {
-        UntilTimeDialog(
+        TimePickerDialog(
+            title = stringResource(R.string.session_until_pick),
+            initial = LocalTime.now().plusHours(1).withMinute(0),
             onDismiss = { pickingTime = false },
             onConfirm = {
                 viewModel.setLength(SessionLength.Until(it))
@@ -194,24 +195,6 @@ fun StartSessionScreen(
             },
         )
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun UntilTimeDialog(onDismiss: () -> Unit, onConfirm: (LocalTime) -> Unit) {
-    val initial = LocalTime.now().plusHours(1).withMinute(0)
-    val pickerState = rememberTimePickerState(initial.hour, initial.minute, is24Hour = true)
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.session_until_pick)) },
-        text = { TimePicker(state = pickerState) },
-        confirmButton = {
-            Button(onClick = { onConfirm(LocalTime.of(pickerState.hour, pickerState.minute)) }) {
-                Text(stringResource(R.string.ok))
-            }
-        },
-        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } },
-    )
 }
 
 @Composable
