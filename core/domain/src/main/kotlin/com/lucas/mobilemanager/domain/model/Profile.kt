@@ -2,7 +2,6 @@ package com.lucas.mobilemanager.domain.model
 
 import com.lucas.mobilemanager.domain.rules.Rule
 import java.time.DayOfWeek
-import java.time.Duration
 import java.time.Instant
 import java.time.LocalTime
 
@@ -43,14 +42,3 @@ data class ManualActivation(
     val profileId: Long,
     val until: Instant?,
 )
-
-/** Session de verrouillage strict. L'heure de fin est absolue pour survivre au redémarrage. */
-data class StrictSession(
-    val startedAt: Instant,
-    val endsAt: Instant,
-    val blockedPackages: Set<String>,
-    /** Délai avant qu'une dérogation soit possible (logique en phase 4). */
-    val reflectionDelay: Duration,
-) {
-    fun isRunning(now: Instant): Boolean = !now.isBefore(startedAt) && now.isBefore(endsAt)
-}

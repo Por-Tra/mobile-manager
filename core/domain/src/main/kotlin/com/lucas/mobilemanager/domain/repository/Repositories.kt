@@ -2,6 +2,7 @@ package com.lucas.mobilemanager.domain.repository
 
 import com.lucas.mobilemanager.domain.model.EventLogEntry
 import com.lucas.mobilemanager.domain.model.Profile
+import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.model.UserPreferences
 import com.lucas.mobilemanager.domain.rules.Rule
 import kotlinx.coroutines.flow.Flow
@@ -20,6 +21,20 @@ interface UserPreferencesRepository {
     suspend fun setOnboardingCompleted(completed: Boolean)
 
     suspend fun setDefaultProfilesSeeded(seeded: Boolean)
+}
+
+interface StrictSessionRepository {
+    /** Session non close (en cours, ou heure de fin passée mais pas encore clôturée), sinon `null`. */
+    fun observeCurrent(): Flow<StrictSession?>
+
+    suspend fun current(): StrictSession?
+
+    /** Enregistre une nouvelle session et renvoie son id. */
+    suspend fun insert(session: StrictSession): Long
+
+    suspend fun setOverrideRequestedAt(sessionId: Long, at: Instant?)
+
+    suspend fun end(sessionId: Long, endedAt: Instant, reason: StrictSession.EndReason)
 }
 
 interface ProfileRepository {
