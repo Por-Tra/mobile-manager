@@ -174,11 +174,16 @@ private fun NodeRow(node: UiNode, highlighted: Boolean, onLongClick: () -> Unit)
         node.desc?.let { "desc=« ${it.take(40)} »" },
         "sélectionné".takeIf { node.selected },
         "cliquable".takeIf { node.clickable },
+        "hors écran (ignoré)".takeIf { !node.visible },
     )
     Text(
         parts.joinToString("  "),
         style = TextStyle(fontFamily = FontFamily.Monospace, fontSize = 11.sp),
-        color = if (highlighted) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface,
+        color = when {
+            highlighted -> MaterialTheme.colorScheme.onPrimaryContainer
+            !node.visible -> MaterialTheme.colorScheme.outline
+            else -> MaterialTheme.colorScheme.onSurface
+        },
         modifier = Modifier
             .fillMaxWidth()
             .background(if (highlighted) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.background)

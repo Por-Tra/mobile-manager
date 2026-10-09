@@ -14,7 +14,9 @@ class ZoneExitThrottle(
 ) {
     enum class Action { EXIT, WAIT, ESCALATE }
 
-    private var attempts = 0
+    /** Nombre de sorties tentées depuis l'entrée dans la zone (la première vaut 1). */
+    var attempts = 0
+        private set
     private var lastActionAt: Instant? = null
 
     fun onZoneDetected(now: Instant): Action {

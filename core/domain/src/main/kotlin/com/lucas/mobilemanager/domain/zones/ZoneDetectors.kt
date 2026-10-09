@@ -37,8 +37,13 @@ data class ZoneDefinition(
     val anyOf: List<NodeSignal>,
     /** …et qu'aucun de ceux-ci ne correspond (évite les faux positifs, ex. Stories). */
     val noneOf: List<NodeSignal> = emptyList(),
-    /** Actions de sortie, essayées dans l'ordre ; le retour arrière sert de dernier recours. */
+    /**
+     * Actions de sortie : la première applicable au premier essai, la suivante si la zone est
+     * toujours là, etc. Le retour arrière sert de dernier recours.
+     */
     val exit: List<ExitAction> = listOf(ExitAction(back = true)),
+    /** Points d'entrée à masquer quand la zone n'est pas accessible (bouton Reels, onglet Shorts). */
+    val hide: List<NodeSignal> = emptyList(),
 )
 
 /**
@@ -56,10 +61,11 @@ data class NodeSignal(
     val desc: List<String>? = null,
     val descContains: List<String>? = null,
     val selected: Boolean? = null,
+    val clickable: Boolean? = null,
 ) {
     val isEmpty: Boolean
         get() = viewId == null && viewIdContains == null && text == null && textContains == null &&
-            desc == null && descContains == null && selected == null
+            desc == null && descContains == null && selected == null && clickable == null
 }
 
 /** Une action de sortie : cliquer un nœud (onglet Accueil…) ou revenir en arrière. */
@@ -84,4 +90,6 @@ data class UiNode(
     val clickable: Boolean = false,
     val depth: Int = 0,
     val className: String? = null,
+    /** `false` = présent dans l'arbre mais hors écran (onglet gardé en mémoire) : jamais pris en compte. */
+    val visible: Boolean = true,
 )

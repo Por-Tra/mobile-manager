@@ -53,6 +53,53 @@ class ZoneMatcherTest {
             val step = ZoneExitPlanner.plan(shipped.zonesFor(youtube).single(), nodes)
             assertEquals("Home", nodes[(step as ExitStep.Click).nodeIndex].desc)
         }
+
+        @Test
+        fun `shorts tab is the entry point to hide`() {
+            val nodes = fixture("youtube_home")
+            val hidden = ZoneMatcher.entryPoints(shipped.zonesFor(youtube).single(), nodes)
+            assertEquals(listOf("Shorts"), hidden.map { nodes[it].desc })
+        }
+    }
+
+    /** Captures anonymisées d'Instagram 451 sur le téléphone (identifiants et onglets seulement). */
+    @Nested
+    inner class InstagramRealCaptures {
+        private val reels get() = shipped.zonesFor(instagram).single()
+
+        @Test
+        fun `reels tab is detected`() = assertEquals("reels", ZoneMatcher.detect(shipped, instagram, fixture("instagram_reels"))?.zone?.id)
+
+        @Test
+        fun `home feed is not a zone`() = assertNull(ZoneMatcher.detect(shipped, instagram, fixture("instagram_home")))
+
+        @Test
+        fun `direct messages are not a zone`() = assertNull(ZoneMatcher.detect(shipped, instagram, fixture("instagram_direct")))
+
+        @Test
+        fun `reels kept in memory off screen are ignored`() {
+            // Instagram garde l'onglet Reels visité dans l'arbre, invisible, derrière la messagerie.
+            val offscreen = fixture("instagram_reels").map { it.copy(visible = false) }
+            assertNull(ZoneMatcher.detect(shipped, instagram, fixture("instagram_direct") + offscreen))
+        }
+
+        @Test
+        fun `reels button is the entry point to hide`() {
+            for (screen in listOf("instagram_home", "instagram_direct", "instagram_reels")) {
+                val nodes = fixture(screen)
+                val hidden = ZoneMatcher.entryPoints(reels, nodes)
+                assertEquals(listOf("$instagram:id/clips_tab"), hidden.map { nodes[it].viewId }, screen)
+            }
+        }
+
+        @Test
+        fun `exit goes back first, then to the home tab`() {
+            val nodes = fixture("instagram_reels")
+            assertEquals(ExitStep.Back, ZoneExitPlanner.plan(reels, nodes, attempt = 0))
+            val second = ZoneExitPlanner.plan(reels, nodes, attempt = 1)
+            assertEquals("$instagram:id/feed_tab", nodes[(second as ExitStep.Click).nodeIndex].viewId)
+            assertEquals(second, ZoneExitPlanner.plan(reels, nodes, attempt = 5))
+        }
     }
 
     @Nested
@@ -74,8 +121,13 @@ class ZoneMatcherTest {
         )
 
         @Test
+        fun `invisible reels viewer is ignored`() = assertNull(
+            ZoneMatcher.detect(shipped, instagram, ig(UiNode(viewId = "$instagram:id/clips_viewer_view_pager", visible = false), *tabs)),
+        )
+
+        @Test
         fun `stories are not reels`() = assertNull(
-            ZoneMatcher.detect(shipped, instagram, ig(id("reel_viewer_root"), id("clips_viewer_media"), *tabs)),
+            ZoneMatcher.detect(shipped, instagram, ig(id("reel_viewer_root"), id("clips_viewer_view_pager"), *tabs)),
         )
 
         @Test
@@ -85,13 +137,6 @@ class ZoneMatcherTest {
         @Test
         fun `direct messages are not a zone`() =
             assertNull(ZoneMatcher.detect(shipped, instagram, ig(id("direct_inbox_container"), UiNode(text = "Messages"))))
-
-        @Test
-        fun `exit prefers the home tab`() {
-            val nodes = ig(id("clips_viewer_view_pager"), *tabs)
-            val step = ZoneExitPlanner.plan(shipped.zonesFor(instagram).single(), nodes)
-            assertEquals("$instagram:id/feed_tab", nodes[(step as ExitStep.Click).nodeIndex].viewId)
-        }
     }
 
     @Nested
@@ -127,6 +172,14 @@ class ZoneMatcherTest {
         @Test
         fun `exit falls back to back when nothing is clickable`() =
             assertEquals(ExitStep.Back, ZoneExitPlanner.plan(zone, listOf(UiNode(text = "Autre"))))
+
+        @Test
+        fun `exit never clicks an invisible node`() =
+            assertEquals(ExitStep.Back, ZoneExitPlanner.plan(zone, listOf(UiNode(text = "Retour", visible = false))))
+
+        @Test
+        fun `invisible nodes never match`() =
+            assertNull(ZoneMatcher.detect(file, "pkg", listOf(UiNode(desc = "Home", selected = true, visible = false))))
 
         @Test
         fun `short view id matches the full resource name`() =

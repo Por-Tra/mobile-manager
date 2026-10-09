@@ -40,7 +40,7 @@ object ZoneDetectorParser {
                 val where = "${app.packageName} / ${zone.id.ifBlank { "?" }}"
                 if (zone.id.isBlank()) return "Une zone de ${app.packageName} n'a pas d'id."
                 if (zone.anyOf.isEmpty()) return "$where : « anyOf » doit contenir au moins un signal."
-                if ((zone.anyOf + zone.noneOf).any { it.isEmpty }) return "$where : un signal ne contient aucune condition."
+                if ((zone.anyOf + zone.noneOf + zone.hide).any { it.isEmpty }) return "$where : un signal ne contient aucune condition."
                 if (zone.exit.any { it.definedActions != 1 }) return "$where : chaque action de sortie doit définir une seule action."
             }
         }
@@ -69,9 +69,14 @@ object ZoneMatcher {
         }
         return null
     }
+
+    /** Indices des points d'entrée visibles de [zone] à masquer (signaux `hide`). */
+    fun entryPoints(zone: ZoneDefinition, nodes: List<UiNode>): List<Int> =
+        if (zone.hide.isEmpty()) emptyList() else nodes.indices.filter { i -> zone.hide.any { it.matches(nodes[i]) } }
 }
 
 fun NodeSignal.matches(node: UiNode): Boolean {
+    if (!node.visible) return false
     viewId?.let { if (!node.viewId.isViewId(it)) return false }
     viewIdContains?.let { if (node.viewId?.contains(it, ignoreCase = true) != true) return false }
     text?.let { if (!node.text.equalsAny(it)) return false }
@@ -79,6 +84,7 @@ fun NodeSignal.matches(node: UiNode): Boolean {
     desc?.let { if (!node.desc.equalsAny(it)) return false }
     descContains?.let { if (!node.desc.containsAny(it)) return false }
     selected?.let { if (node.selected != it) return false }
+    clickable?.let { if (node.clickable != it) return false }
     return !isEmpty
 }
 
@@ -99,17 +105,23 @@ sealed interface ExitStep {
 
 object ZoneExitPlanner {
 
-    /** Première action applicable dans l'ordre déclaré ; à défaut, retour arrière. */
-    fun plan(zone: ZoneDefinition, nodes: List<UiNode>): ExitStep {
-        for (action in zone.exit) {
-            if (action.back) return ExitStep.Back
+    /**
+     * Action à tenter pour l'essai n° [attempt] (0 = premier) : les actions applicables sont
+     * prises dans l'ordre déclaré, une par essai, la dernière étant répétée. Sans action
+     * applicable : retour arrière.
+     */
+    fun plan(zone: ZoneDefinition, nodes: List<UiNode>, attempt: Int = 0): ExitStep {
+        val steps = zone.exit.mapNotNull { action ->
+            if (action.back) return@mapNotNull ExitStep.Back
             val index = nodes.indexOfFirst { node ->
-                (action.clickViewId != null && node.viewId.isViewId(action.clickViewId)) ||
-                    (action.clickDesc != null && node.desc.equalsAny(action.clickDesc)) ||
-                    (action.clickText != null && node.text.equalsAny(action.clickText))
+                node.visible && (
+                    (action.clickViewId != null && node.viewId.isViewId(action.clickViewId)) ||
+                        (action.clickDesc != null && node.desc.equalsAny(action.clickDesc)) ||
+                        (action.clickText != null && node.text.equalsAny(action.clickText))
+                    )
             }
-            if (index >= 0) return ExitStep.Click(index)
-        }
-        return ExitStep.Back
+            if (index >= 0) ExitStep.Click(index) else null
+        }.distinct()
+        return steps.getOrNull(attempt.coerceIn(0, (steps.size - 1).coerceAtLeast(0))) ?: ExitStep.Back
     }
 }

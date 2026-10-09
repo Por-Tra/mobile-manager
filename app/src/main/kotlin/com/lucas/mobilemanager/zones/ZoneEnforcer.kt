@@ -95,7 +95,7 @@ class ZoneEnforcer(
         when (throttle.onZoneDetected(now)) {
             ZoneExitThrottle.Action.WAIT -> Unit
             ZoneExitThrottle.Action.EXIT -> {
-                exit(ZoneExitPlanner.plan(match.zone, snapshot.nodes), snapshot.infos)
+                exit(ZoneExitPlanner.plan(match.zone, snapshot.nodes, throttle.attempts - 1), snapshot.infos)
                 showToast(match.zone.label)
                 withContext(Dispatchers.Default) { coordinator.recordZoneRedirect(pkg, match.zone.id) }
             }
@@ -110,7 +110,7 @@ class ZoneEnforcer(
     fun capture(): HierarchyCapture? {
         val root = service.rootInActiveWindow ?: return null
         val pkg = root.packageName?.toString() ?: return null
-        val snapshot = AccessibilitySnapshot.capture(root, MAX_NODES_DIAGNOSTIC)
+        val snapshot = AccessibilitySnapshot.capture(root, MAX_NODES_DIAGNOSTIC, includeInvisible = true)
         val match = ZoneMatcher.detect(detectorStore.detectors.value, pkg, snapshot.nodes)
         return HierarchyCapture(pkg, snapshot.nodes, match, timeProvider.now())
     }
@@ -154,19 +154,25 @@ class ZoneEnforcer(
     }
 }
 
-/** Instantané à plat de l'arbre d'accessibilité (ordre de lecture, avec profondeur). */
+/**
+ * Instantané à plat de l'arbre d'accessibilité (ordre de lecture, avec profondeur).
+ * Les nœuds hors écran (onglets qu'Instagram garde en mémoire…) et leurs enfants sont ignorés,
+ * sauf pour le mode diagnostic qui les affiche marqués comme invisibles.
+ */
 class AccessibilitySnapshot private constructor(
     val nodes: List<UiNode>,
     /** Nœuds Android correspondants, pour pouvoir cliquer. */
     val infos: List<AccessibilityNodeInfo>,
 ) {
     companion object {
-        fun capture(root: AccessibilityNodeInfo, maxNodes: Int): AccessibilitySnapshot {
+        fun capture(root: AccessibilityNodeInfo, maxNodes: Int, includeInvisible: Boolean = false): AccessibilitySnapshot {
             val nodes = ArrayList<UiNode>()
             val infos = ArrayList<AccessibilityNodeInfo>()
             val stack = ArrayDeque<Pair<AccessibilityNodeInfo, Int>>().apply { addLast(root to 0) }
             while (stack.isNotEmpty() && nodes.size < maxNodes) {
                 val (node, depth) = stack.removeLast()
+                val visible = node.isVisibleToUser
+                if (!visible && !includeInvisible) continue
                 nodes += UiNode(
                     viewId = node.viewIdResourceName,
                     text = node.text?.toString(),
@@ -175,6 +181,7 @@ class AccessibilitySnapshot private constructor(
                     clickable = node.isClickable,
                     depth = depth,
                     className = node.className?.toString(),
+                    visible = visible,
                 )
                 infos += node
                 for (i in node.childCount - 1 downTo 0) node.getChild(i)?.let { stack.addLast(it to depth + 1) }

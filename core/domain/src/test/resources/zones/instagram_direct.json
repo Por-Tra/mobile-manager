@@ -1,0 +1,373 @@
+[
+{
+"viewId": "com.instagram.android:id/action_bar_root",
+"depth": 3
+},
+{
+"viewId": "android:id/content",
+"depth": 4
+},
+{
+"viewId": "com.instagram.android:id/swipe_navigation_container",
+"depth": 6
+},
+{
+"viewId": "com.instagram.android:id/layout_container_center_right_coordinator_layout",
+"depth": 7
+},
+{
+"viewId": "com.instagram.android:id/layout_container_right",
+"depth": 8
+},
+{
+"viewId": "com.instagram.android:id/activity_and_camera_shared_views_main_container",
+"depth": 8
+},
+{
+"viewId": "com.instagram.android:id/layout_container_main_panel",
+"depth": 8
+},
+{
+"viewId": "com.instagram.android:id/layout_container_main_wrapper",
+"depth": 9
+},
+{
+"viewId": "com.instagram.android:id/layout_container_main",
+"depth": 10
+},
+{
+"viewId": "com.instagram.android:id/swipeable_tab_view_pager",
+"depth": 10
+},
+{
+"viewId": "com.instagram.android:id/swipeable_nav_view_pager_inner_recycler_view",
+"depth": 11
+},
+{
+"viewId": "com.instagram.android:id/layout_container_swipeable",
+"depth": 13
+},
+{
+"viewId": "com.instagram.android:id/container",
+"depth": 14
+},
+{
+"viewId": "com.instagram.android:id/direct_inbox_action_bar",
+"depth": 15
+},
+{
+"viewId": "com.instagram.android:id/action_bar_title_subtitle_container",
+"depth": 16
+},
+{
+"viewId": "com.instagram.android:id/action_bar_title_notifications_container",
+"depth": 17
+},
+{
+"viewId": "com.instagram.android:id/igds_action_bar_title",
+"clickable": true,
+"depth": 18
+},
+{
+"viewId": "com.instagram.android:id/action_bar_end_action_buttons",
+"depth": 16
+},
+{
+"viewId": "com.instagram.android:id/list_container",
+"depth": 15
+},
+{
+"viewId": "com.instagram.android:id/refreshable_container",
+"depth": 16
+},
+{
+"viewId": "com.instagram.android:id/inbox_refreshable_thread_list_recyclerview",
+"depth": 17
+},
+{
+"viewId": "search_row",
+"depth": 20
+},
+{
+"viewId": "ig_text",
+"depth": 22
+},
+{
+"viewId": "com.instagram.android:id/cf_hub_recycler_view",
+"depth": 19
+},
+{
+"viewId": "com.instagram.android:id/pog_root_view",
+"clickable": true,
+"depth": 20
+},
+{
+"viewId": "com.instagram.android:id/pog_avatar_view",
+"depth": 21
+},
+{
+"viewId": "com.instagram.android:id/pog_note_bubble_view",
+"clickable": true,
+"depth": 24
+},
+{
+"viewId": "com.instagram.android:id/pog_note_bubble_root_view",
+"depth": 25
+},
+{
+"viewId": "com.instagram.android:id/pog_note_bubble_card_view",
+"depth": 26
+},
+{
+"viewId": "com.instagram.android:id/pog_bubble_text_container",
+"depth": 27
+},
+{
+"viewId": "com.instagram.android:id/pog_bubble_text",
+"depth": 28
+},
+{
+"viewId": "com.instagram.android:id/avatar_container",
+"depth": 23
+},
+{
+"viewId": "com.instagram.android:id/avatar",
+"clickable": true,
+"depth": 24
+},
+{
+"viewId": "com.instagram.android:id/reel_viewer_front_avatar",
+"depth": 26
+},
+{
+"viewId": "com.instagram.android:id/pog_subtext_container",
+"depth": 21
+},
+{
+"viewId": "com.instagram.android:id/pog_name",
+"depth": 22
+},
+{
+"viewId": "com.instagram.android:id/location_text",
+"clickable": true,
+"depth": 22
+},
+{
+"viewId": "com.instagram.android:id/map_pog_container",
+"clickable": true,
+"depth": 20
+},
+{
+"viewId": "com.instagram.android:id/heart_emitter_view",
+"depth": 21
+},
+{
+"viewId": "com.instagram.android:id/map_image",
+"depth": 21
+},
+{
+"viewId": "com.instagram.android:id/map_nearby_user_pins_layout",
+"depth": 21
+},
+{
+"viewId": "com.instagram.android:id/map_pog_label",
+"depth": 21
+},
+{
+"viewId": "igds_people_cell",
+"clickable": true,
+"depth": 20
+},
+{
+"viewId": "igds_profile_picture",
+"depth": 21
+},
+{
+"viewId": "ig_text",
+"depth": 21
+},
+{
+"viewId": "ig_text",
+"depth": 21
+},
+{
+"viewId": "igds_button",
+"clickable": true,
+"depth": 21
+},
+{
+"viewId": "ig_text",
+"depth": 22
+},
+{
+"viewId": "igds_button",
+"clickable": true,
+"depth": 21
+},
+{
+"viewId": "ig_text",
+"depth": 22
+},
+{
+"viewId": "igds_people_cell",
+"clickable": true,
+"depth": 20
+},
+{
+"viewId": "igds_profile_picture",
+"depth": 21
+},
+{
+"viewId": "ig_text",
+"depth": 21
+},
+{
+"viewId": "igds_button",
+"clickable": true,
+"depth": 21
+},
+{
+"viewId": "ig_text",
+"depth": 22
+},
+{
+"viewId": "igds_button",
+"clickable": true,
+"depth": 21
+},
+{
+"viewId": "ig_text",
+"depth": 22
+},
+{
+"viewId": "igds_people_cell",
+"clickable": true,
+"depth": 20
+},
+{
+"viewId": "igds_profile_picture",
+"depth": 21
+},
+{
+"viewId": "ig_text",
+"depth": 21
+},
+{
+"viewId": "ig_text",
+"depth": 21
+},
+{
+"viewId": "igds_button",
+"clickable": true,
+"depth": 21
+},
+{
+"viewId": "ig_text",
+"depth": 22
+},
+{
+"viewId": "com.instagram.android:id/direct_quick_snap_consumption_preview",
+"clickable": true,
+"depth": 16
+},
+{
+"viewId": "com.instagram.android:id/image_stack_container",
+"depth": 17
+},
+{
+"viewId": "com.instagram.android:id/creation_entrypoint",
+"depth": 18
+},
+{
+"viewId": "com.instagram.android:id/creation_plus_badge_container",
+"depth": 18
+},
+{
+"viewId": "com.instagram.android:id/tab_bar_shadow",
+"depth": 10
+},
+{
+"viewId": "com.instagram.android:id/tab_bar",
+"depth": 10
+},
+{
+"viewId": "com.instagram.android:id/feed_tab",
+"desc": "Home",
+"clickable": true,
+"depth": 11
+},
+{
+"viewId": "com.instagram.android:id/tab_icon",
+"depth": 12
+},
+{
+"viewId": "com.instagram.android:id/clips_tab",
+"desc": "Reels",
+"clickable": true,
+"depth": 11
+},
+{
+"viewId": "com.instagram.android:id/tab_icon",
+"depth": 12
+},
+{
+"viewId": "com.instagram.android:id/direct_tab",
+"desc": "Envoyer un message",
+"selected": true,
+"clickable": true,
+"depth": 11
+},
+{
+"viewId": "com.instagram.android:id/tab_icon",
+"selected": true,
+"depth": 12
+},
+{
+"viewId": "com.instagram.android:id/search_tab",
+"desc": "Rechercher et explorer",
+"clickable": true,
+"depth": 11
+},
+{
+"viewId": "com.instagram.android:id/tab_icon",
+"depth": 12
+},
+{
+"viewId": "com.instagram.android:id/profile_tab",
+"desc": "Profil",
+"clickable": true,
+"depth": 11
+},
+{
+"viewId": "com.instagram.android:id/wrapper",
+"depth": 12
+},
+{
+"viewId": "com.instagram.android:id/container",
+"depth": 13
+},
+{
+"viewId": "com.instagram.android:id/tab_avatar",
+"depth": 14
+},
+{
+"viewId": "com.instagram.android:id/bottom_sheet_camera_container",
+"depth": 7
+},
+{
+"viewId": "com.instagram.android:id/modal_container",
+"depth": 6
+},
+{
+"viewId": "com.instagram.android:id/overlay_layout_container",
+"depth": 6
+},
+{
+"viewId": "android:id/statusBarBackground",
+"depth": 1
+},
+{
+"viewId": "android:id/navigationBarBackground",
+"depth": 1
+}
+]
