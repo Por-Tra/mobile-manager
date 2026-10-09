@@ -6,8 +6,10 @@ import com.lucas.mobilemanager.di.ApplicationScope
 import com.lucas.mobilemanager.domain.model.EventLogEntry
 import com.lucas.mobilemanager.domain.model.EventType
 import com.lucas.mobilemanager.domain.model.Profile
+import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.repository.EventLogRepository
 import com.lucas.mobilemanager.domain.repository.ProfileRepository
+import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.rules.AppRequest
 import com.lucas.mobilemanager.domain.rules.BlockReason
 import com.lucas.mobilemanager.domain.rules.Decision
@@ -17,9 +19,11 @@ import com.lucas.mobilemanager.domain.rules.RuleEngine
 import com.lucas.mobilemanager.domain.time.TimeProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -31,6 +35,7 @@ import javax.inject.Singleton
 @Singleton
 class EnforcementCoordinator @Inject constructor(
     profileRepository: ProfileRepository,
+    strictSessionRepository: StrictSessionRepository,
     @ApplicationScope appScope: CoroutineScope,
     private val profileResolver: ProfileResolver,
     private val ruleEngine: RuleEngine,
@@ -48,6 +53,18 @@ class EnforcementCoordinator @Inject constructor(
         ::RulesSnapshot,
     ).stateIn(appScope, SharingStarted.Eagerly, initialValue = null)
 
+    /** Enveloppe pour distinguer « pas encore chargée » (`null`) de « aucune session ». */
+    private data class SessionSnapshot(val session: StrictSession?)
+
+    /** Session de concentration non close (peut être arrivée à son heure de fin). */
+    private val currentSession: StateFlow<SessionSnapshot?> = strictSessionRepository.observeCurrent()
+        .map(::SessionSnapshot)
+        .stateIn(appScope, SharingStarted.Eagerly, initialValue = null)
+
+    /** Session qui bloque en ce moment, lue en mémoire (appel synchrone, sans accès disque). */
+    fun runningSession(): StrictSession? =
+        currentSession.value?.session?.takeIf { it.isRunning(timeProvider.now()) }
+
     fun isWhitelisted(packageName: String): Boolean = packageName in whitelistProvider.current()
 
     suspend fun evaluate(packageName: String): Decision {
@@ -55,12 +72,13 @@ class EnforcementCoordinator @Inject constructor(
         if (packageName in whitelist) return Decision.Allowed(remainingToday = null)
 
         val snapshot = rules.filterNotNull().first()
+        currentSession.filterNotNull().first() // attend le premier chargement après un démarrage
         val now = timeProvider.localNow()
         val policy = profileResolver.resolve(
             profiles = snapshot.profiles,
             globalRules = snapshot.globalRules,
             manualActivation = null, // phase 5
-            strictSession = null, // phase 4
+            strictSession = runningSession(),
             now = now,
         )
         val request = AppRequest(packageName, usageToday = usageStatsReader.usageToday(packageName))

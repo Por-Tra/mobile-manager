@@ -11,16 +11,22 @@ import android.os.Build
 import android.os.SystemClock
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
+import android.view.accessibility.AccessibilityNodeInfo
+import android.widget.Toast
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import com.lucas.mobilemanager.block.BlockActivity
 import com.lucas.mobilemanager.block.BlockScreenArgs
 import com.lucas.mobilemanager.BuildConfig
+import com.lucas.mobilemanager.R
 import com.lucas.mobilemanager.domain.foreground.ForegroundTracker
 import com.lucas.mobilemanager.domain.foreground.HomePanels
+import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.rules.Decision
+import com.lucas.mobilemanager.domain.session.ProtectedScreenDetector
 import com.lucas.mobilemanager.domain.rules.EnforcementPolicy
 import com.lucas.mobilemanager.enforcement.EnforcementCoordinator
+import com.lucas.mobilemanager.ui.format.Formats
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,6 +37,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.ZoneId
 import javax.inject.Inject
 
 /**
@@ -47,6 +54,8 @@ class MonitorAccessibilityService : AccessibilityService() {
     private var watchJob: Job? = null
     private var lastBlockedPackage: String? = null
     private var lastBlockedAtMs = 0L
+    private var protectedCheckJob: Job? = null
+    private var lastProtectedToastAtMs = 0L
 
     /** Fenêtres qui se superposent à l'app sans la remplacer (volet de notifications, clavier). */
     private var overlayPackages: Set<String> = emptySet()
@@ -82,8 +91,13 @@ class MonitorAccessibilityService : AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        if (event?.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return
-        val pkg = event.packageName?.toString()
+        if (event == null) return
+        val eventPackage = event.packageName?.toString()
+        if (eventPackage != null && eventPackage in ProtectedScreenDetector.PROTECTED_PACKAGES) {
+            scheduleProtectedScreenCheck(eventPackage)
+        }
+        if (event.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return
+        val pkg = eventPackage
         val className = event.className?.toString()
         // Un écran d'app = une activité, hors panneaux intégrés au bureau (flux Google…).
         val isAppScreen = pkg != null && isActivity(pkg, className) && !HomePanels.isHomePanel(pkg, className)
@@ -120,6 +134,46 @@ class MonitorAccessibilityService : AccessibilityService() {
                 false
             }
         }
+    }
+
+    /**
+     * Pendant une session, referme les écrans des Paramètres / de désinstallation qui affichent
+     * Mobile Manager. Regroupe les rafales d'événements de contenu en une seule vérification.
+     */
+    private fun scheduleProtectedScreenCheck(pkg: String) {
+        val session = coordinator.runningSession() ?: return
+        protectedCheckJob?.cancel()
+        protectedCheckJob = scope.launch {
+            delay(PROTECTED_CHECK_DEBOUNCE_MS)
+            val root = rootInActiveWindow ?: return@launch
+            if (root.packageName?.toString() != pkg) return@launch
+            val labels = setOf(getString(R.string.app_name), getString(R.string.accessibility_service_label))
+            if (ProtectedScreenDetector.shouldClose(pkg, visibleTexts(root), labels, sessionRunning = true)) {
+                performGlobalAction(GLOBAL_ACTION_BACK)
+                showProtectedToast(session)
+            }
+        }
+    }
+
+    /** Textes et descriptions visibles de l'écran (parcours borné de l'arbre d'accessibilité). */
+    private fun visibleTexts(root: AccessibilityNodeInfo): Sequence<String> = sequence {
+        val queue = ArrayDeque<AccessibilityNodeInfo>().apply { add(root) }
+        var visited = 0
+        while (queue.isNotEmpty() && visited < MAX_NODES_SCANNED) {
+            val node = queue.removeFirst()
+            visited++
+            node.text?.let { yield(it.toString()) }
+            node.contentDescription?.let { yield(it.toString()) }
+            for (i in 0 until node.childCount) node.getChild(i)?.let(queue::add)
+        }
+    }
+
+    private fun showProtectedToast(session: StrictSession) {
+        val nowMs = SystemClock.elapsedRealtime()
+        if (nowMs - lastProtectedToastAtMs < PROTECTED_TOAST_INTERVAL_MS) return
+        lastProtectedToastAtMs = nowMs
+        val endTime = Formats.TIME.format(session.endsAt.atZone(ZoneId.systemDefault()))
+        Toast.makeText(this, getString(R.string.protected_screen_closed, endTime), Toast.LENGTH_SHORT).show()
     }
 
     /** Évalue [pkg] maintenant, puis régulièrement tant qu'il reste au premier plan. */
@@ -175,5 +229,8 @@ class MonitorAccessibilityService : AccessibilityService() {
         const val TAG = "MobileManager"
         const val SYSTEM_UI = "com.android.systemui"
         const val DUPLICATE_BLOCK_WINDOW_MS = 2_000L
+        const val PROTECTED_CHECK_DEBOUNCE_MS = 150L
+        const val PROTECTED_TOAST_INTERVAL_MS = 3_000L
+        const val MAX_NODES_SCANNED = 500
     }
 }

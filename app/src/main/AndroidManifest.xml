@@ -7,6 +7,9 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- App personnelle hors Play Store : la demande directe d'exclusion batterie est assumée. -->
     <uses-permission
         android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"
@@ -74,6 +77,32 @@
             android:exported="false"
             android:launchMode="singleTask"
             android:taskAffinity="com.lucas.mobilemanager.block" />
+
+        <activity
+            android:name=".session.ProtectionAlertActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.lucas.mobilemanager.alert" />
+
+        <service
+            android:name=".session.StrictSessionService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Session de concentration : affiche l'heure de fin et maintient le blocage jusqu'à cette heure." />
+        </service>
+
+        <!-- Protégés : seuls le système peut envoyer ces deux diffusions. -->
+        <receiver
+            android:name=".session.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".service.MonitorAccessibilityService"

@@ -15,6 +15,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,6 +26,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.TextButton
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lucas.mobilemanager.BuildConfig
 import com.lucas.mobilemanager.R
 
@@ -63,7 +65,9 @@ fun SettingsScreen(
                 modifier = Modifier.clickable(onClick = onOpenPermissions),
             )
             if (BuildConfig.DEBUG) {
+                val sessionRunning by viewModel.sessionRunning.collectAsStateWithLifecycle()
                 DebugTools(
+                    enabled = !sessionRunning,
                     onCreateTestProfile = viewModel::createTestProfile,
                     onDeleteTestProfile = viewModel::deleteTestProfile,
                 )
@@ -79,7 +83,7 @@ fun SettingsScreen(
 }
 
 @Composable
-private fun DebugTools(onCreateTestProfile: () -> Unit, onDeleteTestProfile: () -> Unit) {
+private fun DebugTools(enabled: Boolean, onCreateTestProfile: () -> Unit, onDeleteTestProfile: () -> Unit) {
     Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
         Text(stringResource(R.string.settings_debug_title), style = MaterialTheme.typography.titleSmall)
         Text(
@@ -87,11 +91,18 @@ private fun DebugTools(onCreateTestProfile: () -> Unit, onDeleteTestProfile: () 
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
+        if (!enabled) {
+            Text(
+                stringResource(R.string.locked_during_session),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 8.dp)) {
-            OutlinedButton(onClick = onCreateTestProfile) {
+            OutlinedButton(onClick = onCreateTestProfile, enabled = enabled) {
                 Text(stringResource(R.string.settings_debug_create_test))
             }
-            TextButton(onClick = onDeleteTestProfile) {
+            TextButton(onClick = onDeleteTestProfile, enabled = enabled) {
                 Text(stringResource(R.string.settings_debug_delete_test))
             }
         }

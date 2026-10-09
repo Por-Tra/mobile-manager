@@ -5,10 +5,16 @@ import androidx.lifecycle.viewModelScope
 import com.lucas.mobilemanager.domain.model.Profile
 import com.lucas.mobilemanager.domain.model.Schedule
 import com.lucas.mobilemanager.domain.repository.ProfileRepository
+import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.rules.Rule
 import com.lucas.mobilemanager.domain.rules.RuleAction
 import com.lucas.mobilemanager.domain.rules.Target
+import com.lucas.mobilemanager.domain.time.TimeProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.time.Duration
@@ -18,7 +24,14 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val profileRepository: ProfileRepository,
+    strictSessionRepository: StrictSessionRepository,
+    timeProvider: TimeProvider,
 ) : ViewModel() {
+
+    /** Pendant une session de concentration, les outils qui modifient les règles sont désactivés. */
+    val sessionRunning: StateFlow<Boolean> = strictSessionRepository.observeCurrent()
+        .map { it?.isRunning(timeProvider.now()) == true }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
 
     /** Crée (ou réinitialise) le profil de test, pour vérifier le blocage sans attendre les bonnes heures. */
     fun createTestProfile() {

@@ -3,7 +3,7 @@
     <string name="app_name">Mobile Manager</string>
 
     <string name="accessibility_service_label">Surveillance Mobile Manager</string>
-    <string name="accessibility_service_description">Détecte l\'application au premier plan pour appliquer tes règles de blocage. Seule la structure de l\'écran est lue, jamais le contenu de tes messages ou publications. Aucune donnée ne quitte le téléphone.</string>
+    <string name="accessibility_service_description">Détecte l\'application au premier plan pour appliquer tes règles de blocage. Pendant une session de concentration, lit aussi les textes des écrans des Paramètres pour protéger la session. Jamais le contenu de tes messages ou publications. Aucune donnée ne quitte le téléphone.</string>
     <string name="device_admin_explanation">L\'administration de l\'appareil ajoute une étape avant la désinstallation pendant le mode strict. Elle ne donne aucun autre pouvoir à l\'app.</string>
 
     <!-- Onboarding -->
@@ -84,5 +84,80 @@
     <string name="block_until_unknown">Pas d\'heure de fin prévue pour l\'instant.</string>
     <string name="block_go_home">Retour à l\'accueil</string>
 
+    <!-- Session de concentration -->
+    <string name="session_card_title">Session de concentration</string>
+    <string name="session_card_body">Bloque les apps choisies jusqu\'à une heure de fin, sans arrêt immédiat.</string>
+    <string name="session_card_start">Démarrer une session</string>
+    <string name="session_card_running">Session de concentration en cours</string>
+    <string name="session_card_until">jusqu\'à %1$s</string>
+    <plurals name="session_card_apps">
+        <item quantity="one">%d app en pause</item>
+        <item quantity="many">%d apps en pause</item>
+        <item quantity="other">%d apps en pause</item>
+    </plurals>
+    <string name="session_card_override">Demander une dérogation</string>
+    <string name="locked_during_session">Modifiable après la session de concentration.</string>
+
+    <string name="session_start_title">Nouvelle session</string>
+    <string name="session_duration">Durée</string>
+    <string name="session_until">Jusqu\'à…</string>
+    <string name="session_until_time">Jusqu\'à %1$s</string>
+    <string name="session_until_pick">Fin de la session</string>
+    <string name="session_ends_at">Fin à %1$s</string>
+    <string name="session_reflection_delay">Délai de réflexion</string>
+    <string name="session_reflection_delay_value">%1$d min avant de pouvoir arrêter plus tôt</string>
+    <string name="session_reflection_delay_help">Choisi maintenant, il ne pourra pas être modifié pendant la session.</string>
+    <string name="session_apps">Apps à bloquer</string>
+    <plurals name="session_apps_selected">
+        <item quantity="one">%d app sélectionnée</item>
+        <item quantity="many">%d apps sélectionnées</item>
+        <item quantity="other">%d apps sélectionnées</item>
+    </plurals>
+    <string name="session_start_button">Démarrer la session</string>
+    <string name="session_confirm_title">Démarrer la session ?</string>
+    <plurals name="session_confirm_body">
+        <item quantity="one">Jusqu\'à %1$s, %2$d app sera bloquée. Un arrêt anticipé ne sera possible qu\'après %3$d min de réflexion.</item>
+        <item quantity="many">Jusqu\'à %1$s, %2$d apps seront bloquées. Un arrêt anticipé ne sera possible qu\'après %3$d min de réflexion.</item>
+        <item quantity="other">Jusqu\'à %1$s, %2$d apps seront bloquées. Un arrêt anticipé ne sera possible qu\'après %3$d min de réflexion.</item>
+    </plurals>
+    <string name="session_confirm">Démarrer</string>
+    <string name="session_already_running">Une session est déjà en cours.</string>
+    <string name="session_error_end">L\'heure de fin doit être dans le futur.</string>
+    <string name="session_error_too_long">Une session dure au maximum 12 h.</string>
+    <string name="session_error_no_apps">Choisis au moins une app.</string>
+    <string name="session_error_delay">Le délai de réflexion va de 2 à 10 min.</string>
+    <string name="app_picker_search">Rechercher une app</string>
+
+    <!-- Dérogation -->
+    <string name="override_title">Arrêter plus tôt</string>
+    <string name="override_intro">La session est prévue jusqu\'à %1$s.\n\nPour l\'arrêter avant, un délai de réflexion de %2$d min commence. Tu pourras ensuite confirmer pendant %3$d min.</string>
+    <string name="override_start_delay">Commencer le délai de réflexion</string>
+    <string name="override_keep_going">Revenir</string>
+    <string name="override_waiting">Prends ce temps pour vérifier si c\'est vraiment nécessaire. Tu peux quitter cet écran, le délai continue.</string>
+    <string name="override_cancel">Finalement, je continue</string>
+    <string name="override_available">Tu peux maintenant mettre fin à la session prévue jusqu\'à %1$s. Cette possibilité reste ouverte :</string>
+    <string name="override_end">Mettre fin à la session</string>
+    <string name="override_expired">La demande a expiré. Pour arrêter la session, il faut recommencer le délai de %1$d min.</string>
+    <string name="override_restart_delay">Recommencer le délai</string>
+
+    <!-- Notifications et protection -->
+    <string name="channel_session">Session de concentration</string>
+    <string name="channel_protection">Protection de la session</string>
+    <string name="session_notification_title">Session de concentration</string>
+    <string name="session_notification_starting">Session en cours</string>
+    <plurals name="session_notification_text">
+        <item quantity="one">Fin à %1$s · %2$d app en pause</item>
+        <item quantity="many">Fin à %1$s · %2$d apps en pause</item>
+        <item quantity="other">Fin à %1$s · %2$d apps en pause</item>
+    </plurals>
+    <string name="protection_title">La surveillance a été désactivée</string>
+    <string name="protection_body">La session continue jusqu\'à %1$s, mais les apps ne peuvent plus être bloquées tant que le service est coupé.</string>
+    <string name="protection_reenable">Réactiver la surveillance</string>
+    <string name="protection_dismiss">Fermer</string>
+    <string name="protected_screen_closed">Indisponible pendant la session (fin à %1$s)</string>
+    <string name="admin_disable_warning">Une session de concentration est en cours jusqu\'à %1$s.</string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Annuler</string>
     <string name="navigate_back">Retour</string>
 </resources>

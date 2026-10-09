@@ -1,14 +1,19 @@
 package com.lucas.mobilemanager.ui.home
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lucas.mobilemanager.domain.model.Profile
+import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.onboarding.OnboardingState
 import com.lucas.mobilemanager.domain.repository.ProfileRepository
+import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.time.ScheduleEvaluator
 import com.lucas.mobilemanager.domain.time.TimeProvider
 import com.lucas.mobilemanager.permissions.PermissionChecker
+import com.lucas.mobilemanager.session.StrictSessionService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -26,8 +31,10 @@ data class ProfileItem(
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val permissionChecker: PermissionChecker,
     private val profileRepository: ProfileRepository,
+    private val strictSessionRepository: StrictSessionRepository,
     private val timeProvider: TimeProvider,
 ) : ViewModel() {
 
@@ -52,12 +59,28 @@ class HomeViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
+    /** Session de concentration en cours, `null` sinon. */
+    val session: StateFlow<StrictSession?> = combine(
+        strictSessionRepository.observeCurrent(),
+        refreshTick,
+    ) { session, _ -> session?.takeIf { it.isRunning(timeProvider.now()) } }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
     fun refresh() {
         _permissions.value = OnboardingState.from(permissionChecker.currentStatuses())
         refreshTick.value++
+        viewModelScope.launch {
+            // Filet de sécurité : si le service de session a été arrêté, on le relance (app au premier plan).
+            if (strictSessionRunning()) StrictSessionService.start(context)
+        }
     }
 
+    private suspend fun strictSessionRunning(): Boolean =
+        strictSessionRepository.current()?.isRunning(timeProvider.now()) == true
+
     fun setEnabled(profileId: Long, enabled: Boolean) {
+        // Les règles ne se modifient pas pendant une session de concentration.
+        if (session.value != null) return
         viewModelScope.launch { profileRepository.setEnabled(profileId, enabled) }
     }
 }
