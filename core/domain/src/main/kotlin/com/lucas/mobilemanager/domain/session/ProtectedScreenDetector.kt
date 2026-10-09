@@ -1,7 +1,7 @@
 package com.lucas.mobilemanager.domain.session
 
 /**
- * Pendant une session, referme les écrans qui permettraient de couper Mobile Manager :
+ * Pendant une session (ou tant qu'un code du proche verrouille l'app), referme les écrans qui permettraient de couper Mobile Manager :
  * tout écran des Paramètres ou de l'installateur de paquets qui affiche le nom de l'app
  * (infos de l'app, page du service d'accessibilité, admin de l'appareil, désinstallation…).
  *
@@ -22,14 +22,15 @@ object ProtectedScreenDetector {
     /**
      * @param visibleTexts textes et descriptions des éléments à l'écran.
      * @param protectedLabels noms à repérer (nom de l'app, nom du service d'accessibilité).
+     * @param protectionActive session de concentration en cours, ou code du proche défini et non déverrouillé.
      */
     fun shouldClose(
         packageName: String,
         visibleTexts: Sequence<String>,
         protectedLabels: Set<String>,
-        sessionRunning: Boolean,
+        protectionActive: Boolean,
     ): Boolean {
-        if (!sessionRunning || packageName !in PROTECTED_PACKAGES) return false
+        if (!protectionActive || packageName !in PROTECTED_PACKAGES) return false
         return visibleTexts.any { text -> protectedLabels.any { text.contains(it, ignoreCase = true) } }
     }
 }

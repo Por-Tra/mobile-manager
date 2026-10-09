@@ -11,8 +11,11 @@ import com.lucas.mobilemanager.domain.rules.RuleAction
 import com.lucas.mobilemanager.domain.rules.Target
 import com.lucas.mobilemanager.domain.time.TimeProvider
 import com.lucas.mobilemanager.domain.zones.ZoneKey
+import com.lucas.mobilemanager.lock.AppLock
 import com.lucas.mobilemanager.zones.ZoneDetectorStore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.Duration
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -22,8 +25,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.Duration
-import javax.inject.Inject
 
 /** Réglage d'une zone dans les règles par défaut. */
 enum class ZoneSetting { BLOCKED, QUOTA, ALLOWED }
@@ -49,6 +50,7 @@ class ZoneRulesViewModel @Inject constructor(
     strictSessionRepository: StrictSessionRepository,
     zoneUsageRepository: ZoneUsageRepository,
     private val installedApps: InstalledApps,
+    private val appLock: AppLock,
     private val timeProvider: TimeProvider,
 ) : ViewModel() {
 
@@ -96,7 +98,7 @@ class ZoneRulesViewModel @Inject constructor(
      * (rien ne la restreint, sauf un profil).
      */
     fun setSetting(item: ZoneItem, setting: ZoneSetting, quotaMinutes: Int = item.quotaMinutes) {
-        if (state.value.locked) return
+        if (state.value.locked || !appLock.canModifyNow()) return
         viewModelScope.launch {
             val target = Target.Zone(item.packageName, item.zoneId)
             val others = profileRepository.observeGlobalRules().first().filterNot { it.target == target }

@@ -10,23 +10,28 @@ import com.lucas.mobilemanager.domain.rules.Rule
 import com.lucas.mobilemanager.domain.rules.RuleAction
 import com.lucas.mobilemanager.domain.rules.Target
 import com.lucas.mobilemanager.domain.time.TimeProvider
+import com.lucas.mobilemanager.lock.AppLock
+import com.lucas.mobilemanager.lock.LockStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.LocalTime
 import javax.inject.Inject
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val profileRepository: ProfileRepository,
     strictSessionRepository: StrictSessionRepository,
     timeProvider: TimeProvider,
+    private val appLock: AppLock,
 ) : ViewModel() {
+
+    val lockStatus: StateFlow<LockStatus?> = appLock.status.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     /** Pendant une session de concentration, les outils qui modifient les règles sont désactivés. */
     val sessionRunning: StateFlow<Boolean> = strictSessionRepository.observeCurrent()
@@ -35,6 +40,7 @@ class SettingsViewModel @Inject constructor(
 
     /** Crée (ou réinitialise) le profil de test, pour vérifier le blocage sans attendre les bonnes heures. */
     fun createTestProfile() {
+        if (!appLock.canModifyNow()) return
         viewModelScope.launch {
             val existingId = findTestProfileId() ?: 0L
             profileRepository.upsert(TEST_PROFILE.copy(id = existingId))
@@ -42,6 +48,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun deleteTestProfile() {
+        if (!appLock.canModifyNow()) return
         viewModelScope.launch { findTestProfileId()?.let { profileRepository.delete(it) } }
     }
 

@@ -19,10 +19,13 @@ import com.lucas.mobilemanager.domain.repository.ProfileRepository
 import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.time.ScheduleEvaluator
 import com.lucas.mobilemanager.domain.time.TimeProvider
+import com.lucas.mobilemanager.lock.AppLock
 import com.lucas.mobilemanager.permissions.PermissionChecker
 import com.lucas.mobilemanager.session.StrictSessionService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.time.Instant
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -31,8 +34,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.time.Instant
-import javax.inject.Inject
 
 data class ProfileItem(
     val profile: Profile,
@@ -54,6 +55,7 @@ class HomeViewModel @Inject constructor(
     private val deleteProfile: DeleteProfile,
     private val dashboardLoader: DashboardLoader,
     private val timeProvider: TimeProvider,
+    private val appLock: AppLock,
 ) : ViewModel() {
 
     private val _permissions = MutableStateFlow(OnboardingState.from(permissionChecker.currentStatuses()))
@@ -109,10 +111,16 @@ class HomeViewModel @Inject constructor(
     private suspend fun strictSessionRunning(): Boolean =
         strictSessionRepository.current()?.isRunning(timeProvider.now()) == true
 
-    /** Les règles ne se modifient pas pendant une session de concentration. */
-    private fun editable(action: suspend () -> Unit) {
+    /** Rien ne change pendant une session de concentration. */
+    private fun outsideSession(action: suspend () -> Unit) {
         if (session.value != null) return
         viewModelScope.launch { if (!strictSessionRunning()) action() }
+    }
+
+    /** Modifier les profils demande en plus le code du proche, s'il est défini. */
+    private fun editable(action: suspend () -> Unit) {
+        if (!appLock.canModifyNow()) return
+        outsideSession(action)
     }
 
     fun setEnabled(profileId: Long, enabled: Boolean) = editable {
@@ -120,13 +128,13 @@ class HomeViewModel @Inject constructor(
     }
 
     /** Remplace l'éventuelle activation manuelle en cours ; un profil désactivé est réactivé. */
-    fun activateManually(profile: Profile, duration: ManualDuration) = editable {
+    fun activateManually(profile: Profile, duration: ManualDuration) = outsideSession {
         if (!profile.enabled) profileRepository.setEnabled(profile.id, true)
         manualActivationRepository.activate(profile.id, ManualActivationPolicy.until(duration, timeProvider.localNow()))
     }
 
     /** Désactivable à tout moment (l'engagement ferme, c'est la session de concentration). */
-    fun deactivateManual() = editable { manualActivationRepository.clear() }
+    fun deactivateManual() = outsideSession { manualActivationRepository.clear() }
 
     fun move(profileId: Long, offset: Int) = editable {
         val ordered = profiles.value.map { it.profile }

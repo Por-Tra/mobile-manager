@@ -8,8 +8,10 @@ import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.time.TimeProvider
 import com.lucas.mobilemanager.domain.zones.UiNode
 import com.lucas.mobilemanager.domain.zones.ZoneDetectorParser
+import com.lucas.mobilemanager.lock.AppLock
 import com.lucas.mobilemanager.zones.ZoneDetectorStore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +19,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /** Résultat de la dernière action sur l'éditeur de détecteurs. */
 sealed interface EditorMessage {
@@ -29,6 +30,7 @@ sealed interface EditorMessage {
 
 @HiltViewModel
 class DiagnosticViewModel @Inject constructor(
+    private val appLock: AppLock,
     private val diagnosticStore: DiagnosticStore,
     private val detectorStore: ZoneDetectorStore,
     strictSessionRepository: StrictSessionRepository,
@@ -71,7 +73,7 @@ class DiagnosticViewModel @Inject constructor(
     }
 
     fun save() {
-        if (locked.value) return
+        if (locked.value || !appLock.canModifyNow()) return
         viewModelScope.launch {
             _message.value = when (val result = detectorStore.save(editorText.value)) {
                 is ZoneDetectorParser.Result.Valid -> EditorMessage.Saved
@@ -81,7 +83,7 @@ class DiagnosticViewModel @Inject constructor(
     }
 
     fun reset() {
-        if (locked.value) return
+        if (locked.value || !appLock.canModifyNow()) return
         viewModelScope.launch {
             detectorStore.reset()
             _editorText.value = detectorStore.currentText()

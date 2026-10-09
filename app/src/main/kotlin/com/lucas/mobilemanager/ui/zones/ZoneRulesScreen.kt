@@ -38,6 +38,8 @@ import com.lucas.mobilemanager.ui.apps.AppIcon
 import com.lucas.mobilemanager.ui.components.LIMIT_OPTIONS
 import com.lucas.mobilemanager.ui.components.LimitPicker
 import com.lucas.mobilemanager.ui.format.Formats
+import com.lucas.mobilemanager.ui.lock.LockBanner
+import com.lucas.mobilemanager.ui.lock.rememberCanModify
 import java.time.Duration
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,6 +50,7 @@ fun ZoneRulesScreen(
     viewModel: ZoneRulesViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val readOnly = state.locked || !rememberCanModify()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -64,9 +67,10 @@ fun ZoneRulesScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             item { Caption(stringResource(R.string.zones_intro)) }
+            item { LockBanner() }
             if (state.locked) item { Caption(stringResource(R.string.locked_during_session)) }
             items(state.zones, key = { "${it.packageName}/${it.zoneId}" }) { zone ->
-                ZoneRow(zone, enabled = !state.locked, onSetting = { setting, minutes -> viewModel.setSetting(zone, setting, minutes) })
+                ZoneRow(zone, enabled = !readOnly, onSetting = { setting, minutes -> viewModel.setSetting(zone, setting, minutes) })
             }
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {

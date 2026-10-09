@@ -45,6 +45,8 @@ import java.time.ZoneId
 fun ProfileCard(
     item: ProfileItem,
     editable: Boolean,
+    /** Activer ou désactiver à la main (libre, sauf pendant une session). */
+    canActivate: Boolean,
     canMoveUp: Boolean,
     canMoveDown: Boolean,
     onOpen: () -> Unit,
@@ -60,7 +62,7 @@ fun ProfileCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(enabled = editable, onClick = onOpen),
+            .clickable(enabled = canActivate, onClick = onOpen),
     ) {
         Row(
             modifier = Modifier.padding(start = 16.dp, top = 12.dp, bottom = 12.dp, end = 4.dp),
@@ -90,7 +92,7 @@ fun ProfileCard(
                         modifier = Modifier.padding(top = 4.dp),
                     )
                 }
-                if (item.manual && editable) {
+                if (item.manual && canActivate) {
                     TextButton(onClick = onDeactivate, contentPadding = PaddingValues(0.dp)) {
                         Text(stringResource(R.string.profile_manual_deactivate))
                     }
@@ -98,7 +100,7 @@ fun ProfileCard(
             }
             Switch(checked = item.profile.enabled, onCheckedChange = onToggle, enabled = editable)
             Box {
-                IconButton(onClick = { menuOpen = true }, enabled = editable) {
+                IconButton(onClick = { menuOpen = true }, enabled = canActivate) {
                     Icon(Icons.Filled.MoreVert, stringResource(R.string.profile_menu))
                 }
                 DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
@@ -114,15 +116,15 @@ fun ProfileCard(
                     DropdownMenuItem(text = { Text(stringResource(R.string.profile_edit)) }, onClick = close(onOpen))
                     DropdownMenuItem(
                         text = { Text(stringResource(R.string.profile_move_up)) },
-                        enabled = canMoveUp,
+                        enabled = editable && canMoveUp,
                         onClick = close(onMoveUp),
                     )
                     DropdownMenuItem(
                         text = { Text(stringResource(R.string.profile_move_down)) },
-                        enabled = canMoveDown,
+                        enabled = editable && canMoveDown,
                         onClick = close(onMoveDown),
                     )
-                    DropdownMenuItem(text = { Text(stringResource(R.string.profile_delete)) }, onClick = close(onDelete))
+                    DropdownMenuItem(text = { Text(stringResource(R.string.profile_delete)) }, enabled = editable, onClick = close(onDelete))
                 }
             }
         }

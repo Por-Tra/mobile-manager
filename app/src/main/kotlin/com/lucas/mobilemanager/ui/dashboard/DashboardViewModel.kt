@@ -6,10 +6,12 @@ import com.lucas.mobilemanager.apps.InstalledApps
 import com.lucas.mobilemanager.dashboard.DashboardLoader
 import com.lucas.mobilemanager.domain.dashboard.DashboardSummary
 import com.lucas.mobilemanager.domain.dashboard.Period
-import com.lucas.mobilemanager.domain.zones.ZoneKey
 import com.lucas.mobilemanager.domain.repository.UserPreferencesRepository
+import com.lucas.mobilemanager.domain.zones.ZoneKey
+import com.lucas.mobilemanager.lock.AppLock
 import com.lucas.mobilemanager.zones.ZoneDetectorStore
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +19,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 data class DashboardUiState(
     val period: Period = Period.TODAY,
@@ -31,6 +32,7 @@ data class DashboardUiState(
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
+    private val appLock: AppLock,
     private val loader: DashboardLoader,
     private val preferencesRepository: UserPreferencesRepository,
     private val installedApps: InstalledApps,
@@ -67,6 +69,7 @@ class DashboardViewModel @Inject constructor(
     }
 
     fun setGoal(minutes: Int?) {
+        if (!appLock.canModifyNow()) return
         viewModelScope.launch {
             preferencesRepository.setScreenTimeGoal(minutes)
             refresh()

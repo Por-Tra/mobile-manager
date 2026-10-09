@@ -217,6 +217,37 @@
     <string name="profile_error_limit">Une limite va de 1 min à 10 h.</string>
     <string name="profile_error_duplicate">Une même app apparaît deux fois.</string>
 
+    <!-- Code du proche -->
+    <string name="lock_title">Code du proche</string>
+    <string name="lock_entry_body_off">Aucun code : tout est modifiable</string>
+    <string name="lock_entry_body_on">Défini : modifier les restrictions demande le code</string>
+    <string name="lock_intro">Un proche choisit un code de 4 à 8 chiffres. Ensuite, modifier les profils, les règles par défaut, les zones et quotas, les détecteurs ou l\'objectif demande ce code. Démarrer une session de concentration ou activer un profil reste libre.</string>
+    <string name="lock_banner_locked">Protégé par le code du proche</string>
+    <string name="lock_banner_unlocked">Déverrouillé jusqu\'à %1$s</string>
+    <string name="lock_unlock">Déverrouiller</string>
+    <string name="lock_lock_now">Verrouiller</string>
+    <string name="lock_dialog_title">Code du proche</string>
+    <string name="lock_dialog_hint">Code</string>
+    <string name="lock_confirm">Valider</string>
+    <string name="lock_checking">Vérification…</string>
+    <string name="lock_wrong">Code incorrect. Essais avant une attente : %1$d.</string>
+    <string name="lock_locked_out">Trop d\'essais. Nouvel essai possible à %1$s.</string>
+    <string name="lock_set">Définir le code</string>
+    <string name="lock_change">Modifier le code</string>
+    <string name="lock_remove">Retirer le code</string>
+    <string name="lock_remove_body">Sans code, tout redevient modifiable librement.</string>
+    <string name="lock_new_intro">À saisir par le proche, idéalement hors de ta vue.</string>
+    <string name="lock_new_pin">Nouveau code (4 à 8 chiffres)</string>
+    <string name="lock_confirm_pin">Confirmer le code</string>
+    <string name="lock_invalid">Le code doit compter 4 à 8 chiffres.</string>
+    <string name="lock_mismatch">Les deux codes ne correspondent pas.</string>
+    <string name="lock_saved">Code enregistré. Les modifications restent possibles pendant 5 min.</string>
+    <string name="lock_removed">Code retiré.</string>
+    <string name="lock_protects_settings">Tant que le code est défini, les écrans des Paramètres qui permettraient de couper Mobile Manager (infos de l\'app, accessibilité, désinstallation) se referment, sauf pendant les 5 minutes qui suivent la saisie du code.</string>
+    <string name="lock_forgot">En cas d\'oubli, seule la désinstallation de l\'app permet de repartir de zéro (toutes les règles sont alors perdues).</string>
+    <string name="lock_limits">Comme le reste, le code ajoute de la friction sans verrouiller le téléphone : le mode sans échec ou un ordinateur permettent toujours de passer outre.</string>
+    <string name="protected_screen_locked">Protégé par le code du proche</string>
+
     <!-- Zones et quotas -->
     <string name="zones_title">Zones et quotas</string>
     <string name="zones_entry_body">Reels, Shorts : bloqués ou limités chaque jour</string>

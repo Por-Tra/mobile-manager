@@ -53,6 +53,7 @@ import com.lucas.mobilemanager.domain.dashboard.DashboardSummary
 import com.lucas.mobilemanager.domain.dashboard.Period
 import com.lucas.mobilemanager.ui.apps.AppIcon
 import com.lucas.mobilemanager.ui.format.Formats
+import com.lucas.mobilemanager.ui.lock.rememberCanModify
 import java.time.Duration
 
 /**
@@ -64,6 +65,7 @@ import java.time.Duration
 fun DashboardScreen(onBack: () -> Unit, viewModel: DashboardViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     var pickingGoal by remember { mutableStateOf(false) }
+    val canModify = rememberCanModify()
 
     LifecycleResumeEffect(Unit) {
         viewModel.refresh()
@@ -138,7 +140,7 @@ fun DashboardScreen(onBack: () -> Unit, viewModel: DashboardViewModel = hiltView
             }
             item { ZonesSection(summary, state, state.period) }
             item { InterruptionsSection(summary) }
-            item { GoalsSection(summary, goal, state.period, onPickGoal = { pickingGoal = true }) }
+            item { GoalsSection(summary, goal, state.period, canChangeGoal = canModify, onPickGoal = { pickingGoal = true }) }
         }
     }
 
@@ -237,7 +239,7 @@ private fun InterruptionsSection(summary: DashboardSummary) {
 }
 
 @Composable
-private fun GoalsSection(summary: DashboardSummary, goal: Duration?, period: Period, onPickGoal: () -> Unit) {
+private fun GoalsSection(summary: DashboardSummary, goal: Duration?, period: Period, canChangeGoal: Boolean, onPickGoal: () -> Unit) {
     val goals = summary.goals
     Section(stringResource(R.string.dashboard_goals)) {
         if (goal == null) {
@@ -252,7 +254,8 @@ private fun GoalsSection(summary: DashboardSummary, goal: Duration?, period: Per
         } else {
             Line(stringResource(R.string.dashboard_goal_week, goals.daysUnderGoal ?: 0, goals.daysWithData, Formats.duration(goal)))
         }
-        TextButton(onClick = onPickGoal, contentPadding = PaddingValues(0.dp)) {
+        if (!canChangeGoal) Caption(stringResource(R.string.lock_banner_locked))
+        TextButton(onClick = onPickGoal, enabled = canChangeGoal, contentPadding = PaddingValues(0.dp)) {
             Text(stringResource(if (goal == null) R.string.dashboard_goal_set else R.string.dashboard_goal_change))
         }
         Line(

@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.lucas.mobilemanager.ui.dashboard.DashboardScreen
 import com.lucas.mobilemanager.ui.diagnostic.DiagnosticScreen
 import com.lucas.mobilemanager.ui.home.HomeScreen
+import com.lucas.mobilemanager.ui.lock.LockSettingsScreen
 import com.lucas.mobilemanager.ui.onboarding.OnboardingScreen
 import com.lucas.mobilemanager.ui.profiles.ProfileEditScreen
 import com.lucas.mobilemanager.ui.session.OverrideScreen
@@ -33,6 +34,9 @@ data object OverrideRoute
 
 @Serializable
 data object ZoneRulesRoute
+
+@Serializable
+data object LockSettingsRoute
 
 @Serializable
 data object DiagnosticRoute
@@ -95,6 +99,7 @@ fun MobileManagerNavHost(startDestination: Any, openDiagnostic: Boolean = false)
                 onBack = { navController.popBackStack() },
                 onOpenPermissions = { navController.navigate(OnboardingRoute) },
                 onOpenZones = { navController.navigate(ZoneRulesRoute) },
+                onOpenLock = { navController.navigate(LockSettingsRoute) },
                 onOpenDiagnostic = { navController.navigate(DiagnosticRoute) },
             )
         }
@@ -103,6 +108,9 @@ fun MobileManagerNavHost(startDestination: Any, openDiagnostic: Boolean = false)
                 onBack = { navController.popBackStack() },
                 onOpenDefaultRules = { navController.navigate(ProfileEditRoute(defaultRules = true)) },
             )
+        }
+        composable<LockSettingsRoute> {
+            LockSettingsScreen(onBack = { navController.popBackStack() })
         }
         composable<DiagnosticRoute> {
             DiagnosticScreen(onBack = { navController.popBackStack() })

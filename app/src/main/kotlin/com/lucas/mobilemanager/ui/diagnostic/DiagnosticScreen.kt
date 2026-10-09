@@ -48,6 +48,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lucas.mobilemanager.R
 import com.lucas.mobilemanager.domain.zones.UiNode
 import com.lucas.mobilemanager.ui.format.Formats
+import com.lucas.mobilemanager.ui.lock.LockBanner
+import com.lucas.mobilemanager.ui.lock.rememberCanModify
 import java.time.ZoneId
 
 /**
@@ -63,6 +65,7 @@ fun DiagnosticScreen(onBack: () -> Unit, viewModel: DiagnosticViewModel = hiltVi
     val message by viewModel.message.collectAsStateWithLifecycle()
     val isCustom by viewModel.isCustom.collectAsStateWithLifecycle()
     val locked by viewModel.locked.collectAsStateWithLifecycle()
+    val readOnly = locked || !rememberCanModify()
     val context = LocalContext.current
     val resources = LocalResources.current
 
@@ -125,6 +128,7 @@ fun DiagnosticScreen(onBack: () -> Unit, viewModel: DiagnosticViewModel = hiltVi
                 Title(stringResource(R.string.diagnostic_editor_title))
                 Caption(stringResource(if (isCustom) R.string.diagnostic_editor_custom else R.string.diagnostic_editor_shipped))
                 if (locked) Caption(stringResource(R.string.locked_during_session))
+                LockBanner(Modifier.padding(top = 8.dp))
             }
             item {
                 OutlinedTextField(
@@ -155,8 +159,8 @@ fun DiagnosticScreen(onBack: () -> Unit, viewModel: DiagnosticViewModel = hiltVi
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedButton(onClick = viewModel::check) { Text(stringResource(R.string.diagnostic_editor_check)) }
-                    Button(onClick = viewModel::save, enabled = !locked) { Text(stringResource(R.string.diagnostic_editor_save)) }
-                    TextButton(onClick = viewModel::reset, enabled = !locked && isCustom) {
+                    Button(onClick = viewModel::save, enabled = !readOnly) { Text(stringResource(R.string.diagnostic_editor_save)) }
+                    TextButton(onClick = viewModel::reset, enabled = !readOnly && isCustom) {
                         Text(stringResource(R.string.diagnostic_editor_reset))
                     }
                 }

@@ -1,5 +1,6 @@
 package com.lucas.mobilemanager.domain.repository
 
+import com.lucas.mobilemanager.domain.lock.LockConfig
 import com.lucas.mobilemanager.domain.model.EventLogEntry
 import com.lucas.mobilemanager.domain.model.ManualActivation
 import com.lucas.mobilemanager.domain.model.Profile
@@ -104,4 +105,11 @@ interface ZoneUsageRepository {
 
     /** Temps par zone pour chaque jour de [from, to] (inclus) qui en a. */
     suspend fun usageBetween(from: LocalDate, to: LocalDate): Map<LocalDate, Map<ZoneKey, Duration>>
+}
+
+/** Code du proche (empreinte, sel, essais) ; `null` = aucun code défini. */
+interface LockRepository {
+    val config: Flow<LockConfig?>
+
+    suspend fun save(config: LockConfig?)
 }

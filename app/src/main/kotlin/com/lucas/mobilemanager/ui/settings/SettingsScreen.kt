@@ -1,20 +1,26 @@
 package com.lucas.mobilemanager.ui.settings
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.Layers
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Security
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,10 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.TextButton
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lucas.mobilemanager.BuildConfig
@@ -38,6 +40,7 @@ fun SettingsScreen(
     onBack: () -> Unit,
     onOpenPermissions: () -> Unit,
     onOpenZones: () -> Unit,
+    onOpenLock: () -> Unit,
     onOpenDiagnostic: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
@@ -68,6 +71,15 @@ fun SettingsScreen(
                 leadingContent = { Icon(Icons.Outlined.Security, contentDescription = null) },
                 modifier = Modifier.clickable(onClick = onOpenPermissions),
             )
+            val lockStatus by viewModel.lockStatus.collectAsStateWithLifecycle()
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.lock_title)) },
+                supportingContent = {
+                    Text(stringResource(if (lockStatus?.isSet == true) R.string.lock_entry_body_on else R.string.lock_entry_body_off))
+                },
+                leadingContent = { Icon(Icons.Outlined.Lock, contentDescription = null) },
+                modifier = Modifier.clickable(onClick = onOpenLock),
+            )
             ListItem(
                 headlineContent = { Text(stringResource(R.string.zones_title)) },
                 supportingContent = { Text(stringResource(R.string.zones_entry_body)) },
@@ -88,7 +100,11 @@ fun SettingsScreen(
             if (BuildConfig.DEBUG) {
                 val sessionRunning by viewModel.sessionRunning.collectAsStateWithLifecycle()
                 DebugTools(
-                    enabled = !sessionRunning,
+                    lockedReason = when {
+                        sessionRunning -> R.string.locked_during_session
+                        lockStatus?.canModify != true -> R.string.lock_banner_locked
+                        else -> null
+                    },
                     onCreateTestProfile = viewModel::createTestProfile,
                     onDeleteTestProfile = viewModel::deleteTestProfile,
                 )
@@ -104,7 +120,8 @@ fun SettingsScreen(
 }
 
 @Composable
-private fun DebugTools(enabled: Boolean, onCreateTestProfile: () -> Unit, onDeleteTestProfile: () -> Unit) {
+private fun DebugTools(@StringRes lockedReason: Int?, onCreateTestProfile: () -> Unit, onDeleteTestProfile: () -> Unit) {
+    val enabled = lockedReason == null
     Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
         Text(stringResource(R.string.settings_debug_title), style = MaterialTheme.typography.titleSmall)
         Text(
@@ -112,9 +129,9 @@ private fun DebugTools(enabled: Boolean, onCreateTestProfile: () -> Unit, onDele
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        if (!enabled) {
+        if (lockedReason != null) {
             Text(
-                stringResource(R.string.locked_during_session),
+                stringResource(lockedReason),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

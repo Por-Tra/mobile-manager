@@ -63,9 +63,11 @@ import com.lucas.mobilemanager.domain.profiles.ProfileValidator
 import com.lucas.mobilemanager.ui.apps.AppIcon
 import com.lucas.mobilemanager.ui.apps.AppSearchField
 import com.lucas.mobilemanager.ui.apps.appPickerItems
-import com.lucas.mobilemanager.ui.components.TimePickerDialog
 import com.lucas.mobilemanager.ui.components.LimitPicker
+import com.lucas.mobilemanager.ui.components.TimePickerDialog
 import com.lucas.mobilemanager.ui.format.Formats
+import com.lucas.mobilemanager.ui.lock.LockBanner
+import com.lucas.mobilemanager.ui.lock.rememberCanModify
 import java.time.DayOfWeek
 import java.time.Duration
 import java.time.LocalTime
@@ -80,6 +82,8 @@ fun ProfileEditScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(state.saved) { if (state.saved) onBack() }
+    // Lecture seule pendant une session, ou tant que le code du proche n'a pas été saisi.
+    val readOnly = state.locked || !rememberCanModify()
 
     val title = when {
         state.isDefaultRules -> R.string.profile_edit_default_rules
@@ -100,13 +104,14 @@ fun ProfileEditScreen(
         },
         bottomBar = {
             Column(Modifier.navigationBarsPadding().padding(horizontal = 20.dp, vertical = 12.dp)) {
+                LockBanner(Modifier.padding(bottom = 8.dp))
                 if (state.locked) {
                     Text(stringResource(R.string.locked_during_session), color = MaterialTheme.colorScheme.tertiary)
                 }
                 state.errors.forEach { Text(errorText(it), color = MaterialTheme.colorScheme.tertiary) }
                 Button(
                     onClick = viewModel::save,
-                    enabled = !state.locked && !state.loading,
+                    enabled = !readOnly && !state.loading,
                     modifier = Modifier.fillMaxWidth(),
                 ) { Text(stringResource(R.string.profile_edit_save)) }
             }
@@ -131,7 +136,7 @@ fun ProfileEditScreen(
                         onValueChange = viewModel::setName,
                         label = { Text(stringResource(R.string.profile_edit_name)) },
                         singleLine = true,
-                        enabled = !state.locked,
+                        enabled = !readOnly,
                         modifier = Modifier.fillMaxWidth(),
                     )
                 }
@@ -140,7 +145,7 @@ fun ProfileEditScreen(
                         title = stringResource(R.string.profile_edit_auto),
                         caption = if (draft.autoActivation) null else stringResource(R.string.profile_edit_manual_only),
                         checked = draft.autoActivation,
-                        enabled = !state.locked,
+                        enabled = !readOnly,
                         onChange = viewModel::setAutoActivation,
                     )
                 }
@@ -149,7 +154,7 @@ fun ProfileEditScreen(
                     itemsIndexed(draft.schedules) { index, schedule ->
                         ScheduleCard(
                             schedule = schedule,
-                            enabled = !state.locked,
+                            enabled = !readOnly,
                             onToggleDay = { viewModel.toggleDay(index, it) },
                             onSetDays = { viewModel.setDays(index, it) },
                             onStart = { viewModel.setStart(index, it) },
@@ -158,7 +163,7 @@ fun ProfileEditScreen(
                         )
                     }
                     item {
-                        TextButton(onClick = viewModel::addSchedule, enabled = !state.locked) {
+                        TextButton(onClick = viewModel::addSchedule, enabled = !readOnly) {
                             Icon(Icons.Filled.Add, contentDescription = null)
                             Spacer(Modifier.width(4.dp))
                             Text(stringResource(R.string.profile_edit_add_schedule))
@@ -170,7 +175,7 @@ fun ProfileEditScreen(
                         title = stringResource(R.string.profile_edit_block_all),
                         caption = stringResource(R.string.profile_edit_block_all_help),
                         checked = draft.blockAll,
-                        enabled = !state.locked,
+                        enabled = !readOnly,
                         onChange = viewModel::setBlockAll,
                     )
                 }
@@ -186,14 +191,14 @@ fun ProfileEditScreen(
             itemsIndexed(draft.appRules, key = { _, rule -> rule.packageName }) { _, rule ->
                 AppRuleRow(
                     rule = rule,
-                    enabled = !state.locked,
+                    enabled = !readOnly,
                     onChoice = { viewModel.setChoice(rule.packageName, it) },
                     onLimit = { viewModel.setLimit(rule.packageName, it) },
                     onRemove = { viewModel.removeApp(rule.packageName) },
                 )
             }
             item {
-                OutlinedButton(onClick = viewModel::openPicker, enabled = !state.locked) {
+                OutlinedButton(onClick = viewModel::openPicker, enabled = !readOnly) {
                     Icon(Icons.Filled.Add, contentDescription = null)
                     Spacer(Modifier.width(4.dp))
                     Text(stringResource(R.string.profile_edit_add_apps))

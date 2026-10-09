@@ -16,18 +16,19 @@ import com.lucas.mobilemanager.domain.rules.Rule
 import com.lucas.mobilemanager.domain.rules.RuleAction
 import com.lucas.mobilemanager.domain.rules.Target
 import com.lucas.mobilemanager.domain.time.TimeProvider
+import com.lucas.mobilemanager.lock.AppLock
 import com.lucas.mobilemanager.navigation.ProfileEditRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.DayOfWeek
+import java.time.Duration
+import java.time.LocalTime
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.DayOfWeek
-import java.time.Duration
-import java.time.LocalTime
-import javax.inject.Inject
 
 enum class RuleChoice { BLOCK, LIMIT, ALLOW }
 
@@ -69,6 +70,7 @@ data class ProfileEditState(
 /** Création / édition d'un profil, ou des règles par défaut (même éditeur, sans nom ni plages). */
 @HiltViewModel
 class ProfileEditViewModel @Inject constructor(
+    private val appLock: AppLock,
     savedStateHandle: SavedStateHandle,
     private val profileRepository: ProfileRepository,
     private val strictSessionRepository: StrictSessionRepository,
@@ -212,7 +214,7 @@ class ProfileEditViewModel @Inject constructor(
 
     fun save() {
         val current = state.value
-        if (current.locked || current.loading) return
+        if (current.locked || current.loading || !appLock.canModifyNow()) return
         viewModelScope.launch {
             val rules = buildRules(current.draft)
             if (current.isDefaultRules) {

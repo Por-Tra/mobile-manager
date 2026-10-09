@@ -12,29 +12,32 @@ import android.os.SystemClock
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
-import android.widget.Toast
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.lucas.mobilemanager.block.BlockActivity
-import com.lucas.mobilemanager.block.BlockScreenArgs
 import com.lucas.mobilemanager.BuildConfig
 import com.lucas.mobilemanager.MainActivity
+import com.lucas.mobilemanager.R
+import com.lucas.mobilemanager.block.BlockActivity
+import com.lucas.mobilemanager.block.BlockScreenArgs
 import com.lucas.mobilemanager.diagnostic.DiagnosticOverlay
 import com.lucas.mobilemanager.diagnostic.DiagnosticStore
-import com.lucas.mobilemanager.domain.time.TimeProvider
-import com.lucas.mobilemanager.zones.ZoneDetectorStore
-import com.lucas.mobilemanager.zones.ZoneEnforcer
-import com.lucas.mobilemanager.zones.ZoneUsageRecorder
-import com.lucas.mobilemanager.R
 import com.lucas.mobilemanager.domain.foreground.ForegroundTracker
 import com.lucas.mobilemanager.domain.foreground.HomePanels
 import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.rules.Decision
-import com.lucas.mobilemanager.domain.session.ProtectedScreenDetector
 import com.lucas.mobilemanager.domain.rules.EnforcementPolicy
+import com.lucas.mobilemanager.domain.session.ProtectedScreenDetector
+import com.lucas.mobilemanager.domain.time.TimeProvider
 import com.lucas.mobilemanager.enforcement.EnforcementCoordinator
+import com.lucas.mobilemanager.lock.AppLock
 import com.lucas.mobilemanager.ui.format.Formats
+import com.lucas.mobilemanager.zones.ZoneDetectorStore
+import com.lucas.mobilemanager.zones.ZoneEnforcer
+import com.lucas.mobilemanager.zones.ZoneUsageRecorder
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.ZoneId
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -44,8 +47,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.ZoneId
-import javax.inject.Inject
 
 /**
  * Source de vérité de l'app au premier plan. Ne lit que le nom du package de la fenêtre,
@@ -59,6 +60,7 @@ class MonitorAccessibilityService : AccessibilityService() {
     @Inject lateinit var diagnosticStore: DiagnosticStore
     @Inject lateinit var timeProvider: TimeProvider
     @Inject lateinit var zoneUsageRecorder: ZoneUsageRecorder
+    @Inject lateinit var appLock: AppLock
 
     private lateinit var zoneEnforcer: ZoneEnforcer
 
@@ -169,18 +171,20 @@ class MonitorAccessibilityService : AccessibilityService() {
     }
 
     /**
-     * Pendant une session, referme les écrans des Paramètres / de désinstallation qui affichent
-     * Mobile Manager. Regroupe les rafales d'événements de contenu en une seule vérification.
+     * Pendant une session, ou tant que le code du proche verrouille l'app, referme les écrans des
+     * Paramètres / de désinstallation qui affichent Mobile Manager (sinon couper le service
+     * suffirait à tout contourner). Regroupe les rafales d'événements en une seule vérification.
      */
     private fun scheduleProtectedScreenCheck(pkg: String) {
-        val session = coordinator.runningSession() ?: return
+        val session = coordinator.runningSession()
+        if (session == null && !appLock.protectsSettingsNow()) return
         protectedCheckJob?.cancel()
         protectedCheckJob = scope.launch {
             delay(PROTECTED_CHECK_DEBOUNCE_MS)
             val root = rootInActiveWindow ?: return@launch
             if (root.packageName?.toString() != pkg) return@launch
             val labels = setOf(getString(R.string.app_name), getString(R.string.accessibility_service_label))
-            if (ProtectedScreenDetector.shouldClose(pkg, visibleTexts(root), labels, sessionRunning = true)) {
+            if (ProtectedScreenDetector.shouldClose(pkg, visibleTexts(root), labels, protectionActive = true)) {
                 performGlobalAction(GLOBAL_ACTION_BACK)
                 showProtectedToast(session)
             }
@@ -200,12 +204,16 @@ class MonitorAccessibilityService : AccessibilityService() {
         }
     }
 
-    private fun showProtectedToast(session: StrictSession) {
+    private fun showProtectedToast(session: StrictSession?) {
         val nowMs = SystemClock.elapsedRealtime()
         if (nowMs - lastProtectedToastAtMs < PROTECTED_TOAST_INTERVAL_MS) return
         lastProtectedToastAtMs = nowMs
-        val endTime = Formats.TIME.format(session.endsAt.atZone(ZoneId.systemDefault()))
-        Toast.makeText(this, getString(R.string.protected_screen_closed, endTime), Toast.LENGTH_SHORT).show()
+        val text = if (session != null) {
+            getString(R.string.protected_screen_closed, Formats.TIME.format(session.endsAt.atZone(ZoneId.systemDefault())))
+        } else {
+            getString(R.string.protected_screen_locked)
+        }
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
     /** Évalue [pkg] maintenant, puis régulièrement tant qu'il reste au premier plan. */

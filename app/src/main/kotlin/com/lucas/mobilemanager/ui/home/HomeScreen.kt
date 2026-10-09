@@ -13,8 +13,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.BarChart
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -42,10 +42,12 @@ import com.lucas.mobilemanager.R
 import com.lucas.mobilemanager.domain.dashboard.DashboardSummary
 import com.lucas.mobilemanager.domain.dashboard.Period
 import com.lucas.mobilemanager.domain.model.Profile
-import com.lucas.mobilemanager.ui.dashboard.comparisonText
 import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.onboarding.OnboardingState
+import com.lucas.mobilemanager.ui.dashboard.comparisonText
 import com.lucas.mobilemanager.ui.format.Formats
+import com.lucas.mobilemanager.ui.lock.LockBanner
+import com.lucas.mobilemanager.ui.lock.rememberCanModify
 import com.lucas.mobilemanager.ui.theme.LocalExtendedColors
 import java.time.ZoneId
 
@@ -68,7 +70,9 @@ fun HomeScreen(
     val today by viewModel.today.collectAsStateWithLifecycle()
     var activating by remember { mutableStateOf<Profile?>(null) }
     var deleting by remember { mutableStateOf<Profile?>(null) }
-    val editable = session == null
+    // Activer un profil reste libre ; le modifier demande le code du proche, s'il est défini.
+    val canActivate = session == null
+    val editable = canActivate && rememberCanModify()
 
     LifecycleResumeEffect(Unit) {
         viewModel.refresh()
@@ -114,11 +118,13 @@ fun HomeScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
+                LockBanner(Modifier.padding(top = 8.dp))
             }
             itemsIndexed(profiles, key = { _, item -> item.profile.id }) { index, item ->
                 ProfileCard(
                     item = item,
                     editable = editable,
+                    canActivate = canActivate,
                     canMoveUp = index > 0,
                     canMoveDown = index < profiles.lastIndex,
                     onOpen = { onEditProfile(item.profile.id) },
@@ -135,7 +141,7 @@ fun HomeScreen(
                     OutlinedButton(onClick = onNewProfile, enabled = editable) {
                         Text(stringResource(R.string.home_new_profile))
                     }
-                    TextButton(onClick = onEditDefaultRules, enabled = editable) {
+                    TextButton(onClick = onEditDefaultRules, enabled = canActivate) {
                         Text(stringResource(R.string.home_default_rules))
                     }
                 }
