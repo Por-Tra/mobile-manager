@@ -75,6 +75,25 @@ object ZoneMatcher {
         return null
     }
 
+    /**
+     * Identifiants complets (`pkg:id/nom`) à demander directement à l'app quand tous ses
+     * signaux (`anyOf`, `noneOf`, `hide`) et ses sorties par clic portent sur un identifiant
+     * exact : quelques requêtes ciblées remplacent alors le parcours de tout l'arbre (chaque nœud
+     * lu est un aller-retour vers l'app). `null` si un signal exige le parcours complet.
+     */
+    fun exactViewIds(file: ZoneDetectorFile, packageName: String): Set<String>? {
+        val zones = file.zonesFor(packageName).ifEmpty { return null }
+        val ids = mutableSetOf<String>()
+        for (zone in zones) {
+            for (signal in zone.anyOf + zone.noneOf + zone.hide) ids += signal.viewId ?: return null
+            for (action in zone.exit) {
+                if (action.back) continue
+                ids += action.clickViewId ?: return null
+            }
+        }
+        return ids.mapTo(mutableSetOf()) { if (":id/" in it) it else "$packageName:id/$it" }
+    }
+
     /** Indices des points d'entrée visibles de [zone] à masquer (signaux `hide`). */
     fun entryPoints(zone: ZoneDefinition, nodes: List<UiNode>): List<Int> =
         if (zone.hide.isEmpty()) emptyList() else nodes.indices.filter { i -> zone.hide.any { it.matches(nodes[i]) } }

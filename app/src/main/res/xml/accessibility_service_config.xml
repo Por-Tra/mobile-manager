@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    typeWindowContentChanged : nécessaire pour repérer les écrans protégés des Paramètres pendant une
-    session (le service ignore immédiatement les événements des autres apps).
+    typeWindowContentChanged : nécessaire pour repérer les écrans protégés des Paramètres et les zones
+    (Reels, Shorts) ; le service ignore immédiatement les événements des autres apps.
+    notificationTimeout : regroupe les événements de contenu d'une même fenêtre (250 ms) pendant
+    un défilement, sans retarder sensiblement la sortie d'une zone.
 -->
 <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
     android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged"
@@ -9,4 +11,4 @@
     android:accessibilityFlags="flagReportViewIds|flagRetrieveInteractiveWindows"
     android:canRetrieveWindowContent="true"
     android:description="@string/accessibility_service_description"
-    android:notificationTimeout="100" />
+    android:notificationTimeout="250" />

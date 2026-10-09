@@ -60,14 +60,27 @@ class ZoneEnforcer(
     /** Dernière décision par zone (`pkg/zone`) et son heure, pour ne pas réévaluer à chaque événement. */
     private val zoneDecisions = HashMap<String, Pair<Decision, Long>>()
 
-    /** Changement de fenêtre ou de contenu. Les rafales sont regroupées (≤ 1 vérification / 300 ms). */
-    fun onEvent(packageName: String) {
+    /** Contenu identique aux vérifications précédentes : on espace les suivantes (défilement du fil). */
+    private var lastSignature: Any? = null
+    private var unchangedChecks = 0
+
+    /**
+     * Changement de fenêtre ou de contenu. Les rafales sont regroupées : une vérification toutes
+     * les 400 ms, espacées jusqu'à 1,2 s tant que l'écran ne change pas (zone, boutons).
+     */
+    fun onEvent(packageName: String, windowChanged: Boolean) {
         val watched = packageName in detectorStore.detectors.value.packages
         // Un masque affiché doit disparaître si une autre fenêtre (volet…) passe devant.
         if (!watched && overlay == null && !maskShown) return
+        if (windowChanged) unchangedChecks = 0
         if (checkJob?.isActive == true) return
+        val interval = when {
+            unchangedChecks >= SLOWEST_AFTER -> SLOWEST_CHECK_DELAY_MS
+            unchangedChecks >= SLOWER_AFTER -> SLOWER_CHECK_DELAY_MS
+            else -> CHECK_DELAY_MS
+        }
         checkJob = scope.launch {
-            delay(CHECK_DELAY_MS)
+            delay(interval)
             check()
         }
     }
@@ -87,8 +100,16 @@ class ZoneEnforcer(
         if (!watched) hideMask()
         if (!watched && overlay == null) return
 
-        val snapshot = AccessibilitySnapshot.capture(root, MAX_NODES)
+        // Lire l'arbre = un aller-retour vers l'app par nœud : hors du thread principal, et
+        // seulement les identifiants utiles quand les détecteurs le permettent (Instagram).
+        val exactIds = if (watched && overlay == null) ZoneMatcher.exactViewIds(detectors, pkg) else null
+        val snapshot = withContext(Dispatchers.Default) {
+            if (exactIds != null) AccessibilitySnapshot.captureByIds(root, exactIds) else AccessibilitySnapshot.capture(root, MAX_NODES)
+        }
         val match = if (watched) ZoneMatcher.detect(detectors, pkg, snapshot.nodes) else null
+        val signature = Triple(pkg, match?.zone?.id, snapshot.nodes)
+        unchangedChecks = if (signature == lastSignature) unchangedChecks + 1 else 0
+        lastSignature = signature
         overlay?.update(statusText(pkg, match))
         if (!watched) return
 
@@ -209,7 +230,11 @@ class ZoneEnforcer(
     }
 
     private companion object {
-        const val CHECK_DELAY_MS = 300L
+        const val CHECK_DELAY_MS = 400L
+        const val SLOWER_CHECK_DELAY_MS = 800L
+        const val SLOWEST_CHECK_DELAY_MS = 1_200L
+        const val SLOWER_AFTER = 5
+        const val SLOWEST_AFTER = 10
         const val DECISION_TTL_MS = 5_000L
         const val TICK_MS = 5_000L
         const val MIN_TICK_MS = 1_000L
@@ -250,6 +275,27 @@ class AccessibilitySnapshot private constructor(
                 )
                 infos += node
                 for (i in node.childCount - 1 downTo 0) node.getChild(i)?.let { stack.addLast(it to depth + 1) }
+            }
+            return AccessibilitySnapshot(nodes, infos)
+        }
+
+        /** Seulement les nœuds visibles portant l'un de ces identifiants complets (`pkg:id/nom`). */
+        fun captureByIds(root: AccessibilityNodeInfo, viewIds: Set<String>): AccessibilitySnapshot {
+            val nodes = ArrayList<UiNode>()
+            val infos = ArrayList<AccessibilityNodeInfo>()
+            for (viewId in viewIds) {
+                for (node in root.findAccessibilityNodeInfosByViewId(viewId)) {
+                    if (!node.isVisibleToUser) continue
+                    nodes += UiNode(
+                        viewId = node.viewIdResourceName,
+                        text = node.text?.toString(),
+                        desc = node.contentDescription?.toString(),
+                        selected = node.isSelected,
+                        clickable = node.isClickable,
+                        className = node.className?.toString(),
+                    )
+                    infos += node
+                }
             }
             return AccessibilitySnapshot(nodes, infos)
         }

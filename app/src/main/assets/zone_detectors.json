@@ -37,7 +37,7 @@
             { "viewId": "clips_tab", "selected": true }
           ],
           "noneOf": [
-            { "viewIdContains": "reel_viewer" }
+            { "viewId": "reel_viewer_root" }
           ],
           "exit": [
             { "back": true },

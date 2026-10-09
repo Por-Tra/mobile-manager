@@ -41,6 +41,10 @@ class ZoneMatcherTest {
         fun `home is not a zone`() = assertNull(ZoneMatcher.detect(shipped, youtube, fixture("youtube_home")))
 
         @Test
+        fun `youtube needs the whole tree (Shorts tab is found by its label)`() =
+            assertNull(ZoneMatcher.exactViewIds(shipped, youtube))
+
+        @Test
         fun `regular video is not a zone, even with a reel_time_bar`() {
             val video = fixture("youtube_video")
             assertTrue(video.any { it.viewId?.endsWith("reel_time_bar") == true })
@@ -81,6 +85,31 @@ class ZoneMatcherTest {
             // Instagram garde l'onglet Reels visité dans l'arbre, invisible, derrière la messagerie.
             val offscreen = fixture("instagram_reels").map { it.copy(visible = false) }
             assertNull(ZoneMatcher.detect(shipped, instagram, fixture("instagram_direct") + offscreen))
+        }
+
+        @Test
+        fun `stories are not reels`() = assertNull(ZoneMatcher.detect(shipped, instagram, fixture("instagram_story")))
+
+        @Test
+        fun `instagram detectors only need exact ids`() = assertEquals(
+            listOf("clips_viewer_view_pager", "root_clips_layout", "clips_tab", "reel_viewer_root", "feed_tab")
+                .map { "$instagram:id/$it" }.toSet(),
+            ZoneMatcher.exactViewIds(shipped, instagram),
+        )
+
+        @Test
+        fun `querying only those ids gives the same result as the whole tree`() {
+            val ids = ZoneMatcher.exactViewIds(shipped, instagram)!!
+            for (screen in listOf("instagram_home", "instagram_reels", "instagram_direct", "instagram_story")) {
+                val all = fixture(screen)
+                val targeted = all.filter { it.viewId in ids }
+                assertEquals(ZoneMatcher.detect(shipped, instagram, all)?.zone, ZoneMatcher.detect(shipped, instagram, targeted)?.zone, screen)
+                assertEquals(
+                    ZoneMatcher.entryPoints(reels, all).map { all[it] },
+                    ZoneMatcher.entryPoints(reels, targeted).map { targeted[it] },
+                    screen,
+                )
+            }
         }
 
         @Test

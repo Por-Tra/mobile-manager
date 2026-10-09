@@ -122,7 +122,7 @@ class MonitorAccessibilityService : AccessibilityService() {
             (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED ||
                 event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED)
         ) {
-            zoneEnforcer.onEvent(eventPackage)
+            zoneEnforcer.onEvent(eventPackage, windowChanged = event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
         }
         if (event.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return
         val pkg = eventPackage
