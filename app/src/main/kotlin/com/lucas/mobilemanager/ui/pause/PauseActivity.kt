@@ -42,6 +42,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.lucas.mobilemanager.R
+import com.lucas.mobilemanager.di.ApplicationScope
+import com.lucas.mobilemanager.domain.model.EventLogEntry
+import com.lucas.mobilemanager.domain.model.EventType
+import com.lucas.mobilemanager.domain.repository.EventLogRepository
+import com.lucas.mobilemanager.domain.time.TimeProvider
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 import com.lucas.mobilemanager.ui.format.Formats
 import com.lucas.mobilemanager.ui.theme.MobileManagerTheme
 import kotlinx.coroutines.delay
@@ -80,7 +89,12 @@ data class PauseArgs(
  * Écran de transition anti-doomscrolling : casse le geste automatique par une courte pause
  * de respiration. Ensuite, on peut fermer l'app (choix mis en avant) ou continuer.
  */
+@AndroidEntryPoint
 class PauseActivity : ComponentActivity() {
+
+    @Inject lateinit var eventLogRepository: EventLogRepository
+    @Inject lateinit var timeProvider: TimeProvider
+    @Inject @ApplicationScope lateinit var appScope: CoroutineScope
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,7 +112,7 @@ class PauseActivity : ComponentActivity() {
                 PauseScreen(
                     appLabel = appLabel,
                     args = args,
-                    onCloseApp = ::goHome,
+                    onCloseApp = { closeApp(args.packageName) },
                     onContinue = ::finishAndRemoveTask,
                 )
             }
@@ -109,6 +123,17 @@ class PauseActivity : ComponentActivity() {
         packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0)).toString()
     } catch (_: PackageManager.NameNotFoundException) {
         packageName
+    }
+
+    /** « Fermer l'app » : compté dans le tableau de bord (pauses qui ont interrompu l'usage). */
+    private fun closeApp(packageName: String) {
+        val now = timeProvider.now()
+        appScope.launch {
+            eventLogRepository.record(
+                EventLogEntry(type = EventType.PAUSE_CLOSED_APP, occurredAt = now, packageName = packageName),
+            )
+        }
+        goHome()
     }
 
     private fun goHome() {

@@ -92,6 +92,18 @@
             android:launchMode="singleTask"
             android:taskAffinity="com.lucas.mobilemanager.alert" />
 
+        <!-- WorkManager est initialisé par MobileManagerApp (workers Hilt) : initialiseur par défaut retiré. -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
+
         <service
             android:name=".session.StrictSessionService"
             android:exported="false"

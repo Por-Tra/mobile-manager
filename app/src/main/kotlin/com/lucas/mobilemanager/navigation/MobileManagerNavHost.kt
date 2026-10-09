@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.lucas.mobilemanager.ui.dashboard.DashboardScreen
 import com.lucas.mobilemanager.ui.diagnostic.DiagnosticScreen
 import com.lucas.mobilemanager.ui.doomscroll.ScrollGuardScreen
 import com.lucas.mobilemanager.ui.home.HomeScreen
@@ -40,6 +41,9 @@ data object ZoneRulesRoute
 @Serializable
 data object DiagnosticRoute
 
+@Serializable
+data object DashboardRoute
+
 /** Édition d'un profil (`profileId = 0` : nouveau) ou des règles par défaut. */
 @Serializable
 data class ProfileEditRoute(val profileId: Long = 0, val defaultRules: Boolean = false)
@@ -72,7 +76,11 @@ fun MobileManagerNavHost(startDestination: Any, openDiagnostic: Boolean = false)
                 onEditProfile = { navController.navigate(ProfileEditRoute(profileId = it)) },
                 onNewProfile = { navController.navigate(ProfileEditRoute()) },
                 onEditDefaultRules = { navController.navigate(ProfileEditRoute(defaultRules = true)) },
+                onOpenDashboard = { navController.navigate(DashboardRoute) },
             )
+        }
+        composable<DashboardRoute> {
+            DashboardScreen(onBack = { navController.popBackStack() })
         }
         composable<ProfileEditRoute> {
             ProfileEditScreen(onBack = { navController.popBackStack() })

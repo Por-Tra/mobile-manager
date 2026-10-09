@@ -12,10 +12,12 @@ object Formats {
 
     fun time(time: LocalTime): String = TIME.format(time)
 
-    /** « 45 min », « 1 h », « 1 h 30 ». */
+    /** « < 1 min », « 45 min », « 1 h », « 1 h 30 » (arrondi à la minute la plus proche). */
     fun duration(duration: Duration): String {
-        val hours = duration.toHours()
-        val minutes = duration.toMinutes() % 60 // toMinutesPart() exige l'API 31
+        if (!duration.isNegative && !duration.isZero && duration < Duration.ofMinutes(1)) return "< 1 min"
+        val totalMinutes = (duration.seconds.coerceAtLeast(0) + 30) / 60
+        val hours = totalMinutes / 60
+        val minutes = totalMinutes % 60 // toMinutesPart() exige l'API 31
         return when {
             hours == 0L -> "$minutes min"
             minutes == 0L -> "$hours h"

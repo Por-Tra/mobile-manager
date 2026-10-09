@@ -39,6 +39,17 @@ class SystemWhitelistProvider @Inject constructor(
         }
     }
 
+    /**
+     * Packages qui ne comptent pas comme temps d'écran dans le tableau de bord : Mobile Manager,
+     * launcher(s), interface système et claviers (sinon déverrouiller le téléphone gonflerait le total).
+     */
+    fun nonScreenTimePackages(): Set<String> = buildSet {
+        add(context.packageName)
+        add("com.android.systemui")
+        addAll(handlersOf(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)))
+        context.getSystemService(InputMethodManager::class.java)?.inputMethodList?.forEach { add(it.packageName) }
+    }
+
     private fun resolve(): Set<String> = buildSet {
         add(context.packageName)
         addAll(KNOWN_SYSTEM_PACKAGES)

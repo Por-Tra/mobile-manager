@@ -114,7 +114,16 @@ MonitorAccessibilityService (fenêtre au premier plan)
 - **Éditeur** : JSON en vigueur, Vérifier / Enregistrer (refusé si invalide, message lisible) / Réinitialiser ; clavier sans correction (type URI : Gboard ignore `autoCorrectEnabled` avec Ascii et transformait `anyOf` en `any of`). Enregistrement verrouillé pendant une session.
 - **Réparer un détecteur** : activer le bandeau → ouvrir l'app → « Capturer » sur l'écran fautif (et sur un écran qui ne doit pas déclencher) → appui long sur l'élément distinctif → coller le signal dans l'éditeur (`anyOf` ou `noneOf`) → Vérifier → Enregistrer → contrôler avec le bandeau.
 
+### Tableau de bord (phase 8)
+- **Ton** : mesurer sans juger. Le domaine qualifie (`Trend` LESS / MORE / SAME à ±5 min / NO_HISTORY), l'UI formule (« 40 min de moins qu'hier », « Objectif dépassé aujourd'hui : demain est un autre jour »). Jamais de rouge : les jours au-delà de l'objectif sont en `tertiary` (neutre).
+- **Calcul** (`DashboardCalculator`, domaine, pur) : total + comparaison avec la période précédente (hier / 7 jours d'avant), apps triées, série des 7 derniers jours, zones (`ZONE_VISIT`, `ZONE_REDIRECTED`), interruptions (`APP_BLOCKED` par motif via le détail, `INTERSTITIAL_SHOWN`, `PAUSE_CLOSED_APP`), objectifs (jours sous l'objectif, jours avec limite quotidienne atteinte, sessions de concentration menées à terme / arrêtées plus tôt).
+- **Temps d'écran** : `UsageCalculator.usageByPackage` suit la **chronologie globale** (une seule app au premier plan ; ouvrir une app clôt la précédente ; `SCREEN_NON_INTERACTIVE` / `DEVICE_SHUTDOWN` / `DEVICE_STARTUP` = `INTERRUPTION`, clôt tout). Sans cela, une app ouverte lors d'une coupure brutale comptait jusqu'à maintenant (10 h 59 observées sur l'émulateur). Exclus du total : Mobile Manager, launcher(s), interface système, claviers (`SystemWhitelistProvider.nonScreenTimePackages`).
+- **Instantanés** (`daily_usage`, Room v5) : Android ne garde les événements détaillés qu'environ une semaine. `DailyUsageSnapshotter` fige chaque jour manquant des 14 derniers (hier inclus) ; ligne `__none__` = jour enregistré sans usage. Appelé au démarrage de l'app, à l'ouverture du tableau de bord et par `DailyUsageWorker` (WorkManager périodique 24 h, batterie non faible ; Hilt via `Configuration.Provider`, initialiseur par défaut retiré du manifest). Le jour en cours est toujours calculé en direct.
+- Objectif quotidien optionnel : DataStore `screen_time_goal_min`. Carte « Aujourd'hui » sur l'accueil + icône dans la barre du haut.
+- Durées affichées arrondies à la minute (`Formats.duration`), « < 1 min » pour les très courtes.
+
 ### Base de données
+- v5 : `daily_usage` en plus (`AutoMigration 4 → 5`).
 - v4 : `scroll_guard` en plus (`AutoMigration 3 → 4`).
 - v3 : `event_log`, `profile`, `profile_schedule` (jours en bitmask, bit 0 = lundi ; minutes depuis minuit), `rule` (`profile_id` NULL = règle globale), `strict_session` (packages séparés par un saut de ligne). Migrations 1 → 2 → 3 = `AutoMigration` (tables ajoutées).
 
@@ -133,6 +142,8 @@ MonitorAccessibilityService (fenêtre au premier plan)
 - `AppOpsManager.unsafeCheckOpNoThrow` est déprécié en API 37 mais reste nécessaire pour minSdk 29 (`@Suppress` documenté).
 - **Émulateur restauré depuis un snapshot** : le service d'usage d'Android se désynchronise après le saut d'horloge (« Unexpected activity event reported! » dans logcat) et `queryEvents()` ne renvoie plus rien → les limites quotidiennes ne se déclenchent pas. Toujours tester les limites après un démarrage à froid (`emulator -avd … -no-snapshot-load`). Problème propre à l'émulateur.
 - **Zones fragiles par nature** : chaque mise à jour d'Instagram/YouTube peut renommer ses identifiants → la détection cesse (la zone redevient visible) jusqu'à réparation via le mode diagnostic. Le détecteur Instagram livré n'a jamais été testé sur un vrai Instagram.
+- **Coupure brutale** (batterie vide, plantage, `emu kill`) : la pause de l'app au premier plan n'est jamais enregistrée ; elle est close au prochain événement (autre app, démarrage). Le temps entre les deux peut être surestimé (ex. 25 min pour YouTube sur l'émulateur). Rare sur un vrai téléphone, où l'écran éteint enregistre bien la pause.
+- WorkManager refuse une exécution forcée (`cmd jobscheduler run`) avant la fin de la période : comportement normal, le travail tourne au plus une fois par 24 h.
 - La liste blanche n'est pas exhaustive pour tous les constructeurs : à vérifier sur le Samsung (horloge, téléphone, appel en cours, urgences) avec `adb logcat -s MobileManager`.
 
 ## Tester sur l'émulateur (sans toucher l'UI)
@@ -160,5 +171,5 @@ Une réinstallation (`adb install -r`) peut désactiver le service d'accessibili
 - [x] **Phase 5 — Profils** : éditeur complet (plages, règles par app, « tout bloquer » + exceptions), ordre de priorité, activation manuelle, règles par défaut, suppression. Vérifié sur émulateur. Correctif : l'écran de blocage est toujours réaffiché (apps à deux écrans au démarrage).
 - [x] **Phase 6 — Anti-doomscrolling** : sessions continues, écran de pause, blocage + repos, régime strict TikTok, réglages par app. Vérifié sur émulateur (pause à 1 min, blocage à 2 min, repos, remise à zéro, interrupteur).
 - [x] **Phase 7 — Restrictions par zone** : détecteurs JSON, Shorts YouTube (vérifié sur émulateur avec captures réelles), Reels Instagram (à valider sur le téléphone), réglages par zone, mode diagnostic (bandeau, capture, éditeur).
-- [ ] Phase 8 — Dashboard
+- [x] **Phase 8 — Tableau de bord** : temps par app (jour / 7 jours), comparaison neutre, graphique 7 jours + objectif, zones, interruptions, objectifs, instantanés quotidiens (Room v5 + WorkManager). Correctif : chronologie globale de l'usage (apps « bloquées » ouvertes après une coupure).
 - [ ] Phase 9 — Finitions

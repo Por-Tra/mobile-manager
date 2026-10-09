@@ -1,6 +1,10 @@
 package com.lucas.mobilemanager
 
 import android.app.Application
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.Configuration
+import com.lucas.mobilemanager.dashboard.DailyUsageSnapshotter
+import com.lucas.mobilemanager.dashboard.DailyUsageWorker
 import com.lucas.mobilemanager.di.ApplicationScope
 import com.lucas.mobilemanager.domain.doomscroll.SeedDefaultScrollGuards
 import com.lucas.mobilemanager.domain.profiles.SeedDefaultProfiles
@@ -11,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltAndroidApp
-class MobileManagerApp : Application() {
+class MobileManagerApp : Application(), Configuration.Provider {
 
     @Inject lateinit var seedDefaultProfiles: SeedDefaultProfiles
 
@@ -19,7 +23,15 @@ class MobileManagerApp : Application() {
 
     @Inject lateinit var seedDefaultZoneRules: SeedDefaultZoneRules
 
+    @Inject lateinit var dailyUsageSnapshotter: DailyUsageSnapshotter
+
+    @Inject lateinit var workerFactory: HiltWorkerFactory
+
     @Inject @ApplicationScope lateinit var appScope: CoroutineScope
+
+    /** WorkManager initialisé à la demande avec les workers Hilt (initialiseur par défaut retiré du manifest). */
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder().setWorkerFactory(workerFactory).build()
 
     override fun onCreate() {
         super.onCreate()
@@ -27,6 +39,8 @@ class MobileManagerApp : Application() {
             seedDefaultProfiles()
             seedDefaultScrollGuards()
             seedDefaultZoneRules()
+            dailyUsageSnapshotter.ensureSnapshots()
         }
+        DailyUsageWorker.schedule(this)
     }
 }

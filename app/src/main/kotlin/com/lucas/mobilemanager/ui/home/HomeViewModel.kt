@@ -3,6 +3,9 @@ package com.lucas.mobilemanager.ui.home
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lucas.mobilemanager.dashboard.DashboardLoader
+import com.lucas.mobilemanager.domain.dashboard.DashboardSummary
+import com.lucas.mobilemanager.domain.dashboard.Period
 import com.lucas.mobilemanager.domain.model.ManualActivation
 import com.lucas.mobilemanager.domain.model.Profile
 import com.lucas.mobilemanager.domain.model.StrictSession
@@ -49,6 +52,7 @@ class HomeViewModel @Inject constructor(
     private val strictSessionRepository: StrictSessionRepository,
     private val manualActivationRepository: ManualActivationRepository,
     private val deleteProfile: DeleteProfile,
+    private val dashboardLoader: DashboardLoader,
     private val timeProvider: TimeProvider,
 ) : ViewModel() {
 
@@ -78,6 +82,10 @@ class HomeViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
+    /** Résumé du jour pour la carte « Aujourd'hui » (tableau de bord). */
+    private val _today = MutableStateFlow<DashboardSummary?>(null)
+    val today: StateFlow<DashboardSummary?> = _today.asStateFlow()
+
     /** Session de concentration en cours, `null` sinon. */
     val session: StateFlow<StrictSession?> = combine(
         strictSessionRepository.observeCurrent(),
@@ -88,6 +96,7 @@ class HomeViewModel @Inject constructor(
     fun refresh() {
         _permissions.value = OnboardingState.from(permissionChecker.currentStatuses())
         refreshTick.value++
+        viewModelScope.launch { _today.value = dashboardLoader.load(Period.TODAY) }
         viewModelScope.launch {
             // Filet de sécurité : si le service de session a été arrêté, on le relance (app au premier plan).
             if (strictSessionRunning()) StrictSessionService.start(context)

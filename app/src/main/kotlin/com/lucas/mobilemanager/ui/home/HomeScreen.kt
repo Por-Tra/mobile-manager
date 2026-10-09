@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.BarChart
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
@@ -38,7 +39,10 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lucas.mobilemanager.R
+import com.lucas.mobilemanager.domain.dashboard.DashboardSummary
+import com.lucas.mobilemanager.domain.dashboard.Period
 import com.lucas.mobilemanager.domain.model.Profile
+import com.lucas.mobilemanager.ui.dashboard.comparisonText
 import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.onboarding.OnboardingState
 import com.lucas.mobilemanager.ui.format.Formats
@@ -55,11 +59,13 @@ fun HomeScreen(
     onEditProfile: (Long) -> Unit,
     onNewProfile: () -> Unit,
     onEditDefaultRules: () -> Unit,
+    onOpenDashboard: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val permissions by viewModel.permissions.collectAsStateWithLifecycle()
     val profiles by viewModel.profiles.collectAsStateWithLifecycle()
     val session by viewModel.session.collectAsStateWithLifecycle()
+    val today by viewModel.today.collectAsStateWithLifecycle()
     var activating by remember { mutableStateOf<Profile?>(null) }
     var deleting by remember { mutableStateOf<Profile?>(null) }
     val editable = session == null
@@ -74,6 +80,9 @@ fun HomeScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.home_title)) },
                 actions = {
+                    IconButton(onClick = onOpenDashboard) {
+                        Icon(Icons.Outlined.BarChart, contentDescription = stringResource(R.string.dashboard_title))
+                    }
                     IconButton(onClick = onOpenSettings) {
                         Icon(
                             Icons.Outlined.Settings,
@@ -90,6 +99,7 @@ fun HomeScreen(
             contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp),
         ) {
             item { StatusCard(permissions, onOpenPermissions) }
+            today?.let { summary -> item { TodayCard(summary, onOpenDashboard) } }
             item { SessionCard(session, onStartSession, onRequestOverride) }
             item {
                 Text(
@@ -163,6 +173,22 @@ fun HomeScreen(
             },
             dismissButton = { TextButton(onClick = { deleting = null }) { Text(stringResource(R.string.cancel)) } },
         )
+    }
+}
+
+/** « Aujourd'hui : 2 h 10 » + comparaison neutre avec hier ; ouvre le tableau de bord. */
+@Composable
+private fun TodayCard(summary: DashboardSummary, onOpen: () -> Unit) {
+    Card(
+        onClick = onOpen,
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(Modifier.padding(16.dp)) {
+            Text(stringResource(R.string.home_today), style = MaterialTheme.typography.labelLarge)
+            Text(Formats.duration(summary.total), style = MaterialTheme.typography.headlineMedium)
+            Text(comparisonText(summary, Period.TODAY), style = MaterialTheme.typography.bodySmall)
+        }
     }
 }
 

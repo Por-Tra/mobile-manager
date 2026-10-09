@@ -283,6 +283,84 @@
     <string name="diagnostic_editor_saved">Enregistré : les nouveaux détecteurs sont actifs.</string>
     <string name="diagnostic_editor_reset_done">Détecteurs d\'origine rétablis.</string>
 
+    <!-- Tableau de bord : mesurer sans juger -->
+    <string name="home_today">Aujourd\'hui</string>
+    <string name="dashboard_title">Tableau de bord</string>
+    <string name="dashboard_today">Aujourd\'hui</string>
+    <string name="dashboard_week">7 jours</string>
+    <string name="dashboard_total_today">Temps d\'écran aujourd\'hui</string>
+    <string name="dashboard_total_week">Temps d\'écran sur 7 jours</string>
+    <string name="trend_less_day">%1$s de moins qu\'hier</string>
+    <string name="trend_less_week">%1$s de moins que les 7 jours précédents</string>
+    <string name="trend_more_day">%1$s de plus qu\'hier</string>
+    <string name="trend_more_week">%1$s de plus que les 7 jours précédents</string>
+    <string name="trend_same_day">À peu près comme hier</string>
+    <string name="trend_same_week">À peu près comme les 7 jours précédents</string>
+    <string name="trend_no_history">Pas encore de comparaison possible</string>
+    <string name="dashboard_week_chart">7 derniers jours</string>
+    <string name="dashboard_goal_line">Ligne pointillée : objectif de %1$s par jour</string>
+    <string name="dashboard_no_data">Pas encore assez de données pour cette période.</string>
+    <string name="dashboard_apps">Par application</string>
+    <string name="dashboard_show_all">Voir tout</string>
+    <string name="dashboard_show_less">Voir moins</string>
+    <string name="dashboard_zones">Zones distrayantes</string>
+    <string name="dashboard_zones_none">Aucune visite de Reels ou de Shorts sur cette période.</string>
+    <string name="dashboard_zone_time">%1$s (%2$s) : %3$s</string>
+    <plurals name="dashboard_zone_exits">
+        <item quantity="one">%1$s quittés automatiquement %2$d fois</item>
+        <item quantity="many">%1$s quittés automatiquement %2$d fois</item>
+        <item quantity="other">%1$s quittés automatiquement %2$d fois</item>
+    </plurals>
+    <string name="dashboard_interruptions">L\'outil a pris le relais</string>
+    <string name="dashboard_interruptions_none">Rien à signaler sur cette période.</string>
+    <plurals name="dashboard_blocks_rule">
+        <item quantity="one">%d ouverture bloquée par un profil ou une règle</item>
+        <item quantity="many">%d ouvertures bloquées par un profil ou une règle</item>
+        <item quantity="other">%d ouvertures bloquées par un profil ou une règle</item>
+    </plurals>
+    <plurals name="dashboard_blocks_strict">
+        <item quantity="one">%d ouverture bloquée pendant une session de concentration</item>
+        <item quantity="many">%d ouvertures bloquées pendant une session de concentration</item>
+        <item quantity="other">%d ouvertures bloquées pendant une session de concentration</item>
+    </plurals>
+    <plurals name="dashboard_blocks_daily">
+        <item quantity="one">%d ouverture après une limite quotidienne</item>
+        <item quantity="many">%d ouvertures après une limite quotidienne</item>
+        <item quantity="other">%d ouvertures après une limite quotidienne</item>
+    </plurals>
+    <plurals name="dashboard_blocks_session">
+        <item quantity="one">%d session continue arrêtée pour une pause</item>
+        <item quantity="many">%d sessions continues arrêtées pour une pause</item>
+        <item quantity="other">%d sessions continues arrêtées pour une pause</item>
+    </plurals>
+    <plurals name="dashboard_pauses">
+        <item quantity="one">%d écran de pause</item>
+        <item quantity="many">%d écrans de pause</item>
+        <item quantity="other">%d écrans de pause</item>
+    </plurals>
+    <plurals name="dashboard_pauses_closed">
+        <item quantity="one">Tu as fermé l\'app %d fois après la pause.</item>
+        <item quantity="many">Tu as fermé l\'app %d fois après la pause.</item>
+        <item quantity="other">Tu as fermé l\'app %d fois après la pause.</item>
+    </plurals>
+    <string name="dashboard_goals">Objectifs</string>
+    <string name="dashboard_goal_none">Pas d\'objectif de temps d\'écran quotidien.</string>
+    <string name="dashboard_goal_today_under">Sous l\'objectif de %1$s pour l\'instant.</string>
+    <string name="dashboard_goal_today_over">Objectif de %1$s dépassé aujourd\'hui : demain est un autre jour.</string>
+    <string name="dashboard_goal_week">Jours sous l\'objectif de %3$s : %1$d / %2$d</string>
+    <string name="dashboard_goal_set">Définir un objectif quotidien</string>
+    <string name="dashboard_goal_change">Modifier l\'objectif</string>
+    <string name="dashboard_goal_dialog">Objectif de temps d\'écran par jour</string>
+    <string name="dashboard_goal_option_none">Aucun objectif</string>
+    <string name="dashboard_limits_none">Aucune limite quotidienne atteinte.</string>
+    <plurals name="dashboard_limits_reached">
+        <item quantity="one">Limite quotidienne atteinte %d jour : l\'outil a pris le relais.</item>
+        <item quantity="many">Limite quotidienne atteinte %d jours : l\'outil a pris le relais.</item>
+        <item quantity="other">Limite quotidienne atteinte %d jours : l\'outil a pris le relais.</item>
+    </plurals>
+    <string name="dashboard_sessions_none">Aucune session de concentration sur cette période.</string>
+    <string name="dashboard_sessions">Sessions de concentration menées à terme : %1$d · arrêtées plus tôt : %2$d.</string>
+
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <string name="navigate_back">Retour</string>
