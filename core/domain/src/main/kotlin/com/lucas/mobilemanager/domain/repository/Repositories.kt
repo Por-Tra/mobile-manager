@@ -1,6 +1,7 @@
 package com.lucas.mobilemanager.domain.repository
 
 import com.lucas.mobilemanager.domain.model.EventLogEntry
+import com.lucas.mobilemanager.domain.model.ManualActivation
 import com.lucas.mobilemanager.domain.model.Profile
 import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.model.UserPreferences
@@ -51,4 +52,13 @@ interface ProfileRepository {
     suspend fun setEnabled(profileId: Long, enabled: Boolean)
 
     suspend fun replaceGlobalRules(rules: List<Rule>)
+}
+
+/** Profil activé à la main (un seul à la fois). */
+interface ManualActivationRepository {
+    val activation: Flow<ManualActivation?>
+
+    suspend fun activate(profileId: Long, until: Instant?)
+
+    suspend fun clear()
 }

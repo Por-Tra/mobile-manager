@@ -277,6 +277,23 @@ class RuleEngineTest {
         }
 
         @Test
+        fun `expired manual activation falls back to scheduled profiles`() {
+            val manual = profile(id = 1, autoActivation = false, rules = listOf(allow(YOUTUBE)))
+            val study = profile(id = 2, name = "Études", rules = listOf(block(YOUTUBE)))
+            val activation = ManualActivation(1, until = at(MONDAY, 11).toInstant())
+
+            assertEquals(
+                Decision.Allowed(null),
+                decide(AppRequest(YOUTUBE), listOf(manual, study), manual = activation, now = at(MONDAY, 10)),
+            )
+            assertEquals(
+                BlockReason.Profile(2, "Études"),
+                (decide(AppRequest(YOUTUBE), listOf(manual, study), manual = activation, now = at(MONDAY, 11))
+                    as Decision.Blocked).reason,
+            )
+        }
+
+        @Test
         fun `manual block with end uses it`() {
             val p = profile(id = 1, autoActivation = false, rules = listOf(block(TIKTOK)))
             val until = at(MONDAY, 11).toInstant()

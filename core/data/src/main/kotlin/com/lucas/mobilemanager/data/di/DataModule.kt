@@ -10,11 +10,13 @@ import com.lucas.mobilemanager.data.db.EventLogDao
 import com.lucas.mobilemanager.data.db.ProfileDao
 import com.lucas.mobilemanager.data.db.StrictSessionDao
 import com.lucas.mobilemanager.data.db.MobileManagerDatabase
+import com.lucas.mobilemanager.data.repository.DataStoreManualActivationRepository
 import com.lucas.mobilemanager.data.repository.DataStoreUserPreferencesRepository
 import com.lucas.mobilemanager.data.repository.RoomProfileRepository
 import com.lucas.mobilemanager.data.repository.RoomStrictSessionRepository
 import com.lucas.mobilemanager.data.repository.RoomEventLogRepository
 import com.lucas.mobilemanager.domain.repository.EventLogRepository
+import com.lucas.mobilemanager.domain.repository.ManualActivationRepository
 import com.lucas.mobilemanager.domain.repository.ProfileRepository
 import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.repository.UserPreferencesRepository
@@ -68,6 +70,11 @@ abstract class DataBindingsModule {
 
     @Binds
     abstract fun bindProfileRepository(impl: RoomProfileRepository): ProfileRepository
+
+    @Binds
+    abstract fun bindManualActivationRepository(
+        impl: DataStoreManualActivationRepository,
+    ): ManualActivationRepository
 
     @Binds
     abstract fun bindStrictSessionRepository(impl: RoomStrictSessionRepository): StrictSessionRepository
