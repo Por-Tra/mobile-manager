@@ -18,6 +18,7 @@ class DataStoreUserPreferencesRepository @Inject constructor(
         UserPreferences(
             onboardingCompleted = prefs[Keys.ONBOARDING_COMPLETED] ?: false,
             defaultProfilesSeeded = prefs[Keys.DEFAULT_PROFILES_SEEDED] ?: false,
+            defaultScrollGuardsSeeded = prefs[Keys.DEFAULT_SCROLL_GUARDS_SEEDED] ?: false,
         )
     }
 
@@ -29,8 +30,13 @@ class DataStoreUserPreferencesRepository @Inject constructor(
         dataStore.edit { it[Keys.DEFAULT_PROFILES_SEEDED] = seeded }
     }
 
+    override suspend fun setDefaultScrollGuardsSeeded(seeded: Boolean) {
+        dataStore.edit { it[Keys.DEFAULT_SCROLL_GUARDS_SEEDED] = seeded }
+    }
+
     private object Keys {
         val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
         val DEFAULT_PROFILES_SEEDED = booleanPreferencesKey("default_profiles_seeded")
+        val DEFAULT_SCROLL_GUARDS_SEEDED = booleanPreferencesKey("default_scroll_guards_seeded")
     }
 }

@@ -8,16 +8,21 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import com.lucas.mobilemanager.data.db.EventLogDao
 import com.lucas.mobilemanager.data.db.ProfileDao
+import com.lucas.mobilemanager.data.db.ScrollGuardDao
 import com.lucas.mobilemanager.data.db.StrictSessionDao
 import com.lucas.mobilemanager.data.db.MobileManagerDatabase
 import com.lucas.mobilemanager.data.repository.DataStoreManualActivationRepository
+import com.lucas.mobilemanager.data.repository.DataStoreScrollGuardSettingsRepository
 import com.lucas.mobilemanager.data.repository.DataStoreUserPreferencesRepository
 import com.lucas.mobilemanager.data.repository.RoomProfileRepository
+import com.lucas.mobilemanager.data.repository.RoomScrollGuardRepository
 import com.lucas.mobilemanager.data.repository.RoomStrictSessionRepository
 import com.lucas.mobilemanager.data.repository.RoomEventLogRepository
 import com.lucas.mobilemanager.domain.repository.EventLogRepository
 import com.lucas.mobilemanager.domain.repository.ManualActivationRepository
 import com.lucas.mobilemanager.domain.repository.ProfileRepository
+import com.lucas.mobilemanager.domain.repository.ScrollGuardRepository
+import com.lucas.mobilemanager.domain.repository.ScrollGuardSettingsRepository
 import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.repository.UserPreferencesRepository
 import com.lucas.mobilemanager.domain.time.SystemTimeProvider
@@ -45,6 +50,9 @@ object DataProvidersModule {
 
     @Provides
     fun provideProfileDao(db: MobileManagerDatabase): ProfileDao = db.profileDao()
+
+    @Provides
+    fun provideScrollGuardDao(db: MobileManagerDatabase): ScrollGuardDao = db.scrollGuardDao()
 
     @Provides
     fun provideStrictSessionDao(db: MobileManagerDatabase): StrictSessionDao = db.strictSessionDao()
@@ -75,6 +83,14 @@ abstract class DataBindingsModule {
     abstract fun bindManualActivationRepository(
         impl: DataStoreManualActivationRepository,
     ): ManualActivationRepository
+
+    @Binds
+    abstract fun bindScrollGuardRepository(impl: RoomScrollGuardRepository): ScrollGuardRepository
+
+    @Binds
+    abstract fun bindScrollGuardSettingsRepository(
+        impl: DataStoreScrollGuardSettingsRepository,
+    ): ScrollGuardSettingsRepository
 
     @Binds
     abstract fun bindStrictSessionRepository(impl: RoomStrictSessionRepository): StrictSessionRepository
