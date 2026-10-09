@@ -9,7 +9,9 @@ import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.model.UserPreferences
 import com.lucas.mobilemanager.domain.rules.Rule
 import kotlinx.coroutines.flow.Flow
+import java.time.Duration
 import java.time.Instant
+import java.time.LocalDate
 
 interface EventLogRepository {
     suspend fun record(entry: EventLogEntry)
@@ -28,6 +30,8 @@ interface UserPreferencesRepository {
     suspend fun setDefaultScrollGuardsSeeded(seeded: Boolean)
 
     suspend fun setDefaultZoneRulesSeeded(seeded: Boolean)
+
+    suspend fun setScreenTimeGoal(minutes: Int?)
 }
 
 interface StrictSessionRepository {
@@ -42,6 +46,23 @@ interface StrictSessionRepository {
     suspend fun setOverrideRequestedAt(sessionId: Long, at: Instant?)
 
     suspend fun end(sessionId: Long, endedAt: Instant, reason: StrictSession.EndReason)
+
+    /** Sessions commencées dans [from, to), pour le tableau de bord. */
+    suspend fun sessionsStartedBetween(from: Instant, to: Instant): List<StrictSession>
+}
+
+/**
+ * Temps d'écran par jour et par app, figé chaque jour : Android ne garde les événements détaillés
+ * qu'environ une semaine, ces instantanés permettent de comparer deux semaines.
+ */
+interface DailyUsageRepository {
+    /** Jours déjà enregistrés dans [from, to] (inclus). */
+    suspend fun storedDays(from: LocalDate, to: LocalDate): Set<LocalDate>
+
+    /** Temps par app pour chaque jour enregistré de [from, to] (un jour sans usage = map vide). */
+    suspend fun usageBetween(from: LocalDate, to: LocalDate): Map<LocalDate, Map<String, Duration>>
+
+    suspend fun store(date: LocalDate, usage: Map<String, Duration>)
 }
 
 interface ProfileRepository {

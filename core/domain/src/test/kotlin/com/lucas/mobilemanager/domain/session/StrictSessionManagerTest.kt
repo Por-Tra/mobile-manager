@@ -170,6 +170,9 @@ class StrictSessionManagerTest {
         override suspend fun end(sessionId: Long, endedAt: Instant, reason: StrictSession.EndReason) =
             update(sessionId) { it.copy(endedAt = endedAt, endReason = reason) }
 
+        override suspend fun sessionsStartedBetween(from: Instant, to: Instant) =
+            sessions.filter { !it.startedAt.isBefore(from) && it.startedAt.isBefore(to) }
+
         private suspend fun update(id: Long, change: (StrictSession) -> StrictSession) {
             val index = sessions.indexOfFirst { it.id == id }
             sessions[index] = change(sessions[index])

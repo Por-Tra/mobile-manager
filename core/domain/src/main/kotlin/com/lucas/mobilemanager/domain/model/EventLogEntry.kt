@@ -18,6 +18,8 @@ enum class EventType {
     /** Temps passé dans une zone autorisée (détail : `zone:secondes`). */
     ZONE_VISIT,
     INTERSTITIAL_SHOWN,
+    /** « Fermer l'app » choisi sur l'écran de pause. */
+    PAUSE_CLOSED_APP,
     STRICT_SESSION_STARTED,
     STRICT_SESSION_ENDED,
     STRICT_SESSION_OVERRIDDEN,

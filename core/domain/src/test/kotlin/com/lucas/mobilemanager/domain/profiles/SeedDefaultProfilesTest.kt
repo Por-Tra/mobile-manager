@@ -78,5 +78,7 @@ class SeedDefaultProfilesTest {
             state.update { it.copy(defaultScrollGuardsSeeded = seeded) }
         override suspend fun setDefaultZoneRulesSeeded(seeded: Boolean) =
             state.update { it.copy(defaultZoneRulesSeeded = seeded) }
+        override suspend fun setScreenTimeGoal(minutes: Int?) =
+            state.update { it.copy(screenTimeGoalMinutes = minutes) }
     }
 }
