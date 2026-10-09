@@ -26,6 +26,8 @@ interface UserPreferencesRepository {
     suspend fun setDefaultProfilesSeeded(seeded: Boolean)
 
     suspend fun setDefaultScrollGuardsSeeded(seeded: Boolean)
+
+    suspend fun setDefaultZoneRulesSeeded(seeded: Boolean)
 }
 
 interface StrictSessionRepository {

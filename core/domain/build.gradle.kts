@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 java {
@@ -18,6 +19,8 @@ kotlin {
 dependencies {
     api(libs.kotlinx.coroutines.core)
     api(libs.javax.inject)
+    // Détecteurs de zones décrits en JSON (bibliothèque Kotlin pure).
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)

@@ -174,6 +174,19 @@ class RuleEngineTest {
         }
 
         @Test
+        fun `default blocked zone can be allowed by a higher profile`() {
+            val shorts = Rule(Target.Zone(YOUTUBE, "shorts"), RuleAction.Block)
+            val request = AppRequest(YOUTUBE, zone = "shorts")
+            assertEquals(
+                BlockReason.GlobalRule,
+                (decide(request, globalRules = listOf(shorts)) as Decision.Blocked).reason,
+            )
+            val evening = profile(id = 1, rules = listOf(Rule(Target.Zone(YOUTUBE, "shorts"), RuleAction.Allow)))
+            assertEquals(Decision.Allowed(null), decide(request, listOf(evening), listOf(shorts)))
+            assertEquals(Decision.Allowed(null), decide(AppRequest(YOUTUBE, zone = null), globalRules = listOf(shorts)))
+        }
+
+        @Test
         fun `zone rules are ignored when the zone is unknown`() {
             val p = profile(id = 1, rules = listOf(Rule(Target.Zone(INSTAGRAM, "reels"), RuleAction.Block)))
             assertEquals(Decision.Allowed(null), decide(AppRequest(INSTAGRAM, zone = null), listOf(p)))

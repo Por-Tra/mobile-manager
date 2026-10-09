@@ -76,5 +76,7 @@ class SeedDefaultProfilesTest {
             state.update { it.copy(defaultProfilesSeeded = seeded) }
         override suspend fun setDefaultScrollGuardsSeeded(seeded: Boolean) =
             state.update { it.copy(defaultScrollGuardsSeeded = seeded) }
+        override suspend fun setDefaultZoneRulesSeeded(seeded: Boolean) =
+            state.update { it.copy(defaultZoneRulesSeeded = seeded) }
     }
 }

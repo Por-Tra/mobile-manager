@@ -1,0 +1,180 @@
+[
+{
+"viewId": "com.google.android.youtube:id/action_bar_root",
+"depth": 3
+},
+{
+"viewId": "android:id/content",
+"depth": 4
+},
+{
+"viewId": "com.google.android.youtube:id/more_drawer_container",
+"depth": 5
+},
+{
+"viewId": "com.google.android.youtube:id/slim_status_bar_player_container",
+"depth": 6
+},
+{
+"viewId": "com.google.android.youtube:id/navigation_bar_divider_frame",
+"depth": 7
+},
+{
+"viewId": "com.google.android.youtube:id/global_slim_status_bar_container",
+"depth": 8
+},
+{
+"viewId": "com.google.android.youtube:id/accessibility_layer_container",
+"depth": 8
+},
+{
+"viewId": "com.google.android.youtube:id/bottom_ui_container",
+"depth": 9
+},
+{
+"viewId": "com.google.android.youtube:id/next_gen_watch_container_layout",
+"depth": 9
+},
+{
+"viewId": "com.google.android.youtube:id/next_gen_watch_layout_no_player_fragment_container",
+"depth": 10
+},
+{
+"viewId": "com.google.android.youtube:id/watch_player",
+"desc": "Video player",
+"depth": 11
+},
+{
+"viewId": "com.google.android.youtube:id/playerless_thumbnail",
+"depth": 12
+},
+{
+"viewId": "com.google.android.youtube:id/player_overlays",
+"desc": "Expand Mini Player",
+"clickable": true,
+"depth": 12
+},
+{
+"viewId": "com.google.android.youtube:id/player_overlays_custom_views_container",
+"depth": 13
+},
+{
+"viewId": "com.google.android.youtube:id/youtube_controls_overlay",
+"depth": 14
+},
+{
+"viewId": "com.google.android.youtube:id/inset_controls_overlay_wrapper",
+"depth": 15
+},
+{
+"viewId": "com.google.android.youtube:id/inset_overlay_view_layout",
+"depth": 16
+},
+{
+"viewId": "com.google.android.youtube:id/watch_while_time_bar_view_overlay",
+"depth": 17
+},
+{
+"viewId": "com.google.android.youtube:id/player_fragment_container",
+"depth": 12
+},
+{
+"viewId": "com.google.android.youtube:id/player_view",
+"depth": 13
+},
+{
+"viewId": "com.google.android.youtube:id/watch_while_time_bar_view",
+"depth": 11
+},
+{
+"desc": "0 minutes 12 seconds of 0 minutes 19 seconds",
+"clickable": true,
+"depth": 12
+},
+{
+"viewId": "com.google.android.youtube:id/engagement_panel_wrapper",
+"depth": 11
+},
+{
+"viewId": "com.google.android.youtube:id/video_metadata_layout",
+"depth": 11
+},
+{
+"viewId": "com.google.android.youtube:id/watch_panel_scrim",
+"depth": 12
+},
+{
+"viewId": "com.google.android.youtube:id/watch_panel",
+"depth": 12
+},
+{
+"viewId": "com.google.android.youtube:id/video_info_loading_layout",
+"depth": 14
+},
+{
+"viewId": "com.google.android.youtube:id/sticky_header_container",
+"depth": 15
+},
+{
+"viewId": "com.google.android.youtube:id/watch_list",
+"depth": 16
+},
+{
+"desc": "jawed 6.67M subscribers",
+"clickable": true,
+"depth": 21
+},
+{
+"desc": "Subscribe to jawed.",
+"clickable": true,
+"depth": 22
+},
+{
+"desc": "like this video along with 20,025,543 other people",
+"clickable": true,
+"depth": 22
+},
+{
+"desc": "Dislike this video",
+"clickable": true,
+"depth": 22
+},
+{
+"desc": "Share",
+"clickable": true,
+"depth": 22
+},
+{
+"desc": "Download",
+"clickable": true,
+"depth": 22
+},
+{
+"desc": "More actions",
+"clickable": true,
+"depth": 22
+},
+{
+"desc": "The Challenger Crew's Final Log Entry Decoded — The Truth Is",
+"clickable": true,
+"depth": 18
+},
+{
+"desc": "Go to channel Curious Explorer",
+"clickable": true,
+"depth": 21
+},
+{
+"desc": "Action menu",
+"clickable": true,
+"depth": 21
+},
+{
+"viewId": "com.google.android.youtube:id/scrim_view",
+"depth": 10
+},
+{
+"viewId": "com.google.android.youtube:id/reel_time_bar",
+"depth": 5
+}
+]

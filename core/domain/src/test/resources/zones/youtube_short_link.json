@@ -1,0 +1,215 @@
+[
+{
+"viewId": "com.google.android.youtube:id/action_bar_root",
+"depth": 3
+},
+{
+"viewId": "android:id/content",
+"depth": 4
+},
+{
+"viewId": "com.google.android.youtube:id/more_drawer_container",
+"depth": 5
+},
+{
+"viewId": "com.google.android.youtube:id/slim_status_bar_player_container",
+"depth": 6
+},
+{
+"viewId": "com.google.android.youtube:id/navigation_bar_divider_frame",
+"depth": 7
+},
+{
+"viewId": "com.google.android.youtube:id/global_slim_status_bar_container",
+"depth": 8
+},
+{
+"viewId": "com.google.android.youtube:id/accessibility_layer_container",
+"depth": 8
+},
+{
+"viewId": "com.google.android.youtube:id/bottom_ui_container",
+"depth": 9
+},
+{
+"viewId": "com.google.android.youtube:id/next_gen_watch_container_layout",
+"depth": 9
+},
+{
+"viewId": "com.google.android.youtube:id/watch_while_layout_coordinator_layout",
+"depth": 10
+},
+{
+"viewId": "com.google.android.youtube:id/fab_container",
+"depth": 11
+},
+{
+"viewId": "com.google.android.youtube:id/pane_fragment_container",
+"depth": 11
+},
+{
+"viewId": "com.google.android.youtube:id/browse_fragment_layout_coordinator_layout",
+"depth": 12
+},
+{
+"viewId": "com.google.android.youtube:id/pane_fragment_contents",
+"depth": 13
+},
+{
+"viewId": "com.google.android.youtube:id/fragment_container_view",
+"depth": 15
+},
+{
+"viewId": "com.google.android.youtube:id/reel_watch_fragment_root",
+"depth": 17
+},
+{
+"viewId": "com.google.android.youtube:id/reel_player_underlay",
+"depth": 18
+},
+{
+"viewId": "com.google.android.youtube:id/nerd_stats_container",
+"depth": 18
+},
+{
+"viewId": "com.google.android.youtube:id/reel_watch_refresher",
+"depth": 18
+},
+{
+"viewId": "com.google.android.youtube:id/reel_recycler",
+"depth": 19
+},
+{
+"viewId": "com.google.android.youtube:id/reel_player_page_container",
+"depth": 20
+},
+{
+"viewId": "com.google.android.youtube:id/reel_player_page_error",
+"depth": 21
+},
+{
+"desc": "Video unavailable",
+"depth": 23
+},
+{
+"desc": "This video is unavailable",
+"depth": 23
+},
+{
+"viewId": "com.google.android.youtube:id/reel_watch_player",
+"depth": 18
+},
+{
+"viewId": "com.google.android.youtube:id/reel_scrim_shorts_while_top",
+"depth": 18
+},
+{
+"viewId": "com.google.android.youtube:id/appbar_layout",
+"depth": 13
+},
+{
+"viewId": "com.google.android.youtube:id/toolbar_container",
+"depth": 14
+},
+{
+"viewId": "com.google.android.youtube:id/toolbar",
+"depth": 15
+},
+{
+"desc": "Navigate up",
+"clickable": true,
+"depth": 16
+},
+{
+"viewId": "com.google.android.youtube:id/bottom_bar_container",
+"depth": 9
+},
+{
+"viewId": "com.google.android.youtube:id/pivot_bar",
+"depth": 10
+},
+{
+"desc": "Home",
+"clickable": true,
+"depth": 12
+},
+{
+"viewId": "com.google.android.youtube:id/thumbnail_layout",
+"depth": 13
+},
+{
+"viewId": "com.google.android.youtube:id/image",
+"depth": 14
+},
+{
+"viewId": "com.google.android.youtube:id/text",
+"text": "Home",
+"depth": 13
+},
+{
+"desc": "Shorts",
+"selected": true,
+"clickable": true,
+"depth": 12
+},
+{
+"viewId": "com.google.android.youtube:id/thumbnail_layout",
+"selected": true,
+"depth": 13
+},
+{
+"viewId": "com.google.android.youtube:id/image",
+"selected": true,
+"depth": 14
+},
+{
+"viewId": "com.google.android.youtube:id/text",
+"text": "Shorts",
+"selected": true,
+"depth": 13
+},
+{
+"desc": "Subscriptions",
+"clickable": true,
+"depth": 12
+},
+{
+"viewId": "com.google.android.youtube:id/thumbnail_layout",
+"depth": 13
+},
+{
+"viewId": "com.google.android.youtube:id/image",
+"depth": 14
+},
+{
+"viewId": "com.google.android.youtube:id/text",
+"text": "Subscriptions",
+"depth": 13
+},
+{
+"desc": "You",
+"clickable": true,
+"depth": 12
+},
+{
+"viewId": "com.google.android.youtube:id/thumbnail_layout",
+"depth": 13
+},
+{
+"viewId": "com.google.android.youtube:id/image",
+"depth": 14
+},
+{
+"viewId": "com.google.android.youtube:id/text",
+"text": "You",
+"depth": 13
+},
+{
+"viewId": "com.google.android.youtube:id/global_status_bar_view",
+"depth": 8
+},
+{
+"viewId": "com.google.android.youtube:id/reel_time_bar",
+"depth": 5
+}
+]
