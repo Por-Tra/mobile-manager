@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Security
+import androidx.compose.material.icons.outlined.SelfImprovement
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,6 +36,7 @@ import com.lucas.mobilemanager.R
 fun SettingsScreen(
     onBack: () -> Unit,
     onOpenPermissions: () -> Unit,
+    onOpenScrollGuard: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
@@ -63,6 +65,12 @@ fun SettingsScreen(
                 supportingContent = { Text(stringResource(R.string.settings_permissions_body)) },
                 leadingContent = { Icon(Icons.Outlined.Security, contentDescription = null) },
                 modifier = Modifier.clickable(onClick = onOpenPermissions),
+            )
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.scroll_guard_title)) },
+                supportingContent = { Text(stringResource(R.string.scroll_guard_entry_body)) },
+                leadingContent = { Icon(Icons.Outlined.SelfImprovement, contentDescription = null) },
+                modifier = Modifier.clickable(onClick = onOpenScrollGuard),
             )
             if (BuildConfig.DEBUG) {
                 val sessionRunning by viewModel.sessionRunning.collectAsStateWithLifecycle()

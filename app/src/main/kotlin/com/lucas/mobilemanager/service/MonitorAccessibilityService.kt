@@ -27,6 +27,7 @@ import com.lucas.mobilemanager.domain.session.ProtectedScreenDetector
 import com.lucas.mobilemanager.domain.rules.EnforcementPolicy
 import com.lucas.mobilemanager.enforcement.EnforcementCoordinator
 import com.lucas.mobilemanager.ui.format.Formats
+import com.lucas.mobilemanager.ui.pause.PauseArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -188,6 +189,10 @@ class MonitorAccessibilityService : AccessibilityService() {
                         block(pkg, decision)
                         return@launch
                     }
+                    is Decision.Pause -> {
+                        pause(pkg, decision)
+                        return@launch
+                    }
                     is Decision.Allowed -> {
                         if (coordinator.isWhitelisted(pkg)) return@launch
                         val delay = EnforcementPolicy.nextCheckDelay(decision) ?: return@launch
@@ -217,6 +222,20 @@ class MonitorAccessibilityService : AccessibilityService() {
         lastBlockedPackage = pkg
         lastBlockedAtMs = nowMs
         scope.launch(Dispatchers.Default) { coordinator.recordBlock(pkg, decision) }
+    }
+
+    /** Écran de pause anti-doomscrolling, par-dessus l'app. */
+    private fun pause(pkg: String, decision: Decision.Pause) {
+        tracker.reset()
+        scope.launch {
+            val settings = withContext(Dispatchers.Default) { coordinator.pauseSettings() }
+            coordinator.recordPause(pkg, decision.sessionLength)
+            startActivity(
+                PauseArgs(pkg, decision.sessionLength, settings.pauseDuration, settings.goal)
+                    .toIntent(this@MonitorAccessibilityService)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            )
+        }
     }
 
     override fun onInterrupt() = Unit

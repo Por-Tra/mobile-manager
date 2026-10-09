@@ -91,7 +91,17 @@ MonitorAccessibilityService (fenêtre au premier plan)
 - **Activation manuelle** : DataStore (`manual_profile_id`, `manual_until_ms`), une seule à la fois, options 1 h / 2 h / jusqu'à HH:MM / jusqu'à désactivation (`ManualActivationPolicy`). **Désactivable à tout moment** (choix produit : l'engagement ferme, c'est la session). Activer un profil désactivé le réactive. Une activation expirée est ignorée par le moteur et nettoyée au retour sur l'accueil. `DeleteProfile` efface aussi l'activation du profil supprimé.
 - Pendant une session de concentration : éditeur, menu, ordre, activation et règles par défaut sont inaccessibles (et le ViewModel refuse toute modification).
 
+### Anti-doomscrolling (phase 6)
+- **Session continue** (`ContinuousSessions`, domaine) : passages au premier plan d'une app fusionnés tant que l'interruption (sortie, écran éteint, écran de pause) dure moins que le seuil réglable (1 min par défaut). Durée = depuis le début de la session fusionnée. Calculée à chaque évaluation à partir de `queryEvents` sur 12 h (`UsageStatsReader.continuousSession`).
+- **`ScrollGuard`** par app (table `scroll_guard`) : pause toutes les X min, blocage après X min de session continue + temps de repos, limite quotidienne propre. **`ScrollGuardPolicy`** : repos en cours → bloqué ; limite quotidienne → jusqu'à minuit ; session ≥ limite → repos (`BlockReason.SessionLimitReached`) ; sinon une pause par palier (`lastPauseAt` en mémoire) ; `checkAgainIn` cale la réévaluation sur le prochain palier.
+- **Ordre** : le moteur de règles décide d'abord ; l'anti-doomscrolling (`ScrollGuardPolicy.combine`) n'ajoute que des restrictions. Une autorisation explicite d'un profil ne dispense pas des pauses.
+- **Valeurs par défaut** (créées une fois, actives) : TikTok = pause/5 min, blocage à 10 min (repos 15 min), 30 min/jour ; Instagram, YouTube, Facebook, Snapchat, X, Reddit = **pause/15 min seulement** (pas de blocage de l'app entière pour garder la messagerie, jusqu'aux zones de la phase 7).
+- Réglages généraux en DataStore (interrupteur, seuil de fin de session, durée de pause 10 s, objectif). Les **temps de repos** sont persistés (DataStore) pour survivre à un arrêt du processus.
+- **`PauseActivity`** (tâche séparée) : respiration, « Tu es sur X depuis N min », objectif, boutons inactifs pendant le décompte ; « Fermer l'app » (principal) ou « Continuer » (retour à l'app). Journal : `INTERSTITIAL_SHOWN` (`session:N`), blocages `session_limit:N`.
+- Build debug : options 1 et 2 min disponibles dans les réglages pour tester vite.
+
 ### Base de données
+- v4 : `scroll_guard` en plus (`AutoMigration 3 → 4`).
 - v3 : `event_log`, `profile`, `profile_schedule` (jours en bitmask, bit 0 = lundi ; minutes depuis minuit), `rule` (`profile_id` NULL = règle globale), `strict_session` (packages séparés par un saut de ligne). Migrations 1 → 2 → 3 = `AutoMigration` (tables ajoutées).
 
 ### Principes transverses
@@ -133,7 +143,7 @@ Une réinstallation (`adb install -r`) peut désactiver le service d'accessibili
 - [x] **Phase 3 — Surveillance + blocage basique** : service d'accessibilité, usage via `queryEvents`, écran de blocage, liste blanche système, interrupteurs de profils, profil Test (debug). Vérifié sur émulateur.
 - [x] **Phase 4 — Sessions strictes** : démarrage avec sélecteur d'apps, délai de réflexion + fenêtre de 2 min, foreground service, relance après redémarrage/mise à jour, écrans protégés, alerte si surveillance coupée, admin. Vérifié sur émulateur (dont redémarrage et fin automatique).
 - [x] **Phase 5 — Profils** : éditeur complet (plages, règles par app, « tout bloquer » + exceptions), ordre de priorité, activation manuelle, règles par défaut, suppression. Vérifié sur émulateur. Correctif : l'écran de blocage est toujours réaffiché (apps à deux écrans au démarrage).
-- [ ] Phase 6 — Doomscrolling + écran de transition + TikTok
+- [x] **Phase 6 — Anti-doomscrolling** : sessions continues, écran de pause, blocage + repos, régime strict TikTok, réglages par app. Vérifié sur émulateur (pause à 1 min, blocage à 2 min, repos, remise à zéro, interrupteur).
 - [ ] Phase 7 — Restrictions par zones (JSON, Reels, Shorts, diagnostic)
 - [ ] Phase 8 — Dashboard
 - [ ] Phase 9 — Finitions

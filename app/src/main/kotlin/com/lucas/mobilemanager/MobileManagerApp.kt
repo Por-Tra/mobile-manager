@@ -2,6 +2,7 @@ package com.lucas.mobilemanager
 
 import android.app.Application
 import com.lucas.mobilemanager.di.ApplicationScope
+import com.lucas.mobilemanager.domain.doomscroll.SeedDefaultScrollGuards
 import com.lucas.mobilemanager.domain.profiles.SeedDefaultProfiles
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
@@ -13,10 +14,15 @@ class MobileManagerApp : Application() {
 
     @Inject lateinit var seedDefaultProfiles: SeedDefaultProfiles
 
+    @Inject lateinit var seedDefaultScrollGuards: SeedDefaultScrollGuards
+
     @Inject @ApplicationScope lateinit var appScope: CoroutineScope
 
     override fun onCreate() {
         super.onCreate()
-        appScope.launch { seedDefaultProfiles() }
+        appScope.launch {
+            seedDefaultProfiles()
+            seedDefaultScrollGuards()
+        }
     }
 }

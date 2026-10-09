@@ -5,6 +5,8 @@ import android.app.usage.UsageStatsManager
 import android.content.Context
 import com.lucas.mobilemanager.domain.time.DayBoundaries
 import com.lucas.mobilemanager.domain.time.TimeProvider
+import com.lucas.mobilemanager.domain.usage.ContinuousSession
+import com.lucas.mobilemanager.domain.usage.ContinuousSessions
 import com.lucas.mobilemanager.domain.usage.UsageCalculator
 import com.lucas.mobilemanager.domain.usage.UsageEvent
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -20,6 +22,16 @@ class UsageStatsReader @Inject constructor(
     private val timeProvider: TimeProvider,
 ) {
     private val usageStatsManager = context.getSystemService(UsageStatsManager::class.java)
+
+    /**
+     * Session continue en cours sur [packageName] (`null` si l'app n'est pas au premier plan),
+     * calculée sur les événements des 12 dernières heures.
+     */
+    fun continuousSession(packageName: String, gap: Duration): ContinuousSession? {
+        val now = timeProvider.now()
+        val from = now.minus(CONTINUOUS_SESSION_WINDOW)
+        return ContinuousSessions.current(readEvents(from, now, packageName), packageName, from, now, gap)
+    }
 
     /** Temps passé dans [packageName] depuis minuit local. */
     fun usageToday(packageName: String): Duration {
@@ -52,5 +64,6 @@ class UsageStatsReader @Inject constructor(
 
     private companion object {
         val LOOKBACK_BEFORE_MIDNIGHT: Duration = Duration.ofHours(6)
+        val CONTINUOUS_SESSION_WINDOW: Duration = Duration.ofHours(12)
     }
 }

@@ -25,6 +25,8 @@ data class BlockScreenArgs(
                         .putExtra(EXTRA_PROFILE_NAME, reason.name)
                     is BlockReason.DailyLimitReached -> putExtra(EXTRA_REASON, REASON_LIMIT)
                         .putExtra(EXTRA_LIMIT_MINUTES, reason.limit.toMinutes())
+                    is BlockReason.SessionLimitReached -> putExtra(EXTRA_REASON, REASON_SESSION_LIMIT)
+                        .putExtra(EXTRA_LIMIT_MINUTES, reason.limit.toMinutes())
                 }
             }
 
@@ -39,6 +41,9 @@ data class BlockScreenArgs(
                     name = intent.getStringExtra(EXTRA_PROFILE_NAME).orEmpty(),
                 )
                 REASON_LIMIT -> BlockReason.DailyLimitReached(
+                    Duration.ofMinutes(intent.getLongExtra(EXTRA_LIMIT_MINUTES, 0)),
+                )
+                REASON_SESSION_LIMIT -> BlockReason.SessionLimitReached(
                     Duration.ofMinutes(intent.getLongExtra(EXTRA_LIMIT_MINUTES, 0)),
                 )
                 else -> return null
@@ -61,5 +66,6 @@ data class BlockScreenArgs(
         private const val REASON_GLOBAL = "global"
         private const val REASON_PROFILE = "profile"
         private const val REASON_LIMIT = "limit"
+        private const val REASON_SESSION_LIMIT = "session_limit"
     }
 }

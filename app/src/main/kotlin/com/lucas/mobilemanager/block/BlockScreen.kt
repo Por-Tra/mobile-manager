@@ -101,6 +101,8 @@ private fun reasonText(reason: BlockReason): String = when (reason) {
     is BlockReason.Profile -> stringResource(R.string.block_reason_profile, reason.name)
     is BlockReason.DailyLimitReached ->
         stringResource(R.string.block_reason_daily_limit, Formats.duration(reason.limit))
+    is BlockReason.SessionLimitReached ->
+        stringResource(R.string.block_reason_session_limit, Formats.duration(reason.limit))
 }
 
 @Composable

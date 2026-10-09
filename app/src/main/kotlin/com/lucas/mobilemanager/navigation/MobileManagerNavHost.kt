@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.lucas.mobilemanager.ui.doomscroll.ScrollGuardScreen
 import com.lucas.mobilemanager.ui.home.HomeScreen
 import com.lucas.mobilemanager.ui.onboarding.OnboardingScreen
 import com.lucas.mobilemanager.ui.profiles.ProfileEditScreen
@@ -26,6 +27,9 @@ data object StartSessionRoute
 
 @Serializable
 data object OverrideRoute
+
+@Serializable
+data object ScrollGuardRoute
 
 /** Édition d'un profil (`profileId = 0` : nouveau) ou des règles par défaut. */
 @Serializable
@@ -76,7 +80,11 @@ fun MobileManagerNavHost(startDestination: Any) {
             SettingsScreen(
                 onBack = { navController.popBackStack() },
                 onOpenPermissions = { navController.navigate(OnboardingRoute) },
+                onOpenScrollGuard = { navController.navigate(ScrollGuardRoute) },
             )
+        }
+        composable<ScrollGuardRoute> {
+            ScrollGuardScreen(onBack = { navController.popBackStack() })
         }
     }
 }

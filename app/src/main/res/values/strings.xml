@@ -217,6 +217,36 @@
     <string name="profile_error_limit">Une limite va de 1 min à 10 h.</string>
     <string name="profile_error_duplicate">Une même app apparaît deux fois.</string>
 
+    <!-- Anti-doomscrolling -->
+    <string name="scroll_guard_title">Anti-doomscrolling</string>
+    <string name="scroll_guard_entry_body">Pauses et limites de session continue</string>
+    <string name="scroll_guard_intro">Mesure les sessions continues (sans interruption) et propose une courte pause pour casser le geste automatique. TikTok a un régime plus strict. Instagram et YouTube n\'ont que des pauses pour l\'instant, afin de garder leur messagerie.</string>
+    <string name="scroll_guard_enabled">Anti-doomscrolling actif</string>
+    <string name="scroll_guard_gap">Une session se termine après</string>
+    <string name="scroll_guard_pause_duration">Durée de la pause</string>
+    <string name="scroll_guard_goal">Mon objectif (rappelé pendant la pause)</string>
+    <string name="scroll_guard_goal_hint">Ex. : lire 20 pages</string>
+    <string name="scroll_guard_apps">Apps surveillées</string>
+    <string name="guard_summary_pause">Pause / %1$s</string>
+    <string name="guard_summary_block">Blocage à %1$s (repos %2$s)</string>
+    <string name="guard_summary_daily">%1$s/jour</string>
+    <string name="guard_summary_none">Aucun garde-fou</string>
+    <string name="guard_pause_every">Pause toutes les</string>
+    <string name="guard_session_limit">Bloquer après une session de</string>
+    <string name="guard_cooldown">Temps de repos</string>
+    <string name="guard_daily_limit">Limite quotidienne</string>
+    <string name="guard_off">Désactivé</string>
+    <string name="block_reason_session_limit">Session continue de %1$s atteinte : une pause s\'impose.</string>
+
+    <!-- Écran de pause -->
+    <string name="pause_breathe">Respire…</string>
+    <string name="pause_breathe_done">Pause terminée</string>
+    <string name="pause_session">Tu es sur %1$s depuis %2$s.</string>
+    <string name="pause_goal">Ton objectif : %1$s</string>
+    <string name="pause_close_app">Fermer l\'app</string>
+    <string name="pause_continue">Continuer</string>
+    <string name="pause_wait">Continuer (%1$d s)</string>
+
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <string name="navigate_back">Retour</string>
