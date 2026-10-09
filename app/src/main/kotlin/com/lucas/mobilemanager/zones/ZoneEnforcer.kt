@@ -3,6 +3,8 @@ package com.lucas.mobilemanager.zones
 import android.accessibilityservice.AccessibilityService
 import android.content.pm.PackageManager
 import android.graphics.Rect
+import android.util.Log
+import com.lucas.mobilemanager.BuildConfig
 import android.os.SystemClock
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
@@ -107,6 +109,10 @@ class ZoneEnforcer(
             if (exactIds != null) AccessibilitySnapshot.captureByIds(root, exactIds) else AccessibilitySnapshot.capture(root, MAX_NODES)
         }
         val match = if (watched) ZoneMatcher.detect(detectors, pkg, snapshot.nodes) else null
+        if (BuildConfig.DEBUG && match != null) {
+            val ids = match.nodeIndices.map { snapshot.nodes[it].viewId?.substringAfter(":id/") ?: snapshot.nodes[it].desc }
+            Log.d(TAG, "$pkg zone ${match.zone.id} signal ${match.signalIndex + 1} $ids")
+        }
         val signature = Triple(pkg, match?.zone?.id, snapshot.nodes)
         unchangedChecks = if (signature == lastSignature) unchangedChecks + 1 else 0
         lastSignature = signature
@@ -230,6 +236,7 @@ class ZoneEnforcer(
     }
 
     private companion object {
+        const val TAG = "MobileManager"
         const val CHECK_DELAY_MS = 400L
         const val SLOWER_CHECK_DELAY_MS = 800L
         const val SLOWEST_CHECK_DELAY_MS = 1_200L
