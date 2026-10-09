@@ -25,4 +25,7 @@ class RoomStrictSessionRepository @Inject constructor(
 
     override suspend fun end(sessionId: Long, endedAt: Instant, reason: StrictSession.EndReason) =
         dao.end(sessionId, endedAt.toEpochMilli(), reason.name)
+
+    override suspend fun sessionsStartedBetween(from: Instant, to: Instant): List<StrictSession> =
+        dao.startedBetween(from.toEpochMilli(), to.toEpochMilli()).map { it.toDomain() }
 }

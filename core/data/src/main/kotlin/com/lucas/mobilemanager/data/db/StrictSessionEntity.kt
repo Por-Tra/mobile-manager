@@ -41,6 +41,9 @@ interface StrictSessionDao {
     @Query("UPDATE strict_session SET override_requested_at_ms = :atMs WHERE id = :id")
     suspend fun setOverrideRequestedAt(id: Long, atMs: Long?)
 
+    @Query("SELECT * FROM strict_session WHERE started_at_ms >= :fromMs AND started_at_ms < :toMs ORDER BY started_at_ms")
+    suspend fun startedBetween(fromMs: Long, toMs: Long): List<StrictSessionEntity>
+
     @Query("UPDATE strict_session SET ended_at_ms = :endedAtMs, end_reason = :reason WHERE id = :id")
     suspend fun end(id: Long, endedAtMs: Long, reason: String)
 }

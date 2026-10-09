@@ -6,18 +6,21 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
+import com.lucas.mobilemanager.data.db.DailyUsageDao
 import com.lucas.mobilemanager.data.db.EventLogDao
 import com.lucas.mobilemanager.data.db.ProfileDao
 import com.lucas.mobilemanager.data.db.ScrollGuardDao
 import com.lucas.mobilemanager.data.db.StrictSessionDao
 import com.lucas.mobilemanager.data.db.MobileManagerDatabase
 import com.lucas.mobilemanager.data.repository.DataStoreManualActivationRepository
+import com.lucas.mobilemanager.data.repository.RoomDailyUsageRepository
 import com.lucas.mobilemanager.data.repository.DataStoreScrollGuardSettingsRepository
 import com.lucas.mobilemanager.data.repository.DataStoreUserPreferencesRepository
 import com.lucas.mobilemanager.data.repository.RoomProfileRepository
 import com.lucas.mobilemanager.data.repository.RoomScrollGuardRepository
 import com.lucas.mobilemanager.data.repository.RoomStrictSessionRepository
 import com.lucas.mobilemanager.data.repository.RoomEventLogRepository
+import com.lucas.mobilemanager.domain.repository.DailyUsageRepository
 import com.lucas.mobilemanager.domain.repository.EventLogRepository
 import com.lucas.mobilemanager.domain.repository.ManualActivationRepository
 import com.lucas.mobilemanager.domain.repository.ProfileRepository
@@ -52,6 +55,9 @@ object DataProvidersModule {
     fun provideProfileDao(db: MobileManagerDatabase): ProfileDao = db.profileDao()
 
     @Provides
+    fun provideDailyUsageDao(db: MobileManagerDatabase): DailyUsageDao = db.dailyUsageDao()
+
+    @Provides
     fun provideScrollGuardDao(db: MobileManagerDatabase): ScrollGuardDao = db.scrollGuardDao()
 
     @Provides
@@ -83,6 +89,9 @@ abstract class DataBindingsModule {
     abstract fun bindManualActivationRepository(
         impl: DataStoreManualActivationRepository,
     ): ManualActivationRepository
+
+    @Binds
+    abstract fun bindDailyUsageRepository(impl: RoomDailyUsageRepository): DailyUsageRepository
 
     @Binds
     abstract fun bindScrollGuardRepository(impl: RoomScrollGuardRepository): ScrollGuardRepository
