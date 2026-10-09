@@ -3,6 +3,7 @@ package com.lucas.mobilemanager.domain.dashboard
 import com.lucas.mobilemanager.domain.model.EventLogEntry
 import com.lucas.mobilemanager.domain.model.EventType
 import com.lucas.mobilemanager.domain.model.StrictSession
+import com.lucas.mobilemanager.domain.zones.ZoneKey
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
@@ -46,6 +47,10 @@ data class DashboardInput(
     val dailyUsage: DailyUsage,
     /** Événements du journal ; filtrés sur la période par le calculateur. */
     val events: List<EventLogEntry>,
+    /** Temps passé dans les zones, par jour local. */
+    val zoneUsage: Map<LocalDate, Map<ZoneKey, Duration>>,
+    /** Quotas quotidiens en vigueur par zone (règles par défaut). */
+    val zoneQuotas: Map<ZoneKey, Duration>,
     val sessions: List<StrictSession>,
     /** Objectif de temps d'écran quotidien, `null` si aucun. */
     val dailyGoal: Duration?,
@@ -62,26 +67,23 @@ data class AppUsage(val packageName: String, val duration: Duration, val share: 
 
 data class DayTotal(val date: LocalDate, val total: Duration, val hasData: Boolean)
 
-data class ZoneKey(val packageName: String, val zone: String)
-
 data class ZoneStats(
-    /** Temps passé dans les zones autorisées. */
+    /** Temps passé dans les zones sur la période. */
     val timeByZone: Map<ZoneKey, Duration>,
-    /** Sorties automatiques des zones bloquées. */
+    /** Sorties automatiques des zones bloquées (ou dont le quota est atteint). */
     val exitsByZone: Map<ZoneKey, Int>,
+    /** Quota quotidien de chaque zone qui en a un. */
+    val quotaByZone: Map<ZoneKey, Duration>,
 )
 
 /** Pourquoi l'outil a interrompu un usage. */
-enum class BlockKind { RULE, STRICT_SESSION, DAILY_LIMIT, SESSION_LIMIT }
+enum class BlockKind { RULE, STRICT_SESSION, DAILY_LIMIT }
 
 data class Interruptions(
     val blocks: Map<BlockKind, Int>,
-    val pauses: Int,
-    /** Pauses après lesquelles « Fermer l'app » a été choisi. */
-    val pausesClosed: Int,
     val zoneExits: Int,
 ) {
-    val total: Int get() = blocks.values.sum() + pauses + zoneExits
+    val total: Int get() = blocks.values.sum() + zoneExits
 }
 
 data class Goals(
@@ -144,7 +146,7 @@ object DashboardCalculator {
             week = PeriodRange.of(Period.WEEK, input.today).days.map { day ->
                 DayTotal(day, listOf(day).sumOf(usage), day in usage)
             },
-            zones = zoneStats(events),
+            zones = zoneStats(input, range, events),
             interruptions = interruptions(events),
             goals = goals(input, range, usage, events),
         )
@@ -161,28 +163,22 @@ object DashboardCalculator {
         return Comparison(trend, delta.abs(), previousTotal)
     }
 
-    private fun zoneStats(events: List<EventLogEntry>): ZoneStats {
-        val time = events.filter { it.type == EventType.ZONE_VISIT }
-            .mapNotNull { event ->
-                val key = event.zoneKey() ?: return@mapNotNull null
-                val seconds = event.details?.substringAfterLast(':')?.toLongOrNull() ?: return@mapNotNull null
-                key to Duration.ofSeconds(seconds)
-            }
-            .groupBy({ it.first }, { it.second })
+    private fun zoneStats(input: DashboardInput, range: DateRange, events: List<EventLogEntry>): ZoneStats {
+        val time = range.days.flatMap { input.zoneUsage[it].orEmpty().entries }
+            .groupBy({ it.key }, { it.value })
             .mapValues { (_, d) -> d.fold(Duration.ZERO, Duration::plus) }
+            .filterValues { !it.isZero }
         val exits = events.filter { it.type == EventType.ZONE_REDIRECTED }
             .mapNotNull { it.zoneKey() }
             .groupingBy { it }
             .eachCount()
-        return ZoneStats(time, exits)
+        return ZoneStats(time, exits, input.zoneQuotas)
     }
 
     private fun interruptions(events: List<EventLogEntry>): Interruptions = Interruptions(
         blocks = events.filter { it.type == EventType.APP_BLOCKED }
             .groupingBy { blockKind(it.details) }
             .eachCount(),
-        pauses = events.count { it.type == EventType.INTERSTITIAL_SHOWN },
-        pausesClosed = events.count { it.type == EventType.PAUSE_CLOSED_APP },
         zoneExits = events.count { it.type == EventType.ZONE_REDIRECTED },
     )
 
@@ -208,7 +204,6 @@ object DashboardCalculator {
         details == null -> BlockKind.RULE
         details.startsWith("strict_session") -> BlockKind.STRICT_SESSION
         details.startsWith("daily_limit") -> BlockKind.DAILY_LIMIT
-        details.startsWith("session_limit") -> BlockKind.SESSION_LIMIT
         else -> BlockKind.RULE
     }
 

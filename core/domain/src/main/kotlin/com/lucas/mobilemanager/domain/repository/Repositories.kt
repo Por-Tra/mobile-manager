@@ -1,13 +1,13 @@
 package com.lucas.mobilemanager.domain.repository
 
-import com.lucas.mobilemanager.domain.doomscroll.ScrollGuard
-import com.lucas.mobilemanager.domain.doomscroll.ScrollGuardSettings
 import com.lucas.mobilemanager.domain.model.EventLogEntry
 import com.lucas.mobilemanager.domain.model.ManualActivation
 import com.lucas.mobilemanager.domain.model.Profile
 import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.model.UserPreferences
 import com.lucas.mobilemanager.domain.rules.Rule
+import com.lucas.mobilemanager.domain.zones.ZoneKey
+import com.lucas.mobilemanager.domain.zones.ZoneUsageDelta
 import kotlinx.coroutines.flow.Flow
 import java.time.Duration
 import java.time.Instant
@@ -27,7 +27,10 @@ interface UserPreferencesRepository {
 
     suspend fun setDefaultProfilesSeeded(seeded: Boolean)
 
-    suspend fun setDefaultScrollGuardsSeeded(seeded: Boolean)
+    suspend fun setDefaultAppBlocksSeeded(seeded: Boolean)
+
+    /** Efface les réglages de l'anti-doomscrolling retiré (réglages, temps de repos). */
+    suspend fun clearLegacyScrollGuardSettings()
 
     suspend fun setDefaultZoneRulesSeeded(seeded: Boolean)
 
@@ -90,26 +93,15 @@ interface ManualActivationRepository {
     suspend fun clear()
 }
 
-/** Réglages anti-doomscrolling par app. */
-interface ScrollGuardRepository {
-    fun observeGuards(): Flow<List<ScrollGuard>>
+/** Temps passé dans les zones (Reels, Shorts…) par jour local : quotas et tableau de bord. */
+interface ZoneUsageRepository {
+    suspend fun add(deltas: List<ZoneUsageDelta>)
 
-    suspend fun upsert(guard: ScrollGuard)
+    /** Temps enregistré dans chaque zone le jour [date]. */
+    fun observeDay(date: LocalDate): Flow<Map<ZoneKey, Duration>>
 
-    suspend fun delete(packageName: String)
-}
+    suspend fun usageOn(date: LocalDate): Map<ZoneKey, Duration>
 
-/** Réglages généraux anti-doomscrolling et temps de repos en cours. */
-interface ScrollGuardSettingsRepository {
-    val settings: Flow<ScrollGuardSettings>
-
-    /** Fin du temps de repos en cours, par package. */
-    val cooldowns: Flow<Map<String, Instant>>
-
-    suspend fun update(change: (ScrollGuardSettings) -> ScrollGuardSettings)
-
-    suspend fun setCooldown(packageName: String, until: Instant)
-
-    /** Retire les temps de repos terminés. */
-    suspend fun clearExpiredCooldowns(now: Instant)
+    /** Temps par zone pour chaque jour de [from, to] (inclus) qui en a. */
+    suspend fun usageBetween(from: LocalDate, to: LocalDate): Map<LocalDate, Map<ZoneKey, Duration>>
 }

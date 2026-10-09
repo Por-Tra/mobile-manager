@@ -217,43 +217,20 @@
     <string name="profile_error_limit">Une limite va de 1 min à 10 h.</string>
     <string name="profile_error_duplicate">Une même app apparaît deux fois.</string>
 
-    <!-- Anti-doomscrolling -->
-    <string name="scroll_guard_title">Anti-doomscrolling</string>
-    <string name="scroll_guard_entry_body">Pauses et limites de session continue</string>
-    <string name="scroll_guard_intro">Mesure les sessions continues (sans interruption) et propose une courte pause pour casser le geste automatique. TikTok a un régime plus strict. Instagram et YouTube n\'ont que des pauses pour l\'instant, afin de garder leur messagerie.</string>
-    <string name="scroll_guard_enabled">Anti-doomscrolling actif</string>
-    <string name="scroll_guard_gap">Une session se termine après</string>
-    <string name="scroll_guard_pause_duration">Durée de la pause</string>
-    <string name="scroll_guard_goal">Mon objectif (rappelé pendant la pause)</string>
-    <string name="scroll_guard_goal_hint">Ex. : lire 20 pages</string>
-    <string name="scroll_guard_apps">Apps surveillées</string>
-    <string name="guard_summary_pause">Pause / %1$s</string>
-    <string name="guard_summary_block">Blocage à %1$s (repos %2$s)</string>
-    <string name="guard_summary_daily">%1$s/jour</string>
-    <string name="guard_summary_none">Aucun garde-fou</string>
-    <string name="guard_pause_every">Pause toutes les</string>
-    <string name="guard_session_limit">Bloquer après une session de</string>
-    <string name="guard_cooldown">Temps de repos</string>
-    <string name="guard_daily_limit">Limite quotidienne</string>
-    <string name="guard_off">Désactivé</string>
-    <string name="block_reason_session_limit">Session continue de %1$s atteinte : une pause s\'impose.</string>
-
-    <!-- Écran de pause -->
-    <string name="pause_breathe">Respire…</string>
-    <string name="pause_breathe_done">Pause terminée</string>
-    <string name="pause_session">Tu es sur %1$s depuis %2$s.</string>
-    <string name="pause_goal">Ton objectif : %1$s</string>
-    <string name="pause_close_app">Fermer l\'app</string>
-    <string name="pause_continue">Continuer</string>
-    <string name="pause_wait">Continuer (%1$d s)</string>
-
-    <!-- Restrictions par zone -->
-    <string name="zones_title">Restrictions par zone</string>
-    <string name="zones_entry_body">Reels, Shorts : bloquer seulement les zones distrayantes</string>
-    <string name="zones_intro">Bloque seulement une partie d\'une app : la messagerie et les publications d\'Instagram restent accessibles, les Reels sont quittés automatiquement. Un profil peut autoriser une zone explicitement.</string>
+    <!-- Zones et quotas -->
+    <string name="zones_title">Zones et quotas</string>
+    <string name="zones_entry_body">Reels, Shorts : bloqués ou limités chaque jour</string>
+    <string name="zones_intro">Agit seulement sur une partie d\'une app : la messagerie et les publications d\'Instagram restent accessibles. Bloquée : le bouton est masqué et la zone quittée automatiquement. Quota : temps cumulé par jour, puis c\'est fini jusqu\'à minuit.</string>
+    <string name="zones_quota">Quota</string>
+    <string name="zones_used_of">%1$s sur %2$s aujourd\'hui</string>
+    <string name="zones_used">%1$s aujourd\'hui</string>
+    <string name="zones_apps_title">Apps entières</string>
+    <string name="zones_apps_body">TikTok est bloqué par défaut. Les limites quotidiennes d\'une app entière se règlent dans les règles par défaut.</string>
+    <string name="zones_apps_open">Ouvrir les règles par défaut</string>
     <string name="zones_item">%1$s · %2$s</string>
     <string name="zones_fragile">La détection dépend de l\'interface interne de chaque app et peut casser après une mise à jour. Réglages › Mode diagnostic permet de la réparer.</string>
     <string name="zone_hidden">%1$s masqués</string>
+    <string name="zone_quota_reached">Quota de %1$s atteint pour aujourd\'hui (%2$s)</string>
 
     <!-- Mode diagnostic -->
     <string name="settings_advanced">Avancé</string>
@@ -304,8 +281,9 @@
     <string name="dashboard_show_all">Voir tout</string>
     <string name="dashboard_show_less">Voir moins</string>
     <string name="dashboard_zones">Zones distrayantes</string>
-    <string name="dashboard_zones_none">Aucune visite de Reels ou de Shorts sur cette période.</string>
+    <string name="dashboard_zones_none">Aucun temps passé dans les Reels ou les Shorts sur cette période.</string>
     <string name="dashboard_zone_time">%1$s (%2$s) : %3$s</string>
+    <string name="dashboard_zone_time_quota">%1$s (%2$s) : %3$s / %4$s aujourd\'hui</string>
     <plurals name="dashboard_zone_exits">
         <item quantity="one">%1$s quittés automatiquement %2$d fois</item>
         <item quantity="many">%1$s quittés automatiquement %2$d fois</item>
@@ -327,21 +305,6 @@
         <item quantity="one">%d ouverture après une limite quotidienne</item>
         <item quantity="many">%d ouvertures après une limite quotidienne</item>
         <item quantity="other">%d ouvertures après une limite quotidienne</item>
-    </plurals>
-    <plurals name="dashboard_blocks_session">
-        <item quantity="one">%d session continue arrêtée pour une pause</item>
-        <item quantity="many">%d sessions continues arrêtées pour une pause</item>
-        <item quantity="other">%d sessions continues arrêtées pour une pause</item>
-    </plurals>
-    <plurals name="dashboard_pauses">
-        <item quantity="one">%d écran de pause</item>
-        <item quantity="many">%d écrans de pause</item>
-        <item quantity="other">%d écrans de pause</item>
-    </plurals>
-    <plurals name="dashboard_pauses_closed">
-        <item quantity="one">Tu as fermé l\'app %d fois après la pause.</item>
-        <item quantity="many">Tu as fermé l\'app %d fois après la pause.</item>
-        <item quantity="other">Tu as fermé l\'app %d fois après la pause.</item>
     </plurals>
     <string name="dashboard_goals">Objectifs</string>
     <string name="dashboard_goal_none">Pas d\'objectif de temps d\'écran quotidien.</string>

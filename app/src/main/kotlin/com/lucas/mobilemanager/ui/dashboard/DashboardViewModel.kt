@@ -6,7 +6,7 @@ import com.lucas.mobilemanager.apps.InstalledApps
 import com.lucas.mobilemanager.dashboard.DashboardLoader
 import com.lucas.mobilemanager.domain.dashboard.DashboardSummary
 import com.lucas.mobilemanager.domain.dashboard.Period
-import com.lucas.mobilemanager.domain.dashboard.ZoneKey
+import com.lucas.mobilemanager.domain.zones.ZoneKey
 import com.lucas.mobilemanager.domain.repository.UserPreferencesRepository
 import com.lucas.mobilemanager.zones.ZoneDetectorStore
 import dagger.hilt.android.lifecycle.HiltViewModel

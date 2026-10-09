@@ -1,11 +1,14 @@
 package com.lucas.mobilemanager.domain.zones
 
+import com.lucas.mobilemanager.domain.MONDAY
+import com.lucas.mobilemanager.domain.PARIS
+import com.lucas.mobilemanager.domain.at
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.time.Duration
 import java.time.Instant
+import java.time.LocalDate
 
 class ZoneTrackingTest {
 
@@ -41,27 +44,56 @@ class ZoneTrackingTest {
     }
 
     @Nested
-    inner class Visits {
-        private val tracker = ZoneVisitTracker()
+    inner class Usage {
+        private val counter = ZoneUsageAccumulator()
+        private fun instant(hour: Int, minute: Int, second: Int = 0) = at(MONDAY, hour, minute).toInstant().plusSeconds(second.toLong())
+        private fun delta(seconds: Long, date: LocalDate = MONDAY) = ZoneUsageDelta(date, "ig", "reels", Duration.ofSeconds(seconds))
 
         @Test
-        fun `visit is reported when leaving the zone`() {
-            assertNull(tracker.onSnapshot("yt", "shorts", ms(0)))
-            assertNull(tracker.onSnapshot("yt", "shorts", ms(30_000)))
-            assertEquals(ZoneVisit("yt", "shorts", Duration.ofMinutes(1)), tracker.onSnapshot("yt", null, ms(60_000)))
+        fun `time between consecutive snapshots in the zone is counted`() {
+            assertEquals(emptyList<ZoneUsageDelta>(), counter.onSnapshot("ig", "reels", instant(10, 0), PARIS))
+            assertEquals(listOf(delta(5)), counter.onSnapshot("ig", "reels", instant(10, 0, 5), PARIS))
+            assertEquals(listOf(delta(5)), counter.onSnapshot("ig", "reels", instant(10, 0, 10), PARIS))
         }
 
         @Test
-        fun `very short visits are ignored`() {
-            tracker.onSnapshot("yt", "shorts", ms(0))
-            assertNull(tracker.onSnapshot("yt", null, ms(2_000)))
+        fun `a long gap counts at most 15 seconds`() {
+            counter.onSnapshot("ig", "reels", instant(10, 0), PARIS)
+            assertEquals(listOf(delta(15)), counter.onSnapshot("ig", "reels", instant(10, 5), PARIS))
         }
 
         @Test
-        fun `leaving the app ends the visit`() {
-            tracker.onSnapshot("ig", "reels", ms(0))
-            assertEquals(ZoneVisit("ig", "reels", Duration.ofSeconds(20)), tracker.onAppLeft(ms(20_000)))
-            assertNull(tracker.onAppLeft(ms(30_000)))
+        fun `leaving the zone counts until the last snapshot, then stops`() {
+            counter.onSnapshot("ig", "reels", instant(10, 0), PARIS)
+            assertEquals(listOf(delta(4)), counter.onSnapshot("ig", null, instant(10, 0, 4), PARIS))
+            assertEquals(emptyList<ZoneUsageDelta>(), counter.onSnapshot("ig", null, instant(10, 0, 9), PARIS))
+        }
+
+        @Test
+        fun `leaving the app closes the zone`() {
+            counter.onSnapshot("ig", "reels", instant(10, 0), PARIS)
+            assertEquals(listOf(delta(3)), counter.onLeft(instant(10, 0, 3), PARIS))
+            assertEquals(emptyList<ZoneUsageDelta>(), counter.onLeft(instant(10, 0, 8), PARIS))
+        }
+
+        @Test
+        fun `switching zone credits the previous one`() {
+            counter.onSnapshot("ig", "reels", instant(10, 0), PARIS)
+            assertEquals(listOf(delta(2)), counter.onSnapshot("yt", "shorts", instant(10, 0, 2), PARIS))
+            assertEquals(
+                listOf(ZoneUsageDelta(MONDAY, "yt", "shorts", Duration.ofSeconds(5))),
+                counter.onSnapshot("yt", "shorts", instant(10, 0, 7), PARIS),
+            )
+        }
+
+        @Test
+        fun `time is split at midnight`() {
+            val beforeMidnight = at(MONDAY.minusDays(1), 23, 59).toInstant().plusSeconds(55)
+            counter.onSnapshot("ig", "reels", beforeMidnight, PARIS)
+            assertEquals(
+                listOf(delta(5, MONDAY.minusDays(1)), delta(5)),
+                counter.onSnapshot("ig", "reels", beforeMidnight.plusSeconds(10), PARIS),
+            )
         }
     }
 }

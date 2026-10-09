@@ -6,8 +6,8 @@ import androidx.work.Configuration
 import com.lucas.mobilemanager.dashboard.DailyUsageSnapshotter
 import com.lucas.mobilemanager.dashboard.DailyUsageWorker
 import com.lucas.mobilemanager.di.ApplicationScope
-import com.lucas.mobilemanager.domain.doomscroll.SeedDefaultScrollGuards
 import com.lucas.mobilemanager.domain.profiles.SeedDefaultProfiles
+import com.lucas.mobilemanager.domain.zones.SeedDefaultAppBlocks
 import com.lucas.mobilemanager.domain.zones.SeedDefaultZoneRules
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +19,7 @@ class MobileManagerApp : Application(), Configuration.Provider {
 
     @Inject lateinit var seedDefaultProfiles: SeedDefaultProfiles
 
-    @Inject lateinit var seedDefaultScrollGuards: SeedDefaultScrollGuards
+    @Inject lateinit var seedDefaultAppBlocks: SeedDefaultAppBlocks
 
     @Inject lateinit var seedDefaultZoneRules: SeedDefaultZoneRules
 
@@ -37,7 +37,7 @@ class MobileManagerApp : Application(), Configuration.Provider {
         super.onCreate()
         appScope.launch {
             seedDefaultProfiles()
-            seedDefaultScrollGuards()
+            seedDefaultAppBlocks()
             seedDefaultZoneRules()
             dailyUsageSnapshotter.ensureSnapshots()
         }

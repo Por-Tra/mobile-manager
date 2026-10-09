@@ -3,13 +3,13 @@ package com.lucas.mobilemanager.zones
 import android.accessibilityservice.AccessibilityService
 import android.annotation.SuppressLint
 import android.content.res.Configuration
-import android.graphics.Color
 import android.graphics.PixelFormat
 import android.graphics.Rect
-import com.lucas.mobilemanager.domain.zones.MaskColor
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
+import androidx.core.graphics.toColorInt
+import com.lucas.mobilemanager.domain.zones.MaskColor
 
 /**
  * Masque les points d'entrée d'une zone inaccessible (bouton Reels, onglet Shorts) : une fenêtre
@@ -58,7 +58,7 @@ class EntryPointMask(private val service: AccessibilityService) {
     private fun color(maskColor: MaskColor): Int {
         val night = service.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK ==
             Configuration.UI_MODE_NIGHT_YES
-        return Color.parseColor(if (night) maskColor.dark else maskColor.light)
+        return (if (night) maskColor.dark else maskColor.light).toColorInt()
     }
 
     private fun layoutParams(rect: Rect) = WindowManager.LayoutParams(

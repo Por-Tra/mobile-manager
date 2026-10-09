@@ -261,6 +261,47 @@ class RuleEngineTest {
         }
     }
 
+    /** Quotas quotidiens : une limite posée sur une zone se mesure au temps passé dans la zone. */
+    @Nested
+    inner class ZoneQuotas {
+        private val reelsQuota = Rule(Target.Zone(INSTAGRAM, "reels"), RuleAction.Limit(minutes(50)))
+
+        private fun reels(appUsage: Long, zoneUsage: Long) =
+            AppRequest(INSTAGRAM, zone = "reels", usageToday = minutes(appUsage), zoneUsageToday = minutes(zoneUsage))
+
+        @Test
+        fun `quota counts zone time, not app time`() =
+            assertEquals(Decision.Allowed(minutes(20)), decide(reels(appUsage = 120, zoneUsage = 30), globalRules = listOf(reelsQuota)))
+
+        @Test
+        fun `quota reached blocks the zone until midnight`() =
+            assertEquals(
+                Decision.Blocked(BlockReason.DailyLimitReached(minutes(50)), at(MONDAY.plusDays(1), 0).toInstant()),
+                decide(reels(appUsage = 60, zoneUsage = 50), globalRules = listOf(reelsQuota)),
+            )
+
+        @Test
+        fun `messages are never concerned by a zone quota`() =
+            assertEquals(
+                Decision.Allowed(null),
+                decide(AppRequest(INSTAGRAM, usageToday = minutes(300)), globalRules = listOf(reelsQuota)),
+            )
+
+        @Test
+        fun `app limit still counts app time inside a zone`() {
+            val rules = listOf(reelsQuota, limit(INSTAGRAM, 90))
+            val p = profile(id = 1, rules = listOf(limit(INSTAGRAM, 90)))
+            // Couche du profil : limite d'app (90 min d'app, 80 utilisées) ; couche globale : quota (50, 10 utilisées).
+            assertEquals(Decision.Allowed(minutes(10)), decide(reels(appUsage = 80, zoneUsage = 10), listOf(p), rules))
+        }
+
+        @Test
+        fun `a profile can allow the zone despite the quota`() {
+            val p = profile(id = 1, rules = listOf(Rule(Target.Zone(INSTAGRAM, "reels"), RuleAction.Allow)))
+            assertEquals(Decision.Allowed(null), decide(reels(appUsage = 60, zoneUsage = 70), listOf(p), listOf(reelsQuota)))
+        }
+    }
+
     @Nested
     inner class BlockEnd {
 

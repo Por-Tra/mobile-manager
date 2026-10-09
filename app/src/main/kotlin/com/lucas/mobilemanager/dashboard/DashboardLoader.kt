@@ -6,8 +6,13 @@ import com.lucas.mobilemanager.domain.dashboard.DashboardSummary
 import com.lucas.mobilemanager.domain.dashboard.Period
 import com.lucas.mobilemanager.domain.repository.DailyUsageRepository
 import com.lucas.mobilemanager.domain.repository.EventLogRepository
+import com.lucas.mobilemanager.domain.repository.ProfileRepository
 import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.repository.UserPreferencesRepository
+import com.lucas.mobilemanager.domain.repository.ZoneUsageRepository
+import com.lucas.mobilemanager.domain.rules.RuleAction
+import com.lucas.mobilemanager.domain.rules.Target
+import com.lucas.mobilemanager.domain.zones.ZoneKey
 import com.lucas.mobilemanager.domain.time.TimeProvider
 import com.lucas.mobilemanager.enforcement.SystemWhitelistProvider
 import com.lucas.mobilemanager.enforcement.UsageStatsReader
@@ -27,6 +32,8 @@ class DashboardLoader @Inject constructor(
     private val eventLogRepository: EventLogRepository,
     private val strictSessionRepository: StrictSessionRepository,
     private val preferencesRepository: UserPreferencesRepository,
+    private val zoneUsageRepository: ZoneUsageRepository,
+    private val profileRepository: ProfileRepository,
     private val whitelistProvider: SystemWhitelistProvider,
     private val timeProvider: TimeProvider,
 ) {
@@ -50,6 +57,12 @@ class DashboardLoader @Inject constructor(
                 zone = zone,
                 dailyUsage = usage,
                 events = eventLogRepository.observeBetween(start, end).first(),
+                zoneUsage = zoneUsageRepository.usageBetween(from, today),
+                zoneQuotas = profileRepository.observeGlobalRules().first().mapNotNull { rule ->
+                    val target = rule.target as? Target.Zone ?: return@mapNotNull null
+                    val limit = rule.action as? RuleAction.Limit ?: return@mapNotNull null
+                    ZoneKey(target.packageName, target.zone) to limit.dailyLimit
+                }.toMap(),
                 sessions = strictSessionRepository.sessionsStartedBetween(start, end),
                 dailyGoal = preferencesRepository.preferences.first().screenTimeGoalMinutes?.let { Duration.ofMinutes(it.toLong()) },
                 excludedPackages = whitelistProvider.nonScreenTimePackages(),

@@ -64,6 +64,7 @@ import com.lucas.mobilemanager.ui.apps.AppIcon
 import com.lucas.mobilemanager.ui.apps.AppSearchField
 import com.lucas.mobilemanager.ui.apps.appPickerItems
 import com.lucas.mobilemanager.ui.components.TimePickerDialog
+import com.lucas.mobilemanager.ui.components.LimitPicker
 import com.lucas.mobilemanager.ui.format.Formats
 import java.time.DayOfWeek
 import java.time.Duration
@@ -359,27 +360,6 @@ private fun AppRuleRow(
 }
 
 @Composable
-private fun LimitPicker(minutes: Int, enabled: Boolean, onLimit: (Int) -> Unit) {
-    var open by remember { mutableStateOf(false) }
-    Box {
-        TextButton(onClick = { open = true }, enabled = enabled) {
-            Text(stringResource(R.string.profile_edit_limit_value, Formats.duration(Duration.ofMinutes(minutes.toLong()))))
-        }
-        DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
-            LIMIT_OPTIONS.forEach { option ->
-                DropdownMenuItem(
-                    text = { Text(Formats.duration(Duration.ofMinutes(option.toLong()))) },
-                    onClick = {
-                        onLimit(option)
-                        open = false
-                    },
-                )
-            }
-        }
-    }
-}
-
-@Composable
 private fun SwitchRow(title: String, caption: String?, checked: Boolean, enabled: Boolean, onChange: (Boolean) -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
         Column(Modifier.weight(1f)) {
@@ -419,4 +399,3 @@ private fun errorText(error: ProfileValidator.Error): String = stringResource(
     },
 )
 
-private val LIMIT_OPTIONS = listOf(5, 10, 15, 20, 30, 45, 60, 90, 120, 180)

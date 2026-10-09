@@ -24,6 +24,7 @@ import com.lucas.mobilemanager.diagnostic.DiagnosticStore
 import com.lucas.mobilemanager.domain.time.TimeProvider
 import com.lucas.mobilemanager.zones.ZoneDetectorStore
 import com.lucas.mobilemanager.zones.ZoneEnforcer
+import com.lucas.mobilemanager.zones.ZoneUsageRecorder
 import com.lucas.mobilemanager.R
 import com.lucas.mobilemanager.domain.foreground.ForegroundTracker
 import com.lucas.mobilemanager.domain.foreground.HomePanels
@@ -33,7 +34,6 @@ import com.lucas.mobilemanager.domain.session.ProtectedScreenDetector
 import com.lucas.mobilemanager.domain.rules.EnforcementPolicy
 import com.lucas.mobilemanager.enforcement.EnforcementCoordinator
 import com.lucas.mobilemanager.ui.format.Formats
-import com.lucas.mobilemanager.ui.pause.PauseArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -58,6 +58,7 @@ class MonitorAccessibilityService : AccessibilityService() {
     @Inject lateinit var zoneDetectorStore: ZoneDetectorStore
     @Inject lateinit var diagnosticStore: DiagnosticStore
     @Inject lateinit var timeProvider: TimeProvider
+    @Inject lateinit var zoneUsageRecorder: ZoneUsageRecorder
 
     private lateinit var zoneEnforcer: ZoneEnforcer
 
@@ -78,7 +79,10 @@ class MonitorAccessibilityService : AccessibilityService() {
     private val screenReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
-                Intent.ACTION_SCREEN_OFF -> watchJob?.cancel()
+                Intent.ACTION_SCREEN_OFF -> {
+                    watchJob?.cancel()
+                    zoneEnforcer.onForegroundChanged()
+                }
                 Intent.ACTION_SCREEN_ON -> tracker.current?.takeIf { it != packageName }?.let(::watch)
             }
         }
@@ -87,7 +91,7 @@ class MonitorAccessibilityService : AccessibilityService() {
     override fun onServiceConnected() {
         super.onServiceConnected()
         tracker = ForegroundTracker(selfPackage = packageName)
-        zoneEnforcer = ZoneEnforcer(this, scope, coordinator, zoneDetectorStore, timeProvider, ::block)
+        zoneEnforcer = ZoneEnforcer(this, scope, coordinator, zoneDetectorStore, timeProvider, zoneUsageRecorder, ::block)
         scope.launch {
             diagnosticStore.overlayEnabled.collect { enabled -> setDiagnosticOverlay(enabled) }
         }
@@ -216,10 +220,6 @@ class MonitorAccessibilityService : AccessibilityService() {
                         block(pkg, decision)
                         return@launch
                     }
-                    is Decision.Pause -> {
-                        pause(pkg, decision)
-                        return@launch
-                    }
                     is Decision.Allowed -> {
                         if (coordinator.isWhitelisted(pkg)) return@launch
                         val delay = EnforcementPolicy.nextCheckDelay(decision) ?: return@launch
@@ -249,20 +249,6 @@ class MonitorAccessibilityService : AccessibilityService() {
         lastBlockedPackage = pkg
         lastBlockedAtMs = nowMs
         scope.launch(Dispatchers.Default) { coordinator.recordBlock(pkg, decision) }
-    }
-
-    /** Écran de pause anti-doomscrolling, par-dessus l'app. */
-    private fun pause(pkg: String, decision: Decision.Pause) {
-        tracker.reset()
-        scope.launch {
-            val settings = withContext(Dispatchers.Default) { coordinator.pauseSettings() }
-            coordinator.recordPause(pkg, decision.sessionLength)
-            startActivity(
-                PauseArgs(pkg, decision.sessionLength, settings.pauseDuration, settings.goal)
-                    .toIntent(this@MonitorAccessibilityService)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
-            )
-        }
     }
 
     /** Bandeau du mode diagnostic : zone détectée en direct + bouton « Capturer ». */

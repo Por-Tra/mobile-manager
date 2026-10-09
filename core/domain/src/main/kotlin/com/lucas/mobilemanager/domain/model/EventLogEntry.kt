@@ -15,10 +15,11 @@ data class EventLogEntry(
 enum class EventType {
     APP_BLOCKED,
     ZONE_REDIRECTED,
-    /** Temps passé dans une zone autorisée (détail : `zone:secondes`). */
+    /** Historique (phase 7) : remplacé par la table `zone_usage`. Gardé pour relire le journal. */
     ZONE_VISIT,
+    /** Historique (anti-doomscrolling, retiré) : gardé pour relire le journal. */
     INTERSTITIAL_SHOWN,
-    /** « Fermer l'app » choisi sur l'écran de pause. */
+    /** Historique (anti-doomscrolling, retiré) : gardé pour relire le journal. */
     PAUSE_CLOSED_APP,
     STRICT_SESSION_STARTED,
     STRICT_SESSION_ENDED,

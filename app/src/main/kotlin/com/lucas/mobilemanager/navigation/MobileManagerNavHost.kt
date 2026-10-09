@@ -7,7 +7,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.lucas.mobilemanager.ui.dashboard.DashboardScreen
 import com.lucas.mobilemanager.ui.diagnostic.DiagnosticScreen
-import com.lucas.mobilemanager.ui.doomscroll.ScrollGuardScreen
 import com.lucas.mobilemanager.ui.home.HomeScreen
 import com.lucas.mobilemanager.ui.onboarding.OnboardingScreen
 import com.lucas.mobilemanager.ui.profiles.ProfileEditScreen
@@ -31,9 +30,6 @@ data object StartSessionRoute
 
 @Serializable
 data object OverrideRoute
-
-@Serializable
-data object ScrollGuardRoute
 
 @Serializable
 data object ZoneRulesRoute
@@ -98,19 +94,18 @@ fun MobileManagerNavHost(startDestination: Any, openDiagnostic: Boolean = false)
             SettingsScreen(
                 onBack = { navController.popBackStack() },
                 onOpenPermissions = { navController.navigate(OnboardingRoute) },
-                onOpenScrollGuard = { navController.navigate(ScrollGuardRoute) },
                 onOpenZones = { navController.navigate(ZoneRulesRoute) },
                 onOpenDiagnostic = { navController.navigate(DiagnosticRoute) },
             )
         }
         composable<ZoneRulesRoute> {
-            ZoneRulesScreen(onBack = { navController.popBackStack() })
+            ZoneRulesScreen(
+                onBack = { navController.popBackStack() },
+                onOpenDefaultRules = { navController.navigate(ProfileEditRoute(defaultRules = true)) },
+            )
         }
         composable<DiagnosticRoute> {
             DiagnosticScreen(onBack = { navController.popBackStack() })
-        }
-        composable<ScrollGuardRoute> {
-            ScrollGuardScreen(onBack = { navController.popBackStack() })
         }
     }
 }

@@ -136,7 +136,7 @@ fun DashboardScreen(onBack: () -> Unit, viewModel: DashboardViewModel = hiltView
                     }
                 }
             }
-            item { ZonesSection(summary, state) }
+            item { ZonesSection(summary, state, state.period) }
             item { InterruptionsSection(summary) }
             item { GoalsSection(summary, goal, state.period, onPickGoal = { pickingGoal = true }) }
         }
@@ -191,20 +191,22 @@ private fun AppRow(packageName: String, label: String, duration: Duration, share
 }
 
 @Composable
-private fun ZonesSection(summary: DashboardSummary, state: DashboardUiState) {
+private fun ZonesSection(summary: DashboardSummary, state: DashboardUiState, period: Period) {
     val zones = summary.zones
     Section(stringResource(R.string.dashboard_zones)) {
         if (zones.timeByZone.isEmpty() && zones.exitsByZone.isEmpty()) {
             Caption(stringResource(R.string.dashboard_zones_none))
         }
         zones.timeByZone.forEach { (key, duration) ->
+            val zoneLabel = state.zoneLabels[key] ?: key.zone
+            val appLabel = state.appLabels[key.packageName] ?: key.packageName
+            val quota = zones.quotaByZone[key]
             Line(
-                stringResource(
-                    R.string.dashboard_zone_time,
-                    state.zoneLabels[key] ?: key.zone,
-                    state.appLabels[key.packageName] ?: key.packageName,
-                    Formats.duration(duration),
-                ),
+                if (quota != null && period == Period.TODAY) {
+                    stringResource(R.string.dashboard_zone_time_quota, zoneLabel, appLabel, Formats.duration(duration), Formats.duration(quota))
+                } else {
+                    stringResource(R.string.dashboard_zone_time, zoneLabel, appLabel, Formats.duration(duration))
+                },
             )
         }
         zones.exitsByZone.forEach { (key, count) ->
@@ -228,15 +230,8 @@ private fun InterruptionsSection(summary: DashboardSummary) {
                 BlockKind.RULE -> R.plurals.dashboard_blocks_rule
                 BlockKind.STRICT_SESSION -> R.plurals.dashboard_blocks_strict
                 BlockKind.DAILY_LIMIT -> R.plurals.dashboard_blocks_daily
-                BlockKind.SESSION_LIMIT -> R.plurals.dashboard_blocks_session
             }
             Line(pluralStringResource(label, count, count))
-        }
-        if (interruptions.pauses > 0) {
-            Line(pluralStringResource(R.plurals.dashboard_pauses, interruptions.pauses, interruptions.pauses))
-            if (interruptions.pausesClosed > 0) {
-                Caption(pluralStringResource(R.plurals.dashboard_pauses_closed, interruptions.pausesClosed, interruptions.pausesClosed))
-            }
         }
     }
 }

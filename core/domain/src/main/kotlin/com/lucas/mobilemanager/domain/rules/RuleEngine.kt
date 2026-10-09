@@ -13,6 +13,8 @@ data class AppRequest(
     val zone: String? = null,
     /** Temps passé aujourd'hui dans l'app, depuis minuit local. */
     val usageToday: Duration = Duration.ZERO,
+    /** Temps passé aujourd'hui dans [zone] : c'est lui que mesure un quota posé sur la zone. */
+    val zoneUsageToday: Duration = Duration.ZERO,
 )
 
 /** Apps jamais bloquées (horloge, téléphone, urgences, paramètres, Mobile Manager). */
@@ -21,14 +23,8 @@ data class SystemWhitelist(val packages: Set<String>) {
 }
 
 sealed interface Decision {
-    /**
-     * [remainingToday] : temps restant avant la limite quotidienne, `null` si illimité.
-     * [checkAgainIn] : prochain événement connu (palier anti-doomscrolling), `null` si aucun.
-     */
-    data class Allowed(val remainingToday: Duration?, val checkAgainIn: Duration? = null) : Decision
-
-    /** Écran de pause anti-doomscrolling, après [sessionLength] de session continue. */
-    data class Pause(val sessionLength: Duration) : Decision
+    /** [remainingToday] : temps restant avant la limite quotidienne (ou le quota), `null` si illimité. */
+    data class Allowed(val remainingToday: Duration?) : Decision
 
     /** [until] : fin prévue du blocage si elle est connue. */
     data class Blocked(val reason: BlockReason, val until: Instant?) : Decision
@@ -40,9 +36,6 @@ sealed interface BlockReason {
     data class Profile(val profileId: Long, val name: String) : BlockReason
     data object GlobalRule : BlockReason
     data class DailyLimitReached(val limit: Duration) : BlockReason
-
-    /** Session continue trop longue (anti-doomscrolling) : temps de repos. */
-    data class SessionLimitReached(val limit: Duration) : BlockReason
 }
 
 /**
@@ -54,7 +47,8 @@ sealed interface BlockReason {
  * 3. Les couches sont parcourues de la plus prioritaire à la moins prioritaire : une règle
  *    Block/Limit est retenue, une règle Allow arrête le parcours (exception explicite).
  * 4. Parmi les restrictions retenues, la plus forte l'emporte : Block > Limit, puis la limite
- *    la plus courte.
+ *    la plus proche d'être atteinte. Une limite posée sur une zone (quota de Reels) se mesure au
+ *    temps passé dans la zone, une limite d'app au temps passé dans l'app.
  */
 class RuleEngine @Inject constructor() {
 
@@ -66,14 +60,14 @@ class RuleEngine @Inject constructor() {
     ): Decision {
         if (request.packageName in whitelist) return Decision.Allowed(remainingToday = null)
 
-        val restrictions = mutableListOf<Pair<PolicyLayer, RuleAction>>()
+        val restrictions = mutableListOf<Pair<PolicyLayer, Rule>>()
         for (layer in policy.layers) {
-            val action = layer.decisiveAction(request) ?: continue
-            if (action == RuleAction.Allow) break
-            restrictions += layer to action
+            val rule = layer.decisiveRule(request) ?: continue
+            if (rule.action == RuleAction.Allow) break
+            restrictions += layer to rule
         }
 
-        val blockingLayers = restrictions.filter { it.second == RuleAction.Block }.map { it.first }
+        val blockingLayers = restrictions.filter { it.second.action == RuleAction.Block }.map { it.first }
         if (blockingLayers.isNotEmpty()) {
             return Decision.Blocked(
                 reason = blockingLayers.first().source.toBlockReason(),
@@ -81,12 +75,15 @@ class RuleEngine @Inject constructor() {
             )
         }
 
-        val limit = restrictions
-            .mapNotNull { it.second as? RuleAction.Limit }
-            .minByOrNull { it.dailyLimit }
+        val (limit, remaining) = restrictions
+            .mapNotNull { (_, rule) ->
+                val limit = rule.action as? RuleAction.Limit ?: return@mapNotNull null
+                val used = if (rule.target is Target.Zone) request.zoneUsageToday else request.usageToday
+                limit to limit.dailyLimit - used
+            }
+            .minWithOrNull(compareBy<Pair<RuleAction.Limit, Duration>> { it.second }.thenBy { it.first.dailyLimit })
             ?: return Decision.Allowed(remainingToday = null)
 
-        val remaining = limit.dailyLimit - request.usageToday
         return if (remaining.isNegative || remaining.isZero) {
             Decision.Blocked(
                 reason = BlockReason.DailyLimitReached(limit.dailyLimit),
@@ -98,13 +95,12 @@ class RuleEngine @Inject constructor() {
     }
 
     /** Règle la plus précise de la couche pour cette requête, la plus restrictive en cas d'égalité. */
-    private fun PolicyLayer.decisiveAction(request: AppRequest): RuleAction? {
+    private fun PolicyLayer.decisiveRule(request: AppRequest): Rule? {
         val matching = rules.filter { it.target.matches(request) }
         val maxSpecificity = matching.maxOfOrNull { it.target.specificity } ?: return null
         return matching
             .filter { it.target.specificity == maxSpecificity }
-            .map { it.action }
-            .maxWith(STRICTNESS)
+            .maxWith(compareBy(STRICTNESS) { it.action })
     }
 
     /**

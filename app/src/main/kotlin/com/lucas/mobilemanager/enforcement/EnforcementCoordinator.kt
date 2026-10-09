@@ -1,12 +1,9 @@
 package com.lucas.mobilemanager.enforcement
 
+import android.os.SystemClock
 import android.util.Log
 import com.lucas.mobilemanager.BuildConfig
 import com.lucas.mobilemanager.di.ApplicationScope
-import com.lucas.mobilemanager.domain.doomscroll.GuardDecision
-import com.lucas.mobilemanager.domain.doomscroll.ScrollGuard
-import com.lucas.mobilemanager.domain.doomscroll.ScrollGuardPolicy
-import com.lucas.mobilemanager.domain.doomscroll.ScrollGuardSettings
 import com.lucas.mobilemanager.domain.model.EventLogEntry
 import com.lucas.mobilemanager.domain.model.EventType
 import com.lucas.mobilemanager.domain.model.ManualActivation
@@ -15,8 +12,6 @@ import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.repository.EventLogRepository
 import com.lucas.mobilemanager.domain.repository.ManualActivationRepository
 import com.lucas.mobilemanager.domain.repository.ProfileRepository
-import com.lucas.mobilemanager.domain.repository.ScrollGuardRepository
-import com.lucas.mobilemanager.domain.repository.ScrollGuardSettingsRepository
 import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.rules.AppRequest
 import com.lucas.mobilemanager.domain.rules.BlockReason
@@ -25,7 +20,7 @@ import com.lucas.mobilemanager.domain.rules.ProfileResolver
 import com.lucas.mobilemanager.domain.rules.Rule
 import com.lucas.mobilemanager.domain.rules.RuleEngine
 import com.lucas.mobilemanager.domain.time.TimeProvider
-import com.lucas.mobilemanager.domain.zones.ZoneVisit
+import com.lucas.mobilemanager.zones.ZoneUsageRecorder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -35,7 +30,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import java.time.Duration
-import java.time.Instant
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -49,8 +43,6 @@ class EnforcementCoordinator @Inject constructor(
     profileRepository: ProfileRepository,
     strictSessionRepository: StrictSessionRepository,
     manualActivationRepository: ManualActivationRepository,
-    scrollGuardRepository: ScrollGuardRepository,
-    private val scrollGuardSettingsRepository: ScrollGuardSettingsRepository,
     @ApplicationScope appScope: CoroutineScope,
     private val profileResolver: ProfileResolver,
     private val ruleEngine: RuleEngine,
@@ -58,6 +50,7 @@ class EnforcementCoordinator @Inject constructor(
     private val usageStatsReader: UsageStatsReader,
     private val whitelistProvider: SystemWhitelistProvider,
     private val eventLogRepository: EventLogRepository,
+    private val zoneUsageRecorder: ZoneUsageRecorder,
 ) {
     private data class RulesSnapshot(
         val profiles: List<Profile>,
@@ -73,22 +66,8 @@ class EnforcementCoordinator @Inject constructor(
         ::RulesSnapshot,
     ).stateIn(appScope, SharingStarted.Eagerly, initialValue = null)
 
-    private data class GuardSnapshot(
-        val settings: ScrollGuardSettings,
-        val guards: Map<String, ScrollGuard>,
-        val cooldowns: Map<String, Instant>,
-    )
-
-    /** Réglages anti-doomscrolling gardés en mémoire. */
-    private val guards = combine(
-        scrollGuardSettingsRepository.settings,
-        scrollGuardRepository.observeGuards(),
-        scrollGuardSettingsRepository.cooldowns,
-    ) { settings, guards, cooldowns -> GuardSnapshot(settings, guards.associateBy { it.packageName }, cooldowns) }
-        .stateIn(appScope, SharingStarted.Eagerly, initialValue = null)
-
-    /** Dernier écran de pause affiché, par app (en mémoire : une pause manquée après un redémarrage est sans gravité). */
-    private val lastPauseAt = ConcurrentHashMap<String, Instant>()
+    /** Dernier temps d'usage lu pour chaque app et quand (millisecondes de `elapsedRealtime`). */
+    private val lastAppUsage = ConcurrentHashMap<String, Pair<Duration, Long>>()
 
     /** Enveloppe pour distinguer « pas encore chargée » (`null`) de « aucune session ». */
     private data class SessionSnapshot(val session: StrictSession?)
@@ -106,23 +85,35 @@ class EnforcementCoordinator @Inject constructor(
 
     suspend fun evaluate(packageName: String): Decision {
         if (packageName in whitelistProvider.current()) return Decision.Allowed(remainingToday = null)
-        val request = AppRequest(packageName, usageToday = usageStatsReader.usageToday(packageName))
-        val engineDecision = engineDecision(request)
-        return applyScrollGuard(packageName, engineDecision, request.usageToday).also {
-            if (BuildConfig.DEBUG) Log.d(TAG, "$packageName usage=${request.usageToday} -> $it")
+        val usage = usageStatsReader.usageToday(packageName)
+        lastAppUsage[packageName] = usage to SystemClock.elapsedRealtime()
+        return engineDecision(AppRequest(packageName, usageToday = usage)).also {
+            if (BuildConfig.DEBUG) Log.d(TAG, "$packageName usage=$usage -> $it")
         }
     }
 
     /**
-     * Décision du moteur pour une **zone** de l'app (Reels, Shorts…). L'anti-doomscrolling ne
-     * s'applique pas ici : il concerne l'app entière et passe par [evaluate].
+     * Décision du moteur pour une **zone** de l'app (Reels, Shorts…) : un quota posé sur la zone
+     * se mesure au temps passé dans la zone aujourd'hui.
      */
     suspend fun evaluateZone(packageName: String, zone: String): Decision {
         if (packageName in whitelistProvider.current()) return Decision.Allowed(remainingToday = null)
-        val request = AppRequest(packageName, zone = zone, usageToday = usageStatsReader.usageToday(packageName))
+        val zoneUsage = zoneUsageRecorder.usageToday(packageName, zone)
+        val request = AppRequest(packageName, zone = zone, usageToday = appUsageForZone(packageName), zoneUsageToday = zoneUsage)
         return engineDecision(request).also {
-            if (BuildConfig.DEBUG) Log.d(TAG, "$packageName zone=$zone -> $it")
+            if (BuildConfig.DEBUG) Log.d(TAG, "$packageName zone=$zone zoneUsage=$zoneUsage -> $it")
         }
+    }
+
+    /**
+     * Usage de l'app pour une requête de zone, sans relire les statistiques d'Android à chaque
+     * vérification : la dernière lecture (≤ 30 s, faite par la surveillance de l'app) plus le
+     * temps écoulé depuis, l'app étant restée au premier plan.
+     */
+    private fun appUsageForZone(packageName: String): Duration {
+        val (usage, atMs) = lastAppUsage[packageName] ?: return usageStatsReader.usageToday(packageName)
+        val elapsed = SystemClock.elapsedRealtime() - atMs
+        return if (elapsed > APP_USAGE_REUSE_MS) usageStatsReader.usageToday(packageName) else usage + Duration.ofMillis(elapsed)
     }
 
     private suspend fun engineDecision(request: AppRequest): Decision {
@@ -145,62 +136,6 @@ class EnforcementCoordinator @Inject constructor(
         )
     }
 
-    suspend fun recordZoneVisit(visit: ZoneVisit) {
-        eventLogRepository.record(
-            EventLogEntry(
-                type = EventType.ZONE_VISIT,
-                occurredAt = timeProvider.now(),
-                packageName = visit.packageName,
-                zone = visit.zone,
-                details = "${visit.zone}:${visit.duration.seconds}",
-            ),
-        )
-    }
-
-    /** Anti-doomscrolling, appliqué après le moteur : n'ajoute que des restrictions. */
-    private suspend fun applyScrollGuard(packageName: String, engine: Decision, usageToday: Duration): Decision {
-        if (engine !is Decision.Allowed) return engine
-        val snapshot = guards.filterNotNull().first()
-        if (!snapshot.settings.enabled) return engine
-        val guard = snapshot.guards[packageName] ?: return engine
-        val now = timeProvider.now()
-        val session = usageStatsReader.continuousSession(packageName, snapshot.settings.sessionGap)
-        val cooldownUntil = snapshot.cooldowns[packageName]
-        val guardDecision = ScrollGuardPolicy.evaluate(
-            guard = guard,
-            session = session,
-            usageToday = usageToday,
-            lastPauseAt = lastPauseAt[packageName],
-            cooldownUntil = cooldownUntil,
-            now = now,
-            zone = timeProvider.zone(),
-        )
-        // Nouveau temps de repos : on le mémorise pour qu'il survive à un redémarrage.
-        if (guardDecision is GuardDecision.Blocked &&
-            guardDecision.reason is BlockReason.SessionLimitReached &&
-            (cooldownUntil == null || !now.isBefore(cooldownUntil))
-        ) {
-            scrollGuardSettingsRepository.setCooldown(packageName, guardDecision.until)
-        }
-        return ScrollGuardPolicy.combine(engine, guardDecision)
-    }
-
-    /** Durée de l'écran de pause et objectif à rappeler. */
-    suspend fun pauseSettings(): ScrollGuardSettings = guards.filterNotNull().first().settings
-
-    suspend fun recordPause(packageName: String, sessionLength: Duration) {
-        val now = timeProvider.now()
-        lastPauseAt[packageName] = now
-        eventLogRepository.record(
-            EventLogEntry(
-                type = EventType.INTERSTITIAL_SHOWN,
-                occurredAt = now,
-                packageName = packageName,
-                details = "session:${sessionLength.toMinutes()}",
-            ),
-        )
-    }
-
     suspend fun recordBlock(packageName: String, decision: Decision.Blocked) {
         eventLogRepository.record(
             EventLogEntry(
@@ -214,6 +149,7 @@ class EnforcementCoordinator @Inject constructor(
 
     private companion object {
         const val TAG = "MobileManager"
+        const val APP_USAGE_REUSE_MS = 30_000L
     }
 
     private fun BlockReason.logLabel(): String = when (this) {
@@ -221,6 +157,5 @@ class EnforcementCoordinator @Inject constructor(
         is BlockReason.Profile -> "profile:$profileId"
         BlockReason.GlobalRule -> "global_rule"
         is BlockReason.DailyLimitReached -> "daily_limit:${limit.toMinutes()}"
-        is BlockReason.SessionLimitReached -> "session_limit:${limit.toMinutes()}"
     }
 }

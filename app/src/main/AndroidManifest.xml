@@ -79,13 +79,6 @@
             android:taskAffinity="com.lucas.mobilemanager.block" />
 
         <activity
-            android:name=".ui.pause.PauseActivity"
-            android:excludeFromRecents="true"
-            android:exported="false"
-            android:launchMode="singleTask"
-            android:taskAffinity="com.lucas.mobilemanager.pause" />
-
-        <activity
             android:name=".session.ProtectionAlertActivity"
             android:excludeFromRecents="true"
             android:exported="false"

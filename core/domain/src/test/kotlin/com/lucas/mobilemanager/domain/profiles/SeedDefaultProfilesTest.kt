@@ -74,8 +74,9 @@ class SeedDefaultProfilesTest {
             state.update { it.copy(onboardingCompleted = completed) }
         override suspend fun setDefaultProfilesSeeded(seeded: Boolean) =
             state.update { it.copy(defaultProfilesSeeded = seeded) }
-        override suspend fun setDefaultScrollGuardsSeeded(seeded: Boolean) =
-            state.update { it.copy(defaultScrollGuardsSeeded = seeded) }
+        override suspend fun setDefaultAppBlocksSeeded(seeded: Boolean) =
+            state.update { it.copy(defaultAppBlocksSeeded = seeded) }
+        override suspend fun clearLegacyScrollGuardSettings() = Unit
         override suspend fun setDefaultZoneRulesSeeded(seeded: Boolean) =
             state.update { it.copy(defaultZoneRulesSeeded = seeded) }
         override suspend fun setScreenTimeGoal(minutes: Int?) =

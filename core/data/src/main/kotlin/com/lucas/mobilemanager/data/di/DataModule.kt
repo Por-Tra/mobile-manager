@@ -9,25 +9,23 @@ import androidx.room.Room
 import com.lucas.mobilemanager.data.db.DailyUsageDao
 import com.lucas.mobilemanager.data.db.EventLogDao
 import com.lucas.mobilemanager.data.db.ProfileDao
-import com.lucas.mobilemanager.data.db.ScrollGuardDao
 import com.lucas.mobilemanager.data.db.StrictSessionDao
+import com.lucas.mobilemanager.data.db.ZoneUsageDao
 import com.lucas.mobilemanager.data.db.MobileManagerDatabase
 import com.lucas.mobilemanager.data.repository.DataStoreManualActivationRepository
 import com.lucas.mobilemanager.data.repository.RoomDailyUsageRepository
-import com.lucas.mobilemanager.data.repository.DataStoreScrollGuardSettingsRepository
 import com.lucas.mobilemanager.data.repository.DataStoreUserPreferencesRepository
 import com.lucas.mobilemanager.data.repository.RoomProfileRepository
-import com.lucas.mobilemanager.data.repository.RoomScrollGuardRepository
 import com.lucas.mobilemanager.data.repository.RoomStrictSessionRepository
 import com.lucas.mobilemanager.data.repository.RoomEventLogRepository
+import com.lucas.mobilemanager.data.repository.RoomZoneUsageRepository
 import com.lucas.mobilemanager.domain.repository.DailyUsageRepository
 import com.lucas.mobilemanager.domain.repository.EventLogRepository
 import com.lucas.mobilemanager.domain.repository.ManualActivationRepository
 import com.lucas.mobilemanager.domain.repository.ProfileRepository
-import com.lucas.mobilemanager.domain.repository.ScrollGuardRepository
-import com.lucas.mobilemanager.domain.repository.ScrollGuardSettingsRepository
 import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.repository.UserPreferencesRepository
+import com.lucas.mobilemanager.domain.repository.ZoneUsageRepository
 import com.lucas.mobilemanager.domain.time.SystemTimeProvider
 import com.lucas.mobilemanager.domain.time.TimeProvider
 import dagger.Binds
@@ -58,7 +56,7 @@ object DataProvidersModule {
     fun provideDailyUsageDao(db: MobileManagerDatabase): DailyUsageDao = db.dailyUsageDao()
 
     @Provides
-    fun provideScrollGuardDao(db: MobileManagerDatabase): ScrollGuardDao = db.scrollGuardDao()
+    fun provideZoneUsageDao(db: MobileManagerDatabase): ZoneUsageDao = db.zoneUsageDao()
 
     @Provides
     fun provideStrictSessionDao(db: MobileManagerDatabase): StrictSessionDao = db.strictSessionDao()
@@ -94,12 +92,7 @@ abstract class DataBindingsModule {
     abstract fun bindDailyUsageRepository(impl: RoomDailyUsageRepository): DailyUsageRepository
 
     @Binds
-    abstract fun bindScrollGuardRepository(impl: RoomScrollGuardRepository): ScrollGuardRepository
-
-    @Binds
-    abstract fun bindScrollGuardSettingsRepository(
-        impl: DataStoreScrollGuardSettingsRepository,
-    ): ScrollGuardSettingsRepository
+    abstract fun bindZoneUsageRepository(impl: RoomZoneUsageRepository): ZoneUsageRepository
 
     @Binds
     abstract fun bindStrictSessionRepository(impl: RoomStrictSessionRepository): StrictSessionRepository

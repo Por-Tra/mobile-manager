@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.lucas.mobilemanager.R
 import com.lucas.mobilemanager.diagnostic.DiagnosticOverlay
 import com.lucas.mobilemanager.diagnostic.HierarchyCapture
+import com.lucas.mobilemanager.domain.rules.BlockReason
 import com.lucas.mobilemanager.domain.rules.Decision
 import com.lucas.mobilemanager.domain.time.TimeProvider
 import com.lucas.mobilemanager.domain.zones.ExitStep
@@ -18,17 +19,19 @@ import com.lucas.mobilemanager.domain.zones.ZoneExitPlanner
 import com.lucas.mobilemanager.domain.zones.ZoneExitThrottle
 import com.lucas.mobilemanager.domain.zones.ZoneMatch
 import com.lucas.mobilemanager.domain.zones.ZoneMatcher
-import com.lucas.mobilemanager.domain.zones.ZoneVisitTracker
 import com.lucas.mobilemanager.enforcement.EnforcementCoordinator
+import com.lucas.mobilemanager.ui.format.Formats
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.Duration
 
 /**
- * Sort automatiquement des zones bloquées (Reels, Shorts…) d'une app autorisée.
+ * Sort automatiquement des zones bloquées ou dont le quota est atteint (Reels, Shorts…) d'une
+ * app autorisée, masque leurs points d'entrée et mesure le temps passé dans les zones permises.
  * Lit la structure de l'écran (identifiants, libellés d'onglets, état sélectionné) des seules
  * apps qui ont des détecteurs ; rien n'est enregistré.
  */
@@ -38,6 +41,7 @@ class ZoneEnforcer(
     private val coordinator: EnforcementCoordinator,
     private val detectorStore: ZoneDetectorStore,
     private val timeProvider: TimeProvider,
+    private val usageRecorder: ZoneUsageRecorder,
     /** Repli si la sortie échoue plusieurs fois : écran de blocage classique. */
     private val onEscalate: (packageName: String, decision: Decision.Blocked) -> Unit,
 ) {
@@ -45,8 +49,9 @@ class ZoneEnforcer(
     var overlay: DiagnosticOverlay? = null
 
     private var checkJob: Job? = null
+    /** Vérification périodique tant qu'une zone permise est à l'écran (une vidéo ne génère pas d'événement). */
+    private var tickJob: Job? = null
     private val throttles = HashMap<String, ZoneExitThrottle>()
-    private val visits = ZoneVisitTracker()
     private var lastToastAtMs = 0L
     private val labels = HashMap<String, String>()
     private val mask = EntryPointMask(service)
@@ -67,10 +72,11 @@ class ZoneEnforcer(
         }
     }
 
-    /** Une autre app (ou Mobile Manager) est passée au premier plan : la visite en cours se termine. */
+    /** Une autre app (ou Mobile Manager) est passée au premier plan, ou l'écran s'est éteint. */
     fun onForegroundChanged() {
         hideMask()
-        visits.onAppLeft(timeProvider.now())?.let { scope.launch(Dispatchers.Default) { coordinator.recordZoneVisit(it) } }
+        tickJob?.cancel()
+        scope.launch { usageRecorder.onLeft() }
     }
 
     private suspend fun check() {
@@ -88,32 +94,47 @@ class ZoneEnforcer(
 
         val now = timeProvider.now()
         val throttle = throttles.getOrPut(pkg) { ZoneExitThrottle() }
+        // Le temps passé dans la zone depuis le constat précédent est compté avant de décider :
+        // le quota est jugé sur l'usage à jour.
+        usageRecorder.onSnapshot(pkg, match?.zone?.id)
         val decision = match?.let { zoneDecision(pkg, it.zone.id, fresh = true) }
         updateMask(pkg, detectors.zonesFor(pkg), snapshot)
         if (match == null || decision == null) {
             throttle.onZoneLeft()
-            visits.onSnapshot(pkg, null, now)?.let { coordinator.recordZoneVisit(it) }
+            tickJob?.cancel()
             return
         }
 
-        if (decision !is Decision.Blocked) {
-            // Zone autorisée (par un profil, ou réglée « Autorisée ») : on mesure le temps passé.
-            visits.onSnapshot(pkg, match.zone.id, now)?.let { coordinator.recordZoneVisit(it) }
+        if (decision is Decision.Allowed) {
+            // Zone permise (quota non atteint, ou autorisée) : on revient vérifier régulièrement,
+            // au plus tard quand le quota sera atteint.
+            scheduleTick(decision.remainingToday)
             return
         }
-        visits.onSnapshot(pkg, null, now)?.let { coordinator.recordZoneVisit(it) }
+        decision as Decision.Blocked
+        tickJob?.cancel()
+        usageRecorder.onSnapshot(pkg, null) // zone inaccessible : plus rien à compter
 
         when (throttle.onZoneDetected(now)) {
             ZoneExitThrottle.Action.WAIT -> Unit
             ZoneExitThrottle.Action.EXIT -> {
                 exit(ZoneExitPlanner.plan(match.zone, snapshot.nodes, throttle.attempts - 1), snapshot.infos)
-                showToast(match.zone.label)
+                showToast(match.zone.label, decision.reason)
                 withContext(Dispatchers.Default) { coordinator.recordZoneRedirect(pkg, match.zone.id) }
             }
             ZoneExitThrottle.Action.ESCALATE -> {
                 throttle.onZoneLeft()
                 onEscalate(pkg, decision)
             }
+        }
+    }
+
+    private fun scheduleTick(remaining: Duration?) {
+        val delayMs = (remaining?.toMillis() ?: TICK_MS).coerceIn(MIN_TICK_MS, TICK_MS)
+        tickJob?.cancel()
+        tickJob = scope.launch {
+            delay(delayMs)
+            check()
         }
     }
 
@@ -160,11 +181,16 @@ class ZoneEnforcer(
         service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
     }
 
-    private fun showToast(zoneLabel: String) {
+    private fun showToast(zoneLabel: String, reason: BlockReason) {
         val nowMs = SystemClock.elapsedRealtime()
         if (nowMs - lastToastAtMs < TOAST_INTERVAL_MS) return
         lastToastAtMs = nowMs
-        Toast.makeText(service, service.getString(R.string.zone_hidden, zoneLabel), Toast.LENGTH_SHORT).show()
+        val text = if (reason is BlockReason.DailyLimitReached) {
+            service.getString(R.string.zone_quota_reached, zoneLabel, Formats.duration(reason.limit))
+        } else {
+            service.getString(R.string.zone_hidden, zoneLabel)
+        }
+        Toast.makeText(service, text, Toast.LENGTH_SHORT).show()
     }
 
     private fun statusText(pkg: String, match: ZoneMatch?): String {
@@ -185,6 +211,8 @@ class ZoneEnforcer(
     private companion object {
         const val CHECK_DELAY_MS = 300L
         const val DECISION_TTL_MS = 5_000L
+        const val TICK_MS = 5_000L
+        const val MIN_TICK_MS = 1_000L
         const val TOAST_INTERVAL_MS = 3_000L
         const val MAX_NODES = 800
         const val MAX_NODES_DIAGNOSTIC = 2_000

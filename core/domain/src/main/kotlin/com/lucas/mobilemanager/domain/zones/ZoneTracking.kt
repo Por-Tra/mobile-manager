@@ -1,7 +1,10 @@
 package com.lucas.mobilemanager.domain.zones
 
+import com.lucas.mobilemanager.domain.time.DayBoundaries
 import java.time.Duration
 import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
 
 /**
  * Évite les boucles quand on sort d'une zone : au plus une action toutes les [minInterval], et
@@ -34,31 +37,47 @@ class ZoneExitThrottle(
     }
 }
 
-/** Visite terminée d'une zone autorisée, pour le tableau de bord. */
-data class ZoneVisit(val packageName: String, val zone: String, val duration: Duration)
+/** Une zone d'une app (Reels d'Instagram…). */
+data class ZoneKey(val packageName: String, val zone: String)
 
-/** Mesure le temps passé dans les zones autorisées (Reels permis par un profil, par exemple). */
-class ZoneVisitTracker(private val minDuration: Duration = Duration.ofSeconds(5)) {
+/** Temps passé dans une zone pendant un jour local. */
+data class ZoneUsageDelta(val date: LocalDate, val packageName: String, val zone: String, val duration: Duration)
 
-    private var current: Triple<String, String, Instant>? = null
+/**
+ * Mesure le temps passé dans les zones (Reels, Shorts…) pour les quotas quotidiens.
+ *
+ * Le temps entre deux constats consécutifs « dans la zone » est compté, plafonné à [maxGap] :
+ * un écran figé ou un service suspendu ne compte pas indéfiniment. Le temps est coupé à minuit
+ * pour être attribué au bon jour.
+ */
+class ZoneUsageAccumulator(private val maxGap: Duration = Duration.ofSeconds(15)) {
 
-    /**
-     * À appeler à chaque détection. [zone] `null` = hors zone. Renvoie la visite qui vient de se
-     * terminer, si elle a duré au moins [minDuration].
-     */
-    fun onSnapshot(packageName: String, zone: String?, now: Instant): ZoneVisit? {
-        val ongoing = current
-        if (ongoing != null && ongoing.first == packageName && ongoing.second == zone) return null
-        current = zone?.let { Triple(packageName, it, now) }
-        return ongoing?.let { (pkg, z, start) ->
-            Duration.between(start, now).takeIf { it >= minDuration }?.let { ZoneVisit(pkg, z, it) }
-        }
+    private data class Ongoing(val packageName: String, val zone: String, val since: Instant)
+
+    private var ongoing: Ongoing? = null
+
+    /** Constat à [now] : dans [zone] de [packageName], ou hors zone (`null`). Renvoie le temps à ajouter. */
+    fun onSnapshot(packageName: String, zone: String?, now: Instant, timeZone: ZoneId): List<ZoneUsageDelta> {
+        val deltas = close(now, timeZone)
+        ongoing = zone?.let { Ongoing(packageName, it, now) }
+        return deltas
     }
 
-    /** L'app a quitté le premier plan. */
-    fun onAppLeft(now: Instant): ZoneVisit? {
-        val ongoing = current ?: return null
-        current = null
-        return Duration.between(ongoing.third, now).takeIf { it >= minDuration }?.let { ZoneVisit(ongoing.first, ongoing.second, it) }
+    /** L'app a quitté le premier plan (ou l'écran s'est éteint). */
+    fun onLeft(now: Instant, timeZone: ZoneId): List<ZoneUsageDelta> = close(now, timeZone).also { ongoing = null }
+
+    private fun close(now: Instant, timeZone: ZoneId): List<ZoneUsageDelta> {
+        val current = ongoing ?: return emptyList()
+        if (!now.isAfter(current.since)) return emptyList()
+        val end = minOf(now, current.since + maxGap)
+        val deltas = ArrayList<ZoneUsageDelta>(1)
+        var start = current.since
+        while (start.isBefore(end)) {
+            val date = start.atZone(timeZone).toLocalDate()
+            val sliceEnd = minOf(end, DayBoundaries.nextMidnight(start, timeZone))
+            deltas += ZoneUsageDelta(date, current.packageName, current.zone, Duration.between(start, sliceEnd))
+            start = sliceEnd
+        }
+        return deltas
     }
 }

@@ -10,6 +10,7 @@ import com.lucas.mobilemanager.domain.at
 import com.lucas.mobilemanager.domain.model.EventLogEntry
 import com.lucas.mobilemanager.domain.model.EventType
 import com.lucas.mobilemanager.domain.model.StrictSession
+import com.lucas.mobilemanager.domain.zones.ZoneKey
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNull
@@ -30,7 +31,9 @@ class DashboardCalculatorTest {
         events: List<EventLogEntry> = emptyList(),
         sessions: List<StrictSession> = emptyList(),
         goal: Duration? = null,
-    ) = DashboardInput(period, MONDAY, PARIS, usage, events, sessions, goal, setOf(launcher))
+        zoneUsage: Map<LocalDate, Map<ZoneKey, Duration>> = emptyMap(),
+        zoneQuotas: Map<ZoneKey, Duration> = emptyMap(),
+    ) = DashboardInput(period, MONDAY, PARIS, usage, events, zoneUsage, zoneQuotas, sessions, goal, setOf(launcher))
 
     private fun event(type: EventType, day: LocalDate = MONDAY, hour: Int = 10, pkg: String? = null, zone: String? = null, details: String? = null) =
         EventLogEntry(type = type, occurredAt = at(day, hour).toInstant(), packageName = pkg, zone = zone, details = details)
@@ -120,36 +123,39 @@ class DashboardCalculatorTest {
             event(EventType.APP_BLOCKED, details = "profile:2"),
             event(EventType.APP_BLOCKED, details = "daily_limit:30"),
             event(EventType.APP_BLOCKED, day = MONDAY.minusDays(2), details = "daily_limit:30"),
+            // Ancien blocage anti-doomscrolling (historique) : compté comme une règle.
             event(EventType.APP_BLOCKED, details = "session_limit:10"),
             event(EventType.APP_BLOCKED, details = "strict_session"),
             event(EventType.INTERSTITIAL_SHOWN),
-            event(EventType.INTERSTITIAL_SHOWN),
-            event(EventType.PAUSE_CLOSED_APP),
             event(EventType.ZONE_REDIRECTED, pkg = YOUTUBE, zone = "shorts"),
             event(EventType.ZONE_REDIRECTED, pkg = YOUTUBE, zone = "shorts"),
-            event(EventType.ZONE_VISIT, pkg = INSTAGRAM, zone = "reels", details = "reels:300"),
-            event(EventType.ZONE_VISIT, pkg = INSTAGRAM, zone = "reels", details = "reels:120"),
-            event(EventType.ZONE_VISIT, day = MONDAY.minusDays(8), pkg = INSTAGRAM, zone = "reels", details = "reels:999"),
+        )
+        private val reels = ZoneKey(INSTAGRAM, "reels")
+        private val zoneUsage = mapOf(
+            MONDAY to mapOf(reels to min(5)),
+            MONDAY.minusDays(1) to mapOf(reels to min(2)),
+            MONDAY.minusDays(8) to mapOf(reels to min(99)),
         )
 
         @Test
         fun `interruptions are counted by kind for today only`() {
             val interruptions = DashboardCalculator.summarize(input(events = events)).interruptions
             assertEquals(
-                mapOf(BlockKind.RULE to 1, BlockKind.DAILY_LIMIT to 1, BlockKind.SESSION_LIMIT to 1, BlockKind.STRICT_SESSION to 1),
+                mapOf(BlockKind.RULE to 2, BlockKind.DAILY_LIMIT to 1, BlockKind.STRICT_SESSION to 1),
                 interruptions.blocks,
             )
-            assertEquals(2, interruptions.pauses)
-            assertEquals(1, interruptions.pausesClosed)
             assertEquals(2, interruptions.zoneExits)
-            assertEquals(8, interruptions.total)
+            assertEquals(6, interruptions.total)
         }
 
         @Test
         fun `zone time and exits`() {
-            val zones = DashboardCalculator.summarize(input(Period.WEEK, events = events)).zones
-            assertEquals(mapOf(ZoneKey(INSTAGRAM, "reels") to min(7)), zones.timeByZone)
+            val week = input(Period.WEEK, events = events, zoneUsage = zoneUsage, zoneQuotas = mapOf(reels to min(50)))
+            val zones = DashboardCalculator.summarize(week).zones
+            assertEquals(mapOf(reels to min(7)), zones.timeByZone)
             assertEquals(mapOf(ZoneKey(YOUTUBE, "shorts") to 2), zones.exitsByZone)
+            assertEquals(mapOf(reels to min(50)), zones.quotaByZone)
+            assertEquals(mapOf(reels to min(5)), DashboardCalculator.summarize(input(zoneUsage = zoneUsage)).zones.timeByZone)
         }
 
         @Test
