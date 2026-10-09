@@ -36,6 +36,17 @@ class EnforcementPolicyTest {
             )
 
         @Test
+        fun `pause screen is not rechecked`() =
+            assertNull(EnforcementPolicy.nextCheckDelay(Decision.Pause(Duration.ofMinutes(5))))
+
+        @Test
+        fun `next scroll guard milestone shortens the delay`() =
+            assertEquals(
+                Duration.ofSeconds(8),
+                EnforcementPolicy.nextCheckDelay(Decision.Allowed(Duration.ofMinutes(20), checkAgainIn = Duration.ofSeconds(8))),
+            )
+
+        @Test
         fun `tiny remaining time waits at least one second`() =
             assertEquals(
                 Duration.ofSeconds(1),

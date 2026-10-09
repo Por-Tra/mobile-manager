@@ -74,5 +74,7 @@ class SeedDefaultProfilesTest {
             state.update { it.copy(onboardingCompleted = completed) }
         override suspend fun setDefaultProfilesSeeded(seeded: Boolean) =
             state.update { it.copy(defaultProfilesSeeded = seeded) }
+        override suspend fun setDefaultScrollGuardsSeeded(seeded: Boolean) =
+            state.update { it.copy(defaultScrollGuardsSeeded = seeded) }
     }
 }

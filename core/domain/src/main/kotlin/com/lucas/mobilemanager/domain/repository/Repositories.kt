@@ -1,5 +1,7 @@
 package com.lucas.mobilemanager.domain.repository
 
+import com.lucas.mobilemanager.domain.doomscroll.ScrollGuard
+import com.lucas.mobilemanager.domain.doomscroll.ScrollGuardSettings
 import com.lucas.mobilemanager.domain.model.EventLogEntry
 import com.lucas.mobilemanager.domain.model.ManualActivation
 import com.lucas.mobilemanager.domain.model.Profile
@@ -22,6 +24,8 @@ interface UserPreferencesRepository {
     suspend fun setOnboardingCompleted(completed: Boolean)
 
     suspend fun setDefaultProfilesSeeded(seeded: Boolean)
+
+    suspend fun setDefaultScrollGuardsSeeded(seeded: Boolean)
 }
 
 interface StrictSessionRepository {
@@ -61,4 +65,28 @@ interface ManualActivationRepository {
     suspend fun activate(profileId: Long, until: Instant?)
 
     suspend fun clear()
+}
+
+/** Réglages anti-doomscrolling par app. */
+interface ScrollGuardRepository {
+    fun observeGuards(): Flow<List<ScrollGuard>>
+
+    suspend fun upsert(guard: ScrollGuard)
+
+    suspend fun delete(packageName: String)
+}
+
+/** Réglages généraux anti-doomscrolling et temps de repos en cours. */
+interface ScrollGuardSettingsRepository {
+    val settings: Flow<ScrollGuardSettings>
+
+    /** Fin du temps de repos en cours, par package. */
+    val cooldowns: Flow<Map<String, Instant>>
+
+    suspend fun update(change: (ScrollGuardSettings) -> ScrollGuardSettings)
+
+    suspend fun setCooldown(packageName: String, until: Instant)
+
+    /** Retire les temps de repos terminés. */
+    suspend fun clearExpiredCooldowns(now: Instant)
 }

@@ -13,16 +13,15 @@ object EnforcementPolicy {
     private val MIN_CHECK_INTERVAL: Duration = Duration.ofSeconds(1)
 
     /**
-     * Délai avant de réévaluer l'app au premier plan, ou `null` si elle est bloquée.
-     * Une app autorisée est revue au plus tard toutes les 30 s (début d'une plage horaire)
-     * et pile au moment où sa limite quotidienne est atteinte.
+     * Délai avant de réévaluer l'app au premier plan, ou `null` si elle est bloquée ou en pause.
+     * Une app autorisée est revue au plus tard toutes les 30 s (début d'une plage horaire),
+     * pile au moment où sa limite quotidienne est atteinte et au prochain palier anti-doomscrolling.
      */
     fun nextCheckDelay(decision: Decision): Duration? = when (decision) {
-        is Decision.Blocked -> null
-        is Decision.Allowed -> {
-            val remaining = decision.remainingToday ?: MAX_CHECK_INTERVAL
-            remaining.coerceIn(MIN_CHECK_INTERVAL, MAX_CHECK_INTERVAL)
-        }
+        is Decision.Blocked, is Decision.Pause -> null
+        is Decision.Allowed -> listOfNotNull(decision.remainingToday, decision.checkAgainIn, MAX_CHECK_INTERVAL)
+            .min()
+            .coerceIn(MIN_CHECK_INTERVAL, MAX_CHECK_INTERVAL)
     }
 }
 

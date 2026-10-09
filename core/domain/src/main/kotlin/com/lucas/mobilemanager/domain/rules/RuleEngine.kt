@@ -21,8 +21,14 @@ data class SystemWhitelist(val packages: Set<String>) {
 }
 
 sealed interface Decision {
-    /** [remainingToday] : temps restant avant la limite quotidienne, `null` si illimité. */
-    data class Allowed(val remainingToday: Duration?) : Decision
+    /**
+     * [remainingToday] : temps restant avant la limite quotidienne, `null` si illimité.
+     * [checkAgainIn] : prochain événement connu (palier anti-doomscrolling), `null` si aucun.
+     */
+    data class Allowed(val remainingToday: Duration?, val checkAgainIn: Duration? = null) : Decision
+
+    /** Écran de pause anti-doomscrolling, après [sessionLength] de session continue. */
+    data class Pause(val sessionLength: Duration) : Decision
 
     /** [until] : fin prévue du blocage si elle est connue. */
     data class Blocked(val reason: BlockReason, val until: Instant?) : Decision
@@ -34,6 +40,9 @@ sealed interface BlockReason {
     data class Profile(val profileId: Long, val name: String) : BlockReason
     data object GlobalRule : BlockReason
     data class DailyLimitReached(val limit: Duration) : BlockReason
+
+    /** Session continue trop longue (anti-doomscrolling) : temps de repos. */
+    data class SessionLimitReached(val limit: Duration) : BlockReason
 }
 
 /**
