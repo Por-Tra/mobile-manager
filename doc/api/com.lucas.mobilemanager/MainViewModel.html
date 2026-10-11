@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MainViewModel Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager/MainViewModel.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager</a> <span class="sep">/</span> <span>MainViewModel</span></nav>
+    <article>
+<h1>MainViewModel <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MainViewModel.kt.html#L17">MainViewModel.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@HiltViewModel
+<span class="kw">class</span> MainViewModel @Inject <span class="kw">constructor</span>(preferencesRepository: <a href="../com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html">UserPreferencesRepository</a>) : ViewModel()</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Extends / implements</th><td><code>ViewModel</code></td></tr></tbody></table>
+<h2 id="constructor-parameters">Constructor parameters</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody><tr><td><code>preferencesRepository</code></td><td><code><a href="../com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html">UserPreferencesRepository</a></code></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="MainViewModel.html#m-_startDestination"><code>_startDestination</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="MainViewModel.html#m-startDestination"><code>startDestination</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-_startDestination">
+<h3>_startDestination <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> _startDestination</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MainViewModel.kt.html#L22">MainViewModel.kt, line 22</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MainViewModel.kt.html">MainViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MainViewModel.kt.html#L23" title="val startDestination: StateFlow&lt;Any?&gt; = _startDestination.asStateFlow()">23</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MainViewModel.kt.html#L28" title="_startDestination.value = if (prefs.onboardingCompleted) HomeRoute else OnboardingRoute">28</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-startDestination">
+<h3>startDestination <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> startDestination: StateFlow&lt;Any?&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MainViewModel.kt.html#L23">MainViewModel.kt, line 23</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MainActivity.kt.html">MainActivity.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MainActivity.kt.html#L31" title="val startDestination by viewModel.startDestination.collectAsStateWithLifecycle()">31</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MainActivity.kt.html#L37" title="startDestination?.let { MobileManagerNavHost(startDestination = it, openDiagnostic = openDiagnostic) }">37</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MainActivity.kt.html">MainActivity.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MainActivity.kt.html#L22" title="private val viewModel: MainViewModel by viewModels()">22</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#constructor-parameters">Constructor parameters</a></li><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

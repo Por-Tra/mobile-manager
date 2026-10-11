@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.ui.zones package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.zones/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.ui.zones</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.ui.zones <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :app</span><span>2 files</span></div>
+<p>Zones and quotas settings screen.</p>
+<h2 id="types">Types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="ZoneItem.html"><code>ZoneItem</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="ZoneRulesState.html"><code>ZoneRulesState</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="ZoneRulesViewModel.html"><code>ZoneRulesViewModel</code></a></td><td>class</td><td>Known zones (detectors), their setting in the default rules and the time spent today.</td></tr><tr><td><a href="ZoneSetting.html"><code>ZoneSetting</code></a></td><td>enum class</td><td>Setting of a zone in the default rules.</td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-ZoneRulesScreen"><code>ZoneRulesScreen</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-ZoneRow"><code>ZoneRow</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-label"><code>label</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-Caption"><code>Caption</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="properties-and-type-aliases">Properties and type aliases</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-QUOTA_OPTIONS"><code>QUOTA_OPTIONS</code></a> <span class=tag>private</span></td><td>In debug builds, 1 and 2 min to test a quota without waiting.</td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html">ZoneRulesScreen.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html">ZoneRulesViewModel.kt</a></li></ul>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-ZoneRulesScreen">
+<h3>ZoneRulesScreen <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+<span class="kw">fun</span> ZoneRulesScreen(onBack: () -&gt; Unit, onOpenDefaultRules: () -&gt; Unit, viewModel: <a href="ZoneRulesViewModel.html">ZoneRulesViewModel</a> = hiltViewModel())</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L47">ZoneRulesScreen.kt, line 47</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L17" title="import com.lucas.mobilemanager.ui.zones.ZoneRulesScreen">17</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L107" title="ZoneRulesScreen(">107</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-ZoneRow">
+<h3>ZoneRow <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+<span class="kw">private</span> <span class="kw">fun</span> ZoneRow(zone: <a href="ZoneItem.html">ZoneItem</a>, enabled: Boolean, onSetting: (<a href="ZoneSetting.html">ZoneSetting</a>, Int) -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L91">ZoneRulesScreen.kt, line 91</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html">ZoneRulesScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L73" title="ZoneRow(zone, enabled = !readOnly, onSetting = { setting, minutes -&gt; viewModel.setSetting(zone, setting, minutes) })">73</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-label">
+<h3>label <span class="badge">extension function</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> <a href="ZoneSetting.html">ZoneSetting</a>.label()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L126">ZoneRulesScreen.kt, line 126</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html">ZoneRulesScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L116" title="label = { Text(stringResource(setting.label())) },">116</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-Caption">
+<h3>Caption <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> Caption(text: String)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L136">ZoneRulesScreen.kt, line 136</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html">ZoneRulesScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L69" title="item { Caption(stringResource(R.string.zones_intro)) }">69</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L71" title="if (state.locked) item { Caption(stringResource(R.string.locked_during_session)) }">71</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L78" title="Caption(stringResource(R.string.zones_apps_body))">78</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L84" title="item { Caption(stringResource(R.string.zones_fragile)) }">84</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L99" title="Caption(">99</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-QUOTA_OPTIONS">
+<h3>QUOTA_OPTIONS <span class="badge">property</span><span class="badge vis">private</span></h3>
+<div class="kdoc"><p>In debug builds, 1 and 2 min to test a quota without waiting.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> QUOTA_OPTIONS</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L133">ZoneRulesScreen.kt, line 133</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html">ZoneRulesScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L121" title="LimitPicker(zone.quotaMinutes, enabled, onLimit = { onSetting(ZoneSetting.QUOTA, it) }, options = QUOTA_OPTIONS)">121</a></td></tr></tbody></table></details>
+</section>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#types">Types</a></li><li><a href="#functions">Functions</a></li><li><a href="#properties-and-type-aliases">Properties and type aliases</a></li><li><a href="#files">Files</a></li><li><a href="#member-details">Member details</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

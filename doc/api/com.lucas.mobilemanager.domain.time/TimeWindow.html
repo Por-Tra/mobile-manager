@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TimeWindow Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.time/TimeWindow.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.time</a> <span class="sep">/</span> <span>TimeWindow</span></nav>
+    <article>
+<h1>TimeWindow <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.time</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L10">ScheduleEvaluator.kt</a></span></div>
+<div class="kdoc"><p>Interval [start, end).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">data</span> <span class="kw">class</span> TimeWindow(<span class="kw">val</span> start: Instant, <span class="kw">val</span> end: Instant)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="TimeWindow.html#m-start"><code>start</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="TimeWindow.html#m-end"><code>end</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="TimeWindow.html#m-contains"><code>contains</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-start">
+<h3>start <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> start: Instant</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L10">ScheduleEvaluator.kt, line 10</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html">ScheduleEvaluator.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L11" title="operator fun contains(instant: Instant) = !instant.isBefore(start) &amp;&amp; instant.isBefore(end)">11</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L32" title="start = ZonedDateTime.of(startDate, schedule.start, now.zone).toInstant(),">32</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-end">
+<h3>end <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> end: Instant</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L10">ScheduleEvaluator.kt, line 10</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">8 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html">ScheduleEvaluator.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L11" title="operator fun contains(instant: Instant) = !instant.isBefore(start) &amp;&amp; instant.isBefore(end)">11</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L33" title="end = ZonedDateTime.of(endDate, schedule.end, now.zone).toInstant(),">33</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L53" title="var end: Instant = schedules.mapNotNull { activeWindow(it, now)?.end }.maxOrNull() ?: return null">53</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L55" title="while (end.isBefore(horizon)) {">55</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L56" title="val at = end.atZone(now.zone)">56</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L57" title="val next = schedules.mapNotNull { activeWindow(it, at)?.end }.maxOrNull()">57</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L58" title="if (next == null || !next.isAfter(end)) return end">58</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L59" title="end = next">59</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-contains">
+<h3>contains <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">operator</span> <span class="kw">fun</span> contains(instant: Instant)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L11">ScheduleEvaluator.kt, line 11</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html">ScheduleEvaluator.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L24" title="fun activeWindow(schedule: Schedule, now: ZonedDateTime): TimeWindow? {">24</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/time/ScheduleEvaluator.kt.html#L31" title="val window = TimeWindow(">31</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

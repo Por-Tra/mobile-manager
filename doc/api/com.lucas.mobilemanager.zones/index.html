@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.zones package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.zones/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.zones</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.zones <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :app</span><span>4 files</span></div>
+<p>Zone enforcement: detection, exit, entry point masking and zone time recording.</p>
+<h2 id="types">Types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="AccessibilitySnapshot.html"><code>AccessibilitySnapshot</code></a></td><td>class</td><td>Flat snapshot of the accessibility tree (reading order, with depth).</td></tr><tr><td><a href="EntryPointMask.html"><code>EntryPointMask</code></a></td><td>class</td><td>Masks the entry points of an inaccessible zone (Reels button, Shorts tab): a <code>TYPE_ACCESSIBILITY_OVERLAY</code> window (no extra permission) placed exactly over the element, with the colour of the tab bar, that swallows taps.</td></tr><tr><td><a href="ZoneDetectorStore.html"><code>ZoneDetectorStore</code></a></td><td>class</td><td>Zone detectors in force: the custom version (<code>filesDir/zone_detectors.json</code>) if it exists and is valid, otherwise the one shipped in the assets.</td></tr><tr><td><a href="ZoneEnforcer.html"><code>ZoneEnforcer</code></a></td><td>class</td><td>Automatically leaves zones that are blocked or whose quota is reached (Reels, Shorts…) in an allowed app, masks their entry points and measures the time spent in allowed zones.</td></tr><tr><td><a href="ZoneUsageRecorder.html"><code>ZoneUsageRecorder</code></a></td><td>class</td><td>Time spent in zones, for quotas.</td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html">EntryPointMask.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneDetectorStore.kt.html">ZoneDetectorStore.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html">ZoneEnforcer.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneUsageRecorder.kt.html">ZoneUsageRecorder.kt</a></li></ul>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#types">Types</a></li><li><a href="#files">Files</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

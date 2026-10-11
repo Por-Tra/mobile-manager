@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DataBindingsModule Abstract Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.data.di/DataBindingsModule.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.data.di</a> <span class="sep">/</span> <span>DataBindingsModule</span></nav>
+    <article>
+<h1>DataBindingsModule <span class="h1-kind">abstract class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.data.di</a></span><span>Module: :core:data</span><span>Source: <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L80">DataModule.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Module
+@InstallIn(SingletonComponent::class)
+<span class="kw">abstract</span> <span class="kw">class</span> DataBindingsModule</code></pre></div>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DataBindingsModule.html#m-bindEventLogRepository"><code>bindEventLogRepository</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataBindingsModule.html#m-bindProfileRepository"><code>bindProfileRepository</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataBindingsModule.html#m-bindManualActivationRepository"><code>bindManualActivationRepository</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataBindingsModule.html#m-bindDailyUsageRepository"><code>bindDailyUsageRepository</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataBindingsModule.html#m-bindLockRepository"><code>bindLockRepository</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataBindingsModule.html#m-bindZoneUsageRepository"><code>bindZoneUsageRepository</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataBindingsModule.html#m-bindStrictSessionRepository"><code>bindStrictSessionRepository</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataBindingsModule.html#m-bindUserPreferencesRepository"><code>bindUserPreferencesRepository</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-bindEventLogRepository">
+<h3>bindEventLogRepository <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Binds
+<span class="kw">abstract</span> <span class="kw">fun</span> bindEventLogRepository(impl: <a href="../com.lucas.mobilemanager.data.repository/RoomEventLogRepository.html">RoomEventLogRepository</a>): <a href="../com.lucas.mobilemanager.domain.repository/EventLogRepository.html">EventLogRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L83">DataModule.kt, line 83</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-bindProfileRepository">
+<h3>bindProfileRepository <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Binds
+<span class="kw">abstract</span> <span class="kw">fun</span> bindProfileRepository(impl: <a href="../com.lucas.mobilemanager.data.repository/RoomProfileRepository.html">RoomProfileRepository</a>): <a href="../com.lucas.mobilemanager.domain.repository/ProfileRepository.html">ProfileRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L86">DataModule.kt, line 86</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-bindManualActivationRepository">
+<h3>bindManualActivationRepository <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Binds
+<span class="kw">abstract</span> <span class="kw">fun</span> bindManualActivationRepository(impl: <a href="../com.lucas.mobilemanager.data.repository/DataStoreManualActivationRepository.html">DataStoreManualActivationRepository</a>): <a href="../com.lucas.mobilemanager.domain.repository/ManualActivationRepository.html">ManualActivationRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L89">DataModule.kt, line 89</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-bindDailyUsageRepository">
+<h3>bindDailyUsageRepository <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Binds
+<span class="kw">abstract</span> <span class="kw">fun</span> bindDailyUsageRepository(impl: <a href="../com.lucas.mobilemanager.data.repository/RoomDailyUsageRepository.html">RoomDailyUsageRepository</a>): <a href="../com.lucas.mobilemanager.domain.repository/DailyUsageRepository.html">DailyUsageRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L94">DataModule.kt, line 94</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-bindLockRepository">
+<h3>bindLockRepository <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Binds
+<span class="kw">abstract</span> <span class="kw">fun</span> bindLockRepository(impl: <a href="../com.lucas.mobilemanager.data.repository/DataStoreLockRepository.html">DataStoreLockRepository</a>): <a href="../com.lucas.mobilemanager.domain.repository/LockRepository.html">LockRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L97">DataModule.kt, line 97</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-bindZoneUsageRepository">
+<h3>bindZoneUsageRepository <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Binds
+<span class="kw">abstract</span> <span class="kw">fun</span> bindZoneUsageRepository(impl: <a href="../com.lucas.mobilemanager.data.repository/RoomZoneUsageRepository.html">RoomZoneUsageRepository</a>): <a href="../com.lucas.mobilemanager.domain.repository/ZoneUsageRepository.html">ZoneUsageRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L100">DataModule.kt, line 100</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-bindStrictSessionRepository">
+<h3>bindStrictSessionRepository <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Binds
+<span class="kw">abstract</span> <span class="kw">fun</span> bindStrictSessionRepository(impl: <a href="../com.lucas.mobilemanager.data.repository/RoomStrictSessionRepository.html">RoomStrictSessionRepository</a>): <a href="../com.lucas.mobilemanager.domain.repository/StrictSessionRepository.html">StrictSessionRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L103">DataModule.kt, line 103</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-bindUserPreferencesRepository">
+<h3>bindUserPreferencesRepository <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Binds
+<span class="kw">abstract</span> <span class="kw">fun</span> bindUserPreferencesRepository(impl: <a href="../com.lucas.mobilemanager.data.repository/DataStoreUserPreferencesRepository.html">DataStoreUserPreferencesRepository</a>): <a href="../com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html">UserPreferencesRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L106">DataModule.kt, line 106</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="muted refs-none">No reference found outside its declaration.</p>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PeriodRange Object - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.dashboard/PeriodRange.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.dashboard</a> <span class="sep">/</span> <span>PeriodRange</span></nav>
+    <article>
+<h1>PeriodRange <span class="h1-kind">object</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.dashboard</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L26">Dashboard.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">object</span> PeriodRange</code></pre></div>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="PeriodRange.html#m-of"><code>of</code></a></td><td>Today, or the last 7 days ending today included.</td></tr><tr><td><a href="PeriodRange.html#m-previous"><code>previous</code></a></td><td>Period of the same length, just before.</td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-of">
+<h3>of <span class="badge">method</span></h3>
+<div class="kdoc"><p>Today, or the last 7 days ending today included.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> of(period: <a href="Period.html">Period</a>, today: LocalDate): <a href="DateRange.html">DateRange</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L28">Dashboard.kt, line 28</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L123" title="val range = PeriodRange.of(input.period, input.today)">123</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L146" title="week = PeriodRange.of(Period.WEEK, input.today).days.map { day -&gt;">146</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html">DashboardCalculatorTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html#L206" title="val week = PeriodRange.of(Period.WEEK, MONDAY)">206</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html#L209" title="assertEquals(DateRange(MONDAY.minusDays(1), MONDAY.minusDays(1)), PeriodRange.previous(PeriodRange.of(Period.TODAY, MONDAY)))">209</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-previous">
+<h3>previous <span class="badge">method</span></h3>
+<div class="kdoc"><p>Period of the same length, just before.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> previous(range: <a href="DateRange.html">DateRange</a>): <a href="DateRange.html">DateRange</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L34">Dashboard.kt, line 34</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">7 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L132" title="val previous = PeriodRange.previous(range)">132</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L133" title="val previousHasData = previous.days.any { it in usage }">133</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L134" title="val previousTotal = previous.days.sumOf(usage)">134</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html">DashboardCalculatorTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html#L95" title="fun `no previous data means no comparison`() =">95</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html#L205" title="fun `week ends today and previous week is just before`() {">205</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html#L208" title="assertEquals(DateRange(MONDAY.minusDays(13), MONDAY.minusDays(7)), PeriodRange.previous(week))">208</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html#L209" title="assertEquals(DateRange(MONDAY.minusDays(1), MONDAY.minusDays(1)), PeriodRange.previous(PeriodRange.of(Period.TODAY, MONDAY)))">209</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">6 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L123" title="val range = PeriodRange.of(input.period, input.today)">123</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L132" title="val previous = PeriodRange.previous(range)">132</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L146" title="week = PeriodRange.of(Period.WEEK, input.today).days.map { day -&gt;">146</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html">DashboardCalculatorTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html#L206" title="val week = PeriodRange.of(Period.WEEK, MONDAY)">206</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html#L208" title="assertEquals(DateRange(MONDAY.minusDays(13), MONDAY.minusDays(7)), PeriodRange.previous(week))">208</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html#L209" title="assertEquals(DateRange(MONDAY.minusDays(1), MONDAY.minusDays(1)), PeriodRange.previous(PeriodRange.of(Period.TODAY, MONDAY)))">209</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

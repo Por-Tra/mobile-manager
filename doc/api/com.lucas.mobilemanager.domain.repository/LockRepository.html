@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LockRepository Interface - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.repository/LockRepository.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.repository</a> <span class="sep">/</span> <span>LockRepository</span></nav>
+    <article>
+<h1>LockRepository <span class="h1-kind">interface</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.repository</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/repository/Repositories.kt.html#L111">Repositories.kt</a></span></div>
+<div class="kdoc"><p>Trusted person code (hash, salt, attempts); <code>null</code> = no code set.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">interface</span> LockRepository</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Known subtypes</th><td><a href="../com.lucas.mobilemanager.data.repository/DataStoreLockRepository.html"><code>DataStoreLockRepository</code></a></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="LockRepository.html#m-config"><code>config</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="LockRepository.html#m-save"><code>save</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-config">
+<h3>config <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> config: Flow&lt;<a href="../com.lucas.mobilemanager.domain.lock/LockConfig.html">LockConfig</a>?&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/repository/Repositories.kt.html#L112">Repositories.kt, line 112</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">18 references in 3 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html">AppLock.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L60" title="private val stored: StateFlow&lt;Stored?&gt; = repository.config.map(::Stored)">60</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L75" title="val config = stored.config ?: return@combine LockStatus.NOT_SET">75</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L79" title="lockedOutUntil = config.lockedOutUntil?.takeIf { now.isBefore(it) },">79</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L85" title="if ((stored.value ?: return false).config == null) return true">85</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L90" title="fun protectsSettingsNow(): Boolean = stored.value?.config != null &amp;&amp; !isUnlocked()">90</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L96" title="val config = stored.filterNotNull().first().config ?: return LockPolicy.Attempt.Success">96</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L100" title="val (result, updated) = withContext(Dispatchers.Default) { LockPolicy.attempt(config, pin, now) }">100</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L102" title="if (updated != config) repository.save(updated)">102</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L114" title="val config = withContext(Dispatchers.Default) { PinHasher.newConfig(pin) }">114</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L115" title="repository.save(config)">115</a></td></tr><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html">DataStoreLockRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L35" title="override suspend fun save(config: LockConfig?) {">35</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L37" title="if (config == null) {">37</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L41" title="prefs[Keys.HASH] = config.pinHash">41</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L42" title="prefs[Keys.SALT] = config.salt">42</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L43" title="prefs[Keys.ITERATIONS] = config.iterations">43</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L44" title="prefs[Keys.FAILURES] = config.failures">44</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L45" title="config.lockedOutUntil?.let { prefs[Keys.LOCKED_OUT_UNTIL] = it.toEpochMilli() } ?: prefs.remove(Keys.LOCKED_OUT_UNTIL)">45</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/repository/Repositories.kt.html">Repositories.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/repository</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/repository/Repositories.kt.html#L114" title="suspend fun save(config: LockConfig?)">114</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-save">
+<h3>save <span class="badge">method</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">suspend</span> <span class="kw">fun</span> save(config: <a href="../com.lucas.mobilemanager.domain.lock/LockConfig.html">LockConfig</a>?)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/repository/Repositories.kt.html#L114">Repositories.kt, line 114</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html">AppLock.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L102" title="if (updated != config) repository.save(updated)">102</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L115" title="repository.save(config)">115</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L123" title="repository.save(null)">123</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">6 references in 3 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html">AppLock.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L10" title="import com.lucas.mobilemanager.domain.repository.LockRepository">10</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L53" title="private val repository: LockRepository,">53</a></td></tr><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html">DataModule.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/di</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L25" title="import com.lucas.mobilemanager.domain.repository.LockRepository">25</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L97" title="abstract fun bindLockRepository(impl: DataStoreLockRepository): LockRepository">97</a></td></tr><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html">DataStoreLockRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L11" title="import com.lucas.mobilemanager.domain.repository.LockRepository">11</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L21" title=") : LockRepository {">21</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

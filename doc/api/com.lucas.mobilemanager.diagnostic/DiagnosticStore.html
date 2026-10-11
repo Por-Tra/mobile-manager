@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DiagnosticStore Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.diagnostic/DiagnosticStore.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.diagnostic</a> <span class="sep">/</span> <span>DiagnosticStore</span></nav>
+    <article>
+<h1>DiagnosticStore <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.diagnostic</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L25">DiagnosticStore.kt</a></span></div>
+<div class="kdoc"><p>State of the diagnostic mode, in memory only: a capture may contain texts displayed on screen, so it is never written to disk.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Singleton
+<span class="kw">class</span> DiagnosticStore @Inject <span class="kw">constructor</span>()</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DiagnosticStore.html#m-_overlayEnabled"><code>_overlayEnabled</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DiagnosticStore.html#m-overlayEnabled"><code>overlayEnabled</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DiagnosticStore.html#m-_capture"><code>_capture</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DiagnosticStore.html#m-capture"><code>capture</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DiagnosticStore.html#m-setOverlayEnabled"><code>setOverlayEnabled</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DiagnosticStore.html#m-store"><code>store</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DiagnosticStore.html#m-clear"><code>clear</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-_overlayEnabled">
+<h3>_overlayEnabled <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> _overlayEnabled</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L27">DiagnosticStore.kt, line 27</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html">DiagnosticStore.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L28" title="val overlayEnabled: StateFlow&lt;Boolean&gt; = _overlayEnabled.asStateFlow()">28</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L34" title="_overlayEnabled.value = enabled">34</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-overlayEnabled">
+<h3>overlayEnabled <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> overlayEnabled: StateFlow&lt;Boolean&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L28">DiagnosticStore.kt, line 28</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html">MonitorAccessibilityService.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/service</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html#L98" title="diagnosticStore.overlayEnabled.collect { enabled -&gt; setDiagnosticOverlay(enabled) }">98</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-_capture">
+<h3>_capture <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> _capture</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L30">DiagnosticStore.kt, line 30</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html">DiagnosticStore.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L31" title="val capture: StateFlow&lt;HierarchyCapture?&gt; = _capture.asStateFlow()">31</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L38" title="_capture.value = capture">38</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L42" title="_capture.value = null">42</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-capture">
+<h3>capture <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> capture: StateFlow&lt;<a href="HierarchyCapture.html">HierarchyCapture</a>?&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L31">DiagnosticStore.kt, line 31</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html">DiagnosticStore.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L37" title="fun store(capture: HierarchyCapture) {">37</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L38" title="_capture.value = capture">38</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html">MonitorAccessibilityService.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/service</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html#L276" title="val capture = zoneEnforcer.capture() ?: return">276</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html#L277" title="diagnosticStore.store(capture)">277</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-setOverlayEnabled">
+<h3>setOverlayEnabled <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> setOverlayEnabled(enabled: Boolean)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L33">DiagnosticStore.kt, line 33</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-store">
+<h3>store <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> store(capture: <a href="HierarchyCapture.html">HierarchyCapture</a>)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L37">DiagnosticStore.kt, line 37</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html">MonitorAccessibilityService.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/service</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html#L277" title="diagnosticStore.store(capture)">277</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-clear">
+<h3>clear <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> clear()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/DiagnosticStore.kt.html#L41">DiagnosticStore.kt, line 41</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticViewModel.kt.html">DiagnosticViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticViewModel.kt.html#L61" title="fun clearCapture() = diagnosticStore.clear()">61</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">4 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html">MonitorAccessibilityService.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/service</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html#L24" title="import com.lucas.mobilemanager.diagnostic.DiagnosticStore">24</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html#L60" title="@Inject lateinit var diagnosticStore: DiagnosticStore">60</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticViewModel.kt.html">DiagnosticViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticViewModel.kt.html#L5" title="import com.lucas.mobilemanager.diagnostic.DiagnosticStore">5</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticViewModel.kt.html#L34" title="private val diagnosticStore: DiagnosticStore,">34</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

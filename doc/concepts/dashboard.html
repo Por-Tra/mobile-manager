@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-page="concepts/dashboard.html">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../index.html" class="">Overview</a><a href="architecture.html" class="active">Architecture</a><a href="../api/index.html" class="">API reference</a><a href="../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">Documentation</a> <span class="sep">/</span> <span>Dashboard</span></nav>
+    <article>
+<h1>Dashboard</h1>
+<p class="lead">The dashboard measures without judging: the domain qualifies, the interface phrases (“40 min de moins qu’hier”,
+“Objectif dépassé aujourd’hui : demain est un autre jour”). Days above the goal use a neutral colour, never red.</p>
+
+<h2 id="calculation">Calculation</h2>
+<p><a href="../api/com.lucas.mobilemanager.domain.dashboard/DashboardCalculator.html#m-summarize"><code>DashboardCalculator.summarize</code></a> is pure and turns a <a href="../api/com.lucas.mobilemanager.domain.dashboard/DashboardInput.html"><code>DashboardInput</code></a> into a <a href="../api/com.lucas.mobilemanager.domain.dashboard/DashboardSummary.html"><code>DashboardSummary</code></a>:</p>
+<ul>
+  <li><strong>Total and comparison</strong> with the previous period of the same length (yesterday, or the 7 days before):
+  <a href="../api/com.lucas.mobilemanager.domain.dashboard/Trend.html"><code>Trend</code></a> <code>LESS</code>, <code>MORE</code>, <code>SAME</code> (within 5 minutes) or <code>NO_HISTORY</code>.</li>
+  <li><strong>Apps</strong> sorted by time with their share (<a href="../api/com.lucas.mobilemanager.domain.dashboard/AppUsage.html"><code>AppUsage</code></a>).</li>
+  <li><strong>Last 7 days</strong> series for the chart (<a href="../api/com.lucas.mobilemanager.domain.dashboard/DayTotal.html"><code>DayTotal</code></a>), with the goal line.</li>
+  <li><strong>Zones</strong> (<a href="../api/com.lucas.mobilemanager.domain.dashboard/ZoneStats.html"><code>ZoneStats</code></a>): time read from <code>zone_usage</code> (“Reels (Instagram) : 32 min / 50 min aujourd’hui”
+  when a quota exists) and automatic exits (<code>ZONE_REDIRECTED</code>).</li>
+  <li><strong>Interruptions</strong> (<a href="../api/com.lucas.mobilemanager.domain.dashboard/Interruptions.html"><code>Interruptions</code></a>): blocks by reason (<a href="../api/com.lucas.mobilemanager.domain.dashboard/BlockKind.html"><code>BlockKind</code></a>, read from the journal detail) and zone exits.</li>
+  <li><strong>Goals</strong> (<a href="../api/com.lucas.mobilemanager.domain.dashboard/Goals.html"><code>Goals</code></a>): days under the daily goal, days where a daily limit was reached, focus sessions completed or
+  ended early.</li>
+</ul>
+
+<h2 id="screen-time">Screen time</h2>
+<p><a href="../api/com.lucas.mobilemanager.domain.usage/UsageCalculator.html#m-usageByPackage"><code>UsageCalculator.usageByPackage</code></a> follows the global foreground timeline (one app at a time; opening an app closes the previous one;
+screen off, shutdown and startup close everything). Mobile Manager, launchers, the system UI and keyboards are excluded from the total
+(<a href="../api/com.lucas.mobilemanager.enforcement/SystemWhitelistProvider.html#m-nonScreenTimePackages"><code>SystemWhitelistProvider.nonScreenTimePackages</code></a>). Durations are rounded to the minute (<a href="../api/com.lucas.mobilemanager.ui.format/Formats.html#m-duration"><code>Formats.duration</code></a>), “&lt; 1 min” for very
+short ones.</p>
+
+<h2 id="snapshots">Daily snapshots</h2>
+<p>Android keeps detailed usage events for about a week only. <a href="../api/com.lucas.mobilemanager.dashboard/DailyUsageSnapshotter.html"><code>DailyUsageSnapshotter</code></a> freezes every missing day among the last 14
+(yesterday included) into the <code>daily_usage</code> table; a <code>__none__</code> row marks a day recorded without usage. It runs at
+app start, when the dashboard opens, and from <a href="../api/com.lucas.mobilemanager.dashboard/DailyUsageWorker.html"><code>DailyUsageWorker</code></a> (periodic WorkManager job every 24 h, battery not low). The current
+day is always computed live. Loading: <a href="../api/com.lucas.mobilemanager.dashboard/DashboardLoader.html"><code>DashboardLoader</code></a>.</p>
+
+<h2 id="goal">Goal</h2>
+<p>An optional daily screen time goal is stored in DataStore (<code>screen_time_goal_min</code>). The home screen shows a “Today” card
+and the top bar has a dashboard icon. Changing the goal requires the trusted person code when one is set.</p>
+
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#calculation">Calculation</a></li><li><a href="#screen-time">Screen time</a></li><li><a href="#snapshots">Daily snapshots</a></li><li><a href="#goal">Goal</a></li></ol></aside>
+</div>
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

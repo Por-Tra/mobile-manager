@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OnboardingViewModel Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.onboarding/OnboardingViewModel.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.ui.onboarding</a> <span class="sep">/</span> <span>OnboardingViewModel</span></nav>
+    <article>
+<h1>OnboardingViewModel <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.ui.onboarding</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html#L16">OnboardingViewModel.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@HiltViewModel
+<span class="kw">class</span> OnboardingViewModel @Inject <span class="kw">constructor</span>(<span class="kw">private</span> <span class="kw">val</span> permissionChecker: <a href="../com.lucas.mobilemanager.permissions/PermissionChecker.html">PermissionChecker</a>, <span class="kw">private</span> <span class="kw">val</span> preferencesRepository: <a href="../com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html">UserPreferencesRepository</a>) : ViewModel()</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Extends / implements</th><td><code>ViewModel</code></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="OnboardingViewModel.html#m-permissionChecker"><code>permissionChecker</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="OnboardingViewModel.html#m-preferencesRepository"><code>preferencesRepository</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="OnboardingViewModel.html#m-_state"><code>_state</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="OnboardingViewModel.html#m-state"><code>state</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="OnboardingViewModel.html#m-refresh"><code>refresh</code></a></td><td>To call every time the screen is shown again: the user comes back from the system Settings.</td></tr><tr><td><a href="OnboardingViewModel.html#m-finish"><code>finish</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-permissionChecker">
+<h3>permissionChecker <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> permissionChecker: <a href="../com.lucas.mobilemanager.permissions/PermissionChecker.html">PermissionChecker</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html#L17">OnboardingViewModel.kt, line 17</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html">OnboardingViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html#L21" title="private val _state = MutableStateFlow(OnboardingState.from(permissionChecker.currentStatuses()))">21</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html#L26" title="_state.value = OnboardingState.from(permissionChecker.currentStatuses())">26</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-preferencesRepository">
+<h3>preferencesRepository <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> preferencesRepository: <a href="../com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html">UserPreferencesRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html#L18">OnboardingViewModel.kt, line 18</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html">OnboardingViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html#L31" title="preferencesRepository.setOnboardingCompleted(true)">31</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-_state">
+<h3>_state <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> _state</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html#L21">OnboardingViewModel.kt, line 21</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html">OnboardingViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html#L22" title="val state: StateFlow&lt;OnboardingState&gt; = _state.asStateFlow()">22</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html#L26" title="_state.value = OnboardingState.from(permissionChecker.currentStatuses())">26</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-state">
+<h3>state <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> state: StateFlow&lt;<a href="../com.lucas.mobilemanager.domain.onboarding/OnboardingState.html">OnboardingState</a>&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html#L22">OnboardingViewModel.kt, line 22</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">11 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L55" title="val state by viewModel.state.collectAsStateWithLifecycle()">55</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L72" title="state = state,">72</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L94" title="state: OnboardingState,">94</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L101" title="val accessibilityMissing = state.items">101</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L129" title="progress = { state.progress },">129</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L136" title="state.grantedCount,">136</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L137" title="state.applicableCount,">137</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L145" title="items(state.items.filter { it.status != PermissionStatus.NOT_APPLICABLE }, key = { it.kind }) { item -&gt;">145</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L171" title="if (state.canMonitor) {">171</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L186" title="enabled = state.canMonitor,">186</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L191" title="if (!state.canMonitor) {">191</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-refresh">
+<h3>refresh <span class="badge">method</span></h3>
+<div class="kdoc"><p>To call every time the screen is shown again: the user comes back from the system Settings.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> refresh()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html#L25">OnboardingViewModel.kt, line 25</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L59" title="viewModel.refresh()">59</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L68" title="viewModel.refresh()">68</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-finish">
+<h3>finish <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> finish(onDone: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html#L29">OnboardingViewModel.kt, line 29</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L88" title="onFinish = { viewModel.finish(onFinished) },">88</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L53" title="viewModel: OnboardingViewModel = hiltViewModel(),">53</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

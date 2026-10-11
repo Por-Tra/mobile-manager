@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.ui.diagnostic package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.diagnostic/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.ui.diagnostic</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.ui.diagnostic <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :app</span><span>2 files</span></div>
+<p>Diagnostic screen: overlay switch, capture viewer and detector editor.</p>
+<h2 id="types">Types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="DiagnosticViewModel.html"><code>DiagnosticViewModel</code></a></td><td>class</td><td><span class="muted">—</span></td></tr><tr><td><a href="EditorMessage.html"><code>EditorMessage</code></a></td><td>sealed interface</td><td>Result of the last action in the detector editor.</td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-DiagnosticScreen"><code>DiagnosticScreen</code></a></td><td>Diagnostic mode: see what the service sees in an app (live banner + capture) and repair a zone detector without touching the code.</td></tr><tr><td><a href="index.html#m-NodeRow"><code>NodeRow</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-Title"><code>Title</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-Caption"><code>Caption</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html">DiagnosticScreen.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticViewModel.kt.html">DiagnosticViewModel.kt</a></li></ul>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-DiagnosticScreen">
+<h3>DiagnosticScreen <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>Diagnostic mode: see what the service sees in an app (live banner + capture) and repair a zone detector without touching the code.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+<span class="kw">fun</span> DiagnosticScreen(onBack: () -&gt; Unit, viewModel: <a href="DiagnosticViewModel.html">DiagnosticViewModel</a> = hiltViewModel())</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L61">DiagnosticScreen.kt, line 61</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L9" title="import com.lucas.mobilemanager.ui.diagnostic.DiagnosticScreen">9</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L116" title="DiagnosticScreen(onBack = { navController.popBackStack() })">116</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-NodeRow">
+<h3>NodeRow <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalFoundationApi::class)
+@Composable
+<span class="kw">private</span> <span class="kw">fun</span> NodeRow(node: <a href="../com.lucas.mobilemanager.domain.zones/UiNode.html">UiNode</a>, highlighted: Boolean, onLongClick: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L174">DiagnosticScreen.kt, line 174</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html">DiagnosticScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L121" title="NodeRow(node, highlighted = index in highlighted, onLongClick = { copy(DiagnosticViewModel.signalFor(node)) })">121</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-Title">
+<h3>Title <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> Title(text: String)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L200">DiagnosticScreen.kt, line 200</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html">DiagnosticScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L102" title="item { Title(stringResource(R.string.diagnostic_capture_title)) }">102</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L128" title="Title(stringResource(R.string.diagnostic_editor_title))">128</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-Caption">
+<h3>Caption <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> Caption(text: String)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L205">DiagnosticScreen.kt, line 205</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">6 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html">DiagnosticScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L92" title="item { Caption(stringResource(R.string.diagnostic_intro)) }">92</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L98" title="Caption(stringResource(R.string.diagnostic_overlay_help))">98</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L105" title="item { Caption(stringResource(R.string.diagnostic_no_capture)) }">105</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L115" title="Caption(stringResource(R.string.diagnostic_capture_help))">115</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L129" title="Caption(stringResource(if (isCustom) R.string.diagnostic_editor_custom else R.string.diagnostic_editor_shipped))">129</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L130" title="if (locked) Caption(stringResource(R.string.locked_during_session))">130</a></td></tr></tbody></table></details>
+</section>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#types">Types</a></li><li><a href="#functions">Functions</a></li><li><a href="#files">Files</a></li><li><a href="#member-details">Member details</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

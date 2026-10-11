@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Focus sessions - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-page="concepts/focus-sessions.html">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../index.html" class="">Overview</a><a href="architecture.html" class="active">Architecture</a><a href="../api/index.html" class="">API reference</a><a href="../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">Documentation</a> <span class="sep">/</span> <span>Focus sessions</span></nav>
+    <article>
+<h1>Focus sessions</h1>
+<p class="lead">A focus session (strict mode) blocks chosen apps until an end time. It cannot be stopped on a whim: ending it early
+requires a reflection delay chosen before the session starts.</p>
+
+<h2 id="policy">Rules of a session</h2>
+<ul>
+  <li><a href="../api/com.lucas.mobilemanager.domain.session/StrictSessionPolicy.html"><code>StrictSessionPolicy</code></a>: duration up to <strong>12 hours</strong>, reflection delay between <strong>2 and 10 minutes</strong>,
+  at least one app.</li>
+  <li><a href="../api/com.lucas.mobilemanager.domain.session/StrictSessionManager.html"><code>StrictSessionManager</code></a> starts, overrides and closes sessions and writes the journal (<code>STRICT_SESSION_STARTED</code>,
+  <code>STRICT_SESSION_ENDED</code>, <code>STRICT_SESSION_OVERRIDDEN</code>).</li>
+  <li>Start and end are stored as absolute instants in the <code>strict_session</code> table (which also keeps the history), so a
+  session survives a reboot.</li>
+  <li>The running session is the top layer of the <a href="../api/com.lucas.mobilemanager.domain.rules/ProfileResolver.html"><code>ProfileResolver</code></a>: nothing below can allow a blocked app.</li>
+</ul>
+
+<h2 id="override">Ending early</h2>
+<ol>
+  <li>“Demander” starts the reflection delay; its start is stored, so the user may leave the screen.</li>
+  <li>When the delay is over, “Mettre fin” is available for <strong>2 minutes only</strong>; after that the request expires and must be
+  started again. This prevents starting the delay at the beginning of the session to leave whenever one wants.</li>
+  <li>Overriding ends the session (<code>OVERRIDDEN</code>). There is no other way to stop it from the app.</li>
+</ol>
+
+<h2 id="service">Foreground service</h2>
+<p><a href="../api/com.lucas.mobilemanager.session/StrictSessionService.html"><code>StrictSessionService</code></a> (foreground service of type <code>specialUse</code>) shows “Fin à HH:MM · n apps en pause” with a
+countdown, closes the session automatically at its end (<code>COMPLETED</code>) and checks every 30 s that the accessibility service
+is active. If it is not, it logs <code>PROTECTION_DISABLED</code>, posts a high-priority notification and opens
+<a href="../api/com.lucas.mobilemanager.session/ProtectionAlertActivity.html"><code>ProtectionAlertActivity</code></a> when the overlay permission is granted. When restarted it reuses its last notification (otherwise the
+placeholder text overwrote it).</p>
+<p>Restart safety: <a href="../api/com.lucas.mobilemanager.session/BootReceiver.html"><code>BootReceiver</code></a> handles <code>BOOT_COMPLETED</code> and <code>MY_PACKAGE_REPLACED</code>; the home screen also
+restarts the service on every resume. System receivers obtain their dependencies through <a href="../api/com.lucas.mobilemanager.session/SessionEntryPoint.html"><code>SessionEntryPoint</code></a>.</p>
+
+<h2 id="protected-screens">Protected screens</h2>
+<p>During a session (and while the trusted person code locks the app), every Settings or package installer screen whose visible text
+contains “Mobile Manager” is closed with back and a short message (<a href="../api/com.lucas.mobilemanager.domain.session/ProtectedScreenDetector.html"><code>ProtectedScreenDetector</code></a>). This covers the app info page, the
+accessibility page, device admin and uninstall. Side effect accepted: a list (apps, accessibility services) is closed too while the
+entry is visible. Detection relies on text, so a One UI update may require adjusting
+<a href="../api/com.lucas.mobilemanager.domain.session/ProtectedScreenDetector.html#m-PROTECTED_PACKAGES"><code>ProtectedScreenDetector.PROTECTED_PACKAGES</code></a>.</p>
+
+<h2 id="admin">Device administrator</h2>
+<p><a href="../api/com.lucas.mobilemanager.admin/MobileManagerAdminReceiver.html"><code>MobileManagerAdminReceiver</code></a> adds a message to the deactivation confirmation during a session and logs the deactivation. It does
+not prevent uninstallation; it adds a step. The real friction comes from protected screens.</p>
+
+<div class="alert note"><p class="alert-title">Note</p><p>A determined user (safe mode, ADB, factory reset) will always get through.
+This is assumed: the session adds friction, it does not lock the phone.</p></div>
+
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#policy">Rules of a session</a></li><li><a href="#override">Ending early</a></li><li><a href="#service">Foreground service</a></li><li><a href="#protected-screens">Protected screens</a></li><li><a href="#admin">Device administrator</a></li></ol></aside>
+</div>
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

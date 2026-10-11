@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.domain.dashboard package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.dashboard/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.domain.dashboard</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.domain.dashboard <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :core:domain</span><span>1 file</span></div>
+<p>Pure dashboard calculations (totals, trends, zones, interruptions, goals).</p>
+<h2 id="types">Types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="AppUsage.html"><code>AppUsage</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="BlockKind.html"><code>BlockKind</code></a></td><td>enum class</td><td>Why the tool interrupted a usage.</td></tr><tr><td><a href="Comparison.html"><code>Comparison</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardCalculator.html"><code>DashboardCalculator</code></a></td><td>object</td><td>Computes the dashboard.</td></tr><tr><td><a href="DashboardInput.html"><code>DashboardInput</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardSummary.html"><code>DashboardSummary</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="DateRange.html"><code>DateRange</code></a></td><td>data class</td><td>Local days [start, endInclusive].</td></tr><tr><td><a href="DayTotal.html"><code>DayTotal</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="Goals.html"><code>Goals</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="Interruptions.html"><code>Interruptions</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="Period.html"><code>Period</code></a></td><td>enum class</td><td><span class="muted">—</span></td></tr><tr><td><a href="PeriodRange.html"><code>PeriodRange</code></a></td><td>object</td><td><span class="muted">—</span></td></tr><tr><td><a href="Trend.html"><code>Trend</code></a></td><td>enum class</td><td>Change compared with the previous period.</td></tr><tr><td><a href="ZoneStats.html"><code>ZoneStats</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="properties-and-type-aliases">Properties and type aliases</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-DailyUsage"><code>DailyUsage</code></a></td><td>Screen time per local day, then per package.</td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a></li></ul>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-DailyUsage">
+<h3>DailyUsage <span class="badge">typealias</span></h3>
+<div class="kdoc"><p>Screen time per local day, then per package. A missing day = no data (≠ zero usage).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">typealias</span> DailyUsage</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L41">Dashboard.kt, line 41</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L47" title="val dailyUsage: DailyUsage,">47</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L185" title="private fun goals(input: DashboardInput, range: DateRange, usage: DailyUsage, events: List&lt;EventLogEntry&gt;): Goals {">185</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L216" title="private fun List&lt;LocalDate&gt;.sumOf(usage: DailyUsage): Duration =">216</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html">DashboardCalculatorTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html#L30" title="usage: DailyUsage = emptyMap(),">30</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/dashboard/DashboardCalculatorTest.kt.html#L43" title="private val usage: DailyUsage = mapOf(">43</a></td></tr></tbody></table></details>
+</section>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#types">Types</a></li><li><a href="#properties-and-type-aliases">Properties and type aliases</a></li><li><a href="#files">Files</a></li><li><a href="#member-details">Member details</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MobileManagerApp Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager/MobileManagerApp.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager</a> <span class="sep">/</span> <span>MobileManagerApp</span></nav>
+    <article>
+<h1>MobileManagerApp <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L18">MobileManagerApp.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@HiltAndroidApp
+<span class="kw">class</span> MobileManagerApp : Application(), Configuration.Provider</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Extends / implements</th><td><code>Application</code>, <code>Configuration.Provider</code></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="MobileManagerApp.html#m-seedDefaultProfiles"><code>seedDefaultProfiles</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="MobileManagerApp.html#m-seedDefaultAppBlocks"><code>seedDefaultAppBlocks</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="MobileManagerApp.html#m-seedDefaultZoneRules"><code>seedDefaultZoneRules</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="MobileManagerApp.html#m-dailyUsageSnapshotter"><code>dailyUsageSnapshotter</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="MobileManagerApp.html#m-workerFactory"><code>workerFactory</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="MobileManagerApp.html#m-appScope"><code>appScope</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="MobileManagerApp.html#m-workManagerConfiguration"><code>workManagerConfiguration</code></a></td><td>WorkManager initialised on demand with the Hilt workers (the default initialiser is removed from the manifest).</td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="MobileManagerApp.html#m-onCreate"><code>onCreate</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-seedDefaultProfiles">
+<h3>seedDefaultProfiles <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Inject
+<span class="kw">lateinit</span> <span class="kw">var</span> seedDefaultProfiles: <a href="../com.lucas.mobilemanager.domain.profiles/SeedDefaultProfiles.html">SeedDefaultProfiles</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L20">MobileManagerApp.kt, line 20</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html">MobileManagerApp.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L39" title="seedDefaultProfiles()">39</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-seedDefaultAppBlocks">
+<h3>seedDefaultAppBlocks <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Inject
+<span class="kw">lateinit</span> <span class="kw">var</span> seedDefaultAppBlocks: <a href="../com.lucas.mobilemanager.domain.zones/SeedDefaultAppBlocks.html">SeedDefaultAppBlocks</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L22">MobileManagerApp.kt, line 22</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html">MobileManagerApp.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L40" title="seedDefaultAppBlocks()">40</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-seedDefaultZoneRules">
+<h3>seedDefaultZoneRules <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Inject
+<span class="kw">lateinit</span> <span class="kw">var</span> seedDefaultZoneRules: <a href="../com.lucas.mobilemanager.domain.zones/SeedDefaultZoneRules.html">SeedDefaultZoneRules</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L24">MobileManagerApp.kt, line 24</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html">MobileManagerApp.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L41" title="seedDefaultZoneRules()">41</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-dailyUsageSnapshotter">
+<h3>dailyUsageSnapshotter <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Inject
+<span class="kw">lateinit</span> <span class="kw">var</span> dailyUsageSnapshotter: <a href="../com.lucas.mobilemanager.dashboard/DailyUsageSnapshotter.html">DailyUsageSnapshotter</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L26">MobileManagerApp.kt, line 26</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html">MobileManagerApp.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L42" title="dailyUsageSnapshotter.ensureSnapshots()">42</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-workerFactory">
+<h3>workerFactory <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Inject
+<span class="kw">lateinit</span> <span class="kw">var</span> workerFactory: HiltWorkerFactory</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L28">MobileManagerApp.kt, line 28</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html">MobileManagerApp.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L34" title="get() = Configuration.Builder().setWorkerFactory(workerFactory).build()">34</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-appScope">
+<h3>appScope <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Inject
+@ApplicationScope
+<span class="kw">lateinit</span> <span class="kw">var</span> appScope: CoroutineScope</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L30">MobileManagerApp.kt, line 30</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html">MobileManagerApp.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L38" title="appScope.launch {">38</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-workManagerConfiguration">
+<h3>workManagerConfiguration <span class="badge">property</span><span class="badge vis">override</span></h3>
+<div class="kdoc"><p>WorkManager initialised on demand with the Hilt workers (the default initialiser is removed from the manifest).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">val</span> workManagerConfiguration: Configuration</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L33">MobileManagerApp.kt, line 33</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-onCreate">
+<h3>onCreate <span class="badge">method</span><span class="badge vis">override</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">fun</span> onCreate()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L36">MobileManagerApp.kt, line 36</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html">MobileManagerApp.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L37" title="super.onCreate()">37</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/AndroidManifest.xml.html">AndroidManifest.xml</a><div class="path">app/src/main</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/AndroidManifest.xml.html#L54" title="android:name=&quot;.MobileManagerApp&quot;">54</a>, <a href="../../src/app/src/main/AndroidManifest.xml.html#L88" title="&lt;!-- WorkManager est initialisé par MobileManagerApp (workers Hilt) : initialiseur par défaut retiré. --&gt;">88</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

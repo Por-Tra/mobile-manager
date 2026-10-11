@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeleteProfile Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.profiles/DeleteProfile.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.profiles</a> <span class="sep">/</span> <span>DeleteProfile</span></nav>
+    <article>
+<h1>DeleteProfile <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.profiles</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/DeleteProfile.kt.html#L9">DeleteProfile.kt</a></span></div>
+<div class="kdoc"><p>Deletes a profile, and its manual activation if it was activated by hand.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">class</span> DeleteProfile @Inject <span class="kw">constructor</span>(<span class="kw">private</span> <span class="kw">val</span> profileRepository: <a href="../com.lucas.mobilemanager.domain.repository/ProfileRepository.html">ProfileRepository</a>, <span class="kw">private</span> <span class="kw">val</span> manualActivationRepository: <a href="../com.lucas.mobilemanager.domain.repository/ManualActivationRepository.html">ManualActivationRepository</a>)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DeleteProfile.html#m-profileRepository"><code>profileRepository</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DeleteProfile.html#m-manualActivationRepository"><code>manualActivationRepository</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DeleteProfile.html#m-invoke"><code>invoke</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-profileRepository">
+<h3>profileRepository <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> profileRepository: <a href="../com.lucas.mobilemanager.domain.repository/ProfileRepository.html">ProfileRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/DeleteProfile.kt.html#L10">DeleteProfile.kt, line 10</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/DeleteProfile.kt.html">DeleteProfile.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/DeleteProfile.kt.html#L17" title="profileRepository.delete(profileId)">17</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-manualActivationRepository">
+<h3>manualActivationRepository <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> manualActivationRepository: <a href="../com.lucas.mobilemanager.domain.repository/ManualActivationRepository.html">ManualActivationRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/DeleteProfile.kt.html#L11">DeleteProfile.kt, line 11</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/DeleteProfile.kt.html">DeleteProfile.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/DeleteProfile.kt.html#L14" title="if (manualActivationRepository.activation.first()?.profileId == profileId) {">14</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/DeleteProfile.kt.html#L15" title="manualActivationRepository.clear()">15</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-invoke">
+<h3>invoke <span class="badge">method</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">suspend</span> <span class="kw">operator</span> <span class="kw">fun</span> invoke(profileId: Long)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/DeleteProfile.kt.html#L13">DeleteProfile.kt, line 13</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeViewModel.kt.html">HomeViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/home</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeViewModel.kt.html#L13" title="import com.lucas.mobilemanager.domain.profiles.DeleteProfile">13</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeViewModel.kt.html#L55" title="private val deleteProfile: DeleteProfile,">55</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

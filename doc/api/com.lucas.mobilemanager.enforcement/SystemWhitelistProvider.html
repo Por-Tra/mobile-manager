@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SystemWhitelistProvider Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.enforcement/SystemWhitelistProvider.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.enforcement</a> <span class="sep">/</span> <span>SystemWhitelistProvider</span></nav>
+    <article>
+<h1>SystemWhitelistProvider <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.enforcement</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L24">SystemWhitelistProvider.kt</a></span></div>
+<div class="kdoc"><p>Apps that must never be blocked. Resolved through the system rather than hard-coded, because package names differ between manufacturers (Samsung in particular).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Singleton
+<span class="kw">class</span> SystemWhitelistProvider @Inject <span class="kw">constructor</span>(@ApplicationContext <span class="kw">private</span> <span class="kw">val</span> context: Context, <span class="kw">private</span> <span class="kw">val</span> timeProvider: <a href="../com.lucas.mobilemanager.domain.time/TimeProvider.html">TimeProvider</a>)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="SystemWhitelistProvider.html#m-context"><code>context</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="SystemWhitelistProvider.html#m-timeProvider"><code>timeProvider</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="SystemWhitelistProvider.html#m-cached"><code>cached</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="SystemWhitelistProvider.html#m-cachedAt"><code>cachedAt</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="SystemWhitelistProvider.html#m-current"><code>current</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="SystemWhitelistProvider.html#m-nonScreenTimePackages"><code>nonScreenTimePackages</code></a></td><td>Packages that do not count as screen time in the dashboard: Mobile Manager, launcher(s), system UI and keyboards (otherwise unlocking the phone would inflate the total).</td></tr><tr><td><a href="SystemWhitelistProvider.html#m-resolve"><code>resolve</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="SystemWhitelistProvider.html#m-handlersOf"><code>handlersOf</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="companion-members">Companion members</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="SystemWhitelistProvider.html#m-CACHE_DURATION"><code>CACHE_DURATION</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="SystemWhitelistProvider.html#m-KNOWN_SYSTEM_PACKAGES"><code>KNOWN_SYSTEM_PACKAGES</code></a></td><td>System components that expose no public intent but remain vital.</td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-context">
+<h3>context <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@ApplicationContext
+<span class="kw">private</span> <span class="kw">val</span> context: Context</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L25">SystemWhitelistProvider.kt, line 25</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">6 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html">SystemWhitelistProvider.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L47" title="add(context.packageName)">47</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L50" title="context.getSystemService(InputMethodManager::class.java)?.inputMethodList?.forEach { add(it.packageName) }">50</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L54" title="add(context.packageName)">54</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L60" title="context.getSystemService(TelecomManager::class.java)?.defaultDialerPackage?.let(::add)">60</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L68" title="context.getSystemService(InputMethodManager::class.java)">68</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L74" title="val packageManager = context.packageManager">74</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-timeProvider">
+<h3>timeProvider <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> timeProvider: <a href="../com.lucas.mobilemanager.domain.time/TimeProvider.html">TimeProvider</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L26">SystemWhitelistProvider.kt, line 26</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html">SystemWhitelistProvider.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L33" title="val now = timeProvider.now()">33</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-cached">
+<h3>cached <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">var</span> cached: <a href="../com.lucas.mobilemanager.domain.rules/SystemWhitelist.html">SystemWhitelist</a>?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L28">SystemWhitelistProvider.kt, line 28</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html">SystemWhitelistProvider.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L34" title="val valid = cached?.takeIf { Duration.between(cachedAt, now) &lt; CACHE_DURATION }">34</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L37" title="cached = it">37</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-cachedAt">
+<h3>cachedAt <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">var</span> cachedAt: Instant</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L29">SystemWhitelistProvider.kt, line 29</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html">SystemWhitelistProvider.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L34" title="val valid = cached?.takeIf { Duration.between(cachedAt, now) &lt; CACHE_DURATION }">34</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L38" title="cachedAt = now">38</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-current">
+<h3>current <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Synchronized
+<span class="kw">fun</span> current(): <a href="../com.lucas.mobilemanager.domain.rules/SystemWhitelist.html">SystemWhitelist</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L32">SystemWhitelistProvider.kt, line 32</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html">InstalledApps.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/apps</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html#L43" title="val whitelist = whitelistProvider.current()">43</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/EnforcementCoordinator.kt.html">EnforcementCoordinator.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/EnforcementCoordinator.kt.html#L84" title="fun isWhitelisted(packageName: String): Boolean = packageName in whitelistProvider.current()">84</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/EnforcementCoordinator.kt.html#L87" title="if (packageName in whitelistProvider.current()) return Decision.Allowed(remainingToday = null)">87</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/EnforcementCoordinator.kt.html#L100" title="if (packageName in whitelistProvider.current()) return Decision.Allowed(remainingToday = null)">100</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/EnforcementCoordinator.kt.html#L130" title="return ruleEngine.evaluate(policy, request, whitelistProvider.current(), now)">130</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-nonScreenTimePackages">
+<h3>nonScreenTimePackages <span class="badge">method</span></h3>
+<div class="kdoc"><p>Packages that do not count as screen time in the dashboard: Mobile Manager, launcher(s), system UI and keyboards (otherwise unlocking the phone would inflate the total).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> nonScreenTimePackages(): Set&lt;String&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L46">SystemWhitelistProvider.kt, line 46</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L68" title="excludedPackages = whitelistProvider.nonScreenTimePackages(),">68</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-resolve">
+<h3>resolve <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> resolve(): Set&lt;String&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L53">SystemWhitelistProvider.kt, line 53</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html">SystemWhitelistProvider.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L36" title="return SystemWhitelist(resolve()).also {">36</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-handlersOf">
+<h3>handlersOf <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> handlersOf(intent: Intent): List&lt;String&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L73">SystemWhitelistProvider.kt, line 73</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">6 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html">SystemWhitelistProvider.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L49" title="addAll(handlersOf(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)))">49</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L58" title="addAll(handlersOf(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)))">58</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L61" title="addAll(handlersOf(Intent(Intent.ACTION_DIAL)))">61</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L63" title="addAll(handlersOf(Intent(AlarmClock.ACTION_SET_ALARM)))">63</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L64" title="addAll(handlersOf(Intent(AlarmClock.ACTION_SHOW_ALARMS)))">64</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L66" title="addAll(handlersOf(Intent(Settings.ACTION_SETTINGS)))">66</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-CACHE_DURATION">
+<h3>CACHE_DURATION <span class="badge">property</span><span class="badge vis">companion</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> CACHE_DURATION: Duration</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L88">SystemWhitelistProvider.kt, line 88</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html">SystemWhitelistProvider.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L34" title="val valid = cached?.takeIf { Duration.between(cachedAt, now) &lt; CACHE_DURATION }">34</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-KNOWN_SYSTEM_PACKAGES">
+<h3>KNOWN_SYSTEM_PACKAGES <span class="badge">property</span><span class="badge vis">companion</span></h3>
+<div class="kdoc"><p>System components that expose no public intent but remain vital.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> KNOWN_SYSTEM_PACKAGES</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L91">SystemWhitelistProvider.kt, line 91</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html">SystemWhitelistProvider.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L55" title="addAll(KNOWN_SYSTEM_PACKAGES)">55</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">5 references in 3 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html">InstalledApps.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/apps</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html#L7" title="import com.lucas.mobilemanager.enforcement.SystemWhitelistProvider">7</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html#L22" title="private val whitelistProvider: SystemWhitelistProvider,">22</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L17" title="import com.lucas.mobilemanager.enforcement.SystemWhitelistProvider">17</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L37" title="private val whitelistProvider: SystemWhitelistProvider,">37</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/EnforcementCoordinator.kt.html">EnforcementCoordinator.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/EnforcementCoordinator.kt.html#L51" title="private val whitelistProvider: SystemWhitelistProvider,">51</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#companion-members">Companion members</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

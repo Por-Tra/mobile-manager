@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.ui.dashboard package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.dashboard/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.ui.dashboard</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.ui.dashboard <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :app</span><span>4 files</span></div>
+<p>Dashboard screen, charts and texts.</p>
+<h2 id="types">Types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="DashboardUiState.html"><code>DashboardUiState</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardViewModel.html"><code>DashboardViewModel</code></a></td><td>class</td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-DashboardScreen"><code>DashboardScreen</code></a></td><td>Dashboard: measures whether the tool helps, without judging.</td></tr><tr><td><a href="index.html#m-TotalCard"><code>TotalCard</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-AppRow"><code>AppRow</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-ZonesSection"><code>ZonesSection</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-InterruptionsSection"><code>InterruptionsSection</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-GoalsSection"><code>GoalsSection</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-GoalDialog"><code>GoalDialog</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-Section"><code>Section</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-Line"><code>Line</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-Caption"><code>Caption</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-comparisonText"><code>comparisonText</code></a></td><td>Comparison with the previous period: factual, never guilt-inducing.</td></tr><tr><td><a href="index.html#m-WeekChart"><code>WeekChart</code></a></td><td>Bars of the last 7 days, today highlighted.</td></tr></tbody></table>
+<h2 id="properties-and-type-aliases">Properties and type aliases</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-TOP_APPS"><code>TOP_APPS</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-GOAL_OPTIONS"><code>GOAL_OPTIONS</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardTexts.kt.html">DashboardTexts.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/WeekChart.kt.html">WeekChart.kt</a></li></ul>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-DashboardScreen">
+<h3>DashboardScreen <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>Dashboard: measures whether the tool helps, without judging. Neutral or encouraging wording, no alert colour.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+<span class="kw">fun</span> DashboardScreen(onBack: () -&gt; Unit, viewModel: <a href="DashboardViewModel.html">DashboardViewModel</a> = hiltViewModel())</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L65">DashboardScreen.kt, line 65</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L8" title="import com.lucas.mobilemanager.ui.dashboard.DashboardScreen">8</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L83" title="DashboardScreen(onBack = { navController.popBackStack() })">83</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-TotalCard">
+<h3>TotalCard <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> TotalCard(summary: <a href="../com.lucas.mobilemanager.domain.dashboard/DashboardSummary.html">DashboardSummary</a>, period: <a href="../com.lucas.mobilemanager.domain.dashboard/Period.html">Period</a>)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L160">DashboardScreen.kt, line 160</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L110" title="item { TotalCard(summary, state.period) }">110</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-AppRow">
+<h3>AppRow <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> AppRow(packageName: String, label: String, duration: Duration, share: Float)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L177">DashboardScreen.kt, line 177</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L126" title="AppRow(">126</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-ZonesSection">
+<h3>ZonesSection <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> ZonesSection(summary: <a href="../com.lucas.mobilemanager.domain.dashboard/DashboardSummary.html">DashboardSummary</a>, state: <a href="DashboardUiState.html">DashboardUiState</a>, period: <a href="../com.lucas.mobilemanager.domain.dashboard/Period.html">Period</a>)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L196">DashboardScreen.kt, line 196</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L141" title="item { ZonesSection(summary, state, state.period) }">141</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-InterruptionsSection">
+<h3>InterruptionsSection <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> InterruptionsSection(summary: <a href="../com.lucas.mobilemanager.domain.dashboard/DashboardSummary.html">DashboardSummary</a>)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L223">DashboardScreen.kt, line 223</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L142" title="item { InterruptionsSection(summary) }">142</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-GoalsSection">
+<h3>GoalsSection <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> GoalsSection(summary: <a href="../com.lucas.mobilemanager.domain.dashboard/DashboardSummary.html">DashboardSummary</a>, goal: Duration?, period: <a href="../com.lucas.mobilemanager.domain.dashboard/Period.html">Period</a>, canChangeGoal: Boolean, onPickGoal: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L242">DashboardScreen.kt, line 242</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L143" title="item { GoalsSection(summary, goal, state.period, canChangeGoal = canModify, onPickGoal = { pickingGoal = true }) }">143</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-GoalDialog">
+<h3>GoalDialog <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> GoalDialog(current: Int?, onDismiss: () -&gt; Unit, onSelect: (Int?) -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L280">DashboardScreen.kt, line 280</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L148" title="GoalDialog(">148</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-Section">
+<h3>Section <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> Section(title: String, content: @Composable () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L303">DashboardScreen.kt, line 303</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">6 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L112" title="Section(stringResource(R.string.dashboard_week_chart)) {">112</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L123" title="Section(stringResource(R.string.dashboard_apps)) {">123</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L198" title="Section(stringResource(R.string.dashboard_zones)) {">198</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L225" title="Section(stringResource(R.string.dashboard_interruptions)) {">225</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L228" title="return@Section">228</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L244" title="Section(stringResource(R.string.dashboard_goals)) {">244</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-Line">
+<h3>Line <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> Line(text: String)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L317">DashboardScreen.kt, line 317</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">8 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L206" title="Line(">206</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L215" title="Line(">215</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L236" title="Line(pluralStringResource(label, count, count))">236</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L246" title="Line(stringResource(R.string.dashboard_goal_none))">246</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L248" title="Line(">248</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L255" title="Line(stringResource(R.string.dashboard_goal_week, goals.daysUnderGoal ?: 0, goals.daysWithData, Formats.duration(goal)))">255</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L261" title="Line(">261</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L269" title="Line(">269</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-Caption">
+<h3>Caption <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> Caption(text: String)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L322">DashboardScreen.kt, line 322</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L115" title="Caption(stringResource(R.string.dashboard_goal_line, Formats.duration(it)))">115</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L120" title="item { Caption(stringResource(R.string.dashboard_no_data)) }">120</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L200" title="Caption(stringResource(R.string.dashboard_zones_none))">200</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L227" title="Caption(stringResource(R.string.dashboard_interruptions_none))">227</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L257" title="if (!canChangeGoal) Caption(stringResource(R.string.lock_banner_locked))">257</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-comparisonText">
+<h3>comparisonText <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>Comparison with the previous period: factual, never guilt-inducing.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">fun</span> comparisonText(summary: <a href="../com.lucas.mobilemanager.domain.dashboard/DashboardSummary.html">DashboardSummary</a>, period: <a href="../com.lucas.mobilemanager.domain.dashboard/Period.html">Period</a>): String</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardTexts.kt.html#L13">DashboardTexts.kt, line 13</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L171" title="Text(comparisonText(summary, period), style = MaterialTheme.typography.bodyMedium)">171</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html">HomeScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/home</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L47" title="import com.lucas.mobilemanager.ui.dashboard.comparisonText">47</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L196" title="Text(comparisonText(summary, Period.TODAY), style = MaterialTheme.typography.bodySmall)">196</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-WeekChart">
+<h3>WeekChart <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>Bars of the last 7 days, today highlighted. If a goal is set: dotted line, and days above it in a neutral colour (never red).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">fun</span> WeekChart(week: List&lt;<a href="../com.lucas.mobilemanager.domain.dashboard/DayTotal.html">DayTotal</a>&gt;, goal: Duration?, description: String, modifier: Modifier = Modifier)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/WeekChart.kt.html#L30">WeekChart.kt, line 30</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L113" title="WeekChart(summary.week, goal, stringResource(R.string.dashboard_week_chart))">113</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-TOP_APPS">
+<h3>TOP_APPS <span class="badge">constant</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">const</span> <span class="kw">val</span> TOP_APPS</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L326">DashboardScreen.kt, line 326</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L124" title="val apps = if (state.showAllApps) summary.apps else summary.apps.take(TOP_APPS)">124</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L133" title="if (summary.apps.size &gt; TOP_APPS) {">133</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-GOAL_OPTIONS">
+<h3>GOAL_OPTIONS <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> GOAL_OPTIONS</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L327">DashboardScreen.kt, line 327</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L287" title="(listOf&lt;Int?&gt;(null) + GOAL_OPTIONS).forEach { minutes -&gt;">287</a></td></tr></tbody></table></details>
+</section>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#types">Types</a></li><li><a href="#functions">Functions</a></li><li><a href="#properties-and-type-aliases">Properties and type aliases</a></li><li><a href="#files">Files</a></li><li><a href="#member-details">Member details</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

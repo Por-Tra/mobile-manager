@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.domain.rules package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.rules/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.domain.rules</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.domain.rules <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :core:domain</span><span>4 files</span></div>
+<p>Rule model, profile resolution and the rule engine.</p>
+<h2 id="types">Types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="AppRequest.html"><code>AppRequest</code></a></td><td>data class</td><td>What the engine is asked: “this app, in this zone, with this usage today”.</td></tr><tr><td><a href="BlockEnd.html"><code>BlockEnd</code></a></td><td>object</td><td><span class="muted">—</span></td></tr><tr><td><a href="BlockReason.html"><code>BlockReason</code></a></td><td>sealed interface</td><td>Reason for a block, enough to write a neutral message.</td></tr><tr><td><a href="DayRelation.html"><code>DayRelation</code></a></td><td>enum class</td><td>Position of the end of a block relative to today, for a readable message.</td></tr><tr><td><a href="Decision.html"><code>Decision</code></a></td><td>sealed interface</td><td><span class="muted">—</span></td></tr><tr><td><a href="EnforcementPolicy.html"><code>EnforcementPolicy</code></a></td><td>object</td><td>Pacing rules of monitoring, independent of Android.</td></tr><tr><td><a href="LayerSource.html"><code>LayerSource</code></a></td><td>sealed interface</td><td>Origin of a rule layer, used to explain a block.</td></tr><tr><td><a href="PolicyLayer.html"><code>PolicyLayer</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="ProfileResolver.html"><code>ProfileResolver</code></a></td><td>class</td><td>Determines which rules apply now and in which priority order:</td></tr><tr><td><a href="ResolvedPolicy.html"><code>ResolvedPolicy</code></a></td><td>data class</td><td>Active layers, from highest to lowest priority.</td></tr><tr><td><a href="Rule.html"><code>Rule</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="RuleAction.html"><code>RuleAction</code></a></td><td>sealed interface</td><td><span class="muted">—</span></td></tr><tr><td><a href="RuleEngine.html"><code>RuleEngine</code></a></td><td>class</td><td>Decides whether an app is allowed right now.</td></tr><tr><td><a href="SystemWhitelist.html"><code>SystemWhitelist</code></a></td><td>data class</td><td>Apps never blocked (clock, phone, emergency, settings, Mobile Manager).</td></tr><tr><td><a href="Target.html"><code>Target</code></a></td><td>sealed interface</td><td>What a rule targets, from the most general to the most specific.</td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/EnforcementPolicy.kt.html">EnforcementPolicy.kt</a></li><li><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolver.kt.html">ProfileResolver.kt</a></li><li><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/Rule.kt.html">Rule.kt</a></li><li><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html">RuleEngine.kt</a></li></ul>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#types">Types</a></li><li><a href="#files">Files</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DailyUsageEntity Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.data.db/DailyUsageEntity.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.data.db</a> <span class="sep">/</span> <span>DailyUsageEntity</span></nav>
+    <article>
+<h1>DailyUsageEntity <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.data.db</a></span><span>Module: :core:data</span><span>Source: <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/DailyUsageEntity.kt.html#L15">DailyUsageEntity.kt</a></span></div>
+<div class="kdoc"><p>Screen time of an app on a given day (local day <code>yyyy-mm-dd</code>). A <a href="DailyUsageEntity.html#m-NO_USAGE"><code>NO_USAGE</code></a> row marks a day recorded without any usage, to tell it apart from a day without data.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Entity(tableName = , primaryKeys = [ , ])
+<span class="kw">data</span> <span class="kw">class</span> DailyUsageEntity(<span class="kw">val</span> date: String, @ColumnInfo(name = &quot;package_name&quot;) <span class="kw">val</span> packageName: String, <span class="kw">val</span> seconds: Long)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DailyUsageEntity.html#m-date"><code>date</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DailyUsageEntity.html#m-packageName"><code>packageName</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DailyUsageEntity.html#m-seconds"><code>seconds</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="companion-members">Companion members</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DailyUsageEntity.html#m-NO_USAGE"><code>NO_USAGE</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-date">
+<h3>date <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> date: String</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/DailyUsageEntity.kt.html#L16">DailyUsageEntity.kt, line 16</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html">RoomDailyUsageRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L19" title=".groupBy { LocalDate.parse(it.date) }">19</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L25" title="override suspend fun store(date: LocalDate, usage: Map&lt;String, Duration&gt;) {">25</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L27" title=".map { (pkg, duration) -&gt; DailyUsageEntity(date.toString(), pkg, duration.seconds) }">27</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L28" title=".ifEmpty { listOf(DailyUsageEntity(date.toString(), DailyUsageEntity.NO_USAGE, 0)) }">28</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-packageName">
+<h3>packageName <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@ColumnInfo(name =               )
+<span class="kw">val</span> packageName: String</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/DailyUsageEntity.kt.html#L17">DailyUsageEntity.kt, line 17</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html">RoomDailyUsageRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L21" title="rows.filter { it.packageName != DailyUsageEntity.NO_USAGE }">21</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L22" title=".associate { it.packageName to Duration.ofSeconds(it.seconds) }">22</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-seconds">
+<h3>seconds <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> seconds: Long</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/DailyUsageEntity.kt.html#L18">DailyUsageEntity.kt, line 18</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html">RoomDailyUsageRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L22" title=".associate { it.packageName to Duration.ofSeconds(it.seconds) }">22</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L26" title="val rows = usage.filterValues { it.seconds &gt; 0 }">26</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L27" title=".map { (pkg, duration) -&gt; DailyUsageEntity(date.toString(), pkg, duration.seconds) }">27</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-NO_USAGE">
+<h3>NO_USAGE <span class="badge">constant</span><span class="badge vis">companion</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">const</span> <span class="kw">val</span> NO_USAGE</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/DailyUsageEntity.kt.html#L21">DailyUsageEntity.kt, line 21</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html">RoomDailyUsageRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L21" title="rows.filter { it.packageName != DailyUsageEntity.NO_USAGE }">21</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L28" title=".ifEmpty { listOf(DailyUsageEntity(date.toString(), DailyUsageEntity.NO_USAGE, 0)) }">28</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">7 references in 3 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/DailyUsageEntity.kt.html">DailyUsageEntity.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/DailyUsageEntity.kt.html#L31" title="suspend fun between(from: String, to: String): List&lt;DailyUsageEntity&gt;">31</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/DailyUsageEntity.kt.html#L34" title="suspend fun insertAll(rows: List&lt;DailyUsageEntity&gt;)">34</a></td></tr><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/MobileManagerDatabase.kt.html">MobileManagerDatabase.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/MobileManagerDatabase.kt.html#L16" title="DailyUsageEntity::class,">16</a></td></tr><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html">RoomDailyUsageRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L4" title="import com.lucas.mobilemanager.data.db.DailyUsageEntity">4</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L21" title="rows.filter { it.packageName != DailyUsageEntity.NO_USAGE }">21</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L27" title=".map { (pkg, duration) -&gt; DailyUsageEntity(date.toString(), pkg, duration.seconds) }">27</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L28" title=".ifEmpty { listOf(DailyUsageEntity(date.toString(), DailyUsageEntity.NO_USAGE, 0)) }">28</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#companion-members">Companion members</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

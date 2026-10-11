@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.ui.home package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.home/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.ui.home</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.ui.home <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :app</span><span>3 files</span></div>
+<p>Home screen: status, today card, focus session card and profile list.</p>
+<h2 id="types">Types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="HomeViewModel.html"><code>HomeViewModel</code></a></td><td>class</td><td><span class="muted">—</span></td></tr><tr><td><a href="ProfileItem.html"><code>ProfileItem</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-HomeScreen"><code>HomeScreen</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-TodayCard"><code>TodayCard</code></a> <span class=tag>private</span></td><td>“Aujourd’hui : 2 h 10” + neutral comparison with yesterday; opens the dashboard.</td></tr><tr><td><a href="index.html#m-StatusCard"><code>StatusCard</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-SessionCard"><code>SessionCard</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-ProfileCard"><code>ProfileCard</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-ManualActivationSheet"><code>ManualActivationSheet</code></a></td><td>Choice of the duration of a manual activation.</td></tr><tr><td><a href="index.html#m-Option"><code>Option</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html">HomeScreen.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeViewModel.kt.html">HomeViewModel.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/ProfileCard.kt.html">ProfileCard.kt</a></li></ul>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-HomeScreen">
+<h3>HomeScreen <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+<span class="kw">fun</span> HomeScreen(onOpenPermissions: () -&gt; Unit, onOpenSettings: () -&gt; Unit, onStartSession: () -&gt; Unit, onRequestOverride: () -&gt; Unit, onEditProfile: (Long) -&gt; Unit, onNewProfile: () -&gt; Unit, onEditDefaultRules: () -&gt; Unit, onOpenDashboard: () -&gt; Unit, viewModel: <a href="HomeViewModel.html">HomeViewModel</a> = hiltViewModel())</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L56">HomeScreen.kt, line 56</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L10" title="import com.lucas.mobilemanager.ui.home.HomeScreen">10</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L71" title="HomeScreen(">71</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-TodayCard">
+<h3>TodayCard <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>“Aujourd’hui : 2 h 10” + neutral comparison with yesterday; opens the dashboard.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> TodayCard(summary: <a href="../com.lucas.mobilemanager.domain.dashboard/DashboardSummary.html">DashboardSummary</a>, onOpen: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L187">HomeScreen.kt, line 187</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html">HomeScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/home</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L106" title="today?.let { summary -&gt; item { TodayCard(summary, onOpenDashboard) } }">106</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-StatusCard">
+<h3>StatusCard <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> StatusCard(permissions: <a href="../com.lucas.mobilemanager.domain.onboarding/OnboardingState.html">OnboardingState</a>, onOpenPermissions: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L202">HomeScreen.kt, line 202</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html">HomeScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/home</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L105" title="item { StatusCard(permissions, onOpenPermissions) }">105</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-SessionCard">
+<h3>SessionCard <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> SessionCard(session: <a href="../com.lucas.mobilemanager.domain.model/StrictSession.html">StrictSession</a>?, onStart: () -&gt; Unit, onRequestOverride: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L242">HomeScreen.kt, line 242</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html">HomeScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/home</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L107" title="item { SessionCard(session, onStartSession, onRequestOverride) }">107</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-ProfileCard">
+<h3>ProfileCard <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">fun</span> ProfileCard(item: <a href="ProfileItem.html">ProfileItem</a>, editable: Boolean, canActivate: Boolean, canMoveUp: Boolean, canMoveDown: Boolean, onOpen: () -&gt; Unit, onToggle: (Boolean) -&gt; Unit, onActivate: () -&gt; Unit, onDeactivate: () -&gt; Unit, onMoveUp: () -&gt; Unit, onMoveDown: () -&gt; Unit, onDelete: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/ProfileCard.kt.html#L45">ProfileCard.kt, line 45</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html">HomeScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/home</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L124" title="ProfileCard(">124</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-ManualActivationSheet">
+<h3>ManualActivationSheet <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>Choice of the duration of a manual activation.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+<span class="kw">fun</span> ManualActivationSheet(profile: <a href="../com.lucas.mobilemanager.domain.model/Profile.html">Profile</a>, replacing: <a href="../com.lucas.mobilemanager.domain.model/Profile.html">Profile</a>?, onDismiss: () -&gt; Unit, onChoose: (<a href="../com.lucas.mobilemanager.domain.profiles/ManualDuration.html">ManualDuration</a>) -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/ProfileCard.kt.html#L137">ProfileCard.kt, line 137</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html">HomeScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/home</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L159" title="ManualActivationSheet(">159</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-Option">
+<h3>Option <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> Option(text: String, onClick: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/ProfileCard.kt.html#L178">ProfileCard.kt, line 178</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/ProfileCard.kt.html">ProfileCard.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/home</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/ProfileCard.kt.html#L158" title="Option(stringResource(R.string.manual_one_hour)) { onChoose(ManualDuration.ONE_HOUR) }">158</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/ProfileCard.kt.html#L159" title="Option(stringResource(R.string.manual_two_hours)) { onChoose(ManualDuration.TWO_HOURS) }">159</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/ProfileCard.kt.html#L160" title="Option(stringResource(R.string.manual_until)) { pickingTime = true }">160</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/ProfileCard.kt.html#L161" title="Option(stringResource(R.string.manual_until_turned_off)) { onChoose(ManualDuration.UntilTurnedOff) }">161</a></td></tr></tbody></table></details>
+</section>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#types">Types</a></li><li><a href="#functions">Functions</a></li><li><a href="#files">Files</a></li><li><a href="#member-details">Member details</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RoomStrictSessionRepository Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.data.repository/RoomStrictSessionRepository.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.data.repository</a> <span class="sep">/</span> <span>RoomStrictSessionRepository</span></nav>
+    <article>
+<h1>RoomStrictSessionRepository <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.data.repository</a></span><span>Module: :core:data</span><span>Source: <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L13">RoomStrictSessionRepository.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">class</span> RoomStrictSessionRepository @Inject <span class="kw">constructor</span>(<span class="kw">private</span> <span class="kw">val</span> dao: <a href="../com.lucas.mobilemanager.data.db/StrictSessionDao.html">StrictSessionDao</a>) : <a href="../com.lucas.mobilemanager.domain.repository/StrictSessionRepository.html">StrictSessionRepository</a></code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Extends / implements</th><td><a href="../com.lucas.mobilemanager.domain.repository/StrictSessionRepository.html"><code>StrictSessionRepository</code></a></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="RoomStrictSessionRepository.html#m-dao"><code>dao</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="RoomStrictSessionRepository.html#m-observeCurrent"><code>observeCurrent</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="RoomStrictSessionRepository.html#m-current"><code>current</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="RoomStrictSessionRepository.html#m-insert"><code>insert</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="RoomStrictSessionRepository.html#m-setOverrideRequestedAt"><code>setOverrideRequestedAt</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="RoomStrictSessionRepository.html#m-end"><code>end</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="RoomStrictSessionRepository.html#m-sessionsStartedBetween"><code>sessionsStartedBetween</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-dao">
+<h3>dao <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> dao: <a href="../com.lucas.mobilemanager.data.db/StrictSessionDao.html">StrictSessionDao</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L14">RoomStrictSessionRepository.kt, line 14</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">6 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html">RoomStrictSessionRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L17" title="override fun observeCurrent(): Flow&lt;StrictSession?&gt; = dao.observeCurrent().map { it?.toDomain() }">17</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L19" title="override suspend fun current(): StrictSession? = dao.current()?.toDomain()">19</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L21" title="override suspend fun insert(session: StrictSession): Long = dao.insert(session.toEntity())">21</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L24" title="dao.setOverrideRequestedAt(sessionId, at?.toEpochMilli())">24</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L27" title="dao.end(sessionId, endedAt.toEpochMilli(), reason.name)">27</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L30" title="dao.startedBetween(from.toEpochMilli(), to.toEpochMilli()).map { it.toDomain() }">30</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-observeCurrent">
+<h3>observeCurrent <span class="badge">method</span><span class="badge vis">override</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">fun</span> observeCurrent(): Flow&lt;<a href="../com.lucas.mobilemanager.domain.model/StrictSession.html">StrictSession</a>?&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L17">RoomStrictSessionRepository.kt, line 17</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-current">
+<h3>current <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> current(): <a href="../com.lucas.mobilemanager.domain.model/StrictSession.html">StrictSession</a>?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L19">RoomStrictSessionRepository.kt, line 19</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-insert">
+<h3>insert <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> insert(session: <a href="../com.lucas.mobilemanager.domain.model/StrictSession.html">StrictSession</a>): Long</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L21">RoomStrictSessionRepository.kt, line 21</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-setOverrideRequestedAt">
+<h3>setOverrideRequestedAt <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> setOverrideRequestedAt(sessionId: Long, at: Instant?)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L23">RoomStrictSessionRepository.kt, line 23</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html">RoomStrictSessionRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L24" title="dao.setOverrideRequestedAt(sessionId, at?.toEpochMilli())">24</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-end">
+<h3>end <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> end(sessionId: Long, endedAt: Instant, reason: <a href="../com.lucas.mobilemanager.domain.model/StrictSession.html">StrictSession</a>.<a href="../com.lucas.mobilemanager.domain.model/StrictSession.EndReason.html">EndReason</a>)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L26">RoomStrictSessionRepository.kt, line 26</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html">RoomStrictSessionRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L27" title="dao.end(sessionId, endedAt.toEpochMilli(), reason.name)">27</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-sessionsStartedBetween">
+<h3>sessionsStartedBetween <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> sessionsStartedBetween(from: Instant, to: Instant): List&lt;<a href="../com.lucas.mobilemanager.domain.model/StrictSession.html">StrictSession</a>&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L29">RoomStrictSessionRepository.kt, line 29</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html">DataModule.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/di</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L20" title="import com.lucas.mobilemanager.data.repository.RoomStrictSessionRepository">20</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L103" title="abstract fun bindStrictSessionRepository(impl: RoomStrictSessionRepository): StrictSessionRepository">103</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

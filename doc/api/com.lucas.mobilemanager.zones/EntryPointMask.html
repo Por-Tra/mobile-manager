@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EntryPointMask Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.zones/EntryPointMask.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.zones</a> <span class="sep">/</span> <span>EntryPointMask</span></nav>
+    <article>
+<h1>EntryPointMask <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.zones</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L19">EntryPointMask.kt</a></span></div>
+<div class="kdoc"><p>Masks the entry points of an inaccessible zone (Reels button, Shorts tab): a <code>TYPE_ACCESSIBILITY_OVERLAY</code> window (no extra permission) placed exactly over the element, with the colour of the tab bar, that swallows taps. The app itself is not modified.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">class</span> EntryPointMask(<span class="kw">private</span> <span class="kw">val</span> service: AccessibilityService)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="EntryPointMask.html#m-service"><code>service</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="EntryPointMask.html#m-windowManager"><code>windowManager</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="EntryPointMask.html#m-views"><code>views</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="EntryPointMask.html#m-topInset"><code>topInset</code></a> <span class=tag>private</span></td><td>Keeps the possible divider line above the tab bar visible (YouTube).</td></tr><tr><td><a href="EntryPointMask.html#m-shownRects"><code>shownRects</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="EntryPointMask.html#m-show"><code>show</code></a></td><td>Shows one mask per rectangle (screen coordinates); an empty list removes everything.</td></tr><tr><td><a href="EntryPointMask.html#m-clear"><code>clear</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="EntryPointMask.html#m-maskView"><code>maskView</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="EntryPointMask.html#m-color"><code>color</code></a> <span class=tag>private</span></td><td>Colour of the app’s tab bar according to the phone theme (which apps follow by default).</td></tr><tr><td><a href="EntryPointMask.html#m-layoutParams"><code>layoutParams</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-service">
+<h3>service <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> service: AccessibilityService</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L19">EntryPointMask.kt, line 19</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html">EntryPointMask.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L21" title="private val windowManager = service.getSystemService(WindowManager::class.java)">21</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L24" title="private val topInset = (2 * service.resources.displayMetrics.density).toInt()">24</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L51" title="private fun maskView() = View(service).apply {">51</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L59" title="val night = service.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK ==">59</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-windowManager">
+<h3>windowManager <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> windowManager</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L21">EntryPointMask.kt, line 21</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html">EntryPointMask.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L30" title="while (views.size &gt; rects.size) windowManager.removeView(views.removeAt(views.lastIndex))">30</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L36" title="windowManager.updateViewLayout(views[i], params)">36</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L40" title="windowManager.addView(it, params)">40</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-views">
+<h3>views <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> views</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L22">EntryPointMask.kt, line 22</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html">EntryPointMask.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L30" title="while (views.size &gt; rects.size) windowManager.removeView(views.removeAt(views.lastIndex))">30</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L34" title="if (i &lt; views.size) {">34</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L35" title="views[i].setBackgroundColor(color)">35</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L36" title="windowManager.updateViewLayout(views[i], params)">36</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L38" title="views += maskView().also {">38</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-topInset">
+<h3>topInset <span class="badge">property</span><span class="badge vis">private</span></h3>
+<div class="kdoc"><p>Keeps the possible divider line above the tab bar visible (YouTube).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> topInset</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L24">EntryPointMask.kt, line 24</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html">EntryPointMask.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L66" title="(rect.height() - topInset).coerceAtLeast(1),">66</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L75" title="y = rect.top + topInset">75</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-shownRects">
+<h3>shownRects <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> shownRects</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L25">EntryPointMask.kt, line 25</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html">EntryPointMask.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L29" title="if (rects == shownRects) return">29</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L44" title="shownRects.clear()">44</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L45" title="shownRects.addAll(rects)">45</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-show">
+<h3>show <span class="badge">method</span></h3>
+<div class="kdoc"><p>Shows one mask per rectangle (screen coordinates); an empty list removes everything.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> show(rects: List&lt;Pair&lt;Rect, <a href="../com.lucas.mobilemanager.domain.zones/MaskColor.html">MaskColor</a>&gt;&gt;)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L28">EntryPointMask.kt, line 28</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html">EntryPointMask.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L48" title="fun clear() = show(emptyList())">48</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html">ZoneEnforcer.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L183" title="mask.show(rects)">183</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L220" title="Toast.makeText(service, text, Toast.LENGTH_SHORT).show()">220</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-clear">
+<h3>clear <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> clear()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L48">EntryPointMask.kt, line 48</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html">EntryPointMask.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L44" title="shownRects.clear()">44</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html">ZoneEnforcer.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L189" title="mask.clear()">189</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-maskView">
+<h3>maskView <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@SuppressLint( )
+<span class="kw">private</span> <span class="kw">fun</span> maskView()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L51">EntryPointMask.kt, line 51</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html">EntryPointMask.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L38" title="views += maskView().also {">38</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-color">
+<h3>color <span class="badge">method</span><span class="badge vis">private</span></h3>
+<div class="kdoc"><p>Colour of the app’s tab bar according to the phone theme (which apps follow by default).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> color(maskColor: <a href="../com.lucas.mobilemanager.domain.zones/MaskColor.html">MaskColor</a>): Int</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L58">EntryPointMask.kt, line 58</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html">EntryPointMask.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L32" title="val color = color(maskColor)">32</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L35" title="views[i].setBackgroundColor(color)">35</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L39" title="it.setBackgroundColor(color)">39</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-layoutParams">
+<h3>layoutParams <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> layoutParams(rect: Rect)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L64">EntryPointMask.kt, line 64</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html">EntryPointMask.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/EntryPointMask.kt.html#L33" title="val params = layoutParams(rect)">33</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html">ZoneEnforcer.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L59" title="private val mask = EntryPointMask(service)">59</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

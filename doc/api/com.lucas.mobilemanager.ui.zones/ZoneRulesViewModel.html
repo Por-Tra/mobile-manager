@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZoneRulesViewModel Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.zones/ZoneRulesViewModel.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.ui.zones</a> <span class="sep">/</span> <span>ZoneRulesViewModel</span></nav>
+    <article>
+<h1>ZoneRulesViewModel <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.ui.zones</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L47">ZoneRulesViewModel.kt</a></span></div>
+<div class="kdoc"><p>Known zones (detectors), their setting in the default rules and the time spent today.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@HiltViewModel
+<span class="kw">class</span> ZoneRulesViewModel @Inject <span class="kw">constructor</span>(detectorStore: <a href="../com.lucas.mobilemanager.zones/ZoneDetectorStore.html">ZoneDetectorStore</a>, <span class="kw">private</span> <span class="kw">val</span> profileRepository: <a href="../com.lucas.mobilemanager.domain.repository/ProfileRepository.html">ProfileRepository</a>, strictSessionRepository: <a href="../com.lucas.mobilemanager.domain.repository/StrictSessionRepository.html">StrictSessionRepository</a>, zoneUsageRepository: <a href="../com.lucas.mobilemanager.domain.repository/ZoneUsageRepository.html">ZoneUsageRepository</a>, <span class="kw">private</span> <span class="kw">val</span> installedApps: <a href="../com.lucas.mobilemanager.apps/InstalledApps.html">InstalledApps</a>, <span class="kw">private</span> <span class="kw">val</span> appLock: <a href="../com.lucas.mobilemanager.lock/AppLock.html">AppLock</a>, <span class="kw">private</span> <span class="kw">val</span> timeProvider: <a href="../com.lucas.mobilemanager.domain.time/TimeProvider.html">TimeProvider</a>) : ViewModel()</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Extends / implements</th><td><code>ViewModel</code></td></tr></tbody></table>
+<h2 id="constructor-parameters">Constructor parameters</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody><tr><td><code>detectorStore</code></td><td><code><a href="../com.lucas.mobilemanager.zones/ZoneDetectorStore.html">ZoneDetectorStore</a></code></td></tr><tr><td><code>strictSessionRepository</code></td><td><code><a href="../com.lucas.mobilemanager.domain.repository/StrictSessionRepository.html">StrictSessionRepository</a></code></td></tr><tr><td><code>zoneUsageRepository</code></td><td><code><a href="../com.lucas.mobilemanager.domain.repository/ZoneUsageRepository.html">ZoneUsageRepository</a></code></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="ZoneRulesViewModel.html#m-profileRepository"><code>profileRepository</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="ZoneRulesViewModel.html#m-installedApps"><code>installedApps</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="ZoneRulesViewModel.html#m-appLock"><code>appLock</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="ZoneRulesViewModel.html#m-timeProvider"><code>timeProvider</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="ZoneRulesViewModel.html#m-labels"><code>labels</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="ZoneRulesViewModel.html#m-state"><code>state</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="ZoneRulesViewModel.html#m-loadLabels"><code>loadLabels</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="ZoneRulesViewModel.html#m-setSetting"><code>setSetting</code></a></td><td>Blocked = default <code>Block</code> rule on the zone; quota = <code>Limit</code>; allowed = no rule at all (nothing restricts it, except a profile).</td></tr></tbody></table>
+<h2 id="companion-members">Companion members</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="ZoneRulesViewModel.html#m-DEFAULT_QUOTA_MINUTES"><code>DEFAULT_QUOTA_MINUTES</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-profileRepository">
+<h3>profileRepository <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> profileRepository: <a href="../com.lucas.mobilemanager.domain.repository/ProfileRepository.html">ProfileRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L49">ZoneRulesViewModel.kt, line 49</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html">ZoneRulesViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L61" title="profileRepository.observeGlobalRules(),">61</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L104" title="val others = profileRepository.observeGlobalRules().first().filterNot { it.target == target }">104</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L110" title="profileRepository.replaceGlobalRules(others + listOfNotNull(rule))">110</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-installedApps">
+<h3>installedApps <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> installedApps: <a href="../com.lucas.mobilemanager.apps/InstalledApps.html">InstalledApps</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L52">ZoneRulesViewModel.kt, line 52</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html">ZoneRulesViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L92" title="labels.update { current -&gt; current + missing.associateWith { installedApps.label(it) ?: it } }">92</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-appLock">
+<h3>appLock <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> appLock: <a href="../com.lucas.mobilemanager.lock/AppLock.html">AppLock</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L53">ZoneRulesViewModel.kt, line 53</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html">ZoneRulesViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L101" title="if (state.value.locked || !appLock.canModifyNow()) return">101</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-timeProvider">
+<h3>timeProvider <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> timeProvider: <a href="../com.lucas.mobilemanager.domain.time/TimeProvider.html">TimeProvider</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L54">ZoneRulesViewModel.kt, line 54</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html">ZoneRulesViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L62" title="strictSessionRepository.observeCurrent().map { it?.isRunning(timeProvider.now()) == true },">62</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L64" title="zoneUsageRepository.observeDay(timeProvider.localNow().toLocalDate()),">64</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-labels">
+<h3>labels <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> labels</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L57">ZoneRulesViewModel.kt, line 57</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html">ZoneRulesViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L63" title="labels,">63</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L65" title=") { detectors, globalRules, locked, labels, usage -&gt;">65</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L66" title="loadLabels(detectors.packages, labels)">66</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L72" title="appLabel = labels[app.packageName] ?: app.packageName,">72</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L92" title="labels.update { current -&gt; current + missing.associateWith { installedApps.label(it) ?: it } }">92</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-state">
+<h3>state <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> state: StateFlow&lt;<a href="ZoneRulesState.html">ZoneRulesState</a>&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L59">ZoneRulesViewModel.kt, line 59</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">6 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html">ZoneRulesScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L52" title="val state by viewModel.state.collectAsStateWithLifecycle()">52</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L53" title="val readOnly = state.locked || !rememberCanModify()">53</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L71" title="if (state.locked) item { Caption(stringResource(R.string.locked_during_session)) }">71</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L72" title="items(state.zones, key = { &quot;${it.packageName}/${it.zoneId}&quot; }) { zone -&gt;">72</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L79" title="OutlinedButton(onClick = onOpenDefaultRules, enabled = !state.locked) {">79</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html">ZoneRulesViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L101" title="if (state.value.locked || !appLock.canModifyNow()) return">101</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-loadLabels">
+<h3>loadLabels <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> loadLabels(packages: Set&lt;String&gt;, known: Map&lt;String, String&gt;)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L88">ZoneRulesViewModel.kt, line 88</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html">ZoneRulesViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L66" title="loadLabels(detectors.packages, labels)">66</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-setSetting">
+<h3>setSetting <span class="badge">method</span></h3>
+<div class="kdoc"><p>Blocked = default <code>Block</code> rule on the zone; quota = <code>Limit</code>; allowed = no rule at all (nothing restricts it, except a profile).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> setSetting(item: <a href="ZoneItem.html">ZoneItem</a>, setting: <a href="ZoneSetting.html">ZoneSetting</a>, quotaMinutes: Int = item.quotaMinutes)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L100">ZoneRulesViewModel.kt, line 100</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html">ZoneRulesScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L73" title="ZoneRow(zone, enabled = !readOnly, onSetting = { setting, minutes -&gt; viewModel.setSetting(zone, setting, minutes) })">73</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-DEFAULT_QUOTA_MINUTES">
+<h3>DEFAULT_QUOTA_MINUTES <span class="badge">constant</span><span class="badge vis">companion</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">const</span> <span class="kw">val</span> DEFAULT_QUOTA_MINUTES</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L115">ZoneRulesViewModel.kt, line 115</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html">ZoneRulesViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L80" title="quotaMinutes = (action as? RuleAction.Limit)?.dailyLimit?.toMinutes()?.toInt() ?: DEFAULT_QUOTA_MINUTES,">80</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html">ZoneRulesScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L50" title="viewModel: ZoneRulesViewModel = hiltViewModel(),">50</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#constructor-parameters">Constructor parameters</a></li><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#companion-members">Companion members</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

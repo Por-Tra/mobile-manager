@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ExitStep Sealed Interface - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.zones/ExitStep.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.zones</a> <span class="sep">/</span> <span>ExitStep</span></nav>
+    <article>
+<h1>ExitStep <span class="h1-kind">sealed interface</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.zones</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatching.kt.html#L124">ZoneMatching.kt</a></span></div>
+<div class="kdoc"><p>Concrete action to run to leave a zone.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">sealed</span> <span class="kw">interface</span> ExitStep</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Known subtypes</th><td><a href="ExitStep.Click.html"><code>ExitStep.Click</code></a>, <a href="ExitStep.Back.html"><code>ExitStep.Back</code></a></td></tr></tbody></table>
+<h2 id="nested-types">Nested types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="ExitStep.Click.html"><code>Click</code></a></td><td>Click node <a href="ExitStep.Click.html#m-nodeIndex"><code>nodeIndex</code></a> (or its first clickable parent).</td></tr><tr><td><a href="ExitStep.Back.html"><code>Back</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">14 references in 3 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html">ZoneEnforcer.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L17" title="import com.lucas.mobilemanager.domain.zones.ExitStep">17</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L202" title="private fun exit(step: ExitStep, infos: List&lt;AccessibilityNodeInfo&gt;) {">202</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L203" title="if (step is ExitStep.Click) {">203</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatching.kt.html">ZoneMatching.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatching.kt.html#L126" title="data class Click(val nodeIndex: Int) : ExitStep">126</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatching.kt.html#L127" title="data object Back : ExitStep">127</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatching.kt.html#L137" title="fun plan(zone: ZoneDefinition, nodes: List&lt;UiNode&gt;, attempt: Int = 0): ExitStep {">137</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatching.kt.html#L139" title="if (action.back) return@mapNotNull ExitStep.Back">139</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatching.kt.html#L147" title="if (index &gt;= 0) ExitStep.Click(index) else null">147</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatching.kt.html#L149" title="return steps.getOrNull(attempt.coerceIn(0, (steps.size - 1).coerceAtLeast(0))) ?: ExitStep.Back">149</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html">ZoneMatcherTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html#L58" title="assertEquals(&quot;Home&quot;, nodes[(step as ExitStep.Click).nodeIndex].desc)">58</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html#L127" title="assertEquals(ExitStep.Back, ZoneExitPlanner.plan(reels, nodes, attempt = 0))">127</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html#L129" title="assertEquals(&quot;$instagram:id/feed_tab&quot;, nodes[(second as ExitStep.Click).nodeIndex].viewId)">129</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html#L203" title="assertEquals(ExitStep.Back, ZoneExitPlanner.plan(zone, listOf(UiNode(text = &quot;Autre&quot;))))">203</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html#L207" title="assertEquals(ExitStep.Back, ZoneExitPlanner.plan(zone, listOf(UiNode(text = &quot;Retour&quot;, visible = false))))">207</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#nested-types">Nested types</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

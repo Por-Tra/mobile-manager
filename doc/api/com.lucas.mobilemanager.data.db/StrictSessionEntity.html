@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StrictSessionEntity Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.data.db/StrictSessionEntity.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.data.db</a> <span class="sep">/</span> <span>StrictSessionEntity</span></nav>
+    <article>
+<h1>StrictSessionEntity <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.data.db</a></span><span>Module: :core:data</span><span>Source: <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L17">StrictSessionEntity.kt</a></span></div>
+<div class="kdoc"><p>Focus sessions, running and past (history for the dashboard).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Entity
+<span class="kw">data</span> <span class="kw">class</span> StrictSessionEntity(@PrimaryKey(autoGenerate = <span class="kw">true</span>) <span class="kw">val</span> id: Long = 0, @ColumnInfo(name = &quot;started_at_ms&quot;) <span class="kw">val</span> startedAtMs: Long, @ColumnInfo(name = &quot;ends_at_ms&quot;) <span class="kw">val</span> endsAtMs: Long, @ColumnInfo(name = &quot;blocked_packages&quot;) <span class="kw">val</span> blockedPackages: String, @ColumnInfo(name = &quot;reflection_delay_s&quot;) <span class="kw">val</span> reflectionDelaySeconds: Long, @ColumnInfo(name = &quot;override_requested_at_ms&quot;) <span class="kw">val</span> overrideRequestedAtMs: Long?, @ColumnInfo(name = &quot;ended_at_ms&quot;) <span class="kw">val</span> endedAtMs: Long?, @ColumnInfo(name = &quot;end_reason&quot;) <span class="kw">val</span> endReason: String?)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="StrictSessionEntity.html#m-id"><code>id</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="StrictSessionEntity.html#m-startedAtMs"><code>startedAtMs</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="StrictSessionEntity.html#m-endsAtMs"><code>endsAtMs</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="StrictSessionEntity.html#m-blockedPackages"><code>blockedPackages</code></a></td><td>Blocked packages, one per line.</td></tr><tr><td><a href="StrictSessionEntity.html#m-reflectionDelaySeconds"><code>reflectionDelaySeconds</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="StrictSessionEntity.html#m-overrideRequestedAtMs"><code>overrideRequestedAtMs</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="StrictSessionEntity.html#m-endedAtMs"><code>endedAtMs</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="StrictSessionEntity.html#m-endReason"><code>endReason</code></a></td><td>Name of the <a href="../com.lucas.mobilemanager.domain.model/StrictSession.EndReason.html"><code>StrictSession.EndReason</code></a>.</td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-id">
+<h3>id <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@PrimaryKey(autoGenerate = true)
+<span class="kw">val</span> id: Long = 0</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L18">StrictSessionEntity.kt, line 18</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html">StrictSessionEntity.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L42" title="suspend fun setOverrideRequestedAt(id: Long, atMs: Long?)">42</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L48" title="suspend fun end(id: Long, endedAtMs: Long, reason: String)">48</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L52" title="id = id,">52</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L63" title="id = id,">63</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-startedAtMs">
+<h3>startedAtMs <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@ColumnInfo(name =                )
+<span class="kw">val</span> startedAtMs: Long</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L19">StrictSessionEntity.kt, line 19</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html">StrictSessionEntity.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L53" title="startedAt = Instant.ofEpochMilli(startedAtMs),">53</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L64" title="startedAtMs = startedAt.toEpochMilli(),">64</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-endsAtMs">
+<h3>endsAtMs <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@ColumnInfo(name =             )
+<span class="kw">val</span> endsAtMs: Long</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L20">StrictSessionEntity.kt, line 20</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html">StrictSessionEntity.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L54" title="endsAt = Instant.ofEpochMilli(endsAtMs),">54</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L65" title="endsAtMs = endsAt.toEpochMilli(),">65</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-blockedPackages">
+<h3>blockedPackages <span class="badge">property</span></h3>
+<div class="kdoc"><p>Blocked packages, one per line.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@ColumnInfo(name =                   )
+<span class="kw">val</span> blockedPackages: String</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L22">StrictSessionEntity.kt, line 22</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html">StrictSessionEntity.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L55" title="blockedPackages = blockedPackages.split(&#x27;\n&#x27;).filter { it.isNotBlank() }.toSet(),">55</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L66" title="blockedPackages = blockedPackages.sorted().joinToString(&quot;\n&quot;),">66</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-reflectionDelaySeconds">
+<h3>reflectionDelaySeconds <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@ColumnInfo(name =                     )
+<span class="kw">val</span> reflectionDelaySeconds: Long</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L23">StrictSessionEntity.kt, line 23</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html">StrictSessionEntity.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L56" title="reflectionDelay = Duration.ofSeconds(reflectionDelaySeconds),">56</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L67" title="reflectionDelaySeconds = reflectionDelay.seconds,">67</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-overrideRequestedAtMs">
+<h3>overrideRequestedAtMs <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@ColumnInfo(name =                           )
+<span class="kw">val</span> overrideRequestedAtMs: Long?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L24">StrictSessionEntity.kt, line 24</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html">StrictSessionEntity.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L57" title="overrideRequestedAt = overrideRequestedAtMs?.let(Instant::ofEpochMilli),">57</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L68" title="overrideRequestedAtMs = overrideRequestedAt?.toEpochMilli(),">68</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-endedAtMs">
+<h3>endedAtMs <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@ColumnInfo(name =              )
+<span class="kw">val</span> endedAtMs: Long?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L25">StrictSessionEntity.kt, line 25</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html">StrictSessionEntity.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L48" title="suspend fun end(id: Long, endedAtMs: Long, reason: String)">48</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L58" title="endedAt = endedAtMs?.let(Instant::ofEpochMilli),">58</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L69" title="endedAtMs = endedAt?.toEpochMilli(),">69</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-endReason">
+<h3>endReason <span class="badge">property</span></h3>
+<div class="kdoc"><p>Name of the <a href="../com.lucas.mobilemanager.domain.model/StrictSession.EndReason.html"><code>StrictSession.EndReason</code></a>.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@ColumnInfo(name =             )
+<span class="kw">val</span> endReason: String?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L27">StrictSessionEntity.kt, line 27</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html">StrictSessionEntity.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L59" title="endReason = endReason?.let(StrictSession.EndReason::valueOf),">59</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L70" title="endReason = endReason?.name,">70</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">7 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/MobileManagerDatabase.kt.html">MobileManagerDatabase.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/MobileManagerDatabase.kt.html#L15" title="StrictSessionEntity::class,">15</a></td></tr><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html">StrictSessionEntity.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L33" title="fun observeCurrent(): Flow&lt;StrictSessionEntity?&gt;">33</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L36" title="suspend fun current(): StrictSessionEntity?">36</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L39" title="suspend fun insert(entity: StrictSessionEntity): Long">39</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L45" title="suspend fun startedBetween(fromMs: Long, toMs: Long): List&lt;StrictSessionEntity&gt;">45</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L51" title="fun StrictSessionEntity.toDomain() = StrictSession(">51</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L62" title="fun StrictSession.toEntity() = StrictSessionEntity(">62</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

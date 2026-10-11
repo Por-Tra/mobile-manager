@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SeedDefaultProfiles Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.profiles/SeedDefaultProfiles.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.profiles</a> <span class="sep">/</span> <span>SeedDefaultProfiles</span></nav>
+    <article>
+<h1>SeedDefaultProfiles <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.profiles</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/SeedDefaultProfiles.kt.html#L12">SeedDefaultProfiles.kt</a></span></div>
+<div class="kdoc"><p>Creates the default profiles only once. A flag in the preferences avoids creating them again if the user deletes them.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">class</span> SeedDefaultProfiles @Inject <span class="kw">constructor</span>(<span class="kw">private</span> <span class="kw">val</span> profileRepository: <a href="../com.lucas.mobilemanager.domain.repository/ProfileRepository.html">ProfileRepository</a>, <span class="kw">private</span> <span class="kw">val</span> preferencesRepository: <a href="../com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html">UserPreferencesRepository</a>)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="SeedDefaultProfiles.html#m-profileRepository"><code>profileRepository</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="SeedDefaultProfiles.html#m-preferencesRepository"><code>preferencesRepository</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="SeedDefaultProfiles.html#m-invoke"><code>invoke</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-profileRepository">
+<h3>profileRepository <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> profileRepository: <a href="../com.lucas.mobilemanager.domain.repository/ProfileRepository.html">ProfileRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/SeedDefaultProfiles.kt.html#L13">SeedDefaultProfiles.kt, line 13</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/SeedDefaultProfiles.kt.html">SeedDefaultProfiles.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/SeedDefaultProfiles.kt.html#L18" title="DefaultProfiles.ALL.forEach { profileRepository.upsert(it) }">18</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-preferencesRepository">
+<h3>preferencesRepository <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> preferencesRepository: <a href="../com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html">UserPreferencesRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/SeedDefaultProfiles.kt.html#L14">SeedDefaultProfiles.kt, line 14</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/SeedDefaultProfiles.kt.html">SeedDefaultProfiles.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/SeedDefaultProfiles.kt.html#L17" title="if (preferencesRepository.preferences.first().defaultProfilesSeeded) return">17</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/SeedDefaultProfiles.kt.html#L19" title="preferencesRepository.setDefaultProfilesSeeded(true)">19</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-invoke">
+<h3>invoke <span class="badge">method</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">suspend</span> <span class="kw">operator</span> <span class="kw">fun</span> invoke()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/SeedDefaultProfiles.kt.html#L16">SeedDefaultProfiles.kt, line 16</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">3 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html">MobileManagerApp.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L9" title="import com.lucas.mobilemanager.domain.profiles.SeedDefaultProfiles">9</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L20" title="@Inject lateinit var seedDefaultProfiles: SeedDefaultProfiles">20</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/profiles/SeedDefaultProfilesTest.kt.html">SeedDefaultProfilesTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/profiles</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/profiles/SeedDefaultProfilesTest.kt.html#L22" title="private val seed = SeedDefaultProfiles(profiles, preferences)">22</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

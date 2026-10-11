@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.ui.profiles package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.profiles/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.ui.profiles</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.ui.profiles <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :app</span><span>2 files</span></div>
+<p>Profile and default rules editor.</p>
+<h2 id="types">Types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="AppRuleDraft.html"><code>AppRuleDraft</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="ProfileDraft.html"><code>ProfileDraft</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="ProfileEditState.html"><code>ProfileEditState</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="ProfileEditViewModel.html"><code>ProfileEditViewModel</code></a></td><td>class</td><td>Creating / editing a profile, or the default rules (same editor, without name or schedules).</td></tr><tr><td><a href="RuleChoice.html"><code>RuleChoice</code></a></td><td>enum class</td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-ProfileEditScreen"><code>ProfileEditScreen</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-AppPickerDialog"><code>AppPickerDialog</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-ScheduleCard"><code>ScheduleCard</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-AppRuleRow"><code>AppRuleRow</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-SwitchRow"><code>SwitchRow</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-SectionTitle"><code>SectionTitle</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-Caption"><code>Caption</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-label"><code>label</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-errorText"><code>errorText</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html">ProfileEditViewModel.kt</a></li></ul>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-ProfileEditScreen">
+<h3>ProfileEditScreen <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+<span class="kw">fun</span> ProfileEditScreen(onBack: () -&gt; Unit, viewModel: <a href="ProfileEditViewModel.html">ProfileEditViewModel</a> = hiltViewModel())</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L79">ProfileEditScreen.kt, line 79</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L13" title="import com.lucas.mobilemanager.ui.profiles.ProfileEditScreen">13</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L86" title="ProfileEditScreen(onBack = { navController.popBackStack() })">86</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-AppPickerDialog">
+<h3>AppPickerDialog <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+<span class="kw">private</span> <span class="kw">fun</span> AppPickerDialog(state: <a href="ProfileEditState.html">ProfileEditState</a>, viewModel: <a href="ProfileEditViewModel.html">ProfileEditViewModel</a>)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L217">ProfileEditScreen.kt, line 217</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L211" title="AppPickerDialog(state, viewModel)">211</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-ScheduleCard">
+<h3>ScheduleCard <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalLayoutApi::class)
+@Composable
+<span class="kw">private</span> <span class="kw">fun</span> ScheduleCard(schedule: <a href="../com.lucas.mobilemanager.domain.model/Schedule.html">Schedule</a>, enabled: Boolean, onToggleDay: (DayOfWeek) -&gt; Unit, onSetDays: (Set&lt;DayOfWeek&gt;) -&gt; Unit, onStart: (LocalTime) -&gt; Unit, onEnd: (LocalTime) -&gt; Unit, onRemove: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L252">ProfileEditScreen.kt, line 252</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L155" title="ScheduleCard(">155</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-AppRuleRow">
+<h3>AppRuleRow <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+<span class="kw">private</span> <span class="kw">fun</span> AppRuleRow(rule: <a href="AppRuleDraft.html">AppRuleDraft</a>, enabled: Boolean, onChoice: (<a href="RuleChoice.html">RuleChoice</a>) -&gt; Unit, onLimit: (Int) -&gt; Unit, onRemove: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L330">ProfileEditScreen.kt, line 330</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L192" title="AppRuleRow(">192</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-SwitchRow">
+<h3>SwitchRow <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> SwitchRow(title: String, caption: String?, checked: Boolean, enabled: Boolean, onChange: (Boolean) -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L368">ProfileEditScreen.kt, line 368</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L144" title="SwitchRow(">144</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L174" title="SwitchRow(">174</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-SectionTitle">
+<h3>SectionTitle <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> SectionTitle(text: String)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L379">ProfileEditScreen.kt, line 379</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L153" title="item { SectionTitle(stringResource(R.string.profile_edit_schedules)) }">153</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L185" title="SectionTitle(">185</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-Caption">
+<h3>Caption <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> Caption(text: String)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L384">ProfileEditScreen.kt, line 384</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L131" title="item { Caption(stringResource(R.string.profile_edit_default_rules_help)) }">131</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L312" title="hint?.let { Caption(it) }">312</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L343" title="if (!rule.installed) Caption(stringResource(R.string.profile_edit_not_installed))">343</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L372" title="caption?.let { Caption(it) }">372</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-label">
+<h3>label <span class="badge">extension function</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> <a href="RuleChoice.html">RuleChoice</a>.label()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L388">ProfileEditScreen.kt, line 388</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">7 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L137" title="label = { Text(stringResource(R.string.profile_edit_name)) },">137</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L273" title="label = { Text(day.getDisplayName(TextStyle.NARROW, Locale.FRENCH)) },">273</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L281" title="label = { Text(stringResource(R.string.days_every_day)) },">281</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L286" title="label = { Text(stringResource(R.string.days_weekdays)) },">286</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L291" title="label = { Text(stringResource(R.string.days_weekend)) },">291</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L342" title="Text(rule.label, style = MaterialTheme.typography.bodyLarge)">342</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L357" title="label = { Text(stringResource(choice.label())) },">357</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-errorText">
+<h3>errorText <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> errorText(error: <a href="../com.lucas.mobilemanager.domain.profiles/ProfileValidator.html">ProfileValidator</a>.<a href="../com.lucas.mobilemanager.domain.profiles/ProfileValidator.Error.html">Error</a>): String</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L395">ProfileEditScreen.kt, line 395</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L111" title="state.errors.forEach { Text(errorText(it), color = MaterialTheme.colorScheme.tertiary) }">111</a></td></tr></tbody></table></details>
+</section>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#types">Types</a></li><li><a href="#functions">Functions</a></li><li><a href="#files">Files</a></li><li><a href="#member-details">Member details</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

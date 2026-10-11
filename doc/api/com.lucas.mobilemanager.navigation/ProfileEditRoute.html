@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProfileEditRoute Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.navigation/ProfileEditRoute.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.navigation</a> <span class="sep">/</span> <span>ProfileEditRoute</span></nav>
+    <article>
+<h1>ProfileEditRoute <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.navigation</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L49">MobileManagerNavHost.kt</a></span></div>
+<div class="kdoc"><p>Editing a profile (<code>profileId = 0</code>: new one) or the default rules.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Serializable
+<span class="kw">data</span> <span class="kw">class</span> ProfileEditRoute(<span class="kw">val</span> profileId: Long = 0, <span class="kw">val</span> defaultRules: Boolean = <span class="kw">false</span>)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="ProfileEditRoute.html#m-profileId"><code>profileId</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="ProfileEditRoute.html#m-defaultRules"><code>defaultRules</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-profileId">
+<h3>profileId <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> profileId: Long = 0</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L49">MobileManagerNavHost.kt, line 49</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L76" title="onEditProfile = { navController.navigate(ProfileEditRoute(profileId = it)) },">76</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html">ProfileEditViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L98" title="route.profileId != 0L -&gt; {">98</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L99" title="val profile = profileRepository.observeProfiles().first().firstOrNull { it.id == route.profileId }">99</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L106" title="it.copy(loading = false, isNew = route.profileId == 0L &amp;&amp; !route.defaultRules, draft = draft, locked = locked)">106</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L225" title="val others = profileRepository.observeProfiles().first().filter { it.id != route.profileId }">225</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-defaultRules">
+<h3>defaultRules <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> defaultRules: Boolean = <span class="kw">false</span></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L49">MobileManagerNavHost.kt, line 49</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L78" title="onEditDefaultRules = { navController.navigate(ProfileEditRoute(defaultRules = true)) },">78</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L109" title="onOpenDefaultRules = { navController.navigate(ProfileEditRoute(defaultRules = true)) },">109</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html">ProfileEditViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L87" title="private val _state = MutableStateFlow(ProfileEditState(isDefaultRules = route.defaultRules))">87</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L97" title="route.defaultRules -&gt; draftFrom(name = &quot;&quot;, auto = false, schedules = emptyList(), rules = profileRepository.observeGlobalRules().first())">97</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L106" title="it.copy(loading = false, isNew = route.profileId == 0L &amp;&amp; !route.defaultRules, draft = draft, locked = locked)">106</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">7 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L76" title="onEditProfile = { navController.navigate(ProfileEditRoute(profileId = it)) },">76</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L77" title="onNewProfile = { navController.navigate(ProfileEditRoute()) },">77</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L78" title="onEditDefaultRules = { navController.navigate(ProfileEditRoute(defaultRules = true)) },">78</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L85" title="composable&lt;ProfileEditRoute&gt; {">85</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L109" title="onOpenDefaultRules = { navController.navigate(ProfileEditRoute(defaultRules = true)) },">109</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html">ProfileEditViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L20" title="import com.lucas.mobilemanager.navigation.ProfileEditRoute">20</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L81" title="private val route = savedStateHandle.toRoute&lt;ProfileEditRoute&gt;()">81</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

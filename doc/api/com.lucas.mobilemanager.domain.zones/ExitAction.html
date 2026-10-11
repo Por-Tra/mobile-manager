@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ExitAction Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.zones/ExitAction.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.zones</a> <span class="sep">/</span> <span>ExitAction</span></nav>
+    <article>
+<h1>ExitAction <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.zones</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html#L82">ZoneDetectors.kt</a></span></div>
+<div class="kdoc"><p>An exit action: click a node (Home tab…) or go back.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Serializable
+<span class="kw">data</span> <span class="kw">class</span> ExitAction(<span class="kw">val</span> clickViewId: String? = <span class="kw">null</span>, <span class="kw">val</span> clickDesc: List&lt;String&gt;? = <span class="kw">null</span>, <span class="kw">val</span> clickText: List&lt;String&gt;? = <span class="kw">null</span>, <span class="kw">val</span> back: Boolean = <span class="kw">false</span>)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="ExitAction.html#m-clickViewId"><code>clickViewId</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="ExitAction.html#m-clickDesc"><code>clickDesc</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="ExitAction.html#m-clickText"><code>clickText</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="ExitAction.html#m-back"><code>back</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="ExitAction.html#m-definedActions"><code>definedActions</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-clickViewId">
+<h3>clickViewId <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> clickViewId: String? = <span class="kw">null</span></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html#L83">ZoneDetectors.kt, line 83</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html">ZoneDetectors.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html#L89" title="get() = listOf(clickViewId != null, clickDesc != null, clickText != null, back).count { it }">89</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-clickDesc">
+<h3>clickDesc <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> clickDesc: List&lt;String&gt;? = <span class="kw">null</span></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html#L84">ZoneDetectors.kt, line 84</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html">ZoneDetectors.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html#L89" title="get() = listOf(clickViewId != null, clickDesc != null, clickText != null, back).count { it }">89</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-clickText">
+<h3>clickText <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> clickText: List&lt;String&gt;? = <span class="kw">null</span></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html#L85">ZoneDetectors.kt, line 85</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html">ZoneDetectors.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html#L89" title="get() = listOf(clickViewId != null, clickDesc != null, clickText != null, back).count { it }">89</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html">ZoneMatcherTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html#L177" title="exit = listOf(ExitAction(clickText = listOf(&quot;Retour&quot;)), ExitAction(back = true)),">177</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-back">
+<h3>back <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> back: Boolean = <span class="kw">false</span></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html#L86">ZoneDetectors.kt, line 86</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html">ZoneDetectors.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html#L44" title="val exit: List&lt;ExitAction&gt; = listOf(ExitAction(back = true)),">44</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html#L89" title="get() = listOf(clickViewId != null, clickDesc != null, clickText != null, back).count { it }">89</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html">ZoneMatcherTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html#L125" title="fun `exit goes back first, then to the home tab`() {">125</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html#L177" title="exit = listOf(ExitAction(clickText = listOf(&quot;Retour&quot;)), ExitAction(back = true)),">177</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html#L202" title="fun `exit falls back to back when nothing is clickable`() =">202</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-definedActions">
+<h3>definedActions <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> definedActions: Int</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html#L88">ZoneDetectors.kt, line 88</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">2 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html">ZoneDetectors.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectors.kt.html#L44" title="val exit: List&lt;ExitAction&gt; = listOf(ExitAction(back = true)),">44</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html">ZoneMatcherTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt.html#L177" title="exit = listOf(ExitAction(clickText = listOf(&quot;Retour&quot;)), ExitAction(back = true)),">177</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

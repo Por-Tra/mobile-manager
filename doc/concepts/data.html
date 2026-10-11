@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data and storage - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-page="concepts/data.html">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../index.html" class="">Overview</a><a href="architecture.html" class="active">Architecture</a><a href="../api/index.html" class="">API reference</a><a href="../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">Documentation</a> <span class="sep">/</span> <span>Data and storage</span></nav>
+    <article>
+<h1>Data and storage</h1>
+<p class="lead">Everything is stored locally, in a Room database and a DataStore preferences file. Nothing is backed up to a cloud
+and nothing leaves the phone.</p>
+
+<h2 id="database">Room database</h2>
+<p><a href="../api/com.lucas.mobilemanager.data.db/MobileManagerDatabase.html"><code>MobileManagerDatabase</code></a>. Enums are stored as text (their name), never as ordinals. Schemas are exported to
+<code>core/data/schemas/</code> and committed; every change is an explicit migration.</p>
+<p>Schema version <strong>6</strong>, read from <code>core/data/schemas/com.lucas.mobilemanager.data.db.MobileManagerDatabase/6.json</code>.</p>
+<h3 id="table-event_log"><code>event_log</code></h3>
+<table class="summary"><thead><tr><th>Column</th><th>Type</th><th>Not null</th><th>Key</th></tr></thead><tbody><tr><td><code>id</code></td><td>INTEGER</td><td>yes</td><td>primary key (auto)</td></tr><tr><td><code>type</code></td><td>TEXT</td><td>yes</td><td></td></tr><tr><td><code>occurred_at_ms</code></td><td>INTEGER</td><td>yes</td><td></td></tr><tr><td><code>package_name</code></td><td>TEXT</td><td>no</td><td></td></tr><tr><td><code>zone</code></td><td>TEXT</td><td>no</td><td></td></tr><tr><td><code>details</code></td><td>TEXT</td><td>no</td><td></td></tr></tbody></table>
+<p class="muted">Index <code>index_event_log_occurred_at_ms</code> on occurred_at_ms.</p>
+<h3 id="table-profile"><code>profile</code></h3>
+<table class="summary"><thead><tr><th>Column</th><th>Type</th><th>Not null</th><th>Key</th></tr></thead><tbody><tr><td><code>id</code></td><td>INTEGER</td><td>yes</td><td>primary key (auto)</td></tr><tr><td><code>name</code></td><td>TEXT</td><td>yes</td><td></td></tr><tr><td><code>priority</code></td><td>INTEGER</td><td>yes</td><td></td></tr><tr><td><code>auto_activation</code></td><td>INTEGER</td><td>yes</td><td></td></tr><tr><td><code>enabled</code></td><td>INTEGER</td><td>yes</td><td></td></tr></tbody></table>
+<h3 id="table-profile_schedule"><code>profile_schedule</code></h3>
+<table class="summary"><thead><tr><th>Column</th><th>Type</th><th>Not null</th><th>Key</th></tr></thead><tbody><tr><td><code>id</code></td><td>INTEGER</td><td>yes</td><td>primary key (auto)</td></tr><tr><td><code>profile_id</code></td><td>INTEGER</td><td>yes</td><td></td></tr><tr><td><code>days_mask</code></td><td>INTEGER</td><td>yes</td><td></td></tr><tr><td><code>start_minute</code></td><td>INTEGER</td><td>yes</td><td></td></tr><tr><td><code>end_minute</code></td><td>INTEGER</td><td>yes</td><td></td></tr></tbody></table>
+<p class="muted">Index <code>index_profile_schedule_profile_id</code> on profile_id.</p>
+<h3 id="table-rule"><code>rule</code></h3>
+<table class="summary"><thead><tr><th>Column</th><th>Type</th><th>Not null</th><th>Key</th></tr></thead><tbody><tr><td><code>id</code></td><td>INTEGER</td><td>yes</td><td>primary key (auto)</td></tr><tr><td><code>profile_id</code></td><td>INTEGER</td><td>no</td><td></td></tr><tr><td><code>target_type</code></td><td>TEXT</td><td>yes</td><td></td></tr><tr><td><code>package_name</code></td><td>TEXT</td><td>no</td><td></td></tr><tr><td><code>zone</code></td><td>TEXT</td><td>no</td><td></td></tr><tr><td><code>action</code></td><td>TEXT</td><td>yes</td><td></td></tr><tr><td><code>daily_limit_minutes</code></td><td>INTEGER</td><td>no</td><td></td></tr></tbody></table>
+<p class="muted">Index <code>index_rule_profile_id</code> on profile_id.</p>
+<h3 id="table-strict_session"><code>strict_session</code></h3>
+<table class="summary"><thead><tr><th>Column</th><th>Type</th><th>Not null</th><th>Key</th></tr></thead><tbody><tr><td><code>id</code></td><td>INTEGER</td><td>yes</td><td>primary key (auto)</td></tr><tr><td><code>started_at_ms</code></td><td>INTEGER</td><td>yes</td><td></td></tr><tr><td><code>ends_at_ms</code></td><td>INTEGER</td><td>yes</td><td></td></tr><tr><td><code>blocked_packages</code></td><td>TEXT</td><td>yes</td><td></td></tr><tr><td><code>reflection_delay_s</code></td><td>INTEGER</td><td>yes</td><td></td></tr><tr><td><code>override_requested_at_ms</code></td><td>INTEGER</td><td>no</td><td></td></tr><tr><td><code>ended_at_ms</code></td><td>INTEGER</td><td>no</td><td></td></tr><tr><td><code>end_reason</code></td><td>TEXT</td><td>no</td><td></td></tr></tbody></table>
+<p class="muted">Index <code>index_strict_session_ended_at_ms</code> on ended_at_ms.</p>
+<h3 id="table-daily_usage"><code>daily_usage</code></h3>
+<table class="summary"><thead><tr><th>Column</th><th>Type</th><th>Not null</th><th>Key</th></tr></thead><tbody><tr><td><code>date</code></td><td>TEXT</td><td>yes</td><td>primary key</td></tr><tr><td><code>package_name</code></td><td>TEXT</td><td>yes</td><td>primary key</td></tr><tr><td><code>seconds</code></td><td>INTEGER</td><td>yes</td><td></td></tr></tbody></table>
+<h3 id="table-zone_usage"><code>zone_usage</code></h3>
+<table class="summary"><thead><tr><th>Column</th><th>Type</th><th>Not null</th><th>Key</th></tr></thead><tbody><tr><td><code>date</code></td><td>TEXT</td><td>yes</td><td>primary key</td></tr><tr><td><code>package_name</code></td><td>TEXT</td><td>yes</td><td>primary key</td></tr><tr><td><code>zone</code></td><td>TEXT</td><td>yes</td><td>primary key</td></tr><tr><td><code>seconds</code></td><td>INTEGER</td><td>yes</td><td></td></tr></tbody></table>
+
+<h2 id="migrations">Migrations</h2>
+<table class="summary">
+  <thead><tr><th>Version</th><th>Change</th></tr></thead>
+  <tbody>
+    <tr><td>6</td><td><code>zone_usage</code> added, <code>scroll_guard</code> dropped (<code>AutoMigration 5 → 6</code> with <code>@DeleteTable</code>, <a href="../api/com.lucas.mobilemanager.data.db/MobileManagerDatabase.DropScrollGuard.html"><code>MobileManagerDatabase.DropScrollGuard</code></a>).</td></tr>
+    <tr><td>5</td><td><code>daily_usage</code> added.</td></tr>
+    <tr><td>4</td><td><code>scroll_guard</code> added (anti-doomscrolling, removed in 6).</td></tr>
+    <tr><td>3</td><td><code>strict_session</code> added.</td></tr>
+    <tr><td>2</td><td><code>profile</code>, <code>profile_schedule</code>, <code>rule</code> added.</td></tr>
+    <tr><td>1</td><td><code>event_log</code>.</td></tr>
+  </tbody>
+</table>
+<p>Encoding notes: schedule days are a bitmask (bit 0 = Monday) and times are minutes since midnight; a rule with a <code>NULL</code>
+<code>profile_id</code> is a global (default) rule; the packages of a focus session are separated by line breaks.</p>
+
+<h2 id="datastore">DataStore preferences</h2>
+<p>File <code>user_preferences</code>. Keys found in the code:</p>
+<table class="summary"><thead><tr><th>Key</th><th>Type</th><th>Declared in</th></tr></thead><tbody><tr><td><code>default_app_blocks_seeded</code></td><td>boolean</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L58">DataStoreUserPreferencesRepository.kt</a></td></tr><tr><td><code>default_profiles_seeded</code></td><td>boolean</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L57">DataStoreUserPreferencesRepository.kt</a></td></tr><tr><td><code>default_scroll_guards_seeded</code> <span class="tag">legacy, removed once</span></td><td>boolean</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L64">DataStoreUserPreferencesRepository.kt</a></td></tr><tr><td><code>default_zone_rules_seeded</code></td><td>boolean</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L59">DataStoreUserPreferencesRepository.kt</a></td></tr><tr><td><code>lock_failures</code></td><td>int</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L53">DataStoreLockRepository.kt</a></td></tr><tr><td><code>lock_locked_out_until</code></td><td>long</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L54">DataStoreLockRepository.kt</a></td></tr><tr><td><code>lock_pin_hash</code></td><td>string</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L50">DataStoreLockRepository.kt</a></td></tr><tr><td><code>lock_pin_iterations</code></td><td>int</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L52">DataStoreLockRepository.kt</a></td></tr><tr><td><code>lock_pin_salt</code></td><td>string</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L51">DataStoreLockRepository.kt</a></td></tr><tr><td><code>manual_profile_id</code></td><td>long</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreManualActivationRepository.kt.html#L43">DataStoreManualActivationRepository.kt</a></td></tr><tr><td><code>manual_until_ms</code></td><td>long</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreManualActivationRepository.kt.html#L44">DataStoreManualActivationRepository.kt</a></td></tr><tr><td><code>onboarding_completed</code></td><td>boolean</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L56">DataStoreUserPreferencesRepository.kt</a></td></tr><tr><td><code>screen_time_goal_min</code></td><td>int</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L60">DataStoreUserPreferencesRepository.kt</a></td></tr><tr><td><code>scroll_guard_cooldowns</code> <span class="tag">legacy, removed once</span></td><td>stringSet</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L69">DataStoreUserPreferencesRepository.kt</a></td></tr><tr><td><code>scroll_guard_enabled</code> <span class="tag">legacy, removed once</span></td><td>boolean</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L65">DataStoreUserPreferencesRepository.kt</a></td></tr><tr><td><code>scroll_guard_gap_s</code> <span class="tag">legacy, removed once</span></td><td>long</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L66">DataStoreUserPreferencesRepository.kt</a></td></tr><tr><td><code>scroll_guard_goal</code> <span class="tag">legacy, removed once</span></td><td>string</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L68">DataStoreUserPreferencesRepository.kt</a></td></tr><tr><td><code>scroll_guard_pause_s</code> <span class="tag">legacy, removed once</span></td><td>long</td><td><a href="../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L67">DataStoreUserPreferencesRepository.kt</a></td></tr></tbody></table>
+
+<h2 id="journal">Event journal</h2>
+<p>The <code>event_log</code> table records what the tool did, for the dashboard: <a href="../api/com.lucas.mobilemanager.domain.model/EventType.html"><code>EventType</code></a> values
+<code>APP_BLOCKED</code> (detail such as <code>profile:3</code>, <code>daily_limit:30</code>, <code>strict_session</code>,
+<code>global_rule</code>), <code>ZONE_REDIRECTED</code>, focus session events and <code>PROTECTION_DISABLED</code>. Historical values
+(<code>ZONE_VISIT</code>, <code>INTERSTITIAL_SHOWN</code>, <code>PAUSE_CLOSED_APP</code>) are kept so older rows can still be read.</p>
+
+<h2 id="repositories">Repositories</h2>
+<table class="summary">
+  <thead><tr><th>Interface (domain)</th><th>Implementation (data)</th></tr></thead>
+  <tbody>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.repository/EventLogRepository.html"><code>EventLogRepository</code></a></td><td><a href="../api/com.lucas.mobilemanager.data.repository/RoomEventLogRepository.html"><code>RoomEventLogRepository</code></a></td></tr>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.repository/ProfileRepository.html"><code>ProfileRepository</code></a></td><td><a href="../api/com.lucas.mobilemanager.data.repository/RoomProfileRepository.html"><code>RoomProfileRepository</code></a></td></tr>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.repository/StrictSessionRepository.html"><code>StrictSessionRepository</code></a></td><td><a href="../api/com.lucas.mobilemanager.data.repository/RoomStrictSessionRepository.html"><code>RoomStrictSessionRepository</code></a></td></tr>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.repository/DailyUsageRepository.html"><code>DailyUsageRepository</code></a></td><td><a href="../api/com.lucas.mobilemanager.data.repository/RoomDailyUsageRepository.html"><code>RoomDailyUsageRepository</code></a></td></tr>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.repository/ZoneUsageRepository.html"><code>ZoneUsageRepository</code></a></td><td><a href="../api/com.lucas.mobilemanager.data.repository/RoomZoneUsageRepository.html"><code>RoomZoneUsageRepository</code></a></td></tr>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html"><code>UserPreferencesRepository</code></a></td><td><a href="../api/com.lucas.mobilemanager.data.repository/DataStoreUserPreferencesRepository.html"><code>DataStoreUserPreferencesRepository</code></a></td></tr>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.repository/ManualActivationRepository.html"><code>ManualActivationRepository</code></a></td><td><a href="../api/com.lucas.mobilemanager.data.repository/DataStoreManualActivationRepository.html"><code>DataStoreManualActivationRepository</code></a></td></tr>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.repository/LockRepository.html"><code>LockRepository</code></a></td><td><a href="../api/com.lucas.mobilemanager.data.repository/DataStoreLockRepository.html"><code>DataStoreLockRepository</code></a></td></tr>
+  </tbody>
+</table>
+
+<h2 id="privacy">Privacy</h2>
+<ul>
+  <li><code>allowBackup=false</code>; the data extraction rules exclude everything.</li>
+  <li>No account, no network, no telemetry.</li>
+  <li>A manual JSON export / import is planned (phase 9b).</li>
+</ul>
+
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#database">Room database</a></li><li><a href="#migrations">Migrations</a></li><li><a href="#datastore">DataStore preferences</a></li><li><a href="#journal">Event journal</a></li><li><a href="#repositories">Repositories</a></li><li><a href="#privacy">Privacy</a></li></ol></aside>
+</div>
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

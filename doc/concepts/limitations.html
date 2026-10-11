@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Known limitations - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-page="concepts/limitations.html">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../index.html" class="">Overview</a><a href="architecture.html" class="active">Architecture</a><a href="../api/index.html" class="">API reference</a><a href="../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">Documentation</a> <span class="sep">/</span> <span>Known limitations</span></nav>
+    <article>
+<h1>Known limitations</h1>
+<p class="lead">What the app cannot do, or does imperfectly — stated plainly.</p>
+
+<h2 id="platform">Platform</h2>
+<ul>
+  <li><strong>Restricted settings (Android 13+, One UI)</strong>: for an APK installed outside a store, enabling the accessibility service
+  is greyed out until <em>App info › ⋮ › Allow restricted settings</em>. The onboarding explains it; installing with <code>adb install</code>
+  is usually not affected.</li>
+  <li><strong>Samsung</strong> aggressively stops background services: the battery optimisation exemption and “Never sleeping apps” are
+  needed (a dedicated onboarding card appears only on Samsung devices).</li>
+  <li>While the accessibility service is off, nothing is blocked (neither apps nor protected screens); only the focus session alert reports it.</li>
+  <li>After an update or a force stop the service can remain bound but receive no events until it is re-enabled (planned robustness work).</li>
+  <li><code>AppOpsManager.unsafeCheckOpNoThrow</code> is deprecated in API 37 but still needed for <code>minSdk 29</code>.</li>
+</ul>
+
+<h2 id="friction">Friction, not a lock</h2>
+<ul>
+  <li>The device administrator does not prevent uninstallation; it adds a step.</li>
+  <li>Safe mode, ADB or a factory reset bypass focus sessions and the trusted person code.</li>
+  <li>Protected screens are recognised by their text; One UI changes may require adjusting the detector.</li>
+</ul>
+
+<h2 id="zones">Zones</h2>
+<ul>
+  <li>Detectors depend on the internal interface of Instagram and YouTube; an update can break detection until it is repaired with the
+  diagnostic mode.</li>
+  <li>The mask colour is fixed per app and per phone theme; if the app does not follow the system theme, the rectangle is visible. It may
+  also appear for a split second at the wrong place during a screen transition.</li>
+</ul>
+
+<h2 id="measurements">Measurements</h2>
+<ul>
+  <li><strong>Monitoring cost</strong> (Galaxy A04s, CPU of Mobile Manager while scrolling the Instagram feed for 2 minutes): 6.3 % of one
+  core before optimisation, 2.8 % after (debug build: interpreted code and JNI checks), <strong>1.6 % for a release build</strong>. Outside
+  apps with detectors: about 0.6 %. One <code>queryEvents</code> read costs about 40 ms every 30 s.</li>
+  <li><strong>Abrupt power loss</strong>: the pause of the foreground app is never recorded; it is closed at the next event, so the time in
+  between can be overestimated. Rare on a real phone, where turning the screen off records the pause.</li>
+  <li>WorkManager refuses a forced run before the end of its period; the snapshot job runs at most once every 24 h.</li>
+  <li>The system whitelist is not exhaustive for every manufacturer; check clock, phone, ongoing call and emergency apps on new devices.</li>
+</ul>
+
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#platform">Platform</a></li><li><a href="#friction">Friction, not a lock</a></li><li><a href="#zones">Zones</a></li><li><a href="#measurements">Measurements</a></li></ol></aside>
+</div>
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

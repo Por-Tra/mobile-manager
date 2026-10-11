@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AppLock.Stored Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.lock/AppLock.Stored.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.lock</a> <span class="sep">/</span> <a href="AppLock.html">AppLock</a> <span class="sep">/</span> <span>Stored</span></nav>
+    <article>
+<h1>AppLock.Stored <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.lock</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L58">AppLock.kt</a></span></div>
+<div class="kdoc"><p>Wrapper that distinguishes “not read yet” (<code>null</code>) from “no code”.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">data</span> <span class="kw">class</span> Stored(<span class="kw">val</span> config: <a href="../com.lucas.mobilemanager.domain.lock/LockConfig.html">LockConfig</a>?)</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Nested in</th><td><a href="AppLock.html"><code>AppLock</code></a></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="AppLock.Stored.html#m-config"><code>config</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-config">
+<h3>config <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> config: <a href="../com.lucas.mobilemanager.domain.lock/LockConfig.html">LockConfig</a>?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L58">AppLock.kt, line 58</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">10 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html">AppLock.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L60" title="private val stored: StateFlow&lt;Stored?&gt; = repository.config.map(::Stored)">60</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L75" title="val config = stored.config ?: return@combine LockStatus.NOT_SET">75</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L79" title="lockedOutUntil = config.lockedOutUntil?.takeIf { now.isBefore(it) },">79</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L85" title="if ((stored.value ?: return false).config == null) return true">85</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L90" title="fun protectsSettingsNow(): Boolean = stored.value?.config != null &amp;&amp; !isUnlocked()">90</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L96" title="val config = stored.filterNotNull().first().config ?: return LockPolicy.Attempt.Success">96</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L100" title="val (result, updated) = withContext(Dispatchers.Default) { LockPolicy.attempt(config, pin, now) }">100</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L102" title="if (updated != config) repository.save(updated)">102</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L114" title="val config = withContext(Dispatchers.Default) { PinHasher.newConfig(pin) }">114</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L115" title="repository.save(config)">115</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html">AppLock.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L60" title="private val stored: StateFlow&lt;Stored?&gt; = repository.config.map(::Stored)">60</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

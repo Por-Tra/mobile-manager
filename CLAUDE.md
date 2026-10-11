@@ -31,6 +31,8 @@ export JAVA_HOME="/c/Program Files/Android/Android Studio/jbr"
 ./gradlew installDebug             # sur l'émulateur/téléphone connecté
 ```
 
+**Documentation** (`doc/`, anglais, style Microsoft Learn, générée depuis le code) : `python doc/tools/gen_docs.py` après chaque modification (aucune dépendance). Articles écrits à la main dans `doc/tools/pages/*.html` (`{{Type}}` / `{{Type.membre}}` → lien vers la référence) ; traductions anglaises des KDoc (en français dans le code) dans `doc/tools/kdoc_en.txt` — `--missing out.txt` liste celles qui manquent (affichées en français sinon). Ouvrir `doc/index.html` directement dans un navigateur.
+
 ## Conventions
 - **Conventional Commits** (`feat(onboarding): …`, `fix: …`, `chore: …`), un commit propre par fin de phase au minimum.
 - Logique métier = fonctions/classes pures dans `:core:domain`, testées. L'heure passe toujours par `TimeProvider` (jamais `Instant.now()` direct dans le domaine) pour tester minuit, changements d'heure et jours de semaine.

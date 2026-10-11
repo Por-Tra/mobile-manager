@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Target.AllApps Data Object - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.rules/Target.AllApps.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.rules</a> <span class="sep">/</span> <a href="Target.html">Target</a> <span class="sep">/</span> <span>AllApps</span></nav>
+    <article>
+<h1>Target.AllApps <span class="h1-kind">data object</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.rules</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/Rule.kt.html#L13">Rule.kt</a></span></div>
+<div class="kdoc"><p>All applications (forbidden time ranges).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">data</span> <span class="kw">object</span> AllApps : <a href="Target.html">Target</a></code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Nested in</th><td><a href="Target.html"><code>Target</code></a></td></tr><tr><th>Extends / implements</th><td><a href="Target.html"><code>Target</code></a></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="Target.AllApps.html#m-specificity"><code>specificity</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="Target.AllApps.html#m-matches"><code>matches</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-specificity">
+<h3>specificity <span class="badge">property</span><span class="badge vis">override</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">val</span> specificity</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/Rule.kt.html#L14">Rule.kt, line 14</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html">RuleEngine.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L100" title="val maxSpecificity = matching.maxOfOrNull { it.target.specificity } ?: return null">100</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L102" title=".filter { it.target.specificity == maxSpecificity }">102</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngineTest.kt.html">RuleEngineTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngineTest.kt.html#L202" title="fun `same specificity keeps the strictest rule`() {">202</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-matches">
+<h3>matches <span class="badge">method</span><span class="badge vis">override</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">fun</span> matches(request: <a href="AppRequest.html">AppRequest</a>)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/Rule.kt.html#L15">Rule.kt, line 15</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html">RuleEngine.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L99" title="val matching = rules.filter { it.target.matches(request) }">99</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">6 references in 4 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html">ProfileEditViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L117" title="target is Target.AllApps &amp;&amp; rule.action == RuleAction.Block -&gt; blockAll = true">117</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L244" title="if (draft.blockAll &amp;&amp; !state.value.isDefaultRules) add(Rule(Target.AllApps, RuleAction.Block))">244</a></td></tr><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html">ProfileMappers.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L45" title="TARGET_ALL_APPS -&gt; Target.AllApps">45</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L61" title="Target.AllApps -&gt; Triple(TARGET_ALL_APPS, null, null)">61</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/DefaultProfiles.kt.html">DefaultProfiles.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/profiles/DefaultProfiles.kt.html#L30" title="rules = listOf(Rule(Target.AllApps, RuleAction.Block)),">30</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngineTest.kt.html">RuleEngineTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngineTest.kt.html#L44" title="private val allApps = Rule(Target.AllApps, RuleAction.Block)">44</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

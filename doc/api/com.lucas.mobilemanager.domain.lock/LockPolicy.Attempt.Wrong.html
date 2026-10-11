@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LockPolicy.Attempt.Wrong Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.lock/LockPolicy.Attempt.Wrong.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.lock</a> <span class="sep">/</span> <a href="LockPolicy.Attempt.html">LockPolicy.Attempt</a> <span class="sep">/</span> <span>Wrong</span></nav>
+    <article>
+<h1>LockPolicy.Attempt.Wrong <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.lock</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock/Lock.kt.html#L89">Lock.kt</a></span></div>
+<div class="kdoc"><p>Wrong code; <a href="LockPolicy.Attempt.Wrong.html#m-attemptsLeft"><code>attemptsLeft</code></a> before a wait.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">data</span> <span class="kw">class</span> Wrong(<span class="kw">val</span> attemptsLeft: Int) : <a href="LockPolicy.Attempt.html">Attempt</a></code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Nested in</th><td><a href="LockPolicy.Attempt.html"><code>LockPolicy.Attempt</code></a></td></tr><tr><th>Extends / implements</th><td><a href="LockPolicy.Attempt.html"><code>Attempt</code></a></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="LockPolicy.Attempt.Wrong.html#m-attemptsLeft"><code>attemptsLeft</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-attemptsLeft">
+<h3>attemptsLeft <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> attemptsLeft: Int</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock/Lock.kt.html#L89">Lock.kt, line 89</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html">LockComponents.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L134" title="is LockPolicy.Attempt.Wrong -&gt; error = resources.getString(R.string.lock_wrong, result.attemptsLeft)">134</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/lock/LockTest.kt.html">LockTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/lock</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/lock/LockTest.kt.html#L73" title="assertEquals(LockPolicy.Attempt.Wrong(attemptsLeft = 4 - i), result)">73</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">3 references in 3 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html">LockComponents.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L134" title="is LockPolicy.Attempt.Wrong -&gt; error = resources.getString(R.string.lock_wrong, result.attemptsLeft)">134</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock/Lock.kt.html">Lock.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock/Lock.kt.html#L105" title="return (if (lockout != null) Attempt.LockedOut(lockout) else Attempt.Wrong(FREE_ATTEMPTS - failures)) to updated">105</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/lock/LockTest.kt.html">LockTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/lock</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/lock/LockTest.kt.html#L73" title="assertEquals(LockPolicy.Attempt.Wrong(attemptsLeft = 4 - i), result)">73</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

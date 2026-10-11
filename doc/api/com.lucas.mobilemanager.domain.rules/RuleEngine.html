@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RuleEngine Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.rules/RuleEngine.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.rules</a> <span class="sep">/</span> <span>RuleEngine</span></nav>
+    <article>
+<h1>RuleEngine <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.rules</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L53">RuleEngine.kt</a></span></div>
+<div class="kdoc"><p>Decides whether an app is allowed right now.</p><ol><li>The system whitelist comes first.</li><li>In each layer, only the most specific rule counts (Zone &gt; App &gt; AllApps); at equal specificity, the most restrictive one.</li><li>Layers are walked from highest to lowest priority: a Block/Limit rule is kept, an Allow rule stops the walk (explicit exception).</li><li>Among the kept restrictions, the strongest wins: Block &gt; Limit, then the limit closest to being reached. A limit on a zone (Reels quota) is measured against the time spent in the zone, an app limit against the time spent in the app.</li></ol></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">class</span> RuleEngine @Inject <span class="kw">constructor</span>()</code></pre></div>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="RuleEngine.html#m-evaluate"><code>evaluate</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="RuleEngine.html#m-decisiveRule"><code>decisiveRule</code></a> <span class=tag>private</span></td><td>Most specific rule of the layer for this request, the most restrictive one in case of a tie.</td></tr><tr><td><a href="RuleEngine.html#m-latestEnd"><code>latestEnd</code></a> <span class=tag>private</span></td><td>The block lasts until the end of the last blocking layer.</td></tr><tr><td><a href="RuleEngine.html#m-toBlockReason"><code>toBlockReason</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="companion-members">Companion members</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="RuleEngine.html#m-STRICTNESS"><code>STRICTNESS</code></a></td><td>Allow &lt; Limit (longer &lt; shorter) &lt; Block.</td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-evaluate">
+<h3>evaluate <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> evaluate(policy: <a href="ResolvedPolicy.html">ResolvedPolicy</a>, request: <a href="AppRequest.html">AppRequest</a>, whitelist: <a href="SystemWhitelist.html">SystemWhitelist</a>, now: ZonedDateTime): <a href="Decision.html">Decision</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L55">RuleEngine.kt, line 55</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/EnforcementCoordinator.kt.html">EnforcementCoordinator.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/EnforcementCoordinator.kt.html#L130" title="return ruleEngine.evaluate(policy, request, whitelistProvider.current(), now)">130</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngineTest.kt.html">RuleEngineTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngineTest.kt.html#L40" title="return engine.evaluate(policy, request, whitelist, now)">40</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-decisiveRule">
+<h3>decisiveRule <span class="badge">extension function</span><span class="badge vis">private</span></h3>
+<div class="kdoc"><p>Most specific rule of the layer for this request, the most restrictive one in case of a tie.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> <a href="PolicyLayer.html">PolicyLayer</a>.decisiveRule(request: <a href="AppRequest.html">AppRequest</a>): <a href="Rule.html">Rule</a>?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L98">RuleEngine.kt, line 98</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html">RuleEngine.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L65" title="val rule = layer.decisiveRule(request) ?: continue">65</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-latestEnd">
+<h3>latestEnd <span class="badge">method</span><span class="badge vis">private</span></h3>
+<div class="kdoc"><p>The block lasts until the end of the last blocking layer. If one of them has no known end, the overall end is unknown.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> latestEnd(layers: List&lt;<a href="PolicyLayer.html">PolicyLayer</a>&gt;): Instant?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L110">RuleEngine.kt, line 110</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html">RuleEngine.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L74" title="until = latestEnd(blockingLayers),">74</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-toBlockReason">
+<h3>toBlockReason <span class="badge">extension function</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> <a href="LayerSource.html">LayerSource</a>.toBlockReason(): <a href="BlockReason.html">BlockReason</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L115">RuleEngine.kt, line 115</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html">RuleEngine.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L73" title="reason = blockingLayers.first().source.toBlockReason(),">73</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-STRICTNESS">
+<h3>STRICTNESS <span class="badge">property</span><span class="badge vis">companion</span></h3>
+<div class="kdoc"><p>Allow &lt; Limit (longer &lt; shorter) &lt; Block.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> STRICTNESS: Comparator&lt;<a href="RuleAction.html">RuleAction</a>&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L124">RuleEngine.kt, line 124</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html">RuleEngine.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L103" title=".maxWith(compareBy(STRICTNESS) { it.action })">103</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">3 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/EnforcementCoordinator.kt.html">EnforcementCoordinator.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/EnforcementCoordinator.kt.html#L21" title="import com.lucas.mobilemanager.domain.rules.RuleEngine">21</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/EnforcementCoordinator.kt.html#L48" title="private val ruleEngine: RuleEngine,">48</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngineTest.kt.html">RuleEngineTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngineTest.kt.html#L28" title="private val engine = RuleEngine()">28</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#functions">Functions</a></li><li><a href="#companion-members">Companion members</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

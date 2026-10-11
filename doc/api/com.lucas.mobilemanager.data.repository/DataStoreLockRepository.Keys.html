@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DataStoreLockRepository.Keys Object - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.data.repository/DataStoreLockRepository.Keys.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.data.repository</a> <span class="sep">/</span> <a href="DataStoreLockRepository.html">DataStoreLockRepository</a> <span class="sep">/</span> <span>Keys</span></nav>
+    <article>
+<h1>DataStoreLockRepository.Keys <span class="h1-kind">object</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.data.repository</a></span><span>Module: :core:data</span><span>Source: <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L49">DataStoreLockRepository.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">object</span> Keys</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Nested in</th><td><a href="DataStoreLockRepository.html"><code>DataStoreLockRepository</code></a></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DataStoreLockRepository.Keys.html#m-HASH"><code>HASH</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreLockRepository.Keys.html#m-SALT"><code>SALT</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreLockRepository.Keys.html#m-ITERATIONS"><code>ITERATIONS</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreLockRepository.Keys.html#m-FAILURES"><code>FAILURES</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreLockRepository.Keys.html#m-LOCKED_OUT_UNTIL"><code>LOCKED_OUT_UNTIL</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-HASH">
+<h3>HASH <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> HASH</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L50">DataStoreLockRepository.kt, line 50</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html">DataStoreLockRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L24" title="val hash = prefs[Keys.HASH] ?: return@map null">24</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L38" title="listOf(Keys.HASH, Keys.SALT, Keys.ITERATIONS, Keys.FAILURES, Keys.LOCKED_OUT_UNTIL).forEach { prefs.remove(it) }">38</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L41" title="prefs[Keys.HASH] = config.pinHash">41</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-SALT">
+<h3>SALT <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> SALT</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L51">DataStoreLockRepository.kt, line 51</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html">DataStoreLockRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L25" title="val salt = prefs[Keys.SALT] ?: return@map null">25</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L38" title="listOf(Keys.HASH, Keys.SALT, Keys.ITERATIONS, Keys.FAILURES, Keys.LOCKED_OUT_UNTIL).forEach { prefs.remove(it) }">38</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L42" title="prefs[Keys.SALT] = config.salt">42</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-ITERATIONS">
+<h3>ITERATIONS <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> ITERATIONS</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L52">DataStoreLockRepository.kt, line 52</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html">DataStoreLockRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L29" title="iterations = prefs[Keys.ITERATIONS] ?: PinHasher.LEGACY_ITERATIONS,">29</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L38" title="listOf(Keys.HASH, Keys.SALT, Keys.ITERATIONS, Keys.FAILURES, Keys.LOCKED_OUT_UNTIL).forEach { prefs.remove(it) }">38</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L43" title="prefs[Keys.ITERATIONS] = config.iterations">43</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-FAILURES">
+<h3>FAILURES <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> FAILURES</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L53">DataStoreLockRepository.kt, line 53</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html">DataStoreLockRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L30" title="failures = prefs[Keys.FAILURES] ?: 0,">30</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L38" title="listOf(Keys.HASH, Keys.SALT, Keys.ITERATIONS, Keys.FAILURES, Keys.LOCKED_OUT_UNTIL).forEach { prefs.remove(it) }">38</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L44" title="prefs[Keys.FAILURES] = config.failures">44</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-LOCKED_OUT_UNTIL">
+<h3>LOCKED_OUT_UNTIL <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> LOCKED_OUT_UNTIL</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L54">DataStoreLockRepository.kt, line 54</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html">DataStoreLockRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L31" title="lockedOutUntil = prefs[Keys.LOCKED_OUT_UNTIL]?.let(Instant::ofEpochMilli),">31</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L38" title="listOf(Keys.HASH, Keys.SALT, Keys.ITERATIONS, Keys.FAILURES, Keys.LOCKED_OUT_UNTIL).forEach { prefs.remove(it) }">38</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L45" title="config.lockedOutUntil?.let { prefs[Keys.LOCKED_OUT_UNTIL] = it.toEpochMilli() } ?: prefs.remove(Keys.LOCKED_OUT_UNTIL)">45</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">11 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html">DataStoreLockRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L24" title="val hash = prefs[Keys.HASH] ?: return@map null">24</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L25" title="val salt = prefs[Keys.SALT] ?: return@map null">25</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L29" title="iterations = prefs[Keys.ITERATIONS] ?: PinHasher.LEGACY_ITERATIONS,">29</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L30" title="failures = prefs[Keys.FAILURES] ?: 0,">30</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L31" title="lockedOutUntil = prefs[Keys.LOCKED_OUT_UNTIL]?.let(Instant::ofEpochMilli),">31</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L38" title="listOf(Keys.HASH, Keys.SALT, Keys.ITERATIONS, Keys.FAILURES, Keys.LOCKED_OUT_UNTIL).forEach { prefs.remove(it) }">38</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L41" title="prefs[Keys.HASH] = config.pinHash">41</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L42" title="prefs[Keys.SALT] = config.salt">42</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L43" title="prefs[Keys.ITERATIONS] = config.iterations">43</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L44" title="prefs[Keys.FAILURES] = config.failures">44</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreLockRepository.kt.html#L45" title="config.lockedOutUntil?.let { prefs[Keys.LOCKED_OUT_UNTIL] = it.toEpochMilli() } ?: prefs.remove(Keys.LOCKED_OUT_UNTIL)">45</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

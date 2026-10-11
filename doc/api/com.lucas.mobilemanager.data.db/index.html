@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.data.db package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.data.db/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.data.db</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.data.db <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :core:data</span><span>9 files</span></div>
+<p>Room database, entities, DAOs and mappers.</p>
+<h2 id="types">Types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="DailyUsageDao.html"><code>DailyUsageDao</code></a></td><td>interface</td><td><span class="muted">—</span></td></tr><tr><td><a href="DailyUsageEntity.html"><code>DailyUsageEntity</code></a></td><td>data class</td><td>Screen time of an app on a given day (local day <code>yyyy-mm-dd</code>).</td></tr><tr><td><a href="EventLogDao.html"><code>EventLogDao</code></a></td><td>interface</td><td><span class="muted">—</span></td></tr><tr><td><a href="EventLogEntity.html"><code>EventLogEntity</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="MobileManagerDatabase.html"><code>MobileManagerDatabase</code></a></td><td>abstract class</td><td><span class="muted">—</span></td></tr><tr><td><a href="ProfileDao.html"><code>ProfileDao</code></a></td><td>interface</td><td><span class="muted">—</span></td></tr><tr><td><a href="ProfileEntity.html"><code>ProfileEntity</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="ProfileScheduleEntity.html"><code>ProfileScheduleEntity</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="ProfileWithDetails.html"><code>ProfileWithDetails</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="RuleEntity.html"><code>RuleEntity</code></a></td><td>data class</td><td>Rule of a profile, or global rule if <a href="RuleEntity.html#m-profileId"><code>profileId</code></a> is <code>null</code>.</td></tr><tr><td><a href="StrictSessionDao.html"><code>StrictSessionDao</code></a></td><td>interface</td><td><span class="muted">—</span></td></tr><tr><td><a href="StrictSessionEntity.html"><code>StrictSessionEntity</code></a></td><td>data class</td><td>Focus sessions, running and past (history for the dashboard).</td></tr><tr><td><a href="ZoneUsageDao.html"><code>ZoneUsageDao</code></a></td><td>interface</td><td><span class="muted">—</span></td></tr><tr><td><a href="ZoneUsageEntity.html"><code>ZoneUsageEntity</code></a></td><td>data class</td><td>Time spent in a zone (Reels, Shorts…) on a given local day (<code>yyyy-mm-dd</code>).</td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-toDomain"><code>toDomain</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-toEntity"><code>toEntity</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-toDomain"><code>toDomain</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-toEntity"><code>toEntity</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-toDomain-2"><code>toDomain</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-toEntity-2"><code>toEntity</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-toDomain-3"><code>toDomain</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-toEntity-3"><code>toEntity</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-toDomain"><code>toDomain</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-toEntity"><code>toEntity</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="properties-and-type-aliases">Properties and type aliases</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-TARGET_ALL_APPS"><code>TARGET_ALL_APPS</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-TARGET_APP"><code>TARGET_APP</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-TARGET_ZONE"><code>TARGET_ZONE</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-ACTION_ALLOW"><code>ACTION_ALLOW</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-ACTION_LIMIT"><code>ACTION_LIMIT</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-ACTION_BLOCK"><code>ACTION_BLOCK</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/DailyUsageEntity.kt.html">DailyUsageEntity.kt</a></li><li><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/EventLogDao.kt.html">EventLogDao.kt</a></li><li><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/EventLogEntity.kt.html">EventLogEntity.kt</a></li><li><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/MobileManagerDatabase.kt.html">MobileManagerDatabase.kt</a></li><li><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileDao.kt.html">ProfileDao.kt</a></li><li><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileEntities.kt.html">ProfileEntities.kt</a></li><li><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html">ProfileMappers.kt</a></li><li><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html">StrictSessionEntity.kt</a></li><li><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ZoneUsageEntity.kt.html">ZoneUsageEntity.kt</a></li></ul>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-toDomain">
+<h3>toDomain <span class="badge">extension function</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> <a href="EventLogEntity.html">EventLogEntity</a>.toDomain()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/EventLogEntity.kt.html#L25">EventLogEntity.kt, line 25</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-toEntity">
+<h3>toEntity <span class="badge">extension function</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> <a href="../com.lucas.mobilemanager.domain.model/EventLogEntry.html">EventLogEntry</a>.toEntity()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/EventLogEntity.kt.html#L34">EventLogEntity.kt, line 34</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomEventLogRepository.kt.html">RoomEventLogRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomEventLogRepository.kt.html#L5" title="import com.lucas.mobilemanager.data.db.toEntity">5</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomEventLogRepository.kt.html#L18" title="dao.insert(entry.toEntity())">18</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-toDomain">
+<h3>toDomain <span class="badge">extension function</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> <a href="ProfileWithDetails.html">ProfileWithDetails</a>.toDomain()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L12">ProfileMappers.kt, line 12</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html">ProfileMappers.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L16" title="schedules = schedules.sortedBy { it.id }.map { it.toDomain() },">16</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L17" title="rules = rules.sortedBy { it.id }.map { it.toDomain() },">17</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-toEntity">
+<h3>toEntity <span class="badge">extension function</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> <a href="../com.lucas.mobilemanager.domain.model/Profile.html">Profile</a>.toEntity()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L22">ProfileMappers.kt, line 22</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomProfileRepository.kt.html">RoomProfileRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomProfileRepository.kt.html#L5" title="import com.lucas.mobilemanager.data.db.toEntity">5</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomProfileRepository.kt.html#L25" title="profile = profile.toEntity(),">25</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomProfileRepository.kt.html#L26" title="schedules = profile.schedules.map { it.toEntity(profile.id) },">26</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomProfileRepository.kt.html#L27" title="rules = profile.rules.map { it.toEntity(profile.id) },">27</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomProfileRepository.kt.html#L35" title="dao.replaceGlobalRules(rules.map { it.toEntity(profileId = null) })">35</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-toDomain-2">
+<h3>toDomain <span class="badge">extension function</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> <a href="ProfileScheduleEntity.html">ProfileScheduleEntity</a>.toDomain()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L30">ProfileMappers.kt, line 30</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html">ProfileMappers.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L16" title="schedules = schedules.sortedBy { it.id }.map { it.toDomain() },">16</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L17" title="rules = rules.sortedBy { it.id }.map { it.toDomain() },">17</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-toEntity-2">
+<h3>toEntity <span class="badge">extension function</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> <a href="../com.lucas.mobilemanager.domain.model/Schedule.html">Schedule</a>.toEntity(profileId: Long)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L36">ProfileMappers.kt, line 36</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-toDomain-3">
+<h3>toDomain <span class="badge">extension function</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> <a href="RuleEntity.html">RuleEntity</a>.toDomain(): <a href="../com.lucas.mobilemanager.domain.rules/Rule.html">Rule</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L43">ProfileMappers.kt, line 43</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html">ProfileMappers.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L16" title="schedules = schedules.sortedBy { it.id }.map { it.toDomain() },">16</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L17" title="rules = rules.sortedBy { it.id }.map { it.toDomain() },">17</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-toEntity-3">
+<h3>toEntity <span class="badge">extension function</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> <a href="../com.lucas.mobilemanager.domain.rules/Rule.html">Rule</a>.toEntity(profileId: Long?): <a href="RuleEntity.html">RuleEntity</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L59">ProfileMappers.kt, line 59</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomProfileRepository.kt.html">RoomProfileRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomProfileRepository.kt.html#L5" title="import com.lucas.mobilemanager.data.db.toEntity">5</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomProfileRepository.kt.html#L25" title="profile = profile.toEntity(),">25</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomProfileRepository.kt.html#L26" title="schedules = profile.schedules.map { it.toEntity(profile.id) },">26</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomProfileRepository.kt.html#L27" title="rules = profile.rules.map { it.toEntity(profile.id) },">27</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomProfileRepository.kt.html#L35" title="dao.replaceGlobalRules(rules.map { it.toEntity(profileId = null) })">35</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-toDomain">
+<h3>toDomain <span class="badge">extension function</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> <a href="StrictSessionEntity.html">StrictSessionEntity</a>.toDomain()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L51">StrictSessionEntity.kt, line 51</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-toEntity">
+<h3>toEntity <span class="badge">extension function</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> <a href="../com.lucas.mobilemanager.domain.model/StrictSession.html">StrictSession</a>.toEntity()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/StrictSessionEntity.kt.html#L62">StrictSessionEntity.kt, line 62</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html">RoomStrictSessionRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L5" title="import com.lucas.mobilemanager.data.db.toEntity">5</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomStrictSessionRepository.kt.html#L21" title="override suspend fun insert(session: StrictSession): Long = dao.insert(session.toEntity())">21</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-TARGET_ALL_APPS">
+<h3>TARGET_ALL_APPS <span class="badge">constant</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">const</span> <span class="kw">val</span> TARGET_ALL_APPS</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L80">ProfileMappers.kt, line 80</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html">ProfileMappers.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L45" title="TARGET_ALL_APPS -&gt; Target.AllApps">45</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L61" title="Target.AllApps -&gt; Triple(TARGET_ALL_APPS, null, null)">61</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-TARGET_APP">
+<h3>TARGET_APP <span class="badge">constant</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">const</span> <span class="kw">val</span> TARGET_APP</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L81">ProfileMappers.kt, line 81</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html">ProfileMappers.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L46" title="TARGET_APP -&gt; Target.App(requireNotNull(packageName))">46</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L62" title="is Target.App -&gt; Triple(TARGET_APP, t.packageName, null)">62</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-TARGET_ZONE">
+<h3>TARGET_ZONE <span class="badge">constant</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">const</span> <span class="kw">val</span> TARGET_ZONE</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L82">ProfileMappers.kt, line 82</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html">ProfileMappers.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L47" title="TARGET_ZONE -&gt; Target.Zone(requireNotNull(packageName), requireNotNull(zone))">47</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L63" title="is Target.Zone -&gt; Triple(TARGET_ZONE, t.packageName, t.zone)">63</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-ACTION_ALLOW">
+<h3>ACTION_ALLOW <span class="badge">constant</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">const</span> <span class="kw">val</span> ACTION_ALLOW</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L83">ProfileMappers.kt, line 83</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html">ProfileMappers.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L51" title="ACTION_ALLOW -&gt; RuleAction.Allow">51</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L66" title="RuleAction.Allow -&gt; ACTION_ALLOW to null">66</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-ACTION_LIMIT">
+<h3>ACTION_LIMIT <span class="badge">constant</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">const</span> <span class="kw">val</span> ACTION_LIMIT</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L84">ProfileMappers.kt, line 84</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html">ProfileMappers.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L52" title="ACTION_LIMIT -&gt; RuleAction.Limit(Duration.ofMinutes(requireNotNull(dailyLimitMinutes)))">52</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L67" title="is RuleAction.Limit -&gt; ACTION_LIMIT to a.dailyLimit.toMinutes()">67</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-ACTION_BLOCK">
+<h3>ACTION_BLOCK <span class="badge">constant</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">const</span> <span class="kw">val</span> ACTION_BLOCK</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L85">ProfileMappers.kt, line 85</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html">ProfileMappers.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/db</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L53" title="ACTION_BLOCK -&gt; RuleAction.Block">53</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/db/ProfileMappers.kt.html#L68" title="RuleAction.Block -&gt; ACTION_BLOCK to null">68</a></td></tr></tbody></table></details>
+</section>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#types">Types</a></li><li><a href="#functions">Functions</a></li><li><a href="#properties-and-type-aliases">Properties and type aliases</a></li><li><a href="#files">Files</a></li><li><a href="#member-details">Member details</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

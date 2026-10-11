@@ -1,0 +1,45 @@
+<!-- title: Daily quotas -->
+<!-- order: 4 -->
+<!-- section: Architecture -->
+<h1>Daily quotas</h1>
+<p class="lead">A quota is a cumulative daily duration — for example 50 minutes of Instagram Reels. Once it is used, the zone is
+closed until midnight: no pause screen, no extra time. Messages and the rest of the app stay available.</p>
+
+<h2 id="model">A quota is a limit rule</h2>
+<p>No new concept was added to the engine: a quota is a {{RuleAction.Limit}} on a {{Target.Zone}}
+(<code>Zone(instagram, reels) Limit 50 min</code>), or on a {{Target.App}} for a whole app (<code>App(tiktok) Limit 30 min</code>).
+The only difference is what is measured: {{RuleEngine}} compares a zone limit with {{AppRequest.zoneUsageToday}} and an app limit
+with {{AppRequest.usageToday}}.</p>
+
+<h2 id="measuring">Measuring time in a zone</h2>
+<p>Android does not know about zones, so their time is measured by the app itself:</p>
+<ul>
+  <li>{{ZoneUsageAccumulator}} (domain, pure) adds the time between two consecutive observations “in the zone”, capped at 15 s per
+  gap so that a frozen screen or a suspended service never counts indefinitely, and split at midnight so each day gets its share
+  ({{ZoneUsageDelta}}).</li>
+  <li>{{ZoneEnforcer}} observes at least every 5 s while an accessible zone is on screen (a playing video produces no event) and
+  exactly when the remaining quota runs out.</li>
+  <li>Time is credited <em>before</em> the decision, so the quota is judged on up-to-date usage.</li>
+  <li>{{ZoneUsageRecorder}} buffers the deltas in memory and writes them to the <code>zone_usage</code> table every 15 s of counted
+  time and when the app leaves the foreground or the screen turns off. {{ZoneUsageRecorder.usageToday}} adds what is stored and what is
+  still buffered.</li>
+</ul>
+
+<h2 id="reached">When the quota is reached</h2>
+<ol>
+  <li>{{EnforcementCoordinator.evaluateZone}} returns {{Decision.Blocked}} with {{BlockReason.DailyLimitReached}}.</li>
+  <li>The zone is left (exit actions), its button is masked, and a short message says “Quota de Reels atteint pour aujourd’hui (50 min)”.</li>
+  <li>Nothing else happens until midnight; the next day starts from zero.</li>
+</ol>
+
+<h2 id="settings">Settings</h2>
+<p>Settings › “Zones et quotas” ({{ZoneRulesViewModel}}) lists every zone known by the detectors with three choices — Blocked, Quota
+(5 min to 3 h; 1 and 2 min in debug builds) or Allowed — and the time used today (“32 min sur 50 min aujourd’hui”). Whole-app limits
+are set in the default rules editor. Every change requires the <a href="{{page:concepts/trusted-code.html}}">trusted person code</a>
+when one is set. A profile can still allow a zone explicitly (<code>Rule(Zone, Allow)</code>).</p>
+
+<h2 id="history">History: anti-doomscrolling</h2>
+<p>Earlier versions had pause screens after a continuous session and cooldown blocks. Field use showed they were easy to dismiss and
+annoying, so they were replaced by quotas: pauses, continuous sessions, the <code>scroll_guard</code> table (dropped in schema 6) and
+its preferences are gone. Old event types stay in {{EventType}} so the journal can still be read, and old <code>session_limit</code>
+blocks are counted as rule blocks by the dashboard.</p>

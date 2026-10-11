@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.ui.components package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.components/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.ui.components</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.ui.components <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :app</span><span>2 files</span></div>
+<p>Shared Compose components (time picker, limit picker).</p>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-LimitPicker"><code>LimitPicker</code></a></td><td>“Limite : 30 min” button that opens the list of durations.</td></tr><tr><td><a href="index.html#m-TimePickerDialog"><code>TimePickerDialog</code></a></td><td>24-hour time picker in a dialog.</td></tr></tbody></table>
+<h2 id="properties-and-type-aliases">Properties and type aliases</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-LIMIT_OPTIONS"><code>LIMIT_OPTIONS</code></a></td><td>Durations offered for a daily limit or a quota (5 min → 3 h).</td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/components/LimitPicker.kt.html">LimitPicker.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/components/TimePickerDialog.kt.html">TimePickerDialog.kt</a></li></ul>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-LimitPicker">
+<h3>LimitPicker <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>“Limite : 30 min” button that opens the list of durations.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">fun</span> LimitPicker(minutes: Int, enabled: Boolean, onLimit: (Int) -&gt; Unit, options: List&lt;Int&gt; = LIMIT_OPTIONS)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/components/LimitPicker.kt.html#L23">LimitPicker.kt, line 23</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L66" title="import com.lucas.mobilemanager.ui.components.LimitPicker">66</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L362" title="LimitPicker(rule.limitMinutes, enabled, onLimit)">362</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html">ZoneRulesScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L39" title="import com.lucas.mobilemanager.ui.components.LimitPicker">39</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L121" title="LimitPicker(zone.quotaMinutes, enabled, onLimit = { onSetting(ZoneSetting.QUOTA, it) }, options = QUOTA_OPTIONS)">121</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-TimePickerDialog">
+<h3>TimePickerDialog <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>24-hour time picker in a dialog.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+<span class="kw">fun</span> TimePickerDialog(title: String, initial: LocalTime, onDismiss: () -&gt; Unit, onConfirm: (LocalTime) -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/components/TimePickerDialog.kt.html#L18">TimePickerDialog.kt, line 18</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">6 references in 3 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/ProfileCard.kt.html">ProfileCard.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/home</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/ProfileCard.kt.html#L38" title="import com.lucas.mobilemanager.ui.components.TimePickerDialog">38</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/ProfileCard.kt.html#L165" title="TimePickerDialog(">165</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L67" title="import com.lucas.mobilemanager.ui.components.TimePickerDialog">67</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L316" title="TimePickerDialog(">316</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html">StartSessionScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/session</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html#L44" title="import com.lucas.mobilemanager.ui.components.TimePickerDialog">44</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html#L166" title="TimePickerDialog(">166</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-LIMIT_OPTIONS">
+<h3>LIMIT_OPTIONS <span class="badge">property</span></h3>
+<div class="kdoc"><p>Durations offered for a daily limit or a quota (5 min → 3 h).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> LIMIT_OPTIONS</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/components/LimitPicker.kt.html#L19">LimitPicker.kt, line 19</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/components/LimitPicker.kt.html">LimitPicker.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/components</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/components/LimitPicker.kt.html#L23" title="fun LimitPicker(minutes: Int, enabled: Boolean, onLimit: (Int) -&gt; Unit, options: List&lt;Int&gt; = LIMIT_OPTIONS) {">23</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html">ZoneRulesScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L38" title="import com.lucas.mobilemanager.ui.components.LIMIT_OPTIONS">38</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L133" title="private val QUOTA_OPTIONS = if (BuildConfig.DEBUG) listOf(1, 2) + LIMIT_OPTIONS else LIMIT_OPTIONS">133</a></td></tr></tbody></table></details>
+</section>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#functions">Functions</a></li><li><a href="#properties-and-type-aliases">Properties and type aliases</a></li><li><a href="#files">Files</a></li><li><a href="#member-details">Member details</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,1774 @@
+# English translations of the KDoc comments (written in French in the code).
+# Format: "@@ fr" followed by the exact French text, then "@@ en" and its translation.
+# Generate the blocks still missing with: python doc/tools/gen_docs.py --missing out.txt
+
+@@ fr
+WorkManager initialisé à la demande avec les workers Hilt (initialiseur par défaut retiré du manifest).
+@@ en
+WorkManager initialised on demand with the Hilt workers (the default initialiser is removed from the manifest).
+
+@@ fr
+Administration de l'appareil : ajoute une étape avant la désinstallation. Ne rend pas la désinstallation impossible.
+@@ en
+Device administration: adds a step before uninstallation. It does not make uninstallation impossible.
+
+@@ fr
+Message affiché par Android dans la confirmation de désactivation, pendant une session.
+@@ en
+Message shown by Android in the deactivation confirmation, during a session.
+
+@@ fr
+Lecture courte et ponctuelle : le système attend une réponse synchrone.
+@@ en
+Short, one-off read: the system expects a synchronous answer.
+
+@@ fr
+Apps lançables qu'on peut choisir de bloquer (sans Mobile Manager ni les apps vitales).
+@@ en
+Launchable apps that can be chosen for blocking (without Mobile Manager and vital apps).
+
+@@ fr
+Nom affiché d'une app, ou `null` si elle n'est pas installée.
+@@ en
+Display name of an app, or `null` if it is not installed.
+
+@@ fr
+Écran plein écran affiché à la place d'une app bloquée. Une seule sortie : l'accueil. Pas de « encore 5 minutes », pas de désactivation depuis cet écran.
+@@ en
+Full-screen screen shown instead of a blocked app. A single way out: the home screen. No “5 more minutes”, no way to turn blocking off from this screen.
+
+@@ fr
+Ce que l'écran de blocage affiche, transmis par extras d'intent.
+@@ en
+What the block screen displays, passed as intent extras.
+
+@@ fr
+Fige le temps d'écran des jours passés dans `daily_usage`. Android ne garde les événements détaillés qu'environ une semaine : sans ces instantanés, impossible de comparer deux semaines.
+@@ en
+Freezes the screen time of past days into `daily_usage`. Android keeps detailed events for about a week only: without these snapshots, two weeks could not be compared.
+
+@@ fr
+Enregistre chaque jour des 14 derniers (hier inclus) qui manque encore, si Android a les données.
+@@ en
+Records every day of the last 14 (yesterday included) that is still missing, if Android has the data.
+
+@@ fr
+Instantané quotidien, même si l'app n'est pas ouverte pendant plusieurs jours.
+@@ en
+Daily snapshot, even when the app is not opened for several days.
+
+@@ fr
+Rassemble les données du tableau de bord (instantanés, jour en cours en direct, journal).
+@@ en
+Gathers the dashboard data (snapshots, current day computed live, event journal).
+
+@@ fr
+Portée qui vit aussi longtemps que le processus, pour les tâches indépendantes des écrans.
+@@ en
+Scope that lives as long as the process, for work that does not depend on screens.
+
+@@ fr
+Bandeau du mode diagnostic, affiché par le service d'accessibilité (`TYPE_ACCESSIBILITY_OVERLAY` : aucune permission supplémentaire). Déplaçable au doigt. Vues Android classiques : Compose demanderait un cycle de vie qu'un service n'a pas.
+@@ en
+Diagnostic mode banner, shown by the accessibility service (`TYPE_ACCESSIBILITY_OVERLAY`: no extra permission). Can be dragged with a finger. Classic Android views: Compose would require a lifecycle that a service does not have.
+
+@@ fr
+Capture de l'arbre d'accessibilité d'une fenêtre, faite à la demande.
+@@ en
+Capture of the accessibility tree of a window, taken on demand.
+
+@@ fr
+État du mode diagnostic, **en mémoire uniquement** : une capture peut contenir des textes affichés à l'écran, elle n'est jamais enregistrée sur le disque.
+@@ en
+State of the diagnostic mode, **in memory only**: a capture may contain texts displayed on screen, so it is never written to disk.
+
+@@ fr
+Relie le système (app au premier plan, usage) au moteur de règles du domaine. Ne connaît pas le service d'accessibilité : il décide, le service applique.
+@@ en
+Connects the system (foreground app, usage) to the domain rule engine. It does not know the accessibility service: it decides, the service enforces.
+
+@@ fr
+Profils, règles et activation manuelle gardés en mémoire : une évaluation ne relit pas la base.
+@@ en
+Profiles, rules and manual activation kept in memory: an evaluation does not read the database again.
+
+@@ fr
+Dernier temps d'usage lu pour chaque app et quand (millisecondes de `elapsedRealtime`).
+@@ en
+Last usage time read for each app, and when (milliseconds of `elapsedRealtime`).
+
+@@ fr
+Enveloppe pour distinguer « pas encore chargée » (`null`) de « aucune session ».
+@@ en
+Wrapper that distinguishes “not loaded yet” (`null`) from “no session”.
+
+@@ fr
+Session de concentration non close (peut être arrivée à son heure de fin).
+@@ en
+Focus session not closed yet (it may have reached its end time).
+
+@@ fr
+Session qui bloque en ce moment, lue en mémoire (appel synchrone, sans accès disque).
+@@ en
+Session blocking right now, read from memory (synchronous call, no disk access).
+
+@@ fr
+Décision du moteur pour une **zone** de l'app (Reels, Shorts…) : un quota posé sur la zone se mesure au temps passé dans la zone aujourd'hui.
+@@ en
+Engine decision for a **zone** of the app (Reels, Shorts…): a quota set on the zone is measured against the time spent in the zone today.
+
+@@ fr
+Usage de l'app pour une requête de zone, sans relire les statistiques d'Android à chaque vérification : la dernière lecture (≤ 30 s, faite par la surveillance de l'app) plus le temps écoulé depuis, l'app étant restée au premier plan.
+@@ en
+App usage for a zone request, without reading Android statistics again at every check: the last reading (at most 30 s old, made by the app monitoring) plus the time elapsed since then, the app having stayed in the foreground.
+
+@@ fr
+Apps qui ne doivent jamais être bloquées. Résolues via le système plutôt que codées en dur, car les noms de packages diffèrent selon les constructeurs (Samsung notamment).
+@@ en
+Apps that must never be blocked. Resolved through the system rather than hard-coded, because package names differ between manufacturers (Samsung in particular).
+
+@@ fr
+Packages qui ne comptent pas comme temps d'écran dans le tableau de bord : Mobile Manager, launcher(s), interface système et claviers (sinon déverrouiller le téléphone gonflerait le total).
+@@ en
+Packages that do not count as screen time in the dashboard: Mobile Manager, launcher(s), system UI and keyboards (otherwise unlocking the phone would inflate the total).
+
+@@ fr
+Composants système qui n'exposent pas d'intent public mais restent vitaux.
+@@ en
+System components that expose no public intent but remain vital.
+
+@@ fr
+Lit les événements de premier plan du système et en déduit le temps passé aujourd'hui.
+@@ en
+Reads the system foreground events and derives the time spent today.
+
+@@ fr
+Temps passé dans [packageName] depuis minuit local.
+@@ en
+Time spent in [packageName] since local midnight.
+
+@@ fr
+Temps d'écran de chaque app pendant le jour local [date] (jusqu'à maintenant pour aujourd'hui), ou `null` si Android n'a plus aucun événement pour ce jour (au-delà d'environ une semaine) : « pas de données », à ne pas confondre avec « aucun usage ».
+@@ en
+Screen time of each app during the local day [date] (until now for today), or `null` if Android has no event left for that day (beyond about a week): “no data”, not to be confused with “no usage”.
+
+@@ fr
+Événements reprise/pause, d'une app ou de toutes ([packageName] `null`). On remonte un peu avant minuit pour retrouver la reprise d'une app ouverte la veille ; le calcul coupe ensuite.
+@@ en
+Resume/pause events of one app or of all apps ([packageName] `null`). Reading starts a little before midnight to find the resume of an app opened the day before; the computation then cuts at midnight.
+
+@@ fr
+État du code du proche, pour l'interface.
+@@ en
+State of the trusted person code, for the UI.
+
+@@ fr
+Fin du déverrouillage en cours, `null` si verrouillé.
+@@ en
+End of the current unlock, `null` when locked.
+
+@@ fr
+Fin de l'attente après trop d'essais, `null` si aucune.
+@@ en
+End of the wait after too many attempts, `null` if none.
+
+@@ fr
+Les réglages qui assouplissent les restrictions sont modifiables.
+@@ en
+Settings that loosen restrictions can be changed.
+
+@@ fr
+Code du proche : tant qu'il est défini, toute modification des restrictions demande de le saisir. Le déverrouillage (5 min) est gardé en mémoire : un redémarrage reverrouille.
+@@ en
+Trusted person code: while it is set, every change to the restrictions requires entering it. The unlock (5 min) is kept in memory: a restart locks again.
+
+@@ fr
+Enveloppe pour distinguer « pas encore lu » (`null`) de « aucun code ».
+@@ en
+Wrapper that distinguishes “not read yet” (`null`) from “no code”.
+
+@@ fr
+Battement d'une seconde : la fin du déverrouillage ou de l'attente se voit sans action.
+@@ en
+One-second heartbeat: the end of the unlock or of the wait becomes visible without any action.
+
+@@ fr
+Vérification immédiate pour les ViewModels : refuse tant que le code n'a pas été lu.
+@@ en
+Immediate check for ViewModels: refuses as long as the code has not been read.
+
+@@ fr
+Pour le service d'accessibilité : un code existe et l'app n'est pas déverrouillée.
+@@ en
+For the accessibility service: a code exists and the app is not unlocked.
+
+@@ fr
+Un essai du code. En cas de succès, les réglages sont modifiables pendant 5 min.
+@@ en
+One attempt at the code. On success, settings can be changed for 5 min.
+
+@@ fr
+Définit (ou remplace) le code ; possible seulement sans code ou déverrouillé.
+@@ en
+Sets (or replaces) the code; only possible without a code or while unlocked.
+
+@@ fr
+Retire le code ; possible seulement déverrouillé.
+@@ en
+Removes the code; only possible while unlocked.
+
+@@ fr
+Édition d'un profil (`profileId = 0` : nouveau) ou des règles par défaut.
+@@ en
+Editing a profile (`profileId = 0`: new one) or the default rules.
+
+@@ fr
+Lit l'état réel de chaque permission auprès du système. Aucun cache : appeler à chaque reprise.
+@@ en
+Reads the real state of each permission from the system. No cache: call it on every resume.
+
+@@ fr
+Intents qui ouvrent l'écran système permettant d'accorder chaque permission.
+@@ en
+Intents that open the system screen granting each permission.
+
+@@ fr
+`null` pour les notifications : elles passent par une demande runtime.
+@@ en
+`null` for notifications: they go through a runtime request.
+
+@@ fr
+Lance l'intent ; si l'écran n'existe pas sur ce téléphone, ouvre les infos de l'app.
+@@ en
+Launches the intent; if the screen does not exist on this phone, opens the app info instead.
+
+@@ fr
+Source de vérité de l'app au premier plan. Ne lit que le nom du package de la fenêtre, jamais son contenu. Délègue la décision à [EnforcementCoordinator] et applique le blocage.
+@@ en
+Source of truth for the foreground app. Reads only the package name of the window, never its content. Delegates the decision to [EnforcementCoordinator] and enforces the block.
+
+@@ fr
+Fenêtres qui se superposent à l'app sans la remplacer (volet de notifications, clavier).
+@@ en
+Windows that cover the app without replacing it (notification shade, keyboard).
+
+@@ fr
+Cache : une classe de fenêtre est-elle une activité de son package ?
+@@ en
+Cache: is a window class an activity of its package?
+
+@@ fr
+Vrai si la fenêtre est une activité de [pkg]. Le flux Google du bureau, les widgets et les popups ouvrent des fenêtres qui n'en sont pas : ils ne doivent pas compter comme une app ouverte.
+@@ en
+True if the window is an activity of [pkg]. The Google feed of the home screen, widgets and popups open windows that are not activities: they must not count as an opened app.
+
+@@ fr
+Pendant une session, ou tant que le code du proche verrouille l'app, referme les écrans des Paramètres / de désinstallation qui affichent Mobile Manager (sinon couper le service suffirait à tout contourner). Regroupe les rafales d'événements en une seule vérification.
+@@ en
+During a session, or while the trusted person code locks the app, closes the Settings / uninstall screens that show Mobile Manager (otherwise turning the service off would bypass everything). Groups bursts of events into a single check.
+
+@@ fr
+Textes et descriptions visibles de l'écran (parcours borné de l'arbre d'accessibilité).
+@@ en
+Visible texts and descriptions of the screen (bounded walk of the accessibility tree).
+
+@@ fr
+Évalue [pkg] maintenant, puis régulièrement tant qu'il reste au premier plan.
+@@ en
+Evaluates [pkg] now, then regularly while it stays in the foreground.
+
+@@ fr
+Affiche l'écran de blocage par-dessus l'app. Pas de GLOBAL_ACTION_HOME ici : l'action est asynchrone et l'accueil recouvrirait l'écran de blocage. C'est l'écran qui renvoie à l'accueil.
+@@ en
+Shows the block screen over the app. No GLOBAL_ACTION_HOME here: the action is asynchronous and the home screen would cover the block screen. The block screen itself returns to the home screen.
+
+@@ fr
+Bandeau du mode diagnostic : zone détectée en direct + bouton « Capturer ».
+@@ en
+Diagnostic mode banner: zone detected live + “Capturer” button.
+
+@@ fr
+Après un redémarrage (ou une mise à jour de l'app), relance le service si une session est toujours en cours. L'heure de fin étant absolue, la session reprend exactement où elle en était.
+@@ en
+After a reboot (or an app update), restarts the service if a session is still running. The end time being absolute, the session resumes exactly where it was.
+
+@@ fr
+Écran affiché si la surveillance est coupée pendant une session. Informatif, sans reproche.
+@@ en
+Screen shown if monitoring is turned off during a session. Informative, without reproach.
+
+@@ fr
+Accès aux dépendances depuis les BroadcastReceiver système (démarrage, admin de l'appareil), qui ne peuvent pas recevoir d'injection Hilt simplement.
+@@ en
+Access to dependencies from system BroadcastReceivers (boot, device admin), which cannot easily receive Hilt injection.
+
+@@ fr
+Notifications de la session de concentration (persistante) et des alertes de protection.
+@@ en
+Notifications of the focus session (persistent) and of protection alerts.
+
+@@ fr
+Notification affichée le temps de lire la session au démarrage du service.
+@@ en
+Notification shown while the session is being read when the service starts.
+
+@@ fr
+« Session de concentration · Fin à 15:30 » avec compte à rebours.
+@@ en
+“Session de concentration · Fin à 15:30” with a countdown.
+
+@@ fr
+Alerte si la surveillance est coupée pendant une session.
+@@ en
+Alert when monitoring is turned off during a session.
+
+@@ fr
+Service de premier plan qui vit le temps d'une session de concentration : notification avec l'heure de fin, clôture automatique, alerte si la surveillance est coupée.
+@@ en
+Foreground service that lives for the duration of a focus session: notification with the end time, automatic closing, alert if monitoring is turned off.
+
+@@ fr
+Dernière notification de session affichée. Réutilisée si le service est relancé alors qu'il tourne déjà (l'accueil le relance par sécurité) : sinon le texte provisoire l'écraserait.
+@@ en
+Last session notification shown. Reused if the service is started again while already running (the home screen restarts it as a safety measure): otherwise the placeholder text would overwrite it.
+
+@@ fr
+Session pour laquelle l'alerte « surveillance coupée » a déjà été émise.
+@@ en
+Session for which the “monitoring turned off” alert has already been raised.
+
+@@ fr
+Alerte une fois par coupure si le service d'accessibilité est désactivé pendant la session.
+@@ en
+Alerts once per interruption if the accessibility service is disabled during the session.
+
+@@ fr
+Champ de recherche du sélecteur d'apps.
+@@ en
+Search field of the app picker.
+
+@@ fr
+Lignes du sélecteur d'apps, à insérer dans une LazyColumn. [apps] est affiché dans l'ordre reçu (l'appelant place les apps présélectionnées en tête) ; la recherche filtre sur le nom. L'ordre ne change pas quand on coche, pour que la liste ne saute pas sous le doigt.
+@@ en
+Rows of the app picker, to insert into a LazyColumn. [apps] is shown in the order received (the caller puts preselected apps first); the search filters on the name. The order does not change when an app is checked, so the list does not jump under the finger.
+
+@@ fr
+Icône d'une app, chargée hors du thread principal.
+@@ en
+Icon of an app, loaded off the main thread.
+
+@@ fr
+Durées proposées pour une limite quotidienne ou un quota (5 min → 3 h).
+@@ en
+Durations offered for a daily limit or a quota (5 min → 3 h).
+
+@@ fr
+Bouton « Limite : 30 min » qui ouvre la liste des durées.
+@@ en
+“Limite : 30 min” button that opens the list of durations.
+
+@@ fr
+Sélecteur d'heure 24 h dans une boîte de dialogue.
+@@ en
+24-hour time picker in a dialog.
+
+@@ fr
+Tableau de bord : mesure si l'outil aide, sans juger. Formulations neutres ou encourageantes, aucune couleur d'alerte.
+@@ en
+Dashboard: measures whether the tool helps, without judging. Neutral or encouraging wording, no alert colour.
+
+@@ fr
+Comparaison avec la période précédente : factuelle, jamais culpabilisante.
+@@ en
+Comparison with the previous period: factual, never guilt-inducing.
+
+@@ fr
+Barres des 7 derniers jours, aujourd'hui mis en avant. Si un objectif est défini : ligne pointillée, et les jours au-delà en couleur neutre (jamais de rouge).
+@@ en
+Bars of the last 7 days, today highlighted. If a goal is set: dotted line, and days above it in a neutral colour (never red).
+
+@@ fr
+Mode diagnostic : voir ce que voit le service dans une app (bandeau en direct + capture) et réparer un détecteur de zone sans toucher au code.
+@@ en
+Diagnostic mode: see what the service sees in an app (live banner + capture) and repair a zone detector without touching the code.
+
+@@ fr
+Résultat de la dernière action sur l'éditeur de détecteurs.
+@@ en
+Result of the last action in the detector editor.
+
+@@ fr
+Pendant une session de concentration, on ne peut pas affaiblir les détecteurs.
+@@ en
+During a focus session, detectors cannot be weakened.
+
+@@ fr
+Signal JSON prêt à coller dans un détecteur, construit à partir d'un nœud capturé.
+@@ en
+JSON signal ready to paste into a detector, built from a captured node.
+
+@@ fr
+Formats d'affichage partagés par les écrans (heures et durées, en français).
+@@ en
+Display formats shared by the screens (times and durations, in French).
+
+@@ fr
+« < 1 min », « 45 min », « 1 h », « 1 h 30 » (arrondi à la minute la plus proche).
+@@ en
+“< 1 min”, “45 min”, “1 h”, “1 h 30” (rounded to the nearest minute).
+
+@@ fr
+« Tous les jours · 00:00–06:00 · 1 règle »
+@@ en
+“Tous les jours · 00:00–06:00 · 1 règle”
+
+@@ fr
+« Aujourd'hui : 2 h 10 » + comparaison neutre avec hier ; ouvre le tableau de bord.
+@@ en
+“Aujourd’hui : 2 h 10” + neutral comparison with yesterday; opens the dashboard.
+
+@@ fr
+Le profil s'applique en ce moment (activé à la main, ou activé et dans une de ses plages).
+@@ en
+The profile applies right now (activated by hand, or enabled and within one of its schedules).
+
+@@ fr
+Activé à la main en ce moment.
+@@ en
+Activated by hand right now.
+
+@@ fr
+Fin de l'activation manuelle, `null` si elle dure jusqu'à désactivation.
+@@ en
+End of the manual activation, `null` if it lasts until turned off.
+
+@@ fr
+Incrémenté à chaque retour sur l'écran pour recalculer « actif maintenant ».
+@@ en
+Incremented every time the screen is shown again, to recompute “active now”.
+
+@@ fr
+Profils dans l'ordre de priorité (le premier l'emporte en cas de chevauchement).
+@@ en
+Profiles in priority order (the first one wins when they overlap).
+
+@@ fr
+Résumé du jour pour la carte « Aujourd'hui » (tableau de bord).
+@@ en
+Summary of the day for the “Today” card (dashboard).
+
+@@ fr
+Session de concentration en cours, `null` sinon.
+@@ en
+Running focus session, `null` otherwise.
+
+@@ fr
+Rien ne change pendant une session de concentration.
+@@ en
+Nothing changes during a focus session.
+
+@@ fr
+Modifier les profils demande en plus le code du proche, s'il est défini.
+@@ en
+Changing profiles also requires the trusted person code, if one is set.
+
+@@ fr
+Remplace l'éventuelle activation manuelle en cours ; un profil désactivé est réactivé.
+@@ en
+Replaces the current manual activation, if any; a disabled profile is enabled again.
+
+@@ fr
+Désactivable à tout moment (l'engagement ferme, c'est la session de concentration).
+@@ en
+Can be turned off at any time (the firm commitment is the focus session).
+
+@@ fr
+Choix de la durée d'une activation manuelle.
+@@ en
+Choice of the duration of a manual activation.
+
+@@ fr
+Accès au code du proche depuis n'importe quel écran (une instance par écran de navigation).
+@@ en
+Access to the trusted person code from any screen (one instance per navigation screen).
+
+@@ fr
+`null` tant que l'état n'est pas lu : l'écran reste alors en lecture seule.
+@@ en
+`null` until the state is read: the screen then stays read-only.
+
+@@ fr
+Les restrictions sont-elles modifiables sur cet écran (pas de code, ou déverrouillé) ?
+@@ en
+Can the restrictions be changed on this screen (no code, or unlocked)?
+
+@@ fr
+Bandeau « Protégé par le code du proche » + « Déverrouiller », ou « Déverrouillé jusqu'à… ». N'affiche rien quand aucun code n'est défini.
+@@ en
+“Protégé par le code du proche” banner + “Déverrouiller”, or “Déverrouillé jusqu’à…”. Shows nothing when no code is set.
+
+@@ fr
+Saisie du code du proche. Se ferme d'elle-même quand le code est bon.
+@@ en
+Entry of the trusted person code. Closes by itself when the code is right.
+
+@@ fr
+Boîte de saisie de un ou deux codes (chiffres masqués).
+@@ en
+Dialog for entering one or two codes (digits hidden).
+
+@@ fr
+Réglages › Code du proche : définir, modifier ou retirer le code.
+@@ en
+Settings › Code du proche: set, change or remove the code.
+
+@@ fr
+Nouveau code saisi deux fois.
+@@ en
+New code, entered twice.
+
+@@ fr
+À appeler à chaque retour sur l'écran : l'utilisateur revient des Paramètres système.
+@@ en
+To call every time the screen is shown again: the user comes back from the system Settings.
+
+@@ fr
+« Bloquer toutes les apps » : les règles par app deviennent des exceptions.
+@@ en
+“Block all apps”: per-app rules become exceptions.
+
+@@ fr
+Session de concentration en cours : lecture seule.
+@@ en
+Focus session running: read-only.
+
+@@ fr
+Création / édition d'un profil, ou des règles par défaut (même éditeur, sans nom ni plages).
+@@ en
+Creating / editing a profile, or the default rules (same editor, without name or schedules).
+
+@@ fr
+Règles que l'éditeur n'affiche pas encore (zones, phase 7) : conservées telles quelles.
+@@ en
+Rules that the editor does not display yet (zones, phase 7): kept as they are.
+
+@@ fr
+Ajoute ou retire une app depuis le sélecteur. Nouvelle app : bloquée, ou autorisée si tout est bloqué.
+@@ en
+Adds or removes an app from the picker. New app: blocked, or allowed if everything is blocked.
+
+@@ fr
+Parcours de dérogation : délai de réflexion, puis courte fenêtre pour confirmer. Ton neutre : on ne juge pas, on laisse le temps de reconsidérer.
+@@ en
+Override flow: reflection delay, then a short window to confirm. Neutral tone: no judgement, time is given to reconsider.
+
+@@ fr
+« 04:12 » jusqu'à [target].
+@@ en
+“04:12” until [target].
+
+@@ fr
+Battement d'une seconde pour les comptes à rebours.
+@@ en
+One-second heartbeat for countdowns.
+
+@@ fr
+Durée choisie : un préréglage, ou « jusqu'à » une heure locale.
+@@ en
+Chosen duration: a preset, or “until” a local time.
+
+@@ fr
+Pendant une session de concentration, les outils qui modifient les règles sont désactivés.
+@@ en
+During a focus session, the tools that change rules are disabled.
+
+@@ fr
+Crée (ou réinitialise) le profil de test, pour vérifier le blocage sans attendre les bonnes heures.
+@@ en
+Creates (or resets) the test profile, to check blocking without waiting for the right hours.
+
+@@ fr
+Couleurs propres à l'app, hors schéma Material.
+@@ en
+App-specific colours, outside the Material scheme.
+
+@@ fr
+Fond neutre pour « limite atteinte » : informatif, jamais alarmant.
+@@ en
+Neutral background for “limit reached”: informative, never alarming.
+
+@@ fr
+En debug, 1 et 2 min pour tester un quota sans attendre.
+@@ en
+In debug builds, 1 and 2 min to test a quota without waiting.
+
+@@ fr
+Réglage d'une zone dans les règles par défaut.
+@@ en
+Setting of a zone in the default rules.
+
+@@ fr
+Quota quotidien en minutes (affiché aussi quand la zone n'en a pas encore, comme valeur proposée).
+@@ en
+Daily quota in minutes (also shown when the zone has none yet, as the proposed value).
+
+@@ fr
+Zones connues (détecteurs), leur réglage dans les règles par défaut et le temps passé aujourd'hui.
+@@ en
+Known zones (detectors), their setting in the default rules and the time spent today.
+
+@@ fr
+Bloquée = règle par défaut `Block` sur la zone ; quota = `Limit` ; autorisée = plus de règle (rien ne la restreint, sauf un profil).
+@@ en
+Blocked = default `Block` rule on the zone; quota = `Limit`; allowed = no rule at all (nothing restricts it, except a profile).
+
+@@ fr
+Masque les points d'entrée d'une zone inaccessible (bouton Reels, onglet Shorts) : une fenêtre `TYPE_ACCESSIBILITY_OVERLAY` (aucune permission supplémentaire) posée exactement sur l'élément, de la couleur de la barre d'onglets, qui absorbe les appuis. L'app elle-même n'est pas modifiée.
+@@ en
+Masks the entry points of an inaccessible zone (Reels button, Shorts tab): a `TYPE_ACCESSIBILITY_OVERLAY` window (no extra permission) placed exactly over the element, with the colour of the tab bar, that swallows taps. The app itself is not modified.
+
+@@ fr
+Laisse visible le liseré éventuel au-dessus de la barre d'onglets (YouTube).
+@@ en
+Keeps the possible divider line above the tab bar visible (YouTube).
+
+@@ fr
+Affiche un masque par rectangle (coordonnées écran) ; une liste vide retire tout.
+@@ en
+Shows one mask per rectangle (screen coordinates); an empty list removes everything.
+
+@@ fr
+Couleur de la barre d'onglets de l'app selon le thème du téléphone (que les apps suivent par défaut).
+@@ en
+Colour of the app’s tab bar according to the phone theme (which apps follow by default).
+
+@@ fr
+Détecteurs de zones en vigueur : la version personnalisée (`filesDir/zone_detectors.json`) si elle existe et est valide, sinon celle livrée dans les assets.
+@@ en
+Zone detectors in force: the custom version (`filesDir/zone_detectors.json`) if it exists and is valid, otherwise the one shipped in the assets.
+
+@@ fr
+Texte JSON actuellement en vigueur, pour l'éditeur.
+@@ en
+JSON text currently in force, for the editor.
+
+@@ fr
+Enregistre une version personnalisée, uniquement si elle est valide.
+@@ en
+Saves a custom version, only if it is valid.
+
+@@ fr
+Revient aux détecteurs livrés avec l'app.
+@@ en
+Goes back to the detectors shipped with the app.
+
+@@ fr
+Sort automatiquement des zones bloquées ou dont le quota est atteint (Reels, Shorts…) d'une app autorisée, masque leurs points d'entrée et mesure le temps passé dans les zones permises. Lit la structure de l'écran (identifiants, libellés d'onglets, état sélectionné) des seules apps qui ont des détecteurs ; rien n'est enregistré.
+@@ en
+Automatically leaves zones that are blocked or whose quota is reached (Reels, Shorts…) in an allowed app, masks their entry points and measures the time spent in allowed zones. Reads the structure of the screen (identifiers, tab labels, selected state) of the apps that have detectors only; nothing is recorded.
+
+@@ fr
+Repli si la sortie échoue plusieurs fois : écran de blocage classique.
+@@ en
+Fallback when leaving fails several times: the regular block screen.
+
+@@ fr
+Bandeau du mode diagnostic, s'il est affiché.
+@@ en
+Diagnostic mode banner, if shown.
+
+@@ fr
+Vérification périodique tant qu'une zone permise est à l'écran (une vidéo ne génère pas d'événement).
+@@ en
+Periodic check while an allowed zone is on screen (a video produces no event).
+
+@@ fr
+Dernière décision par zone (`pkg/zone`) et son heure, pour ne pas réévaluer à chaque événement.
+@@ en
+Last decision per zone (`pkg/zone`) and its time, so as not to evaluate again at every event.
+
+@@ fr
+Contenu identique aux vérifications précédentes : on espace les suivantes (défilement du fil).
+@@ en
+Content identical to the previous checks: the next ones are spaced out (feed scrolling).
+
+@@ fr
+Changement de fenêtre ou de contenu. Les rafales sont regroupées : une vérification toutes les 400 ms, espacées jusqu'à 1,2 s tant que l'écran ne change pas (zone, boutons).
+@@ en
+Window or content change. Bursts are grouped: one check every 400 ms, spaced up to 1.2 s while the screen does not change (zone, buttons).
+
+@@ fr
+Une autre app (ou Mobile Manager) est passée au premier plan, ou l'écran s'est éteint.
+@@ en
+Another app (or Mobile Manager) came to the foreground, or the screen turned off.
+
+@@ fr
+Décision du moteur pour une zone ; réutilisée quelques secondes sauf si [fresh].
+@@ en
+Engine decision for a zone; reused for a few seconds unless [fresh].
+
+@@ fr
+Masque les points d'entrée visibles des zones inaccessibles maintenant.
+@@ en
+Masks the visible entry points of the zones that are inaccessible right now.
+
+@@ fr
+Capture complète de la fenêtre au premier plan, pour le mode diagnostic.
+@@ en
+Complete capture of the foreground window, for the diagnostic mode.
+
+@@ fr
+Instantané à plat de l'arbre d'accessibilité (ordre de lecture, avec profondeur). Les nœuds hors écran (onglets qu'Instagram garde en mémoire…) et leurs enfants sont ignorés, sauf pour le mode diagnostic qui les affiche marqués comme invisibles.
+@@ en
+Flat snapshot of the accessibility tree (reading order, with depth). Off-screen nodes (tabs kept in memory by Instagram…) and their children are skipped, except for the diagnostic mode, which shows them marked as invisible.
+
+@@ fr
+Nœuds Android correspondants, pour pouvoir cliquer.
+@@ en
+Matching Android nodes, to be able to click.
+
+@@ fr
+Seulement les nœuds visibles portant l'un de ces identifiants complets (`pkg:id/nom`).
+@@ en
+Only the visible nodes carrying one of these full identifiers (`pkg:id/name`).
+
+@@ fr
+Temps passé dans les zones, pour les quotas. Les constats s'accumulent en mémoire et sont écrits dans `zone_usage` par paquets (toutes les [FLUSH_EVERY] de temps compté, et à la sortie de l'app) : pas d'écriture disque à chaque vérification.
+@@ en
+Time spent in zones, for quotas. Observations accumulate in memory and are written to `zone_usage` in batches (every [FLUSH_EVERY] of counted time, and when the app is left): no disk write at every check.
+
+@@ fr
+Constat : l'app [packageName] affiche [zone] (`null` = hors zone).
+@@ en
+Observation: the app [packageName] shows [zone] (`null` = outside any zone).
+
+@@ fr
+L'app a quitté le premier plan ou l'écran s'est éteint : on clôt et on enregistre.
+@@ en
+The app left the foreground or the screen turned off: the count is closed and saved.
+
+@@ fr
+Temps passé aujourd'hui dans la zone, y compris ce qui n'est pas encore écrit.
+@@ en
+Time spent in the zone today, including what is not written yet.
+
+@@ fr
+Temps d'écran d'une app un jour donné (jour local `aaaa-mm-jj`). Une ligne [NO_USAGE] marque un jour enregistré sans aucun usage, pour le distinguer d'un jour sans données.
+@@ en
+Screen time of an app on a given day (local day `yyyy-mm-dd`). A [NO_USAGE] row marks a day recorded without any usage, to tell it apart from a day without data.
+
+@@ fr
+Nom de [EventType], stocké en texte pour rester lisible et stable si l'enum est réordonnée.
+@@ en
+Name of the [EventType], stored as text to stay readable and stable if the enum is reordered.
+
+@@ fr
+Crée ou remplace entièrement un profil (plages et règles comprises). Le `profileId` des plages et règles fournies est remplacé par l'id du profil.
+@@ en
+Creates or fully replaces a profile (schedules and rules included). The `profileId` of the given schedules and rules is replaced by the profile id.
+
+@@ fr
+Bit `n` = jour ISO `n + 1` (bit 0 = lundi).
+@@ en
+Bit `n` = ISO day `n + 1` (bit 0 = Monday).
+
+@@ fr
+Minutes depuis minuit, heure locale.
+@@ en
+Minutes since midnight, local time.
+
+@@ fr
+Règle d'un profil, ou règle globale si [profileId] est `null`.
+@@ en
+Rule of a profile, or global rule if [profileId] is `null`.
+
+@@ fr
+`ALL_APPS`, `APP` ou `ZONE`.
+@@ en
+`ALL_APPS`, `APP` or `ZONE`.
+
+@@ fr
+`ALLOW`, `LIMIT` ou `BLOCK`.
+@@ en
+`ALLOW`, `LIMIT` or `BLOCK`.
+
+@@ fr
+Sessions de concentration, en cours et passées (historique pour le tableau de bord).
+@@ en
+Focus sessions, running and past (history for the dashboard).
+
+@@ fr
+Packages bloqués, un par ligne.
+@@ en
+Blocked packages, one per line.
+
+@@ fr
+Nom de [StrictSession.EndReason].
+@@ en
+Name of the [StrictSession.EndReason].
+
+@@ fr
+Temps passé dans une zone (Reels, Shorts…) un jour local donné (`aaaa-mm-jj`).
+@@ en
+Time spent in a zone (Reels, Shorts…) on a given local day (`yyyy-mm-dd`).
+
+@@ fr
+Le code n'est jamais stocké : seulement son empreinte et son sel (voir `PinHasher`).
+@@ en
+The code is never stored: only its hash and its salt (see `PinHasher`).
+
+@@ fr
+Une seule activation manuelle à la fois, stockée dans les préférences.
+@@ en
+A single manual activation at a time, stored in the preferences.
+
+@@ fr
+Anciennes clés de l'anti-doomscrolling (retiré).
+@@ en
+Old keys of the anti-doomscrolling feature (removed).
+
+@@ fr
+Jours locaux [start, endInclusive].
+@@ en
+Local days [start, endInclusive].
+
+@@ fr
+Instants [début du premier jour, début du lendemain du dernier) ; justes les jours de 23 h ou 25 h.
+@@ en
+Instants [start of the first day, start of the day after the last); correct for 23-hour and 25-hour days.
+
+@@ fr
+Aujourd'hui, ou les 7 derniers jours se terminant aujourd'hui inclus.
+@@ en
+Today, or the last 7 days ending today included.
+
+@@ fr
+Période de même longueur, juste avant.
+@@ en
+Period of the same length, just before.
+
+@@ fr
+Temps d'écran par jour local, puis par package. Jour absent = pas de données (≠ zéro usage).
+@@ en
+Screen time per local day, then per package. A missing day = no data (≠ zero usage).
+
+@@ fr
+Événements du journal ; filtrés sur la période par le calculateur.
+@@ en
+Journal events; filtered on the period by the calculator.
+
+@@ fr
+Temps passé dans les zones, par jour local.
+@@ en
+Time spent in zones, per local day.
+
+@@ fr
+Quotas quotidiens en vigueur par zone (règles par défaut).
+@@ en
+Daily quotas in force per zone (default rules).
+
+@@ fr
+Objectif de temps d'écran quotidien, `null` si aucun.
+@@ en
+Daily screen time goal, `null` if none.
+
+@@ fr
+Ne comptent pas comme temps d'écran (Mobile Manager, launcher, interface système).
+@@ en
+Do not count as screen time (Mobile Manager, launcher, system UI).
+
+@@ fr
+Évolution par rapport à la période précédente. Le domaine qualifie, l'UI formule (sans jugement).
+@@ en
+Change compared with the previous period. The domain qualifies, the UI phrases it (without judgement).
+
+@@ fr
+Temps passé dans les zones sur la période.
+@@ en
+Time spent in zones over the period.
+
+@@ fr
+Sorties automatiques des zones bloquées (ou dont le quota est atteint).
+@@ en
+Automatic exits from blocked zones (or zones whose quota is reached).
+
+@@ fr
+Quota quotidien de chaque zone qui en a un.
+@@ en
+Daily quota of each zone that has one.
+
+@@ fr
+Pourquoi l'outil a interrompu un usage.
+@@ en
+Why the tool interrupted a usage.
+
+@@ fr
+Jours (avec données) passés sous l'objectif quotidien ; `null` sans objectif.
+@@ en
+Days (with data) spent under the daily goal; `null` without a goal.
+
+@@ fr
+Jours où au moins une limite quotidienne a été atteinte.
+@@ en
+Days when at least one daily limit was reached.
+
+@@ fr
+Toujours les 7 derniers jours (graphique), quelle que soit la période.
+@@ en
+Always the last 7 days (chart), whatever the period.
+
+@@ fr
+Calcule le tableau de bord. Mesure sans juger : les tendances sont des catégories neutres, la formulation est laissée à l'interface.
+@@ en
+Computes the dashboard. Measures without judging: trends are neutral categories, the wording is left to the UI.
+
+@@ fr
+En dessous de cet écart, deux périodes sont considérées comme équivalentes.
+@@ en
+Below this difference, two periods are considered equivalent.
+
+@@ fr
+Détails écrits par `EnforcementCoordinator.recordBlock` (« profile:3 », « daily_limit:30 »…).
+@@ en
+Details written by `EnforcementCoordinator.recordBlock` (“profile:3”, “daily_limit:30”…).
+
+@@ fr
+Déduit l'app réellement au premier plan à partir des changements de fenêtre.
+
+Seules les fenêtres d'**activité** comptent : le flux Google à gauche du bureau, les widgets, le volet de notifications ou le clavier ouvrent des fenêtres appartenant à d'autres packages sans que l'utilisateur ait quitté l'app (ou le bureau) en cours.
+@@ en
+Deduces the app really in the foreground from window changes.
+
+Only **activity** windows count: the Google feed left of the home screen, widgets, the notification shade or the keyboard open windows that belong to other packages without the user having left the current app (or the home screen).
+
+@@ fr
+Rien à faire : superposition, fenêtre non-activité ou même app.
+@@ en
+Nothing to do: overlay, non-activity window or same app.
+
+@@ fr
+Un écran de Mobile Manager (dont l'écran de blocage) est passé au premier plan.
+@@ en
+A Mobile Manager screen (including the block screen) came to the foreground.
+
+@@ fr
+Une autre app est passée au premier plan : à évaluer.
+@@ en
+Another app came to the foreground: to be evaluated.
+
+@@ fr
+@param isActivity la fenêtre correspond à une activité déclarée par [packageName].
+@param overlayPackages packages qui se superposent sans remplacer l'app (volet, claviers).
+@@ en
+@param isActivity the window matches an activity declared by [packageName].
+@param overlayPackages packages that cover the app without replacing it (shade, keyboards).
+
+@@ fr
+Oublie l'app courante, pour qu'elle soit réévaluée à sa prochaine apparition (après un blocage).
+@@ en
+Forgets the current app, so that it is evaluated again when it next appears (after a block).
+
+@@ fr
+Écrans qui font partie du bureau même s'ils appartiennent à une autre app : le flux Google (« Discover », à gauche du bureau) sur les launchers Pixel récents est une vraie activité de l'app Google, intégrée à la tâche du launcher. Ouvrir ce panneau ne doit pas compter comme « ouvrir l'app Google ».
+
+Sur la plupart des launchers (dont One UI), ces panneaux sont de simples fenêtres et sont déjà ignorés par [ForegroundTracker] car ce ne sont pas des activités. Pour en ajouter un : lire le package et la classe dans `adb logcat -s MobileManager` (ligne « window »).
+@@ en
+Screens that are part of the home screen even though they belong to another app: the Google feed (“Discover”, left of the home screen) on recent Pixel launchers is a real activity of the Google app, embedded in the launcher task. Opening that panel must not count as “opening the Google app”.
+
+On most launchers (One UI included), these panels are plain windows and are already ignored by [ForegroundTracker] because they are not activities. To add one: read the package and class in `adb logcat -s MobileManager` (“window” line).
+
+@@ fr
+Code du proche enregistré : jamais en clair, seulement son empreinte PBKDF2 et le sel. [failures] et [lockedOutUntil] limitent les essais (ils survivent à un redémarrage).
+@@ en
+Stored trusted person code: never in clear, only its PBKDF2 hash and the salt. [failures] and [lockedOutUntil] limit the attempts (they survive a restart).
+
+@@ fr
+Itérations PBKDF2 utilisées pour cette empreinte (le réglage peut évoluer).
+@@ en
+PBKDF2 iterations used for this hash (the setting may change).
+
+@@ fr
+Empreinte du code : PBKDF2-HMAC-SHA256, sel aléatoire, comparaison en temps constant.
+@@ en
+Hash of the code: PBKDF2-HMAC-SHA256, random salt, constant-time comparison.
+
+@@ fr
+Premières empreintes, enregistrées sans leur nombre d'itérations.
+@@ en
+First hashes, stored without their iteration count.
+
+@@ fr
+Règles du code du proche : format, durée de déverrouillage, essais limités.
+@@ en
+Rules of the trusted person code: format, unlock duration, limited attempts.
+
+@@ fr
+Après le bon code, les réglages restent modifiables pendant ce temps.
+@@ en
+After the right code, settings stay changeable for this long.
+
+@@ fr
+Essais libres avant la première attente.
+@@ en
+Free attempts before the first wait.
+
+@@ fr
+Attente imposée après [failures] échecs consécutifs : 30 s au 5e, puis double à chaque échec, 1 h au plus.
+@@ en
+Wait imposed after [failures] consecutive failures: 30 s at the 5th, then doubled at each failure, at most 1 h.
+
+@@ fr
+Mauvais code ; [attemptsLeft] avant une attente.
+@@ en
+Wrong code; [attemptsLeft] before a wait.
+
+@@ fr
+Trop d'essais : nouvel essai possible à [until].
+@@ en
+Too many attempts: a new attempt is possible at [until].
+
+@@ fr
+Un essai de [pin] à [now]. Renvoie le résultat et la configuration à enregistrer (compteur d'échecs, attente). Pendant une attente, le code n'est même pas vérifié.
+@@ en
+One attempt of [pin] at [now]. Returns the result and the configuration to save (failure counter, wait). During a wait, the code is not even checked.
+
+@@ fr
+Au-delà, l'attente est de toute façon plafonnée à une heure (évite un débordement).
+@@ en
+Beyond this, the wait is capped at one hour anyway (avoids an overflow).
+
+@@ fr
+Événement horodaté de l'historique, utilisé par le tableau de bord.
+@@ en
+Timestamped event of the history, used by the dashboard.
+
+@@ fr
+Historique (phase 7) : remplacé par la table `zone_usage`. Gardé pour relire le journal.
+@@ en
+History (phase 7): replaced by the `zone_usage` table. Kept to read the journal.
+
+@@ fr
+Historique (anti-doomscrolling, retiré) : gardé pour relire le journal.
+@@ en
+History (anti-doomscrolling, removed): kept to read the journal.
+
+@@ fr
+Plage horaire hebdomadaire.
+- `end <= start` : la plage passe minuit ; les [days] désignent le jour de **début**.
+- `start == end` : plage de 24 h. Début inclus, fin exclue.
+@@ en
+Weekly time range.
+- `end <= start`: the range crosses midnight; [days] are the days of the **start**.
+- `start == end`: 24-hour range. Start included, end excluded.
+
+@@ fr
+Plus grand = plus prioritaire parmi les profils planifiés.
+@@ en
+Higher = higher priority among scheduled profiles.
+
+@@ fr
+`false` : le profil ne s'active que manuellement, ses plages sont ignorées.
+@@ en
+`false`: the profile is only activated by hand, its schedules are ignored.
+
+@@ fr
+Profil activé à la main, jusqu'à [until] (ou jusqu'à désactivation si `null`).
+@@ en
+Profile activated by hand, until [until] (or until turned off if `null`).
+
+@@ fr
+Session de verrouillage strict. Toutes les heures sont absolues pour survivre au redémarrage.
+@@ en
+Strict lock session. All times are absolute to survive a reboot.
+
+@@ fr
+Délai de réflexion avant qu'une dérogation soit possible, choisi avant la session.
+@@ en
+Reflection delay before an override is possible, chosen before the session.
+
+@@ fr
+Début du délai de réflexion, si une dérogation a été demandée.
+@@ en
+Start of the reflection delay, if an override was requested.
+
+@@ fr
+Fin effective (heure de fin atteinte ou dérogation), `null` tant que la session n'est pas close.
+@@ en
+Actual end (end time reached or override), `null` while the session is not closed.
+
+@@ fr
+La session bloque en ce moment : commencée, pas encore à son heure de fin, ni close.
+@@ en
+The session is blocking right now: started, not yet at its end time, and not closed.
+
+@@ fr
+Objectif de temps d'écran quotidien (tableau de bord), `null` si aucun.
+@@ en
+Daily screen time goal (dashboard), `null` if none.
+
+@@ fr
+État de l'onboarding calculé à partir du statut de chaque permission. Une permission absente de la map est considérée comme manquante.
+@@ en
+Onboarding state computed from the status of each permission. A permission missing from the map is considered missing.
+
+@@ fr
+Toutes les permissions indispensables à la surveillance sont accordées.
+@@ en
+All permissions essential to monitoring are granted.
+
+@@ fr
+Le mode strict demande en plus l'administration de l'appareil.
+@@ en
+Strict mode additionally requires device administration.
+
+@@ fr
+Nombre de permissions applicables et accordées / applicables.
+@@ en
+Number of applicable granted permissions / applicable permissions.
+
+@@ fr
+Prochaine permission à accorder, par ordre d'importance puis d'affichage.
+@@ en
+Next permission to grant, by importance then display order.
+
+@@ fr
+Importance d'une permission pour le fonctionnement de l'app.
+@@ en
+Importance of a permission for the app to work.
+
+@@ fr
+Sans elle, la surveillance ne peut pas fonctionner de façon fiable.
+@@ en
+Without it, monitoring cannot work reliably.
+
+@@ fr
+Améliore l'expérience (notification persistante, superposition) mais n'est pas bloquante.
+@@ en
+Improves the experience (persistent notification, overlay) but is not blocking.
+
+@@ fr
+Nécessaire uniquement pour le mode verrouillage strict.
+@@ en
+Needed only for the strict lock mode.
+
+@@ fr
+Permissions guidées par l'onboarding, dans l'ordre d'affichage.
+@@ en
+Permissions guided by the onboarding, in display order.
+
+@@ fr
+La permission n'existe pas sur cette version d'Android (ex. notifications avant API 33).
+@@ en
+The permission does not exist on this Android version (for example notifications before API 33).
+
+@@ fr
+Profils proposés au premier lancement. Tous désactivés : rien ne bloque sans action explicite.
+@@ en
+Profiles offered at first launch. All disabled: nothing blocks without an explicit action.
+
+@@ fr
+Applications distrayantes courantes. Modifiables dans l'UI des profils (phase 5).
+@@ en
+Common distracting apps. Can be changed in the profiles UI (phase 5).
+
+@@ fr
+Supprime un profil, et son activation manuelle s'il était activé à la main.
+@@ en
+Deletes a profile, and its manual activation if it was activated by hand.
+
+@@ fr
+Durée d'une activation manuelle de profil. Désactivable à tout moment, quelle que soit l'option.
+@@ en
+Duration of a manual profile activation. Can be turned off at any time, whatever the option.
+
+@@ fr
+Fin de l'activation, `null` si elle dure jusqu'à désactivation.
+@@ en
+End of the activation, `null` if it lasts until turned off.
+
+@@ fr
+L'ordre affiché des profils est leur ordre de priorité : le premier l'emporte quand deux profils planifiés se chevauchent (même départage que `ProfileResolver`).
+@@ en
+The displayed order of profiles is their priority order: the first one wins when two scheduled profiles overlap (same tie-break as `ProfileResolver`).
+
+@@ fr
+Déplace le profil de [from] à [to] dans [profiles] (ordre affiché) et réattribue des priorités espacées et strictement décroissantes. Ne renvoie que les profils modifiés.
+@@ en
+Moves the profile from [from] to [to] in [profiles] (displayed order) and reassigns spaced, strictly decreasing priorities. Returns only the modified profiles.
+
+@@ fr
+Priorité d'un nouveau profil : en bas de la liste.
+@@ en
+Priority of a new profile: at the bottom of the list.
+
+@@ fr
+Vérifie qu'un profil (ou les règles par défaut) est cohérent avant enregistrement.
+@@ en
+Checks that a profile (or the default rules) is consistent before saving.
+
+@@ fr
+@param otherNames noms des autres profils (le profil édité exclu).
+@@ en
+@param otherNames names of the other profiles (the edited profile excluded).
+
+@@ fr
+Règles par défaut : la liste peut être vide (aucune règle globale).
+@@ en
+Default rules: the list may be empty (no global rule).
+
+@@ fr
+Crée les profils par défaut une seule fois. Un indicateur dans les préférences évite de les recréer si l'utilisateur les supprime.
+@@ en
+Creates the default profiles only once. A flag in the preferences avoids creating them again if the user deletes them.
+
+@@ fr
+Événements dans l'intervalle [from, to), du plus ancien au plus récent.
+@@ en
+Events in the interval [from, to), oldest first.
+
+@@ fr
+Efface les réglages de l'anti-doomscrolling retiré (réglages, temps de repos).
+@@ en
+Erases the settings of the removed anti-doomscrolling feature (settings, cooldowns).
+
+@@ fr
+Session non close (en cours, ou heure de fin passée mais pas encore clôturée), sinon `null`.
+@@ en
+Session not closed (running, or end time passed but not closed yet), otherwise `null`.
+
+@@ fr
+Enregistre une nouvelle session et renvoie son id.
+@@ en
+Saves a new session and returns its id.
+
+@@ fr
+Sessions commencées dans [from, to), pour le tableau de bord.
+@@ en
+Sessions started in [from, to), for the dashboard.
+
+@@ fr
+Temps d'écran par jour et par app, figé chaque jour : Android ne garde les événements détaillés qu'environ une semaine, ces instantanés permettent de comparer deux semaines.
+@@ en
+Screen time per day and per app, frozen every day: Android keeps detailed events for about a week only; these snapshots make it possible to compare two weeks.
+
+@@ fr
+Jours déjà enregistrés dans [from, to] (inclus).
+@@ en
+Days already recorded in [from, to] (inclusive).
+
+@@ fr
+Temps par app pour chaque jour enregistré de [from, to] (un jour sans usage = map vide).
+@@ en
+Time per app for each recorded day of [from, to] (a day without usage = empty map).
+
+@@ fr
+Règles globales par défaut (niveau le moins prioritaire).
+@@ en
+Global default rules (lowest priority level).
+
+@@ fr
+Crée le profil si `id == 0`, sinon le remplace entièrement (plages et règles). Renvoie l'id.
+@@ en
+Creates the profile if `id == 0`, otherwise fully replaces it (schedules and rules). Returns the id.
+
+@@ fr
+Profil activé à la main (un seul à la fois).
+@@ en
+Profile activated by hand (one at a time).
+
+@@ fr
+Temps passé dans les zones (Reels, Shorts…) par jour local : quotas et tableau de bord.
+@@ en
+Time spent in zones (Reels, Shorts…) per local day: quotas and dashboard.
+
+@@ fr
+Temps enregistré dans chaque zone le jour [date].
+@@ en
+Time recorded in each zone on day [date].
+
+@@ fr
+Temps par zone pour chaque jour de [from, to] (inclus) qui en a.
+@@ en
+Time per zone for each day of [from, to] (inclusive) that has some.
+
+@@ fr
+Code du proche (empreinte, sel, essais) ; `null` = aucun code défini.
+@@ en
+Trusted person code (hash, salt, attempts); `null` = no code set.
+
+@@ fr
+Règles de rythme de la surveillance, indépendantes d'Android.
+@@ en
+Pacing rules of monitoring, independent of Android.
+
+@@ fr
+Intervalle maximal entre deux réévaluations d'une app restée ouverte.
+@@ en
+Maximum interval between two evaluations of an app that stays open.
+
+@@ fr
+Délai avant de réévaluer l'app au premier plan, ou `null` si elle est bloquée. Une app autorisée est revue au plus tard toutes les 30 s (début d'une plage horaire), et pile au moment où sa limite quotidienne est atteinte.
+@@ en
+Delay before evaluating the foreground app again, or `null` if it is blocked. An allowed app is checked again at least every 30 s (start of a time range), and exactly when its daily limit is reached.
+
+@@ fr
+Position de la fin d'un blocage par rapport à aujourd'hui, pour un message lisible.
+@@ en
+Position of the end of a block relative to today, for a readable message.
+
+@@ fr
+Origine d'une couche de règles, utilisée pour expliquer un blocage.
+@@ en
+Origin of a rule layer, used to explain a block.
+
+@@ fr
+Fin connue de la couche (fin de session, de plage, d'activation manuelle), sinon `null`.
+@@ en
+Known end of the layer (end of session, of schedule, of manual activation), otherwise `null`.
+
+@@ fr
+Couches actives, de la plus prioritaire à la moins prioritaire.
+@@ en
+Active layers, from highest to lowest priority.
+
+@@ fr
+Détermine quelles règles s'appliquent maintenant et dans quel ordre de priorité :
+1. session stricte en cours ;
+2. profil activé manuellement ;
+3. profils planifiés actifs, par priorité décroissante puis id croissant ;
+4. règles globales.
+@@ en
+Determines which rules apply now and in which priority order:
+1. running strict session;
+2. manually activated profile;
+3. active scheduled profiles, by decreasing priority then increasing id;
+4. global rules.
+
+@@ fr
+Ce qu'une règle vise, du plus général au plus précis.
+@@ en
+What a rule targets, from the most general to the most specific.
+
+@@ fr
+Précision : plus la valeur est grande, plus la cible est précise.
+@@ en
+Specificity: the higher the value, the more specific the target.
+
+@@ fr
+Toutes les applications (plages horaires interdites).
+@@ en
+All applications (forbidden time ranges).
+
+@@ fr
+Zone d'une application (ex. Instagram / « reels »). Ne s'applique que si la zone est détectée.
+@@ en
+Zone of an application (for example Instagram / “reels”). Only applies when the zone is detected.
+
+@@ fr
+Exception explicite : stoppe les restrictions des niveaux inférieurs.
+@@ en
+Explicit exception: stops the restrictions of lower levels.
+
+@@ fr
+Limite de temps quotidienne, remise à zéro à minuit local.
+@@ en
+Daily time limit, reset at local midnight.
+
+@@ fr
+Ce qu'on demande au moteur : « cette app, dans cette zone, avec cet usage aujourd'hui ».
+@@ en
+What the engine is asked: “this app, in this zone, with this usage today”.
+
+@@ fr
+Zone détectée dans l'app, `null` si inconnue (seules les règles App/AllApps s'appliquent).
+@@ en
+Zone detected in the app, `null` if unknown (only App/AllApps rules apply).
+
+@@ fr
+Temps passé aujourd'hui dans l'app, depuis minuit local.
+@@ en
+Time spent in the app today, since local midnight.
+
+@@ fr
+Temps passé aujourd'hui dans [zone] : c'est lui que mesure un quota posé sur la zone.
+@@ en
+Time spent today in [zone]: this is what a quota on the zone measures.
+
+@@ fr
+Apps jamais bloquées (horloge, téléphone, urgences, paramètres, Mobile Manager).
+@@ en
+Apps never blocked (clock, phone, emergency, settings, Mobile Manager).
+
+@@ fr
+[remainingToday] : temps restant avant la limite quotidienne (ou le quota), `null` si illimité.
+@@ en
+[remainingToday]: time left before the daily limit (or the quota), `null` if unlimited.
+
+@@ fr
+[until] : fin prévue du blocage si elle est connue.
+@@ en
+[until]: planned end of the block, if known.
+
+@@ fr
+Motif d'un blocage, de quoi rédiger un message neutre.
+@@ en
+Reason for a block, enough to write a neutral message.
+
+@@ fr
+Décide si une app est autorisée maintenant.
+
+1. La liste blanche système passe avant tout.
+2. Dans chaque couche, seule la règle la plus précise compte (Zone > App > AllApps) ; à précision égale, la plus restrictive.
+3. Les couches sont parcourues de la plus prioritaire à la moins prioritaire : une règle Block/Limit est retenue, une règle Allow arrête le parcours (exception explicite).
+4. Parmi les restrictions retenues, la plus forte l'emporte : Block > Limit, puis la limite la plus proche d'être atteinte. Une limite posée sur une zone (quota de Reels) se mesure au temps passé dans la zone, une limite d'app au temps passé dans l'app.
+@@ en
+Decides whether an app is allowed right now.
+
+1. The system whitelist comes first.
+2. In each layer, only the most specific rule counts (Zone > App > AllApps); at equal specificity, the most restrictive one.
+3. Layers are walked from highest to lowest priority: a Block/Limit rule is kept, an Allow rule stops the walk (explicit exception).
+4. Among the kept restrictions, the strongest wins: Block > Limit, then the limit closest to being reached. A limit on a zone (Reels quota) is measured against the time spent in the zone, an app limit against the time spent in the app.
+
+@@ fr
+Règle la plus précise de la couche pour cette requête, la plus restrictive en cas d'égalité.
+@@ en
+Most specific rule of the layer for this request, the most restrictive one in case of a tie.
+
+@@ fr
+Le blocage dure jusqu'à la fin de la dernière couche bloquante. Si l'une d'elles n'a pas de fin connue, la fin globale est inconnue.
+@@ en
+The block lasts until the end of the last blocking layer. If one of them has no known end, the overall end is unknown.
+
+@@ fr
+Allow < Limit (plus longue < plus courte) < Block.
+@@ en
+Allow < Limit (longer < shorter) < Block.
+
+@@ fr
+Pendant une session (ou tant qu'un code du proche verrouille l'app), referme les écrans qui permettraient de couper Mobile Manager : tout écran des Paramètres ou de l'installateur de paquets qui affiche le nom de l'app (infos de l'app, page du service d'accessibilité, admin de l'appareil, désinstallation…).
+
+Effet de bord assumé : une liste qui affiche Mobile Manager (applis, accessibilité) est aussi refermée tant que l'entrée est visible.
+@@ en
+During a session (or while a trusted person code locks the app), closes the screens that would make it possible to turn Mobile Manager off: any Settings or package installer screen that shows the app name (app info, accessibility service page, device admin, uninstall…).
+
+Accepted side effect: a list that shows Mobile Manager (apps, accessibility) is closed too while the entry is visible.
+
+@@ fr
+Paramètres et installateurs de paquets (AOSP, Google, Samsung).
+@@ en
+Settings and package installers (AOSP, Google, Samsung).
+
+@@ fr
+@param visibleTexts textes et descriptions des éléments à l'écran.
+@param protectedLabels noms à repérer (nom de l'app, nom du service d'accessibilité).
+@param protectionActive session de concentration en cours, ou code du proche défini et non déverrouillé.
+@@ en
+@param visibleTexts texts and descriptions of the elements on screen.
+@param protectedLabels names to look for (app name, accessibility service name).
+@param protectionActive focus session running, or trusted person code set and not unlocked.
+
+@@ fr
+Cycle de vie d'une session de concentration : démarrage, dérogation, fin.
+@@ en
+Life cycle of a focus session: start, override, end.
+
+@@ fr
+Lance (ou relance, si la précédente a expiré) le délai de réflexion.
+@@ en
+Starts (or starts again, if the previous one expired) the reflection delay.
+
+@@ fr
+« Finalement, je continue » : annule la demande en cours.
+@@ en
+“Finalement, je continue”: cancels the current request.
+
+@@ fr
+Termine la session, uniquement si la fenêtre de dérogation est ouverte.
+@@ en
+Ends the session, only if the override window is open.
+
+@@ fr
+Clôt la session si son heure de fin est passée. Renvoie vrai si une session a été close.
+@@ en
+Closes the session if its end time has passed. Returns true if a session was closed.
+
+@@ fr
+Règles des sessions de concentration : validation et parcours de dérogation.
+@@ en
+Rules of focus sessions: validation and override flow.
+
+@@ fr
+Une fois le délai écoulé, la fin anticipée n'est possible que pendant cette fenêtre. Sans elle, on pourrait lancer le délai dès le début de la session et sortir à tout moment.
+@@ en
+Once the delay is over, ending early is possible only during this window. Without it, one could start the delay at the beginning of the session and leave at any time.
+
+@@ fr
+Aucune demande en cours.
+@@ en
+No request in progress.
+
+@@ fr
+Délai de réflexion en cours.
+@@ en
+Reflection delay in progress.
+
+@@ fr
+La fin anticipée est possible jusqu'à [expiresAt].
+@@ en
+Ending early is possible until [expiresAt].
+
+@@ fr
+La fenêtre est passée sans confirmation : il faut refaire une demande.
+@@ en
+The window passed without confirmation: a new request is needed.
+
+@@ fr
+Prochaine occurrence de [time] après [now] : aujourd'hui si elle n'est pas encore passée, sinon demain. Une heure inexistante (passage à l'heure d'été) est décalée vers l'avant.
+@@ en
+Next occurrence of [time] after [now]: today if it has not passed yet, otherwise tomorrow. A non-existent time (spring daylight saving change) is shifted forward.
+
+@@ fr
+Intervalle [start, end).
+@@ en
+Interval [start, end).
+
+@@ fr
+Évalue les plages horaires dans un fuseau donné.
+
+Changements d'heure : les heures locales sont résolues par [ZonedDateTime.of]. Une heure inexistante (printemps) est décalée vers l'avant de la durée du trou ; une heure ambiguë (automne) prend la première occurrence.
+@@ en
+Evaluates time ranges in a given time zone.
+
+Daylight saving changes: local times are resolved by [ZonedDateTime.of]. A non-existent time (spring) is shifted forward by the length of the gap; an ambiguous time (autumn) takes the first occurrence.
+
+@@ fr
+Fenêtre de [schedule] qui contient [now], ou `null` si la plage est inactive.
+@@ en
+Window of [schedule] that contains [now], or `null` if the range is inactive.
+
+@@ fr
+Fin de la période active formée par [schedules] autour de [now], en enchaînant les plages contiguës (ex. 22h–00h puis 00h–06h → 06h).
+
+`null` si aucune plage n'est active **ou** si la période ne se termine pas dans les 8 prochains jours (ex. plage 24 h tous les jours) : la fin est alors inconnue. Utiliser [isAnyActive] pour savoir si les plages sont actives.
+@@ en
+End of the active period formed by [schedules] around [now], chaining contiguous ranges (for example 22:00–00:00 then 00:00–06:00 → 06:00).
+
+`null` if no range is active **or** if the period does not end within the next 8 days (for example a 24-hour range every day): the end is then unknown. Use [isAnyActive] to know whether the ranges are active.
+
+@@ fr
+Au-delà, une période active est considérée comme sans fin (au moins une semaine complète).
+@@ en
+Beyond this, an active period is considered endless (at least one full week).
+
+@@ fr
+Bornes de la journée locale, pour le compteur quotidien remis à zéro à minuit.
+@@ en
+Boundaries of the local day, for the daily counter reset at midnight.
+
+@@ fr
+Source unique de l'heure pour toute la logique métier. Injectée pour pouvoir tester minuit, les changements d'heure et les fuseaux.
+@@ en
+Single source of time for all business logic. Injected so that midnight, daylight saving changes and time zones can be tested.
+
+@@ fr
+Événement de premier plan, tel que remonté par `UsageStatsManager.queryEvents()`.
+@@ en
+Foreground event, as reported by `UsageStatsManager.queryEvents()`.
+
+@@ fr
+Arrêt ou démarrage de l'appareil, écran éteint : plus aucune app n'est au premier plan. Sans cela, une app ouverte lors d'une coupure brutale (batterie, plantage) serait comptée comme ouverte indéfiniment, la pause n'ayant jamais été enregistrée.
+@@ en
+Device shutdown or startup, screen off: no app is in the foreground any more. Without it, an app open during an abrupt power loss (battery, crash) would be counted as open indefinitely, its pause never having been recorded.
+
+@@ fr
+Temps passé au premier plan, calculé à partir des événements reprise/pause.
+
+Les événements doivent couvrir un peu plus que la période voulue (quelques heures avant minuit) pour retrouver la reprise d'une app restée ouverte à cheval sur minuit.
+@@ en
+Time spent in the foreground, computed from resume/pause events.
+
+Events must cover a little more than the wanted period (a few hours before midnight) to find the resume of an app left open across midnight.
+
+@@ fr
+Temps passé dans chaque app sur `[from, now)`, en suivant la chronologie globale : une seule app est au premier plan à la fois, donc l'ouverture d'une app clôt la précédente, même si sa pause n'a pas été enregistrée.
+@@ en
+Time spent in each app over `[from, now)`, following the global timeline: only one app is in the foreground at a time, so opening an app closes the previous one, even if its pause was not recorded.
+
+@@ fr
+Durée de `[start, end)` ∩ `[from, now)`.
+@@ en
+Duration of `[start, end)` ∩ `[from, now)`.
+
+@@ fr
+Zones bloquées par défaut (cahier des charges) : Reels Instagram et Shorts YouTube.
+@@ en
+Zones blocked by default (product specification): Instagram Reels and YouTube Shorts.
+
+@@ fr
+Apps bloquées par défaut (règles par défaut, modifiables avec le code du proche) : TikTok, entièrement fait de défilement. Remplace l'ancien régime anti-doomscrolling.
+@@ en
+Apps blocked by default (default rules, changeable with the trusted person code): TikTok, made entirely of scrolling. Replaces the former anti-doomscrolling regime.
+
+@@ fr
+Ajoute une seule fois le blocage de TikTok aux règles par défaut, sauf si l'app y est déjà réglée.
+@@ en
+Adds the TikTok block to the default rules once, unless the app already has a setting there.
+
+@@ fr
+Ajoute une seule fois les zones bloquées par défaut aux règles par défaut, sans toucher aux règles existantes ni à une zone déjà réglée par l'utilisateur.
+@@ en
+Adds the zones blocked by default to the default rules once, without touching existing rules or a zone already set by the user.
+
+@@ fr
+Détecteurs de zones (Reels, Shorts…), décrits en JSON pour être réparés sans toucher au code quand une app change son interface. Voir `assets/zone_detectors.json`.
+@@ en
+Zone detectors (Reels, Shorts…), described in JSON so they can be repaired without touching the code when an app changes its interface. See `assets/zone_detectors.json`.
+
+@@ fr
+La zone est détectée si au moins un de ces signaux correspond à un nœud…
+@@ en
+The zone is detected if at least one of these signals matches a node…
+
+@@ fr
+…et qu'aucun de ceux-ci ne correspond (évite les faux positifs, ex. Stories).
+@@ en
+…and none of these matches (avoids false positives, for example Stories).
+
+@@ fr
+Actions de sortie : la première applicable au premier essai, la suivante si la zone est toujours là, etc. Le retour arrière sert de dernier recours.
+@@ en
+Exit actions: the first applicable one on the first attempt, the next one if the zone is still there, and so on. Back is the last resort.
+
+@@ fr
+Points d'entrée à masquer quand la zone n'est pas accessible (bouton Reels, onglet Shorts).
+@@ en
+Entry points to mask when the zone is not accessible (Reels button, Shorts tab).
+
+@@ fr
+Couleur du masque (fond de la barre d'onglets de l'app), selon le thème clair ou sombre.
+@@ en
+Colour of the mask (background of the app’s tab bar), according to the light or dark theme.
+
+@@ fr
+Couleurs `#RRGGBB` du masque des points d'entrée.
+@@ en
+`#RRGGBB` colours of the entry point mask.
+
+@@ fr
+Conditions portant sur **un même nœud** de l'arbre d'accessibilité. Toutes les conditions renseignées doivent être vraies. Comparaisons de texte insensibles à la casse ; les listes permettent les variantes de langue (« Accueil », « Home »).
+@@ en
+Conditions on **a single node** of the accessibility tree. All the given conditions must hold. Text comparisons ignore case; lists allow language variants (“Accueil”, “Home”).
+
+@@ fr
+Identifiant exact, complet (`pkg:id/nom`) ou court (`nom`).
+@@ en
+Exact identifier, full (`pkg:id/name`) or short (`name`).
+
+@@ fr
+Une action de sortie : cliquer un nœud (onglet Accueil…) ou revenir en arrière.
+@@ en
+An exit action: click a node (Home tab…) or go back.
+
+@@ fr
+Nœud de l'arbre d'accessibilité, indépendant d'Android.
+@@ en
+Node of the accessibility tree, independent of Android.
+
+@@ fr
+`false` = présent dans l'arbre mais hors écran (onglet gardé en mémoire) : jamais pris en compte.
+@@ en
+`false` = present in the tree but off screen (tab kept in memory): never taken into account.
+
+@@ fr
+Lecture et validation d'un fichier de détecteurs, avec des erreurs lisibles.
+@@ en
+Reading and validation of a detector file, with readable errors.
+
+@@ fr
+Zone détectée, avec ce qui l'a déclenchée (affiché par le mode diagnostic).
+@@ en
+Detected zone, with what triggered it (shown by the diagnostic mode).
+
+@@ fr
+Indice du signal `anyOf` qui a correspondu.
+@@ en
+Index of the `anyOf` signal that matched.
+
+@@ fr
+Indices des nœuds qui ont déclenché ce signal.
+@@ en
+Indices of the nodes that triggered this signal.
+
+@@ fr
+Identifiants complets (`pkg:id/nom`) à demander directement à l'app quand tous ses signaux (`anyOf`, `noneOf`, `hide`) et ses sorties par clic portent sur un identifiant exact : quelques requêtes ciblées remplacent alors le parcours de tout l'arbre (chaque nœud lu est un aller-retour vers l'app). `null` si un signal exige le parcours complet.
+@@ en
+Full identifiers (`pkg:id/name`) to request directly from the app when all its signals (`anyOf`, `noneOf`, `hide`) and click exits use an exact identifier: a few targeted queries then replace the walk of the whole tree (every node read is a round trip to the app). `null` if a signal requires the complete walk.
+
+@@ fr
+Indices des points d'entrée visibles de [zone] à masquer (signaux `hide`).
+@@ en
+Indices of the visible entry points of [zone] to mask (`hide` signals).
+
+@@ fr
+`reel_recycler` correspond à `com.google.android.youtube:id/reel_recycler`.
+@@ en
+`reel_recycler` matches `com.google.android.youtube:id/reel_recycler`.
+
+@@ fr
+Action concrète à exécuter pour sortir d'une zone.
+@@ en
+Concrete action to run to leave a zone.
+
+@@ fr
+Cliquer le nœud [nodeIndex] (ou son premier parent cliquable).
+@@ en
+Click node [nodeIndex] (or its first clickable parent).
+
+@@ fr
+Action à tenter pour l'essai n° [attempt] (0 = premier) : les actions applicables sont prises dans l'ordre déclaré, une par essai, la dernière étant répétée. Sans action applicable : retour arrière.
+@@ en
+Action to try for attempt number [attempt] (0 = first): applicable actions are taken in the declared order, one per attempt, the last one being repeated. Without any applicable action: back.
+
+@@ fr
+Évite les boucles quand on sort d'une zone : au plus une action toutes les [minInterval], et repli sur l'écran de blocage si la zone persiste après [maxAttempts] actions (détecteur qui clique au mauvais endroit, app qui ignore le retour…).
+@@ en
+Avoids loops when leaving a zone: at most one action every [minInterval], and fallback to the block screen if the zone persists after [maxAttempts] actions (detector clicking at the wrong place, app ignoring back…).
+
+@@ fr
+Nombre de sorties tentées depuis l'entrée dans la zone (la première vaut 1).
+@@ en
+Number of exits attempted since entering the zone (the first one counts as 1).
+
+@@ fr
+La zone n'est plus à l'écran : la sortie a réussi.
+@@ en
+The zone is no longer on screen: leaving succeeded.
+
+@@ fr
+Une zone d'une app (Reels d'Instagram…).
+@@ en
+A zone of an app (Instagram Reels…).
+
+@@ fr
+Temps passé dans une zone pendant un jour local.
+@@ en
+Time spent in a zone during a local day.
+
+@@ fr
+Mesure le temps passé dans les zones (Reels, Shorts…) pour les quotas quotidiens.
+
+Le temps entre deux constats consécutifs « dans la zone » est compté, plafonné à [maxGap] : un écran figé ou un service suspendu ne compte pas indéfiniment. Le temps est coupé à minuit pour être attribué au bon jour.
+@@ en
+Measures the time spent in zones (Reels, Shorts…) for daily quotas.
+
+The time between two consecutive “in the zone” observations is counted, capped at [maxGap]: a frozen screen or a suspended service does not count indefinitely. Time is split at midnight to be attributed to the right day.
+
+@@ fr
+Constat à [now] : dans [zone] de [packageName], ou hors zone (`null`). Renvoie le temps à ajouter.
+@@ en
+Observation at [now]: in [zone] of [packageName], or outside any zone (`null`). Returns the time to add.
+
+@@ fr
+L'app a quitté le premier plan (ou l'écran s'est éteint).
+@@ en
+The app left the foreground (or the screen turned off).

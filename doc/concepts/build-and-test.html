@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build and test - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-page="concepts/build-and-test.html">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../index.html" class="">Overview</a><a href="architecture.html" class="active">Architecture</a><a href="../api/index.html" class="">API reference</a><a href="../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">Documentation</a> <span class="sep">/</span> <span>Build and test</span></nav>
+    <article>
+<h1>Build and test</h1>
+<p class="lead">Commands to build, test and install the app, and the procedures used to test on the emulator and on the real phone.</p>
+
+<h2 id="commands">Commands</h2>
+<p>The system JDK (25) is too recent: use the JBR 21 shipped with Android Studio.</p>
+<div class="code"><div class="code-header"><span>Bash</span><button class="copy" type="button">Copy</button></div><pre><code>export JAVA_HOME="/c/Program Files/Android/Android Studio/jbr"
+./gradlew :core:domain:test        # domain unit tests
+./gradlew assembleDebug            # app/build/outputs/apk/debug/app-debug.apk
+./gradlew lint                     # app/build/reports/lint-results-debug.html
+./gradlew installDebug             # on the connected emulator or phone</code></pre></div>
+
+<h2 id="conventions">Conventions</h2>
+<ul>
+  <li>Conventional Commits (<code>feat(zones): …</code>, <code>fix: …</code>), at least one clean commit per phase.</li>
+  <li>Business logic is pure and tested in <code>:core:domain</code>; time always goes through <a href="../api/com.lucas.mobilemanager.domain.time/TimeProvider.html"><code>TimeProvider</code></a>.</li>
+  <li>UI texts only in <code>res/values/strings.xml</code>, in French, neutral or encouraging; never an aggressive red for a reached limit.</li>
+  <li>Versions are centralised in <code>gradle/libs.versions.toml</code>.</li>
+</ul>
+
+<h2 id="emulator">Emulator</h2>
+<div class="code"><div class="code-header"><span>Bash</span><button class="copy" type="button">Copy</button></div><pre><code>export MSYS_NO_PATHCONV=1   # Git Bash: otherwise /sdcard/... becomes a Windows path
+P=com.lucas.mobilemanager
+adb shell settings put secure enabled_accessibility_services $P/$P.service.MonitorAccessibilityService
+adb shell appops set $P GET_USAGE_STATS allow
+adb shell dumpsys deviceidle whitelist +$P
+adb shell appops set $P SYSTEM_ALERT_WINDOW allow
+adb shell pm grant $P android.permission.POST_NOTIFICATIONS
+adb shell dpm set-active-admin $P/.admin.MobileManagerAdminReceiver</code></pre></div>
+<p>Test daily limits after a cold boot (<code>-no-snapshot-load</code>): after a snapshot restore the usage service is out of sync and
+<code>queryEvents()</code> returns nothing. If installing fails with <code>INSUFFICIENT_STORAGE</code>: <code>adb shell pm trim-caches 999G</code>.</p>
+
+<h2 id="phone">Real phone (Galaxy A04s)</h2>
+<ul>
+  <li>After <code>adb install -r</code> or a force stop, the service may stay <em>bound but silent</em> (no <code>window …</code> log
+  when opening an app). Sign: <code>dumpsys accessibility</code> shows the class name instead of the label “Surveillance Mobile Manager”.
+  Fix: delete the <code>enabled_accessibility_services</code> setting, wait 3 s, put it again (sometimes twice).</li>
+  <li><code>uiautomator dump</code> fails while a video plays; pause it, or rely on the debug log
+  <code>… zone reels signal N [ids]</code>. Disable the service while capturing, otherwise it leaves the zone first.</li>
+  <li>No <code>sqlite3</code> on the phone: <code>adb exec-out run-as com.lucas.mobilemanager cat databases/mobile_manager.db</code>
+  (and the <code>-wal</code> file), then read it with Python.</li>
+  <li>CPU: <code>/proc/&lt;pid&gt;/stat</code> (fields 14 + 15) around a scripted scroll; profiling with
+  <code>simpleperf record --app com.lucas.mobilemanager</code> on a debug build.</li>
+  <li>Instagram dumps: keep identifiers only (no message text, no names) and delete screenshots after use.</li>
+</ul>
+<p>Debug logs: <code>adb logcat -s MobileManager</code> prints each evaluation (<code>package usage=… -&gt; Decision</code>). Debug test
+tools: Settings › “Créer le profil Test” (24/7, Chrome limited to 1 min, YouTube blocked) and 1–2 min quotas.</p>
+
+<h2 id="tests">Unit tests</h2>
+<p>Domain tests cover the rule engine, schedules (midnight, daylight saving, weekdays), profile resolution, focus sessions, foreground
+tracking, usage computation, zone matching against real captures, zone time accounting, the dashboard and the lock policy. They are
+listed under <a href="../src/index.html#core-domain-tests"><code>:core:domain (tests)</code></a> in the source files, and appear in
+the <em>Referenced in</em> tables of the API reference with a <span class="tag test">test</span> tag.</p>
+
+<h2 id="documentation">This documentation</h2>
+<p>The site is generated from the code by a dependency-free Python script:</p>
+<div class="code"><div class="code-header"><span>Bash</span><button class="copy" type="button">Copy</button></div><pre><code>python doc/tools/gen_docs.py                  # regenerate doc/
+python doc/tools/gen_docs.py --missing out.txt  # list documentation comments without English translation</code></pre></div>
+<ul>
+  <li><code>doc/tools/kotlin_parser.py</code> recognises declarations, KDoc, annotations, constructor properties and nesting.</li>
+  <li><code>doc/tools/pages/*.html</code> are the hand-written articles (this page included); <code>&#123;&#123;Type&#125;&#125;</code> placeholders
+  become links to the reference.</li>
+  <li><code>doc/tools/kdoc_en.txt</code> holds English translations of the KDoc comments, which are written in French in the code. A
+  comment without translation is shown in French with a notice.</li>
+  <li><code>doc/assets/</code> contains the style sheet and the script (table of contents, search, copy); <code>data.js</code> is generated.</li>
+</ul>
+<p>Open <code>doc/index.html</code> directly in a browser: no server is needed.</p>
+
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#commands">Commands</a></li><li><a href="#conventions">Conventions</a></li><li><a href="#emulator">Emulator</a></li><li><a href="#phone">Real phone (Galaxy A04s)</a></li><li><a href="#tests">Unit tests</a></li><li><a href="#documentation">This documentation</a></li></ol></aside>
+</div>
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

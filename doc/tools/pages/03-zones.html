@@ -1,0 +1,126 @@
+<!-- title: Zones and detectors -->
+<!-- order: 3 -->
+<!-- section: Architecture -->
+<h1>Zones and detectors</h1>
+<p class="lead">A <em>zone</em> is a part of an app — Instagram Reels, YouTube Shorts — that can be blocked or limited while the
+rest of the app (messages, posts, regular videos) stays usable. Instagram and YouTube are never modified: the accessibility
+service recognises the zone on screen, leaves it, and hides the button that leads to it.</p>
+
+<h2 id="pipeline">Pipeline</h2>
+<ol>
+  <li>A window or content event arrives for an app that has detectors ({{ZoneEnforcer.onEvent}}). Bursts are grouped: a check runs
+  400 ms later, then every 800 ms and 1.2 s while the screen does not change (same zone, same nodes); any window change resets the
+  interval to 400 ms.</li>
+  <li>The screen is captured into a list of {{UiNode}} (identifier, text, description, selected, clickable, visible).
+  {{AccessibilitySnapshot}} skips invisible nodes and their subtrees.</li>
+  <li>{{ZoneMatcher.detect}} returns the first zone whose signals match ({{ZoneMatch}}).</li>
+  <li>Time spent in the zone since the previous check is credited ({{ZoneUsageRecorder}}), then
+  {{EnforcementCoordinator.evaluateZone}} asks the {{RuleEngine}} for a decision that includes that time.</li>
+  <li>Allowed: the enforcer checks again within 5 s, or exactly when the quota runs out. Blocked: it runs one exit action
+  ({{ZoneExitPlanner}}), shows a short message (“Reels masqués” or “Quota de Reels atteint pour aujourd’hui (50 min)”) and logs
+  <code>ZONE_REDIRECTED</code>.</li>
+  <li>In both cases the entry points of every inaccessible zone of the app are masked ({{EntryPointMask}}).</li>
+</ol>
+<p>{{ZoneExitThrottle}} prevents loops: at most one exit action every 700 ms, and if the zone is still there after three exits, the
+regular block screen is shown instead.</p>
+
+<h2 id="visible-only">Only visible nodes</h2>
+<p>Instagram keeps visited tabs in the accessibility tree, off screen. Reading the whole tree made the Reels player — invisible,
+behind the inbox — look present while the user was in their messages. Only nodes for which <code>isVisibleToUser</code> is true are
+considered ({{UiNode.visible}}); the matcher ignores invisible nodes even if a capture contains them. The diagnostic capture keeps
+them, greyed out as “hors écran (ignoré)”.</p>
+
+<h2 id="fast-path">Targeted capture (fast path)</h2>
+<p>Each node read through the accessibility API is a round trip to the observed app, whose UI thread is busy while scrolling
+(about 40 ms of CPU and 500 ms of wall time per full capture on a Galaxy A04s). When every signal, hidden element and click target of
+an app uses an exact view identifier, {{ZoneMatcher.exactViewIds}} returns them and the enforcer asks the app for those identifiers
+only (<code>findAccessibilityNodeInfosByViewId</code>, see {{AccessibilitySnapshot.captureByIds}}). Instagram qualifies; YouTube does
+not (its Shorts tab is only recognisable by its label) and uses a full capture bounded to 800 visible nodes. Tests check that a
+targeted capture gives the same results as the whole tree on real captures.</p>
+
+<h2 id="detector-format">Detector file format</h2>
+<p>Detectors are JSON so they can be repaired without a new build when an app changes its interface. The shipped file is
+<code>app/src/main/assets/zone_detectors.json</code>; a custom copy in the app’s private files (edited from the diagnostic mode)
+takes precedence when valid. Parsing and validation: {{ZoneDetectorParser}}.</p>
+<table class="summary">
+  <thead><tr><th>Field</th><th>Type</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><code>version</code></td><td>int</td><td>Must be <code>1</code> ({{ZoneDetectorFile}}).</td></tr>
+    <tr><td><code>apps[].package</code></td><td>string</td><td>Package name of the watched app ({{AppZones}}).</td></tr>
+    <tr><td><code>zones[].id</code>, <code>label</code></td><td>string</td><td>Identifier used by rules (<code>Zone(pkg, id)</code>) and label shown to the user ({{ZoneDefinition}}).</td></tr>
+    <tr><td><code>anyOf</code></td><td>signal[]</td><td>The zone is detected if at least one signal matches a visible node…</td></tr>
+    <tr><td><code>noneOf</code></td><td>signal[]</td><td>…and none of these matches (avoids false positives, for example Stories).</td></tr>
+    <tr><td><code>exit</code></td><td>action[]</td><td>Exit actions: the first applicable one on the first attempt, the next one if the zone is still there, the last one repeated. Back is the fallback.</td></tr>
+    <tr><td><code>hide</code></td><td>signal[]</td><td>Entry points to mask while the zone is not accessible.</td></tr>
+    <tr><td><code>hideColor</code></td><td>{light, dark}</td><td><code>#RRGGBB</code> colours of the mask, matching the app’s tab bar in the phone’s light and dark themes ({{MaskColor}}).</td></tr>
+  </tbody>
+</table>
+<p>A <strong>signal</strong> ({{NodeSignal}}) lists conditions that must all hold on the <em>same visible node</em>:</p>
+<table class="summary">
+  <thead><tr><th>Condition</th><th>Matches when</th></tr></thead>
+  <tbody>
+    <tr><td><code>viewId</code></td><td>the identifier equals the value, full (<code>pkg:id/name</code>) or short (<code>name</code>)</td></tr>
+    <tr><td><code>viewIdContains</code></td><td>the identifier contains the value (prefer exact ids: they enable the fast path)</td></tr>
+    <tr><td><code>text</code>, <code>textContains</code></td><td>the text equals / contains one of the values (case-insensitive, list for languages)</td></tr>
+    <tr><td><code>desc</code>, <code>descContains</code></td><td>the content description equals / contains one of the values</td></tr>
+    <tr><td><code>selected</code>, <code>clickable</code></td><td>the node state equals the value</td></tr>
+  </tbody>
+</table>
+<p>An <strong>exit action</strong> ({{ExitAction}}) defines exactly one of <code>clickViewId</code>, <code>clickDesc</code>,
+<code>clickText</code> or <code>back</code>. A click goes to the first clickable ancestor of the matching node.</p>
+
+<h3 id="shipped-detectors">Shipped detectors</h3>
+<div class="code"><div class="code-header"><span>JSON</span><button class="copy" type="button">Copy</button></div><pre><code>{
+  "package": "com.instagram.android",
+  "zones": [{
+    "id": "reels", "label": "Reels",
+    "anyOf": [
+      { "viewId": "clips_viewer_view_pager" },
+      { "viewId": "root_clips_layout" },
+      { "viewId": "clips_tab", "selected": true }
+    ],
+    "noneOf": [ { "viewId": "reel_viewer_root" } ],
+    "exit": [ { "back": true }, { "clickViewId": "feed_tab" } ],
+    "hide": [ { "viewId": "clips_tab" } ],
+    "hideColor": { "light": "#FFFFFF", "dark": "#0C1014" }
+  }]
+}</code></pre></div>
+<ul>
+  <li><strong>Instagram Reels</strong> (verified on a real phone with Instagram 451): the Reels player and the selected Reels tab.
+  Stories are called “reel” internally (<code>reel_viewer_*</code>), hence the <code>noneOf</code>. Back comes first so that a Reel
+  opened from a conversation or from Explore returns where the user came from. The “selected” state is carried by
+  <code>clips_tab</code> on the Reels screen (and by its child <code>tab_icon</code> elsewhere).</li>
+  <li><strong>YouTube Shorts</strong>: <code>reel_watch_fragment_root</code>, <code>reel_player_page_container</code>,
+  <code>reel_recycler</code> or the selected “Shorts” tab; exit through the Home tab, then back; the Shorts tab is hidden
+  (<code>desc “Shorts”</code>, clickable). Never use <code>viewIdContains: "reel"</code>: <code>reel_time_bar</code> also exists on
+  regular videos.</li>
+</ul>
+<p>Anonymised reference captures (identifiers and tab labels only) live in <code>core/domain/src/test/resources/zones/</code>;
+{{src:core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneMatcherTest.kt}} checks the shipped file against them.</p>
+
+<h2 id="masking">Masking entry points</h2>
+<p>While a zone is not accessible (blocked, or quota reached), {{EntryPointMask}} places a window of type
+<code>TYPE_ACCESSIBILITY_OVERLAY</code> — no extra permission — exactly over each hidden element. It has the colour of the tab bar
+(light or dark theme of the phone), leaves 2 dp at the top so YouTube’s divider line stays visible, and swallows taps: the button
+disappears and no longer reacts. This is the technique used by “Reels blocker” apps.</p>
+<p>The mask follows the element at each check and is removed when the app leaves the foreground, when another window (the
+notification shade) becomes active, when the element is no longer visible (keyboard, full screen) or when the zone becomes
+accessible again. Zone decisions used for the mask are cached for 5 s.</p>
+<p>The automatic exit stays as a safety net: a Reel reached another way (home feed, Explore, a Reel shared in a conversation) is still
+detected and left with back.</p>
+
+<h2 id="diagnostic">Diagnostic mode</h2>
+<p>Settings › Advanced › Diagnostic mode helps repairing a detector after an app update:</p>
+<ol>
+  <li>Turn on the live overlay ({{DiagnosticOverlay}}): “App · zone: X (signal #N)” and a Capture button.</li>
+  <li>Open the app, press Capture on the faulty screen (and on a screen that must not trigger).</li>
+  <li>In the capture ({{HierarchyCapture}}), triggering nodes are highlighted; a long press copies a ready-to-paste JSON signal.</li>
+  <li>Paste it in the editor (<code>anyOf</code> or <code>noneOf</code>), Check, Save, then confirm with the overlay.</li>
+</ol>
+<p>Captures stay in memory ({{DiagnosticStore}}). Saving is locked during a focus session and without the trusted person code. The
+editor keyboard disables autocorrection (URI keyboard type: Gboard turned <code>anyOf</code> into <code>any of</code>).</p>
+
+<h2 id="fragility">Fragility</h2>
+<div class="alert note"><p class="alert-title">Note</p><p>Each Instagram or YouTube update may rename identifiers. Detection then stops
+(the zone and its button become visible again) until the detector is repaired with the diagnostic mode. If only <code>clips_tab</code>
+is renamed, the button is no longer masked but the automatic exit keeps working as long as the player is recognised.</p></div>

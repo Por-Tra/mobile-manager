@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DataStoreUserPreferencesRepository Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.data.repository/DataStoreUserPreferencesRepository.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.data.repository</a> <span class="sep">/</span> <span>DataStoreUserPreferencesRepository</span></nav>
+    <article>
+<h1>DataStoreUserPreferencesRepository <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.data.repository</a></span><span>Module: :core:data</span><span>Source: <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L17">DataStoreUserPreferencesRepository.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">class</span> DataStoreUserPreferencesRepository @Inject <span class="kw">constructor</span>(<span class="kw">private</span> <span class="kw">val</span> dataStore: DataStore&lt;Preferences&gt;) : <a href="../com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html">UserPreferencesRepository</a></code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Extends / implements</th><td><a href="../com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html"><code>UserPreferencesRepository</code></a></td></tr></tbody></table>
+<h2 id="nested-types">Nested types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DataStoreUserPreferencesRepository.Keys.html"><code>Keys</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DataStoreUserPreferencesRepository.html#m-dataStore"><code>dataStore</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreUserPreferencesRepository.html#m-preferences"><code>preferences</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DataStoreUserPreferencesRepository.html#m-setOnboardingCompleted"><code>setOnboardingCompleted</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreUserPreferencesRepository.html#m-setDefaultProfilesSeeded"><code>setDefaultProfilesSeeded</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreUserPreferencesRepository.html#m-setDefaultAppBlocksSeeded"><code>setDefaultAppBlocksSeeded</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreUserPreferencesRepository.html#m-clearLegacyScrollGuardSettings"><code>clearLegacyScrollGuardSettings</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreUserPreferencesRepository.html#m-setDefaultZoneRulesSeeded"><code>setDefaultZoneRulesSeeded</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreUserPreferencesRepository.html#m-setScreenTimeGoal"><code>setScreenTimeGoal</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-dataStore">
+<h3>dataStore <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> dataStore: DataStore&lt;Preferences&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L18">DataStoreUserPreferencesRepository.kt, line 18</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">7 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html">DataStoreUserPreferencesRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L21" title="override val preferences: Flow&lt;UserPreferences&gt; = dataStore.data.map { prefs -&gt;">21</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L32" title="dataStore.edit { it[Keys.ONBOARDING_COMPLETED] = completed }">32</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L36" title="dataStore.edit { it[Keys.DEFAULT_PROFILES_SEEDED] = seeded }">36</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L40" title="dataStore.edit { it[Keys.DEFAULT_APP_BLOCKS_SEEDED] = seeded }">40</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L44" title="dataStore.edit { prefs -&gt; Keys.LEGACY_SCROLL_GUARD.forEach { prefs.remove(it) } }">44</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L48" title="dataStore.edit { it[Keys.DEFAULT_ZONE_RULES_SEEDED] = seeded }">48</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L52" title="dataStore.edit { if (minutes != null) it[Keys.SCREEN_TIME_GOAL_MIN] = minutes else it.remove(Keys.SCREEN_TIME_GOAL_MIN) }">52</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-preferences">
+<h3>preferences <span class="badge">property</span><span class="badge vis">override</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">val</span> preferences: Flow&lt;<a href="../com.lucas.mobilemanager.domain.model/UserPreferences.html">UserPreferences</a>&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L21">DataStoreUserPreferencesRepository.kt, line 21</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">10 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html">DataModule.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/di</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L5" title="import androidx.datastore.preferences.core.PreferenceDataStoreFactory">5</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L6" title="import androidx.datastore.preferences.core.Preferences">6</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L7" title="import androidx.datastore.preferences.preferencesDataStoreFile">7</a></td></tr><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html">DataStoreUserPreferencesRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L4" title="import androidx.datastore.preferences.core.Preferences">4</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L5" title="import androidx.datastore.preferences.core.booleanPreferencesKey">5</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L6" title="import androidx.datastore.preferences.core.edit">6</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L7" title="import androidx.datastore.preferences.core.intPreferencesKey">7</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L8" title="import androidx.datastore.preferences.core.longPreferencesKey">8</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L9" title="import androidx.datastore.preferences.core.stringPreferencesKey">9</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L10" title="import androidx.datastore.preferences.core.stringSetPreferencesKey">10</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-setOnboardingCompleted">
+<h3>setOnboardingCompleted <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> setOnboardingCompleted(completed: Boolean)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L31">DataStoreUserPreferencesRepository.kt, line 31</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-setDefaultProfilesSeeded">
+<h3>setDefaultProfilesSeeded <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> setDefaultProfilesSeeded(seeded: Boolean)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L35">DataStoreUserPreferencesRepository.kt, line 35</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-setDefaultAppBlocksSeeded">
+<h3>setDefaultAppBlocksSeeded <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> setDefaultAppBlocksSeeded(seeded: Boolean)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L39">DataStoreUserPreferencesRepository.kt, line 39</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-clearLegacyScrollGuardSettings">
+<h3>clearLegacyScrollGuardSettings <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> clearLegacyScrollGuardSettings()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L43">DataStoreUserPreferencesRepository.kt, line 43</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-setDefaultZoneRulesSeeded">
+<h3>setDefaultZoneRulesSeeded <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> setDefaultZoneRulesSeeded(seeded: Boolean)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L47">DataStoreUserPreferencesRepository.kt, line 47</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-setScreenTimeGoal">
+<h3>setScreenTimeGoal <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> setScreenTimeGoal(minutes: Int?)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html#L51">DataStoreUserPreferencesRepository.kt, line 51</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html">DataModule.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/di</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L18" title="import com.lucas.mobilemanager.data.repository.DataStoreUserPreferencesRepository">18</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L107" title="impl: DataStoreUserPreferencesRepository,">107</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#nested-types">Nested types</a></li><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

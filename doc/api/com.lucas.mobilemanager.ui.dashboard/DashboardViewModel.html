@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DashboardViewModel Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.dashboard/DashboardViewModel.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.ui.dashboard</a> <span class="sep">/</span> <span>DashboardViewModel</span></nav>
+    <article>
+<h1>DashboardViewModel <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.ui.dashboard</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L34">DashboardViewModel.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@HiltViewModel
+<span class="kw">class</span> DashboardViewModel @Inject <span class="kw">constructor</span>(<span class="kw">private</span> <span class="kw">val</span> appLock: <a href="../com.lucas.mobilemanager.lock/AppLock.html">AppLock</a>, <span class="kw">private</span> <span class="kw">val</span> loader: <a href="../com.lucas.mobilemanager.dashboard/DashboardLoader.html">DashboardLoader</a>, <span class="kw">private</span> <span class="kw">val</span> preferencesRepository: <a href="../com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html">UserPreferencesRepository</a>, <span class="kw">private</span> <span class="kw">val</span> installedApps: <a href="../com.lucas.mobilemanager.apps/InstalledApps.html">InstalledApps</a>, <span class="kw">private</span> <span class="kw">val</span> zoneDetectorStore: <a href="../com.lucas.mobilemanager.zones/ZoneDetectorStore.html">ZoneDetectorStore</a>) : ViewModel()</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Extends / implements</th><td><code>ViewModel</code></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DashboardViewModel.html#m-appLock"><code>appLock</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardViewModel.html#m-loader"><code>loader</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardViewModel.html#m-preferencesRepository"><code>preferencesRepository</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardViewModel.html#m-installedApps"><code>installedApps</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardViewModel.html#m-zoneDetectorStore"><code>zoneDetectorStore</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardViewModel.html#m-_state"><code>_state</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardViewModel.html#m-state"><code>state</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardViewModel.html#m-loadJob"><code>loadJob</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DashboardViewModel.html#m-refresh"><code>refresh</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardViewModel.html#m-setPeriod"><code>setPeriod</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardViewModel.html#m-setGoal"><code>setGoal</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardViewModel.html#m-toggleShowAllApps"><code>toggleShowAllApps</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-appLock">
+<h3>appLock <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> appLock: <a href="../com.lucas.mobilemanager.lock/AppLock.html">AppLock</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L35">DashboardViewModel.kt, line 35</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L72" title="if (!appLock.canModifyNow()) return">72</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-loader">
+<h3>loader <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> loader: <a href="../com.lucas.mobilemanager.dashboard/DashboardLoader.html">DashboardLoader</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L36">DashboardViewModel.kt, line 36</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L51" title="val summary = loader.load(state.value.period)">51</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-preferencesRepository">
+<h3>preferencesRepository <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> preferencesRepository: <a href="../com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html">UserPreferencesRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L37">DashboardViewModel.kt, line 37</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L52" title="val goal = preferencesRepository.preferences.first().screenTimeGoalMinutes">52</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L74" title="preferencesRepository.setScreenTimeGoal(minutes)">74</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-installedApps">
+<h3>installedApps <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> installedApps: <a href="../com.lucas.mobilemanager.apps/InstalledApps.html">InstalledApps</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L38">DashboardViewModel.kt, line 38</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L55" title="val labels = packages.distinct().associateWith { installedApps.label(it) ?: it }">55</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-zoneDetectorStore">
+<h3>zoneDetectorStore <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> zoneDetectorStore: <a href="../com.lucas.mobilemanager.zones/ZoneDetectorStore.html">ZoneDetectorStore</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L39">DashboardViewModel.kt, line 39</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L56" title="val zoneLabels = zoneDetectorStore.detectors.value.apps">56</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-_state">
+<h3>_state <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> _state</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L42">DashboardViewModel.kt, line 42</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L43" title="val state: StateFlow&lt;DashboardUiState&gt; = _state.asStateFlow()">43</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L50" title="_state.update { it.copy(loading = it.summary == null) }">50</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L59" title="_state.update {">59</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L67" title="_state.update { it.copy(period = period, showAllApps = false) }">67</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L79" title="fun toggleShowAllApps() = _state.update { it.copy(showAllApps = !it.showAllApps) }">79</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-state">
+<h3>state <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> state: StateFlow&lt;<a href="DashboardUiState.html">DashboardUiState</a>&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L43">DashboardViewModel.kt, line 43</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">17 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L66" title="val state by viewModel.state.collectAsStateWithLifecycle()">66</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L85" title="val summary = state.summary">85</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L90" title="val goal = state.goalMinutes?.let { Duration.ofMinutes(it.toLong()) }">90</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L100" title="selected = state.period == period,">100</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L110" title="item { TotalCard(summary, state.period) }">110</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L124" title="val apps = if (state.showAllApps) summary.apps else summary.apps.take(TOP_APPS)">124</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L128" title="label = state.appLabels[app.packageName] ?: app.packageName,">128</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L135" title="Text(stringResource(if (state.showAllApps) R.string.dashboard_show_less else R.string.dashboard_show_all))">135</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L141" title="item { ZonesSection(summary, state, state.period) }">141</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L143" title="item { GoalsSection(summary, goal, state.period, canChangeGoal = canModify, onPickGoal = { pickingGoal = true }) }">143</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L149" title="current = state.goalMinutes,">149</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L196" title="private fun ZonesSection(summary: DashboardSummary, state: DashboardUiState, period: Period) {">196</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L203" title="val zoneLabel = state.zoneLabels[key] ?: key.zone">203</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L204" title="val appLabel = state.appLabels[key.packageName] ?: key.packageName">204</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L216" title="pluralStringResource(R.plurals.dashboard_zone_exits, count, state.zoneLabels[key] ?: key.zone, count),">216</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L51" title="val summary = loader.load(state.value.period)">51</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L66" title="if (period == state.value.period) return">66</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-loadJob">
+<h3>loadJob <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">var</span> loadJob: Job?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L45">DashboardViewModel.kt, line 45</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L48" title="loadJob?.cancel()">48</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L49" title="loadJob = viewModelScope.launch {">49</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-refresh">
+<h3>refresh <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> refresh()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L47">DashboardViewModel.kt, line 47</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L71" title="viewModel.refresh()">71</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L68" title="refresh()">68</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L75" title="refresh()">75</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-setPeriod">
+<h3>setPeriod <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> setPeriod(period: <a href="../com.lucas.mobilemanager.domain.dashboard/Period.html">Period</a>)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L65">DashboardViewModel.kt, line 65</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L101" title="onClick = { viewModel.setPeriod(period) },">101</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-setGoal">
+<h3>setGoal <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> setGoal(minutes: Int?)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L71">DashboardViewModel.kt, line 71</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L152" title="viewModel.setGoal(it)">152</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-toggleShowAllApps">
+<h3>toggleShowAllApps <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> toggleShowAllApps()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L79">DashboardViewModel.kt, line 79</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L134" title="TextButton(onClick = viewModel::toggleShowAllApps) {">134</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L65" title="fun DashboardScreen(onBack: () -&gt; Unit, viewModel: DashboardViewModel = hiltViewModel()) {">65</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

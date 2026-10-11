@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DayTotal Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.dashboard/DayTotal.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.dashboard</a> <span class="sep">/</span> <span>DayTotal</span></nav>
+    <article>
+<h1>DayTotal <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.dashboard</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L68">Dashboard.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">data</span> <span class="kw">class</span> DayTotal(<span class="kw">val</span> date: LocalDate, <span class="kw">val</span> total: Duration, <span class="kw">val</span> hasData: Boolean)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DayTotal.html#m-date"><code>date</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DayTotal.html#m-total"><code>total</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DayTotal.html#m-hasData"><code>hasData</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-date">
+<h3>date <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> date: LocalDate</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L68">Dashboard.kt, line 68</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/WeekChart.kt.html">WeekChart.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/WeekChart.kt.html#L71" title="day.date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.FRENCH).take(3),">71</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L19" title="operator fun contains(date: LocalDate) = !date.isBefore(start) &amp;&amp; !date.isAfter(endInclusive)">19</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L110" title="val hasData: Boolean get() = range.days.any { day -&gt; week.any { it.date == day &amp;&amp; it.hasData } } || !total.isZero">110</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-total">
+<h3>total <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> total: Duration</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L68">Dashboard.kt, line 68</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">12 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/WeekChart.kt.html">WeekChart.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/WeekChart.kt.html#L35" title="val maxMinutes = (week.maxOfOrNull { it.total.toMinutes() } ?: 0L)">35</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/WeekChart.kt.html#L44" title="val height = size.height * (day.total.toMinutes() / maxMinutes)">44</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/WeekChart.kt.html#L46" title="goal != null &amp;&amp; day.total &gt; goal -&gt; overGoal">46</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L110" title="val hasData: Boolean get() = range.days.any { day -&gt; week.any { it.date == day &amp;&amp; it.hasData } } || !total.isZero">110</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L130" title="val total = perApp.values.fold(Duration.ZERO, Duration::plus)">130</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L141" title="total = total,">141</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L142" title="comparison = compare(total, previousTotal, previousHasData),">142</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L145" title=".map { (pkg, duration) -&gt; AppUsage(pkg, duration, share(duration, total)) },">145</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L155" title="private fun compare(total: Duration, previousTotal: Duration, previousHasData: Boolean): Comparison {">155</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L157" title="val delta = total - previousTotal">157</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L219" title="private fun share(part: Duration, total: Duration): Float =">219</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L220" title="if (total.isZero) 0f else part.toMillis().toFloat() / total.toMillis()">220</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-hasData">
+<h3>hasData <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> hasData: Boolean</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L68">Dashboard.kt, line 68</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">4 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/WeekChart.kt.html">WeekChart.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/WeekChart.kt.html#L20" title="import com.lucas.mobilemanager.domain.dashboard.DayTotal">20</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/WeekChart.kt.html#L30" title="fun WeekChart(week: List&lt;DayTotal&gt;, goal: Duration?, description: String, modifier: Modifier = Modifier) {">30</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L105" title="val week: List&lt;DayTotal&gt;,">105</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L147" title="DayTotal(day, listOf(day).sumOf(usage), day in usage)">147</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

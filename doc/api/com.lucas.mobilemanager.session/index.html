@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.session package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.session/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.session</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.session <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :app</span><span>5 files</span></div>
+<p>Focus session foreground service, boot receiver and protection alert.</p>
+<h2 id="types">Types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="BootReceiver.html"><code>BootReceiver</code></a></td><td>class</td><td>After a reboot (or an app update), restarts the service if a session is still running.</td></tr><tr><td><a href="ProtectionAlertActivity.html"><code>ProtectionAlertActivity</code></a></td><td>class</td><td>Screen shown if monitoring is turned off during a session.</td></tr><tr><td><a href="SessionEntryPoint.html"><code>SessionEntryPoint</code></a></td><td>interface</td><td>Access to dependencies from system BroadcastReceivers (boot, device admin), which cannot easily receive Hilt injection.</td></tr><tr><td><a href="SessionNotifications.html"><code>SessionNotifications</code></a></td><td>object</td><td>Notifications of the focus session (persistent) and of protection alerts.</td></tr><tr><td><a href="StrictSessionService.html"><code>StrictSessionService</code></a></td><td>class</td><td>Foreground service that lives for the duration of a focus session: notification with the end time, automatic closing, alert if monitoring is turned off.</td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/session/BootReceiver.kt.html">BootReceiver.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/session/ProtectionAlertActivity.kt.html">ProtectionAlertActivity.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/session/SessionEntryPoint.kt.html">SessionEntryPoint.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/session/SessionNotifications.kt.html">SessionNotifications.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/session/StrictSessionService.kt.html">StrictSessionService.kt</a></li></ul>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#types">Types</a></li><li><a href="#files">Files</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

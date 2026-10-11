@@ -1,0 +1,58 @@
+<!-- title: Data and storage -->
+<!-- order: 8 -->
+<!-- section: Architecture -->
+<h1>Data and storage</h1>
+<p class="lead">Everything is stored locally, in a Room database and a DataStore preferences file. Nothing is backed up to a cloud
+and nothing leaves the phone.</p>
+
+<h2 id="database">Room database</h2>
+<p>{{MobileManagerDatabase}}. Enums are stored as text (their name), never as ordinals. Schemas are exported to
+<code>core/data/schemas/</code> and committed; every change is an explicit migration.</p>
+<!--DB_SCHEMA-->
+
+<h2 id="migrations">Migrations</h2>
+<table class="summary">
+  <thead><tr><th>Version</th><th>Change</th></tr></thead>
+  <tbody>
+    <tr><td>6</td><td><code>zone_usage</code> added, <code>scroll_guard</code> dropped (<code>AutoMigration 5 → 6</code> with <code>@DeleteTable</code>, {{MobileManagerDatabase.DropScrollGuard}}).</td></tr>
+    <tr><td>5</td><td><code>daily_usage</code> added.</td></tr>
+    <tr><td>4</td><td><code>scroll_guard</code> added (anti-doomscrolling, removed in 6).</td></tr>
+    <tr><td>3</td><td><code>strict_session</code> added.</td></tr>
+    <tr><td>2</td><td><code>profile</code>, <code>profile_schedule</code>, <code>rule</code> added.</td></tr>
+    <tr><td>1</td><td><code>event_log</code>.</td></tr>
+  </tbody>
+</table>
+<p>Encoding notes: schedule days are a bitmask (bit 0 = Monday) and times are minutes since midnight; a rule with a <code>NULL</code>
+<code>profile_id</code> is a global (default) rule; the packages of a focus session are separated by line breaks.</p>
+
+<h2 id="datastore">DataStore preferences</h2>
+<p>File <code>user_preferences</code>. Keys found in the code:</p>
+<!--DATASTORE_KEYS-->
+
+<h2 id="journal">Event journal</h2>
+<p>The <code>event_log</code> table records what the tool did, for the dashboard: {{EventType}} values
+<code>APP_BLOCKED</code> (detail such as <code>profile:3</code>, <code>daily_limit:30</code>, <code>strict_session</code>,
+<code>global_rule</code>), <code>ZONE_REDIRECTED</code>, focus session events and <code>PROTECTION_DISABLED</code>. Historical values
+(<code>ZONE_VISIT</code>, <code>INTERSTITIAL_SHOWN</code>, <code>PAUSE_CLOSED_APP</code>) are kept so older rows can still be read.</p>
+
+<h2 id="repositories">Repositories</h2>
+<table class="summary">
+  <thead><tr><th>Interface (domain)</th><th>Implementation (data)</th></tr></thead>
+  <tbody>
+    <tr><td>{{EventLogRepository}}</td><td>{{RoomEventLogRepository}}</td></tr>
+    <tr><td>{{ProfileRepository}}</td><td>{{RoomProfileRepository}}</td></tr>
+    <tr><td>{{StrictSessionRepository}}</td><td>{{RoomStrictSessionRepository}}</td></tr>
+    <tr><td>{{DailyUsageRepository}}</td><td>{{RoomDailyUsageRepository}}</td></tr>
+    <tr><td>{{ZoneUsageRepository}}</td><td>{{RoomZoneUsageRepository}}</td></tr>
+    <tr><td>{{UserPreferencesRepository}}</td><td>{{DataStoreUserPreferencesRepository}}</td></tr>
+    <tr><td>{{ManualActivationRepository}}</td><td>{{DataStoreManualActivationRepository}}</td></tr>
+    <tr><td>{{LockRepository}}</td><td>{{DataStoreLockRepository}}</td></tr>
+  </tbody>
+</table>
+
+<h2 id="privacy">Privacy</h2>
+<ul>
+  <li><code>allowBackup=false</code>; the data extraction rules exclude everything.</li>
+  <li>No account, no network, no telemetry.</li>
+  <li>A manual JSON export / import is planned (phase 9b).</li>
+</ul>

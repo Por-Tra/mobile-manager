@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PermissionIntents Object - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.permissions/PermissionIntents.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.permissions</a> <span class="sep">/</span> <span>PermissionIntents</span></nav>
+    <article>
+<h1>PermissionIntents <span class="h1-kind">object</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.permissions</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/permissions/PermissionIntents.kt.html#L15">PermissionIntents.kt</a></span></div>
+<div class="kdoc"><p>Intents that open the system screen granting each permission.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">object</span> PermissionIntents</code></pre></div>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="PermissionIntents.html#m-forPermission"><code>forPermission</code></a></td><td><code>null</code> for notifications: they go through a runtime request.</td></tr><tr><td><a href="PermissionIntents.html#m-appDetails"><code>appDetails</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="PermissionIntents.html#m-appNotificationSettings"><code>appNotificationSettings</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="PermissionIntents.html#m-batterySettings"><code>batterySettings</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="PermissionIntents.html#m-launch"><code>launch</code></a></td><td>Launches the intent; if the screen does not exist on this phone, opens the app info instead.</td></tr><tr><td><a href="PermissionIntents.html#m-packageUri"><code>packageUri</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-forPermission">
+<h3>forPermission <span class="badge">method</span></h3>
+<div class="kdoc"><p><code>null</code> for notifications: they go through a runtime request.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@SuppressLint( )
+<span class="kw">fun</span> forPermission(context: Context, kind: <a href="../com.lucas.mobilemanager.domain.onboarding/PermissionKind.html">PermissionKind</a>): Intent?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/permissions/PermissionIntents.kt.html#L19">PermissionIntents.kt, line 19</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L75" title="val intent = PermissionIntents.forPermission(context, kind)">75</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-appDetails">
+<h3>appDetails <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> appDetails(context: Context)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/permissions/PermissionIntents.kt.html#L39">PermissionIntents.kt, line 39</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/permissions/PermissionIntents.kt.html">PermissionIntents.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/permissions</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/permissions/PermissionIntents.kt.html#L53" title="context.startActivity(appDetails(context))">53</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L83" title="PermissionIntents.launch(context, PermissionIntents.appDetails(context))">83</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-appNotificationSettings">
+<h3>appNotificationSettings <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> appNotificationSettings(context: Context)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/permissions/PermissionIntents.kt.html#L42">PermissionIntents.kt, line 42</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L67" title="if (!granted) PermissionIntents.launch(context, PermissionIntents.appNotificationSettings(context))">67</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-batterySettings">
+<h3>batterySettings <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> batterySettings()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/permissions/PermissionIntents.kt.html#L46">PermissionIntents.kt, line 46</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L86" title="PermissionIntents.launch(context, PermissionIntents.batterySettings())">86</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-launch">
+<h3>launch <span class="badge">method</span></h3>
+<div class="kdoc"><p>Launches the intent; if the screen does not exist on this phone, opens the app info instead.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> launch(context: Context, intent: Intent)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/permissions/PermissionIntents.kt.html#L49">PermissionIntents.kt, line 49</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L67" title="if (!granted) PermissionIntents.launch(context, PermissionIntents.appNotificationSettings(context))">67</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L77" title="intent != null -&gt; PermissionIntents.launch(context, intent)">77</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L79" title="notificationLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)">79</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L83" title="PermissionIntents.launch(context, PermissionIntents.appDetails(context))">83</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L86" title="PermissionIntents.launch(context, PermissionIntents.batterySettings())">86</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-packageUri">
+<h3>packageUri <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> packageUri(context: Context)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/permissions/PermissionIntents.kt.html#L57">PermissionIntents.kt, line 57</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/permissions/PermissionIntents.kt.html">PermissionIntents.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/permissions</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/permissions/PermissionIntents.kt.html#L23" title="Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, packageUri(context))">23</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/permissions/PermissionIntents.kt.html#L25" title="Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, packageUri(context))">25</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/permissions/PermissionIntents.kt.html#L40" title="Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageUri(context))">40</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">6 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L48" title="import com.lucas.mobilemanager.permissions.PermissionIntents">48</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L67" title="if (!granted) PermissionIntents.launch(context, PermissionIntents.appNotificationSettings(context))">67</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L75" title="val intent = PermissionIntents.forPermission(context, kind)">75</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L77" title="intent != null -&gt; PermissionIntents.launch(context, intent)">77</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L83" title="PermissionIntents.launch(context, PermissionIntents.appDetails(context))">83</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L86" title="PermissionIntents.launch(context, PermissionIntents.batterySettings())">86</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

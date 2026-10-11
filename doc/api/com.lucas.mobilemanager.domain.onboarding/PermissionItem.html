@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PermissionItem Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.onboarding/PermissionItem.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.onboarding</a> <span class="sep">/</span> <span>PermissionItem</span></nav>
+    <article>
+<h1>PermissionItem <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.onboarding</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L3">OnboardingState.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">data</span> <span class="kw">class</span> PermissionItem(<span class="kw">val</span> kind: <a href="PermissionKind.html">PermissionKind</a>, <span class="kw">val</span> status: <a href="PermissionStatus.html">PermissionStatus</a>)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="PermissionItem.html#m-kind"><code>kind</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="PermissionItem.html#m-status"><code>status</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="PermissionItem.html#m-isSatisfied"><code>isSatisfied</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-kind">
+<h3>kind <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> kind: <a href="PermissionKind.html">PermissionKind</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L4">OnboardingState.kt, line 4</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">14 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L74" title="onGrant = { kind -&gt;">74</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L75" title="val intent = PermissionIntents.forPermission(context, kind)">75</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L102" title=".first { it.kind == PermissionKind.ACCESSIBILITY }">102</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L145" title="items(state.items.filter { it.status != PermissionStatus.NOT_APPLICABLE }, key = { it.kind }) { item -&gt;">145</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L146" title="PermissionCard(item = item, onGrant = { onGrant(item.kind) })">146</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L148" title="if (item.kind == PermissionKind.ACCESSIBILITY &amp;&amp;">148</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L160" title="if (item.kind == PermissionKind.BATTERY_OPTIMIZATION &amp;&amp; isSamsung) {">160</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L202" title="val texts = item.kind.texts()">202</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L208" title="RequirementLabel(item.kind.requirement)">208</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html">OnboardingState.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L39" title=".minWithOrNull(compareBy({ it.kind.requirement.ordinal }, { it.kind.ordinal }))">39</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L40" title="?.kind">40</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L43" title="items.filter { it.kind.requirement == requirement }">43</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L48" title="PermissionKind.entries.map { kind -&gt;">48</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L49" title="PermissionItem(kind, statuses[kind] ?: PermissionStatus.MISSING)">49</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-status">
+<h3>status <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> status: <a href="PermissionStatus.html">PermissionStatus</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L5">OnboardingState.kt, line 5</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">7 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L103" title=".status == PermissionStatus.MISSING">103</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L145" title="items(state.items.filter { it.status != PermissionStatus.NOT_APPLICABLE }, key = { it.kind }) { item -&gt;">145</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L218" title="if (item.status == PermissionStatus.GRANTED) {">218</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html">OnboardingState.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L8" title="get() = status != PermissionStatus.MISSING">8</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L27" title="get() = items.count { it.status == PermissionStatus.GRANTED }">27</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L30" title="get() = items.count { it.status != PermissionStatus.NOT_APPLICABLE }">30</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L38" title=".filter { it.status == PermissionStatus.MISSING }">38</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-isSatisfied">
+<h3>isSatisfied <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> isSatisfied: Boolean</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L7">OnboardingState.kt, line 7</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html">OnboardingState.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L19" title="get() = itemsWith(PermissionRequirement.REQUIRED).all { it.isSatisfied }">19</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L23" title="get() = canMonitor &amp;&amp; itemsWith(PermissionRequirement.STRICT_MODE).all { it.isSatisfied }">23</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">4 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L44" title="import com.lucas.mobilemanager.domain.onboarding.PermissionItem">44</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L201" title="private fun PermissionCard(item: PermissionItem, onGrant: () -&gt; Unit) {">201</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html">OnboardingState.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L15" title="data class OnboardingState(val items: List&lt;PermissionItem&gt;) {">15</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/onboarding/OnboardingState.kt.html#L49" title="PermissionItem(kind, statuses[kind] ?: PermissionStatus.MISSING)">49</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

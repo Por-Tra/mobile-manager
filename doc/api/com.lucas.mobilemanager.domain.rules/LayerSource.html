@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LayerSource Sealed Interface - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.rules/LayerSource.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.rules</a> <span class="sep">/</span> <span>LayerSource</span></nav>
+    <article>
+<h1>LayerSource <span class="h1-kind">sealed interface</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.rules</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolver.kt.html#L12">ProfileResolver.kt</a></span></div>
+<div class="kdoc"><p>Origin of a rule layer, used to explain a block.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">sealed</span> <span class="kw">interface</span> LayerSource</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Known subtypes</th><td><a href="LayerSource.StrictSession.html"><code>LayerSource.StrictSession</code></a>, <a href="LayerSource.ManualProfile.html"><code>LayerSource.ManualProfile</code></a>, <a href="LayerSource.ScheduledProfile.html"><code>LayerSource.ScheduledProfile</code></a>, <a href="LayerSource.Global.html"><code>LayerSource.Global</code></a></td></tr></tbody></table>
+<h2 id="nested-types">Nested types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="LayerSource.StrictSession.html"><code>StrictSession</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="LayerSource.ManualProfile.html"><code>ManualProfile</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="LayerSource.ScheduledProfile.html"><code>ScheduledProfile</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="LayerSource.Global.html"><code>Global</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">20 references in 3 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolver.kt.html">ProfileResolver.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolver.kt.html#L13" title="data object StrictSession : LayerSource">13</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolver.kt.html#L14" title="data class ManualProfile(val profileId: Long, val name: String) : LayerSource">14</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolver.kt.html#L15" title="data class ScheduledProfile(val profileId: Long, val name: String, val priority: Int) : LayerSource">15</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolver.kt.html#L16" title="data object Global : LayerSource">16</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolver.kt.html#L20" title="val source: LayerSource,">20</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolver.kt.html#L50" title="source = LayerSource.StrictSession,">50</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolver.kt.html#L61" title="source = LayerSource.ManualProfile(manualProfile.id, manualProfile.name),">61</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolver.kt.html#L74" title="source = LayerSource.ScheduledProfile(profile.id, profile.name, profile.priority),">74</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolver.kt.html#L81" title="layers += PolicyLayer(LayerSource.Global, globalRules, activeUntil = null)">81</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html">RuleEngine.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L115" title="private fun LayerSource.toBlockReason(): BlockReason = when (this) {">115</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L116" title="LayerSource.StrictSession -&gt; BlockReason.StrictSession">116</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L117" title="is LayerSource.ManualProfile -&gt; BlockReason.Profile(profileId, name)">117</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L118" title="is LayerSource.ScheduledProfile -&gt; BlockReason.Profile(profileId, name)">118</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L119" title="LayerSource.Global -&gt; BlockReason.GlobalRule">119</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolverTest.kt.html">ProfileResolverTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolverTest.kt.html#L49" title="assertEquals(listOf(2L, 1L, 3L), sources.map { (it as LayerSource.ScheduledProfile).profileId })">49</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolverTest.kt.html#L77" title="LayerSource.ManualProfile(2, &quot;Profil 2&quot;),">77</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolverTest.kt.html#L78" title="LayerSource.ScheduledProfile(1, &quot;Profil 1&quot;, 100),">78</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolverTest.kt.html#L90" title="assertEquals(listOf(LayerSource.ManualProfile(1, &quot;Profil 1&quot;)), sources)">90</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolverTest.kt.html#L121" title="assertEquals(LayerSource.StrictSession, first.source)">121</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/ProfileResolverTest.kt.html#L135" title="assertEquals(LayerSource.Global, sources.last())">135</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#nested-types">Nested types</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

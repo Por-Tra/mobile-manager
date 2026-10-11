@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rule engine and profiles - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-page="concepts/rule-engine.html">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../index.html" class="">Overview</a><a href="architecture.html" class="active">Architecture</a><a href="../api/index.html" class="">API reference</a><a href="../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">Documentation</a> <span class="sep">/</span> <span>Rule engine and profiles</span></nav>
+    <article>
+<h1>Rule engine and profiles</h1>
+<p class="lead">Every decision — “may this app (or this zone of it) be used right now?” — is taken by the pure
+<a href="../api/com.lucas.mobilemanager.domain.rules/RuleEngine.html"><code>RuleEngine</code></a> from layers of rules resolved by <a href="../api/com.lucas.mobilemanager.domain.rules/ProfileResolver.html"><code>ProfileResolver</code></a>. Both live in <code>:core:domain</code> and are
+covered by unit tests.</p>
+
+<h2 id="model">Rule model</h2>
+<p>A <a href="../api/com.lucas.mobilemanager.domain.rules/Rule.html"><code>Rule</code></a> is a <a href="../api/com.lucas.mobilemanager.domain.rules/Target.html"><code>Target</code></a> plus a <a href="../api/com.lucas.mobilemanager.domain.rules/RuleAction.html"><code>RuleAction</code></a>.</p>
+<table class="summary">
+  <thead><tr><th>Target</th><th>Specificity</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.rules/Target.AllApps.html"><code>Target.AllApps</code></a></td><td>lowest</td><td>Every app not covered by a more specific rule.</td></tr>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.rules/Target.App.html"><code>Target.App</code></a></td><td>middle</td><td>One package, for example <code>com.instagram.android</code>.</td></tr>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.rules/Target.Zone.html"><code>Target.Zone</code></a></td><td>highest</td><td>A zone of a package, for example Instagram <code>reels</code>. Only applies when the zone is detected on screen.</td></tr>
+  </tbody>
+</table>
+<table class="summary">
+  <thead><tr><th>Action</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.rules/RuleAction.Block.html"><code>RuleAction.Block</code></a></td><td>Forbidden.</td></tr>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.rules/RuleAction.Limit.html"><code>RuleAction.Limit</code></a></td><td>Allowed up to a daily duration (a <em>quota</em> when the target is a zone).</td></tr>
+    <tr><td><a href="../api/com.lucas.mobilemanager.domain.rules/RuleAction.Allow.html"><code>RuleAction.Allow</code></a></td><td>Explicit exception: stops the evaluation of lower layers.</td></tr>
+  </tbody>
+</table>
+<p>A forbidden time range is simply a profile with <code>Rule(AllApps, Block)</code> plus <code>Allow</code> exceptions.</p>
+
+<h2 id="schedules">Schedules</h2>
+<p>A <a href="../api/com.lucas.mobilemanager.domain.model/Schedule.html"><code>Schedule</code></a> is a set of weekdays plus a local start and end time:</p>
+<ul>
+  <li><code>end &lt;= start</code> crosses midnight (the days are the days of the start);</li>
+  <li><code>start == end</code> means 24 hours;</li>
+  <li>the start is included, the end excluded.</li>
+</ul>
+<p><a href="../api/com.lucas.mobilemanager.domain.time/ScheduleEvaluator.html"><code>ScheduleEvaluator</code></a> handles daylight saving time (a non-existent local time is shifted forward; a repeated hour is covered
+twice) and chains contiguous ranges to compute when a period ends. Being active and having an end are different questions:
+<a href="../api/com.lucas.mobilemanager.domain.time/ScheduleEvaluator.html#m-isAnyActive"><code>ScheduleEvaluator.isAnyActive</code></a> tells whether the schedules apply now, <a href="../api/com.lucas.mobilemanager.domain.time/ScheduleEvaluator.html#m-activeUntil"><code>ScheduleEvaluator.activeUntil</code></a> returns
+<code>null</code> when the period does not end within 8 days (for example 24/7 → “no planned end”).</p>
+
+<h2 id="layers">Priority layers</h2>
+<p><a href="../api/com.lucas.mobilemanager.domain.rules/ProfileResolver.html#m-resolve"><code>ProfileResolver.resolve</code></a> builds an ordered list of <a href="../api/com.lucas.mobilemanager.domain.rules/PolicyLayer.html"><code>PolicyLayer</code></a>s, highest priority first:</p>
+<ol>
+  <li>the running focus session (<a href="../api/com.lucas.mobilemanager.domain.model/StrictSession.html"><code>StrictSession</code></a>);</li>
+  <li>the manually activated profile (<a href="../api/com.lucas.mobilemanager.domain.model/ManualActivation.html"><code>ManualActivation</code></a>);</li>
+  <li>active scheduled profiles, by decreasing <code>priority</code> then increasing <code>id</code>;</li>
+  <li>the global (default) rules.</li>
+</ol>
+<p>A manual profile is not repeated as a scheduled one; disabled profiles are ignored; <code>autoActivation = false</code> means
+“only activatable by hand”.</p>
+
+<h2 id="algorithm">Decision algorithm</h2>
+<p><a href="../api/com.lucas.mobilemanager.domain.rules/RuleEngine.html#m-evaluate"><code>RuleEngine.evaluate</code></a> takes the resolved policy, an <a href="../api/com.lucas.mobilemanager.domain.rules/AppRequest.html"><code>AppRequest</code></a> (package, detected zone, usage today, zone usage today) and
+the system whitelist:</p>
+<ol>
+  <li>A whitelisted package (<a href="../api/com.lucas.mobilemanager.domain.rules/SystemWhitelist.html"><code>SystemWhitelist</code></a>) is always allowed.</li>
+  <li>In each layer only the <strong>most specific</strong> matching rule counts (Zone &gt; App &gt; AllApps); at equal specificity,
+  the most restrictive one.</li>
+  <li>Layers are walked from top to bottom: <code>Block</code> and <code>Limit</code> are collected, <strong><code>Allow</code>
+  stops the walk</strong> (lower layers are ignored).</li>
+  <li>The strongest collected restriction wins: <code>Block</code> &gt; <code>Limit</code>; between limits, the one closest to being
+  reached.</li>
+  <li>A reached limit (<code>usage &gt;= limit</code>) blocks until the next local midnight. A limit on a <strong>zone</strong> is
+  measured against the time spent in that zone (<code>zoneUsageToday</code>); a limit on an app against the app’s time.</li>
+</ol>
+<p>The result is a <a href="../api/com.lucas.mobilemanager.domain.rules/Decision.html"><code>Decision</code></a>: <a href="../api/com.lucas.mobilemanager.domain.rules/Decision.Allowed.html"><code>Decision.Allowed</code></a> with the remaining time (if limited) or <a href="../api/com.lucas.mobilemanager.domain.rules/Decision.Blocked.html"><code>Decision.Blocked</code></a> with a
+<a href="../api/com.lucas.mobilemanager.domain.rules/BlockReason.html"><code>BlockReason</code></a> (the highest blocking layer) and the end of the block (the latest end among blocking layers, <code>null</code> if
+any of them has no known end).</p>
+
+<h3 id="examples">Examples</h3>
+<table class="summary">
+  <thead><tr><th>Situation</th><th>Result</th></tr></thead>
+  <tbody>
+    <tr><td>Sleep profile <code>AllApps Block</code> with <code>App(dialer) Allow</code></td><td>The dialer is allowed, everything else blocked until 06:00.</td></tr>
+    <tr><td>Profile A limits YouTube to 60 min, profile B to 20 min</td><td>20 min (shortest).</td></tr>
+    <tr><td>Manual profile <code>Allow</code> Instagram, global rule blocks it</td><td>Allowed: <code>Allow</code> stops the walk.</td></tr>
+    <tr><td>Focus session blocks Instagram, manual profile allows it</td><td>Blocked: the session is the top layer.</td></tr>
+    <tr><td>Global quota <code>Zone(instagram, reels) Limit 50 min</code>, 50 min of Reels watched</td><td>Reels blocked until midnight; messages unaffected (no zone detected there).</td></tr>
+  </tbody>
+</table>
+
+<h2 id="profiles">Profiles</h2>
+<ul>
+  <li><strong>Order shown = priority</strong> (<a href="../api/com.lucas.mobilemanager.domain.profiles/ProfileOrdering.html"><code>ProfileOrdering</code></a>): the first one wins when profiles overlap. Moving a profile reassigns
+  spaced priorities (…, 30, 20, 10); a new profile goes last.</li>
+  <li><strong>Editor</strong> (<a href="../api/com.lucas.mobilemanager.ui.profiles/ProfileEditViewModel.html"><code>ProfileEditViewModel</code></a>): name, automatic activation, schedules, “block all apps” (then app rules become
+  exceptions), per-app rules Blocked / Limited (5 min → 3 h) / Allowed. Rules that the editor does not display (zones) are kept as they
+  are. Validation by <a href="../api/com.lucas.mobilemanager.domain.profiles/ProfileValidator.html"><code>ProfileValidator</code></a>.</li>
+  <li><strong>Default rules</strong>: the same editor without name or schedules, saved with <a href="../api/com.lucas.mobilemanager.domain.repository/ProfileRepository.html#m-replaceGlobalRules"><code>ProfileRepository.replaceGlobalRules</code></a>
+  (layer 4).</li>
+  <li><strong>Manual activation</strong> (<a href="../api/com.lucas.mobilemanager.domain.profiles/ManualActivationPolicy.html"><code>ManualActivationPolicy</code></a>): one at a time, for 1 h, 2 h, until a time, or until turned off.
+  It can be turned off at any time (the firm commitment is the focus session). Activating a disabled profile enables it. An expired
+  activation is ignored by the engine and cleared when returning to the home screen. <a href="../api/com.lucas.mobilemanager.domain.profiles/DeleteProfile.html"><code>DeleteProfile</code></a> also clears the activation of
+  the deleted profile.</li>
+</ul>
+
+<h2 id="defaults">Defaults</h2>
+<table class="summary">
+  <thead><tr><th>Default</th><th>Content</th><th>Seeded by</th></tr></thead>
+  <tbody>
+    <tr><td>Sleep</td><td>00:00–06:00, everything blocked, priority 100, disabled</td><td rowspan="3"><a href="../api/com.lucas.mobilemanager.domain.profiles/SeedDefaultProfiles.html"><code>SeedDefaultProfiles</code></a> (<a href="../api/com.lucas.mobilemanager.domain.profiles/DefaultProfiles.html"><code>DefaultProfiles</code></a>)</td></tr>
+    <tr><td>Study</td><td>Mon–Fri 09:00–18:00, distracting apps blocked, priority 50, disabled</td></tr>
+    <tr><td>Free time</td><td>18:00–00:00, 30 min per app, priority 10, disabled</td></tr>
+    <tr><td>Reels and Shorts</td><td>Zones blocked in the default rules</td><td><a href="../api/com.lucas.mobilemanager.domain.zones/SeedDefaultZoneRules.html"><code>SeedDefaultZoneRules</code></a></td></tr>
+    <tr><td>TikTok</td><td>Both packages blocked in the default rules</td><td><a href="../api/com.lucas.mobilemanager.domain.zones/SeedDefaultAppBlocks.html"><code>SeedDefaultAppBlocks</code></a></td></tr>
+  </tbody>
+</table>
+<p>Each default is added once (DataStore flag) and never overwrites an existing setting for the same target.</p>
+
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#model">Rule model</a></li><li><a href="#schedules">Schedules</a></li><li><a href="#layers">Priority layers</a></li><li><a href="#algorithm">Decision algorithm</a></li><li><a href="#profiles">Profiles</a></li><li><a href="#defaults">Defaults</a></li></ol></aside>
+</div>
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

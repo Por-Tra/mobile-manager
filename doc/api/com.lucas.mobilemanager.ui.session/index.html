@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.ui.session package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.session/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.ui.session</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.ui.session <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :app</span><span>4 files</span></div>
+<p>Start and override screens of focus sessions.</p>
+<h2 id="types">Types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="OverrideUiState.html"><code>OverrideUiState</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="OverrideViewModel.html"><code>OverrideViewModel</code></a></td><td>class</td><td><span class="muted">—</span></td></tr><tr><td><a href="SessionLength.html"><code>SessionLength</code></a></td><td>sealed interface</td><td>Chosen duration: a preset, or “until” a local time.</td></tr><tr><td><a href="StartSessionState.html"><code>StartSessionState</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr><tr><td><a href="StartSessionViewModel.html"><code>StartSessionViewModel</code></a></td><td>class</td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-OverrideScreen"><code>OverrideScreen</code></a></td><td>Override flow: reflection delay, then a short window to confirm.</td></tr><tr><td><a href="index.html#m-Body"><code>Body</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-Countdown"><code>Countdown</code></a> <span class=tag>private</span></td><td>“04:12” until <code>target</code>.</td></tr><tr><td><a href="index.html#m-StartSessionScreen"><code>StartSessionScreen</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-SectionTitle"><code>SectionTitle</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-errorText"><code>errorText</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/OverrideScreen.kt.html">OverrideScreen.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/OverrideViewModel.kt.html">OverrideViewModel.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html">StartSessionScreen.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionViewModel.kt.html">StartSessionViewModel.kt</a></li></ul>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-OverrideScreen">
+<h3>OverrideScreen <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>Override flow: reflection delay, then a short window to confirm. Neutral tone: no judgement, time is given to reconsider.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+<span class="kw">fun</span> OverrideScreen(onBack: () -&gt; Unit, viewModel: <a href="OverrideViewModel.html">OverrideViewModel</a> = hiltViewModel())</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/OverrideScreen.kt.html#L46">OverrideScreen.kt, line 46</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L14" title="import com.lucas.mobilemanager.ui.session.OverrideScreen">14</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L95" title="OverrideScreen(onBack = { navController.popBackStack() })">95</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-Body">
+<h3>Body <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> Body(text: String)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/OverrideScreen.kt.html#L124">OverrideScreen.kt, line 124</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/OverrideScreen.kt.html">OverrideScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/session</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/OverrideScreen.kt.html#L82" title="Body(stringResource(R.string.override_intro, endTime, delayMinutes, windowMinutes))">82</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/OverrideScreen.kt.html#L92" title="Body(stringResource(R.string.override_waiting))">92</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/OverrideScreen.kt.html#L99" title="Body(stringResource(R.string.override_available, endTime))">99</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/OverrideScreen.kt.html#L111" title="Body(stringResource(R.string.override_expired, delayMinutes))">111</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-Countdown">
+<h3>Countdown <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>“04:12” until <code>target</code>.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> Countdown(target: Instant, now: Instant)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/OverrideScreen.kt.html#L130">OverrideScreen.kt, line 130</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/OverrideScreen.kt.html">OverrideScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/session</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/OverrideScreen.kt.html#L90" title="Countdown(override.availableAt, current.now)">90</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/OverrideScreen.kt.html#L101" title="Countdown(override.expiresAt, current.now)">101</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-StartSessionScreen">
+<h3>StartSessionScreen <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@Composable
+<span class="kw">fun</span> StartSessionScreen(onBack: () -&gt; Unit, onStarted: () -&gt; Unit, viewModel: <a href="StartSessionViewModel.html">StartSessionViewModel</a> = hiltViewModel())</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html#L51">StartSessionScreen.kt, line 51</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L15" title="import com.lucas.mobilemanager.ui.session.StartSessionScreen">15</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L89" title="StartSessionScreen(">89</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-SectionTitle">
+<h3>SectionTitle <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> SectionTitle(text: Int)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html#L201">StartSessionScreen.kt, line 201</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html">StartSessionScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/session</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html#L92" title="item { SectionTitle(R.string.session_duration) }">92</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html#L127" title="item { SectionTitle(R.string.session_reflection_delay) }">127</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html#L149" title="SectionTitle(R.string.session_apps)">149</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-errorText">
+<h3>errorText <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> errorText(error: <a href="../com.lucas.mobilemanager.domain.session/StrictSessionPolicy.ValidationError.html">ValidationError</a>): String</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html#L210">StartSessionScreen.kt, line 210</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html">StartSessionScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/session</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html#L75" title="state.errors.forEach { Text(errorText(it), color = MaterialTheme.colorScheme.tertiary) }">75</a></td></tr></tbody></table></details>
+</section>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#types">Types</a></li><li><a href="#functions">Functions</a></li><li><a href="#files">Files</a></li><li><a href="#member-details">Member details</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

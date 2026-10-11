@@ -1,0 +1,36 @@
+<!-- title: Dashboard -->
+<!-- order: 7 -->
+<!-- section: Architecture -->
+<h1>Dashboard</h1>
+<p class="lead">The dashboard measures without judging: the domain qualifies, the interface phrases (“40 min de moins qu’hier”,
+“Objectif dépassé aujourd’hui : demain est un autre jour”). Days above the goal use a neutral colour, never red.</p>
+
+<h2 id="calculation">Calculation</h2>
+<p>{{DashboardCalculator.summarize}} is pure and turns a {{DashboardInput}} into a {{DashboardSummary}}:</p>
+<ul>
+  <li><strong>Total and comparison</strong> with the previous period of the same length (yesterday, or the 7 days before):
+  {{Trend}} <code>LESS</code>, <code>MORE</code>, <code>SAME</code> (within 5 minutes) or <code>NO_HISTORY</code>.</li>
+  <li><strong>Apps</strong> sorted by time with their share ({{AppUsage}}).</li>
+  <li><strong>Last 7 days</strong> series for the chart ({{DayTotal}}), with the goal line.</li>
+  <li><strong>Zones</strong> ({{ZoneStats}}): time read from <code>zone_usage</code> (“Reels (Instagram) : 32 min / 50 min aujourd’hui”
+  when a quota exists) and automatic exits (<code>ZONE_REDIRECTED</code>).</li>
+  <li><strong>Interruptions</strong> ({{Interruptions}}): blocks by reason ({{BlockKind}}, read from the journal detail) and zone exits.</li>
+  <li><strong>Goals</strong> ({{Goals}}): days under the daily goal, days where a daily limit was reached, focus sessions completed or
+  ended early.</li>
+</ul>
+
+<h2 id="screen-time">Screen time</h2>
+<p>{{UsageCalculator.usageByPackage}} follows the global foreground timeline (one app at a time; opening an app closes the previous one;
+screen off, shutdown and startup close everything). Mobile Manager, launchers, the system UI and keyboards are excluded from the total
+({{SystemWhitelistProvider.nonScreenTimePackages}}). Durations are rounded to the minute ({{Formats.duration}}), “&lt; 1 min” for very
+short ones.</p>
+
+<h2 id="snapshots">Daily snapshots</h2>
+<p>Android keeps detailed usage events for about a week only. {{DailyUsageSnapshotter}} freezes every missing day among the last 14
+(yesterday included) into the <code>daily_usage</code> table; a <code>__none__</code> row marks a day recorded without usage. It runs at
+app start, when the dashboard opens, and from {{DailyUsageWorker}} (periodic WorkManager job every 24 h, battery not low). The current
+day is always computed live. Loading: {{DashboardLoader}}.</p>
+
+<h2 id="goal">Goal</h2>
+<p>An optional daily screen time goal is stored in DataStore (<code>screen_time_goal_min</code>). The home screen shows a “Today” card
+and the top bar has a dashboard icon. Changing the goal requires the trusted person code when one is set.</p>

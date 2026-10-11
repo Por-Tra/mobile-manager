@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SystemWhitelist Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.rules/SystemWhitelist.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.rules</a> <span class="sep">/</span> <span>SystemWhitelist</span></nav>
+    <article>
+<h1>SystemWhitelist <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.rules</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L21">RuleEngine.kt</a></span></div>
+<div class="kdoc"><p>Apps never blocked (clock, phone, emergency, settings, Mobile Manager).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">data</span> <span class="kw">class</span> SystemWhitelist(<span class="kw">val</span> packages: Set&lt;String&gt;)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="SystemWhitelist.html#m-packages"><code>packages</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="SystemWhitelist.html#m-contains"><code>contains</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-packages">
+<h3>packages <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> packages: Set&lt;String&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L21">RuleEngine.kt, line 21</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html">RuleEngine.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L22" title="operator fun contains(packageName: String) = packageName in packages">22</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngineTest.kt.html">RuleEngineTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngineTest.kt.html#L46" title="private fun strictSession(vararg packages: String) = StrictSession(">46</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngineTest.kt.html#L49" title="blockedPackages = packages.toSet(),">49</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-contains">
+<h3>contains <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">operator</span> <span class="kw">fun</span> contains(packageName: String)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L22">RuleEngine.kt, line 22</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">6 references in 3 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html">SystemWhitelistProvider.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L11" title="import com.lucas.mobilemanager.domain.rules.SystemWhitelist">11</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L28" title="private var cached: SystemWhitelist? = null">28</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L32" title="fun current(): SystemWhitelist {">32</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/SystemWhitelistProvider.kt.html#L36" title="return SystemWhitelist(resolve()).also {">36</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html">RuleEngine.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngine.kt.html#L58" title="whitelist: SystemWhitelist,">58</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngineTest.kt.html">RuleEngineTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/RuleEngineTest.kt.html#L29" title="private val whitelist = SystemWhitelist(setOf(DIALER, CLOCK))">29</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

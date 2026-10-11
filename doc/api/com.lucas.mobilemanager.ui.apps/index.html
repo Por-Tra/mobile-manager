@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.ui.apps package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.apps/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.ui.apps</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.ui.apps <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :app</span><span>1 file</span></div>
+<p>App icon and app picker components.</p>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-AppSearchField"><code>AppSearchField</code></a></td><td>Search field of the app picker.</td></tr><tr><td><a href="index.html#m-appPickerItems"><code>appPickerItems</code></a></td><td>Rows of the app picker, to insert into a LazyColumn.</td></tr><tr><td><a href="index.html#m-AppRow"><code>AppRow</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-AppIcon"><code>AppIcon</code></a></td><td>Icon of an app, loaded off the main thread.</td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/apps/AppPicker.kt.html">AppPicker.kt</a></li></ul>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-AppSearchField">
+<h3>AppSearchField <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>Search field of the app picker.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">fun</span> AppSearchField(query: String, onQueryChange: (String) -&gt; Unit, modifier: Modifier = Modifier)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/apps/AppPicker.kt.html#L43">AppPicker.kt, line 43</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L64" title="import com.lucas.mobilemanager.ui.apps.AppSearchField">64</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L237" title="item { AppSearchField(state.query, viewModel::setQuery, Modifier.padding(bottom = 8.dp)) }">237</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html">StartSessionScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/session</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html#L42" title="import com.lucas.mobilemanager.ui.apps.AppSearchField">42</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionScreen.kt.html#L156" title="item { AppSearchField(state.query, viewModel::setQuery, Modifier.padding(vertical = 4.dp)) }">156</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-appPickerItems">
+<h3>appPickerItems <span class="badge">extension function</span></h3>
+<div class="kdoc"><p>Rows of the app picker, to insert into a LazyColumn. <code>apps</code> is shown in the order received (the caller puts preselected apps first); the search filters on the name. The order does not change when an app is checked, so the list does not jump under the finger.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> LazyListScope.appPickerItems(apps: List&lt;<a href="../com.lucas.mobilemanager.apps/InstalledApp.html">InstalledApp</a>&gt;, selected: Set&lt;String&gt;, query: String, onToggle: (String) -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/apps/AppPicker.kt.html#L59">AppPicker.kt, line 59</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-AppRow">
+<h3>AppRow <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> AppRow(app: <a href="../com.lucas.mobilemanager.apps/InstalledApp.html">InstalledApp</a>, checked: Boolean, onToggle: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/apps/AppPicker.kt.html#L72">AppPicker.kt, line 72</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/apps/AppPicker.kt.html">AppPicker.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/apps</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/apps/AppPicker.kt.html#L67" title="AppRow(app, checked = app.packageName in selected, onToggle = { onToggle(app.packageName) })">67</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-AppIcon">
+<h3>AppIcon <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>Icon of an app, loaded off the main thread.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">fun</span> AppIcon(packageName: String, modifier: Modifier = Modifier)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/apps/AppPicker.kt.html#L89">AppPicker.kt, line 89</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">7 references in 4 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/apps/AppPicker.kt.html">AppPicker.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/apps</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/apps/AppPicker.kt.html#L80" title="AppIcon(app.packageName, Modifier.size(36.dp))">80</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L54" title="import com.lucas.mobilemanager.ui.apps.AppIcon">54</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L179" title="AppIcon(packageName, Modifier.size(32.dp))">179</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L63" title="import com.lucas.mobilemanager.ui.apps.AppIcon">63</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L339" title="AppIcon(rule.packageName, Modifier.size(32.dp))">339</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html">ZoneRulesScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L37" title="import com.lucas.mobilemanager.ui.apps.AppIcon">37</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L94" title="AppIcon(zone.packageName, Modifier.size(32.dp))">94</a></td></tr></tbody></table></details>
+</section>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#functions">Functions</a></li><li><a href="#files">Files</a></li><li><a href="#member-details">Member details</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

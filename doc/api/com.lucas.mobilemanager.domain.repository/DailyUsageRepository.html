@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DailyUsageRepository Interface - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.repository/DailyUsageRepository.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.repository</a> <span class="sep">/</span> <span>DailyUsageRepository</span></nav>
+    <article>
+<h1>DailyUsageRepository <span class="h1-kind">interface</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.repository</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/repository/Repositories.kt.html#L62">Repositories.kt</a></span></div>
+<div class="kdoc"><p>Screen time per day and per app, frozen every day: Android keeps detailed events for about a week only; these snapshots make it possible to compare two weeks.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">interface</span> DailyUsageRepository</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Known subtypes</th><td><a href="../com.lucas.mobilemanager.data.repository/RoomDailyUsageRepository.html"><code>RoomDailyUsageRepository</code></a></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DailyUsageRepository.html#m-storedDays"><code>storedDays</code></a></td><td>Days already recorded in [from, to] (inclusive).</td></tr><tr><td><a href="DailyUsageRepository.html#m-usageBetween"><code>usageBetween</code></a></td><td>Time per app for each recorded day of [from, to] (a day without usage = empty map).</td></tr><tr><td><a href="DailyUsageRepository.html#m-store"><code>store</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-storedDays">
+<h3>storedDays <span class="badge">method</span><span class="badge vis">suspend</span></h3>
+<div class="kdoc"><p>Days already recorded in [from, to] (inclusive).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">suspend</span> <span class="kw">fun</span> storedDays(from: LocalDate, to: LocalDate): Set&lt;LocalDate&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/repository/Repositories.kt.html#L64">Repositories.kt, line 64</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html">DailyUsageSnapshotter.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html#L42" title="val stored = repository.storedDays(from, yesterday)">42</a></td></tr><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html">RoomDailyUsageRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L15" title="dao.storedDays(from.toString(), to.toString()).map(LocalDate::parse).toSet()">15</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-usageBetween">
+<h3>usageBetween <span class="badge">method</span><span class="badge vis">suspend</span></h3>
+<div class="kdoc"><p>Time per app for each recorded day of [from, to] (a day without usage = empty map).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">suspend</span> <span class="kw">fun</span> usageBetween(from: LocalDate, to: LocalDate): Map&lt;LocalDate, Map&lt;String, Duration&gt;&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/repository/Repositories.kt.html#L67">Repositories.kt, line 67</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L47" title="val stored = dailyUsageRepository.usageBetween(from, today.minusDays(1))">47</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L60" title="zoneUsage = zoneUsageRepository.usageBetween(from, today),">60</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-store">
+<h3>store <span class="badge">method</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">suspend</span> <span class="kw">fun</span> store(date: LocalDate, usage: Map&lt;String, Duration&gt;)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/repository/Repositories.kt.html#L69">Repositories.kt, line 69</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html">DailyUsageSnapshotter.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html#L46" title=".forEach { day -&gt; usageStatsReader.usageByPackageOn(day)?.let { repository.store(day, it) } }">46</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">8 references in 4 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html">DailyUsageSnapshotter.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html#L11" title="import com.lucas.mobilemanager.domain.repository.DailyUsageRepository">11</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html#L31" title="private val repository: DailyUsageRepository,">31</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L7" title="import com.lucas.mobilemanager.domain.repository.DailyUsageRepository">7</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L30" title="private val dailyUsageRepository: DailyUsageRepository,">30</a></td></tr><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html">DataModule.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/di</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L23" title="import com.lucas.mobilemanager.domain.repository.DailyUsageRepository">23</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L94" title="abstract fun bindDailyUsageRepository(impl: RoomDailyUsageRepository): DailyUsageRepository">94</a></td></tr><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html">RoomDailyUsageRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L5" title="import com.lucas.mobilemanager.domain.repository.DailyUsageRepository">5</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/RoomDailyUsageRepository.kt.html#L12" title=") : DailyUsageRepository {">12</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

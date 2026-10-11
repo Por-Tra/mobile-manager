@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DashboardLoader Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.dashboard/DashboardLoader.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.dashboard</a> <span class="sep">/</span> <span>DashboardLoader</span></nav>
+    <article>
+<h1>DashboardLoader <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.dashboard</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L28">DashboardLoader.kt</a></span></div>
+<div class="kdoc"><p>Gathers the dashboard data (snapshots, current day computed live, event journal).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Singleton
+<span class="kw">class</span> DashboardLoader @Inject <span class="kw">constructor</span>(<span class="kw">private</span> <span class="kw">val</span> snapshotter: <a href="DailyUsageSnapshotter.html">DailyUsageSnapshotter</a>, <span class="kw">private</span> <span class="kw">val</span> dailyUsageRepository: <a href="../com.lucas.mobilemanager.domain.repository/DailyUsageRepository.html">DailyUsageRepository</a>, <span class="kw">private</span> <span class="kw">val</span> usageStatsReader: <a href="../com.lucas.mobilemanager.enforcement/UsageStatsReader.html">UsageStatsReader</a>, <span class="kw">private</span> <span class="kw">val</span> eventLogRepository: <a href="../com.lucas.mobilemanager.domain.repository/EventLogRepository.html">EventLogRepository</a>, <span class="kw">private</span> <span class="kw">val</span> strictSessionRepository: <a href="../com.lucas.mobilemanager.domain.repository/StrictSessionRepository.html">StrictSessionRepository</a>, <span class="kw">private</span> <span class="kw">val</span> preferencesRepository: <a href="../com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html">UserPreferencesRepository</a>, <span class="kw">private</span> <span class="kw">val</span> zoneUsageRepository: <a href="../com.lucas.mobilemanager.domain.repository/ZoneUsageRepository.html">ZoneUsageRepository</a>, <span class="kw">private</span> <span class="kw">val</span> profileRepository: <a href="../com.lucas.mobilemanager.domain.repository/ProfileRepository.html">ProfileRepository</a>, <span class="kw">private</span> <span class="kw">val</span> whitelistProvider: <a href="../com.lucas.mobilemanager.enforcement/SystemWhitelistProvider.html">SystemWhitelistProvider</a>, <span class="kw">private</span> <span class="kw">val</span> timeProvider: <a href="../com.lucas.mobilemanager.domain.time/TimeProvider.html">TimeProvider</a>)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DashboardLoader.html#m-snapshotter"><code>snapshotter</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardLoader.html#m-dailyUsageRepository"><code>dailyUsageRepository</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardLoader.html#m-usageStatsReader"><code>usageStatsReader</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardLoader.html#m-eventLogRepository"><code>eventLogRepository</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardLoader.html#m-strictSessionRepository"><code>strictSessionRepository</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardLoader.html#m-preferencesRepository"><code>preferencesRepository</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardLoader.html#m-zoneUsageRepository"><code>zoneUsageRepository</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardLoader.html#m-profileRepository"><code>profileRepository</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardLoader.html#m-whitelistProvider"><code>whitelistProvider</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DashboardLoader.html#m-timeProvider"><code>timeProvider</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DashboardLoader.html#m-load"><code>load</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-snapshotter">
+<h3>snapshotter <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> snapshotter: <a href="DailyUsageSnapshotter.html">DailyUsageSnapshotter</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L29">DashboardLoader.kt, line 29</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L41" title="snapshotter.ensureSnapshots()">41</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-dailyUsageRepository">
+<h3>dailyUsageRepository <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> dailyUsageRepository: <a href="../com.lucas.mobilemanager.domain.repository/DailyUsageRepository.html">DailyUsageRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L30">DashboardLoader.kt, line 30</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L47" title="val stored = dailyUsageRepository.usageBetween(from, today.minusDays(1))">47</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-usageStatsReader">
+<h3>usageStatsReader <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> usageStatsReader: <a href="../com.lucas.mobilemanager.enforcement/UsageStatsReader.html">UsageStatsReader</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L31">DashboardLoader.kt, line 31</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L48" title="val todayUsage = usageStatsReader.usageByPackageOn(today)">48</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-eventLogRepository">
+<h3>eventLogRepository <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> eventLogRepository: <a href="../com.lucas.mobilemanager.domain.repository/EventLogRepository.html">EventLogRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L32">DashboardLoader.kt, line 32</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L59" title="events = eventLogRepository.observeBetween(start, end).first(),">59</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-strictSessionRepository">
+<h3>strictSessionRepository <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> strictSessionRepository: <a href="../com.lucas.mobilemanager.domain.repository/StrictSessionRepository.html">StrictSessionRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L33">DashboardLoader.kt, line 33</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L66" title="sessions = strictSessionRepository.sessionsStartedBetween(start, end),">66</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-preferencesRepository">
+<h3>preferencesRepository <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> preferencesRepository: <a href="../com.lucas.mobilemanager.domain.repository/UserPreferencesRepository.html">UserPreferencesRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L34">DashboardLoader.kt, line 34</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L67" title="dailyGoal = preferencesRepository.preferences.first().screenTimeGoalMinutes?.let { Duration.ofMinutes(it.toLong()) },">67</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-zoneUsageRepository">
+<h3>zoneUsageRepository <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> zoneUsageRepository: <a href="../com.lucas.mobilemanager.domain.repository/ZoneUsageRepository.html">ZoneUsageRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L35">DashboardLoader.kt, line 35</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L60" title="zoneUsage = zoneUsageRepository.usageBetween(from, today),">60</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-profileRepository">
+<h3>profileRepository <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> profileRepository: <a href="../com.lucas.mobilemanager.domain.repository/ProfileRepository.html">ProfileRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L36">DashboardLoader.kt, line 36</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L61" title="zoneQuotas = profileRepository.observeGlobalRules().first().mapNotNull { rule -&gt;">61</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-whitelistProvider">
+<h3>whitelistProvider <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> whitelistProvider: <a href="../com.lucas.mobilemanager.enforcement/SystemWhitelistProvider.html">SystemWhitelistProvider</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L37">DashboardLoader.kt, line 37</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L68" title="excludedPackages = whitelistProvider.nonScreenTimePackages(),">68</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-timeProvider">
+<h3>timeProvider <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> timeProvider: <a href="../com.lucas.mobilemanager.domain.time/TimeProvider.html">TimeProvider</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L38">DashboardLoader.kt, line 38</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html">DashboardLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L42" title="val now = timeProvider.localNow()">42</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L44" title="val zone = timeProvider.zone()">44</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-load">
+<h3>load <span class="badge">method</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">suspend</span> <span class="kw">fun</span> load(period: <a href="../com.lucas.mobilemanager.domain.dashboard/Period.html">Period</a>): <a href="../com.lucas.mobilemanager.domain.dashboard/DashboardSummary.html">DashboardSummary</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DashboardLoader.kt.html#L40">DashboardLoader.kt, line 40</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L51" title="val summary = loader.load(state.value.period)">51</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeViewModel.kt.html">HomeViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/home</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeViewModel.kt.html#L101" title="viewModelScope.launch { _today.value = dashboardLoader.load(Period.TODAY) }">101</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">4 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L6" title="import com.lucas.mobilemanager.dashboard.DashboardLoader">6</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L36" title="private val loader: DashboardLoader,">36</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeViewModel.kt.html">HomeViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/home</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeViewModel.kt.html#L6" title="import com.lucas.mobilemanager.dashboard.DashboardLoader">6</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeViewModel.kt.html#L56" title="private val dashboardLoader: DashboardLoader,">56</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

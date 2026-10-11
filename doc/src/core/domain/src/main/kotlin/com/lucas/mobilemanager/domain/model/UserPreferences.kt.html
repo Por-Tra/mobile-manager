@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UserPreferences.kt - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../../../../../../../../../../assets/style.css">
+</head>
+<body data-root="../../../../../../../../../../../" data-page="src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/model/UserPreferences.kt.html">
+<header class="site-header">
+  <a class="brand" href="../../../../../../../../../../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../../../../../../../../../../index.html" class="">Overview</a><a href="../../../../../../../../../../../concepts/architecture.html" class="">Architecture</a><a href="../../../../../../../../../../../api/index.html" class="">API reference</a><a href="../../../../../../../../../../index.html" class="active">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../../../../../../../../../../index.html">Source files</a> <span class="sep">/</span> <span>core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/model</span> <span class="sep">/</span> <span>UserPreferences.kt</span></nav>
+    <article>
+<h1>UserPreferences.kt</h1><div class="meta"><span>core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/model/UserPreferences.kt</span><span>Module: :core:domain</span><span>Package: <a href="../../../../../../../../../../../api/com.lucas.mobilemanager.domain.model/index.html">com.lucas.mobilemanager.domain.model</a></span></div><h2 id="declarations">Declarations</h2><details class="refs-box"><summary>6 declarations in this file</summary><table class="summary"><thead><tr><th>Declaration</th><th>Kind</th><th>Line</th></tr></thead><tbody><tr><td><a href="../../../../../../../../../../../api/com.lucas.mobilemanager.domain.model/UserPreferences.html"><code>UserPreferences</code></a></td><td>data class</td><td><a href="#L3">3</a></td></tr><tr><td><a href="../../../../../../../../../../../api/com.lucas.mobilemanager.domain.model/UserPreferences.html#m-onboardingCompleted"><code>UserPreferences.onboardingCompleted</code></a></td><td>property</td><td><a href="#L4">4</a></td></tr><tr><td><a href="../../../../../../../../../../../api/com.lucas.mobilemanager.domain.model/UserPreferences.html#m-defaultProfilesSeeded"><code>UserPreferences.defaultProfilesSeeded</code></a></td><td>property</td><td><a href="#L5">5</a></td></tr><tr><td><a href="../../../../../../../../../../../api/com.lucas.mobilemanager.domain.model/UserPreferences.html#m-defaultAppBlocksSeeded"><code>UserPreferences.defaultAppBlocksSeeded</code></a></td><td>property</td><td><a href="#L6">6</a></td></tr><tr><td><a href="../../../../../../../../../../../api/com.lucas.mobilemanager.domain.model/UserPreferences.html#m-defaultZoneRulesSeeded"><code>UserPreferences.defaultZoneRulesSeeded</code></a></td><td>property</td><td><a href="#L7">7</a></td></tr><tr><td><a href="../../../../../../../../../../../api/com.lucas.mobilemanager.domain.model/UserPreferences.html#m-screenTimeGoalMinutes"><code>UserPreferences.screenTimeGoalMinutes</code></a></td><td>property</td><td><a href="#L9">9</a></td></tr></tbody></table></details><details class="refs-box"><summary>Files that reference this file's declarations</summary><ul class="files"><li><a href="../../../../../../../../../data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreUserPreferencesRepository.kt.html">DataStoreUserPreferencesRepository.kt</a> <span class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</span></li><li><a href="../repository/Repositories.kt.html">Repositories.kt</a> <span class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/repository</span></li><li><a href="../../../../../../../test/kotlin/com/lucas/mobilemanager/domain/profiles/SeedDefaultProfilesTest.kt.html">SeedDefaultProfilesTest.kt</a> <span class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/profiles</span></li></ul></details><h2 id="source">Source</h2><div class="code source"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre class="numbered"><code><span class="line" id="L1"><span class="ln"><a href="#L1">1</a></span><span class="kw">package</span> com.lucas.mobilemanager.domain.model</span><span class="line" id="L2"><span class="ln"><a href="#L2">2</a></span></span><span class="line" id="L3"><span class="ln"><a href="#L3">3</a></span><span class="kw">data</span> <span class="kw">class</span> <a class="ty" href="../../../../../../../../../../../api/com.lucas.mobilemanager.domain.model/UserPreferences.html">UserPreferences</a>(</span><span class="line" id="L4"><span class="ln"><a href="#L4">4</a></span>    <span class="kw">val</span> onboardingCompleted: Boolean = <span class="kw">false</span>,</span><span class="line" id="L5"><span class="ln"><a href="#L5">5</a></span>    <span class="kw">val</span> defaultProfilesSeeded: Boolean = <span class="kw">false</span>,</span><span class="line" id="L6"><span class="ln"><a href="#L6">6</a></span>    <span class="kw">val</span> defaultAppBlocksSeeded: Boolean = <span class="kw">false</span>,</span><span class="line" id="L7"><span class="ln"><a href="#L7">7</a></span>    <span class="kw">val</span> defaultZoneRulesSeeded: Boolean = <span class="kw">false</span>,</span><span class="line" id="L8"><span class="ln"><a href="#L8">8</a></span>    <span class="cm">/** Objectif de temps d&#x27;écran quotidien (tableau de bord), `null` si aucun. */</span></span><span class="line" id="L9"><span class="ln"><a href="#L9">9</a></span>    <span class="kw">val</span> screenTimeGoalMinutes: Int? = <span class="kw">null</span>,</span><span class="line" id="L10"><span class="ln"><a href="#L10">10</a></span>)</span><span class="line" id="L11"><span class="ln"><a href="#L11">11</a></span></span></code></pre></div>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#declarations">Declarations</a></li><li><a href="#source">Source</a></li></ol></aside>
+</div>
+<script src="../../../../../../../../../../../assets/data.js"></script>
+<script src="../../../../../../../../../../../assets/site.js"></script>
+</body>
+</html>

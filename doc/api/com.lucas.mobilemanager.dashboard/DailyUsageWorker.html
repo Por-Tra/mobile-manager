@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DailyUsageWorker Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.dashboard/DailyUsageWorker.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.dashboard</a> <span class="sep">/</span> <span>DailyUsageWorker</span></nav>
+    <article>
+<h1>DailyUsageWorker <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.dashboard</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html#L57">DailyUsageSnapshotter.kt</a></span></div>
+<div class="kdoc"><p>Daily snapshot, even when the app is not opened for several days.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@HiltWorker
+<span class="kw">class</span> DailyUsageWorker @AssistedInject <span class="kw">constructor</span>(@Assisted context: Context, @Assisted params: WorkerParameters, <span class="kw">private</span> <span class="kw">val</span> snapshotter: <a href="DailyUsageSnapshotter.html">DailyUsageSnapshotter</a>) : CoroutineWorker(context, params)</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Extends / implements</th><td><code>CoroutineWorker</code></td></tr></tbody></table>
+<h2 id="constructor-parameters">Constructor parameters</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Type</th></tr></thead><tbody><tr><td><code>context</code></td><td><code>Context</code></td></tr><tr><td><code>params</code></td><td><code>WorkerParameters</code></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DailyUsageWorker.html#m-snapshotter"><code>snapshotter</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DailyUsageWorker.html#m-doWork"><code>doWork</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="companion-members">Companion members</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DailyUsageWorker.html#m-NAME"><code>NAME</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DailyUsageWorker.html#m-schedule"><code>schedule</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-snapshotter">
+<h3>snapshotter <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> snapshotter: <a href="DailyUsageSnapshotter.html">DailyUsageSnapshotter</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html#L60">DailyUsageSnapshotter.kt, line 60</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html">DailyUsageSnapshotter.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html#L64" title="snapshotter.ensureSnapshots()">64</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-doWork">
+<h3>doWork <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> doWork(): <a href="../com.lucas.mobilemanager.domain.zones/ZoneDetectorParser.Result.html">Result</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html#L63">DailyUsageSnapshotter.kt, line 63</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-NAME">
+<h3>NAME <span class="badge">constant</span><span class="badge vis">private</span><span class="badge vis">companion</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">const</span> <span class="kw">val</span> NAME</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html#L69">DailyUsageSnapshotter.kt, line 69</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html">DailyUsageSnapshotter.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html#L76" title=".enqueueUniquePeriodicWork(NAME, ExistingPeriodicWorkPolicy.KEEP, request)">76</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-schedule">
+<h3>schedule <span class="badge">method</span><span class="badge vis">companion</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> schedule(context: Context)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html#L71">DailyUsageSnapshotter.kt, line 71</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html">MobileManagerApp.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L44" title="DailyUsageWorker.schedule(this)">44</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">3 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html">DailyUsageSnapshotter.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/dashboard/DailyUsageSnapshotter.kt.html#L72" title="val request = PeriodicWorkRequestBuilder&lt;DailyUsageWorker&gt;(1, TimeUnit.DAYS)">72</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html">MobileManagerApp.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L7" title="import com.lucas.mobilemanager.dashboard.DailyUsageWorker">7</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/MobileManagerApp.kt.html#L44" title="DailyUsageWorker.schedule(this)">44</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#constructor-parameters">Constructor parameters</a></li><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#companion-members">Companion members</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

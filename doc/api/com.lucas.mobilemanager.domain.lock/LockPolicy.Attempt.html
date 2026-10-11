@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LockPolicy.Attempt Sealed Interface - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.lock/LockPolicy.Attempt.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.lock</a> <span class="sep">/</span> <a href="LockPolicy.html">LockPolicy</a> <span class="sep">/</span> <span>Attempt</span></nav>
+    <article>
+<h1>LockPolicy.Attempt <span class="h1-kind">sealed interface</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.lock</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock/Lock.kt.html#L85">Lock.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">sealed</span> <span class="kw">interface</span> Attempt</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Nested in</th><td><a href="LockPolicy.html"><code>LockPolicy</code></a></td></tr><tr><th>Known subtypes</th><td><a href="LockPolicy.Attempt.Success.html"><code>LockPolicy.Attempt.Success</code></a>, <a href="LockPolicy.Attempt.Wrong.html"><code>LockPolicy.Attempt.Wrong</code></a>, <a href="LockPolicy.Attempt.LockedOut.html"><code>LockPolicy.Attempt.LockedOut</code></a></td></tr></tbody></table>
+<h2 id="nested-types">Nested types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="LockPolicy.Attempt.Success.html"><code>Success</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="LockPolicy.Attempt.Wrong.html"><code>Wrong</code></a></td><td>Wrong code; <a href="LockPolicy.Attempt.Wrong.html#m-attemptsLeft"><code>attemptsLeft</code></a> before a wait.</td></tr><tr><td><a href="LockPolicy.Attempt.LockedOut.html"><code>LockedOut</code></a></td><td>Too many attempts: a new attempt is possible at <a href="LockPolicy.Attempt.LockedOut.html#m-until"><code>until</code></a>.</td></tr></tbody></table>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">19 references in 4 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html">AppLock.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L95" title="suspend fun unlock(pin: String): LockPolicy.Attempt {">95</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L96" title="val config = stored.filterNotNull().first().config ?: return LockPolicy.Attempt.Success">96</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L103" title="if (result == LockPolicy.Attempt.Success) unlockedUntil.value = now + LockPolicy.UNLOCK_DURATION">103</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html">LockComponents.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L60" title="suspend fun unlock(pin: String): LockPolicy.Attempt = appLock.unlock(pin)">60</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L130" title="LockPolicy.Attempt.Success -&gt; {">130</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L134" title="is LockPolicy.Attempt.Wrong -&gt; error = resources.getString(R.string.lock_wrong, result.attemptsLeft)">134</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L135" title="is LockPolicy.Attempt.LockedOut -&gt; error = resources.getString(R.string.lock_locked_out, time(result.until))">135</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock/Lock.kt.html">Lock.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock/Lock.kt.html#L86" title="data object Success : Attempt">86</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock/Lock.kt.html#L89" title="data class Wrong(val attemptsLeft: Int) : Attempt">89</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock/Lock.kt.html#L92" title="data class LockedOut(val until: Instant) : Attempt">92</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock/Lock.kt.html#L99" title="fun attempt(config: LockConfig, pin: String, now: Instant, matches: (String, LockConfig) -&gt; Boolean = PinHasher::matches): Pair&lt;Attempt, LockConfig&gt; {">99</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock/Lock.kt.html#L100" title="config.lockedOutUntil?.let { until -&gt; if (now.isBefore(until)) return Attempt.LockedOut(until) to config }">100</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock/Lock.kt.html#L101" title="if (matches(pin, config)) return Attempt.Success to config.copy(failures = 0, lockedOutUntil = null)">101</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/lock/Lock.kt.html#L105" title="return (if (lockout != null) Attempt.LockedOut(lockout) else Attempt.Wrong(FREE_ATTEMPTS - failures)) to updated">105</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/lock/LockTest.kt.html">LockTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/lock</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/lock/LockTest.kt.html#L64" title="assertEquals(LockPolicy.Attempt.Success, result)">64</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/lock/LockTest.kt.html#L73" title="assertEquals(LockPolicy.Attempt.Wrong(attemptsLeft = 4 - i), result)">73</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/lock/LockTest.kt.html#L77" title="assertEquals(LockPolicy.Attempt.LockedOut(now.plusSeconds(30)), result)">77</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/lock/LockTest.kt.html#L84" title="assertEquals(LockPolicy.Attempt.LockedOut(now.plusSeconds(30)), LockPolicy.attempt(locked, &quot;1234&quot;, now, right).first)">84</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/lock/LockTest.kt.html#L85" title="assertEquals(LockPolicy.Attempt.Success, LockPolicy.attempt(locked, &quot;1234&quot;, now.plusSeconds(30), right).first)">85</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#nested-types">Nested types</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

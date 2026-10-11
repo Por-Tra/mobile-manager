@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trusted person code - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-page="concepts/trusted-code.html">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../index.html" class="">Overview</a><a href="architecture.html" class="active">Architecture</a><a href="../api/index.html" class="">API reference</a><a href="../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">Documentation</a> <span class="sep">/</span> <span>Trusted person code</span></nav>
+    <article>
+<h1>Trusted person code</h1>
+<p class="lead">A code chosen by a close person. While it is set, every change that could loosen the restrictions requires it,
+and the settings screens that could disable Mobile Manager are closed.</p>
+
+<h2 id="what-it-protects">What requires the code</h2>
+<table class="summary">
+  <thead><tr><th>Requires the code</th><th>Stays free</th></tr></thead>
+  <tbody>
+    <tr><td>
+      <ul>
+        <li>Editing, deleting, enabling or disabling, reordering or creating a profile</li>
+        <li>Default rules</li>
+        <li>Zones and quotas</li>
+        <li>Detector editor (diagnostic mode)</li>
+        <li>Screen time goal of the dashboard</li>
+        <li>Debug test tools</li>
+        <li>Changing or removing the code</li>
+      </ul>
+    </td><td>
+      <ul>
+        <li>Starting a focus session</li>
+        <li>Activating or deactivating a profile by hand</li>
+        <li>Viewing everything (editors open read-only with an “Unlock” banner)</li>
+      </ul>
+    </td></tr>
+  </tbody>
+</table>
+<p>The check is done twice: the UI disables controls (<a href="../api/com.lucas.mobilemanager.ui.lock/index.html#m-rememberCanModify"><code>rememberCanModify</code></a>, <a href="../api/com.lucas.mobilemanager.ui.lock/index.html#m-LockBanner"><code>LockBanner</code></a>, <a href="../api/com.lucas.mobilemanager.ui.lock/index.html#m-UnlockDialog"><code>UnlockDialog</code></a>) and every ViewModel
+refuses the change (<a href="../api/com.lucas.mobilemanager.lock/AppLock.html#m-canModifyNow"><code>AppLock.canModifyNow</code></a>).</p>
+
+<h2 id="policy">Policy</h2>
+<ul>
+  <li>4 to 8 digits (<a href="../api/com.lucas.mobilemanager.domain.lock/LockPolicy.html#m-isValidPin"><code>LockPolicy.isValidPin</code></a>).</li>
+  <li>A correct code unlocks for <strong>5 minutes</strong> (<a href="../api/com.lucas.mobilemanager.domain.lock/LockPolicy.html#m-UNLOCK_DURATION"><code>LockPolicy.UNLOCK_DURATION</code></a>).</li>
+  <li>5 free attempts, then a 30 s wait that doubles at each failure, up to 1 hour (<a href="../api/com.lucas.mobilemanager.domain.lock/LockPolicy.html#m-lockoutFor"><code>LockPolicy.lockoutFor</code></a>). During a wait even the
+  right code is refused (<a href="../api/com.lucas.mobilemanager.domain.lock/LockPolicy.html#m-attempt"><code>LockPolicy.attempt</code></a>).</li>
+  <li>The unlock state lives in memory (<a href="../api/com.lucas.mobilemanager.lock/AppLock.html"><code>AppLock</code></a>): a restart of the process locks again.</li>
+</ul>
+
+<h2 id="storage">Storage</h2>
+<p>The code is never stored in clear. <a href="../api/com.lucas.mobilemanager.domain.lock/PinHasher.html"><code>PinHasher</code></a> derives a PBKDF2-HMAC-SHA256 hash with a random 16-byte salt and compares in
+constant time. The iteration count is stored with the hash (<a href="../api/com.lucas.mobilemanager.domain.lock/LockConfig.html#m-iterations"><code>LockConfig.iterations</code></a>): 30,000 iterations take 0.67 s on a Galaxy A04s
+(120,000 took 2.7 s); hashes stored before the count existed are read as 120,000. DataStore keys: <code>lock_pin_hash</code>,
+<code>lock_pin_salt</code>, <code>lock_pin_iterations</code>, <code>lock_failures</code>, <code>lock_locked_out_until</code>
+(<a href="../api/com.lucas.mobilemanager.data.repository/DataStoreLockRepository.html"><code>DataStoreLockRepository</code></a>).</p>
+
+<h2 id="app-protection">Protecting the app itself</h2>
+<p>While a code is set and the app is locked, protected Settings and installer screens (app info, accessibility, uninstall) are closed
+exactly as during a focus session, with the message “Protégé par le code du proche” (<a href="../api/com.lucas.mobilemanager.lock/AppLock.html#m-protectsSettingsNow"><code>AppLock.protectsSettingsNow</code></a>). Without that,
+“Force stop” would be enough: on the test phone, a force stop unbinds the accessibility service and Android does not bind it again until
+it is re-enabled.</p>
+
+<h2 id="settings">Settings</h2>
+<p>Settings › “Code du proche” (<a href="../api/com.lucas.mobilemanager.ui.lock/index.html#m-LockSettingsScreen"><code>LockSettingsScreen</code></a>): set (entered twice), change, remove. The screen states that if the code is
+forgotten, only uninstalling the app resets it (all rules are then lost).</p>
+
+<div class="alert note"><p class="alert-title">Note</p><p>The code is social friction, not a lock: safe mode, ADB or a reset get through.
+A 4–8 digit hash can be brute-forced offline by someone able to read the app’s data (root); the real protection is the attempt limit.</p></div>
+
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#what-it-protects">What requires the code</a></li><li><a href="#policy">Policy</a></li><li><a href="#storage">Storage</a></li><li><a href="#app-protection">Protecting the app itself</a></li><li><a href="#settings">Settings</a></li></ol></aside>
+</div>
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

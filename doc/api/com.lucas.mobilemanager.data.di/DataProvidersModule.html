@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DataProvidersModule Object - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.data.di/DataProvidersModule.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.data.di</a> <span class="sep">/</span> <span>DataProvidersModule</span></nav>
+    <article>
+<h1>DataProvidersModule <span class="h1-kind">object</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.data.di</a></span><span>Module: :core:data</span><span>Source: <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L43">DataModule.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Module
+@InstallIn(SingletonComponent::class)
+<span class="kw">object</span> DataProvidersModule</code></pre></div>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DataProvidersModule.html#m-provideDatabase"><code>provideDatabase</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataProvidersModule.html#m-provideEventLogDao"><code>provideEventLogDao</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataProvidersModule.html#m-provideProfileDao"><code>provideProfileDao</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataProvidersModule.html#m-provideDailyUsageDao"><code>provideDailyUsageDao</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataProvidersModule.html#m-provideZoneUsageDao"><code>provideZoneUsageDao</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataProvidersModule.html#m-provideStrictSessionDao"><code>provideStrictSessionDao</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataProvidersModule.html#m-providePreferencesDataStore"><code>providePreferencesDataStore</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataProvidersModule.html#m-provideTimeProvider"><code>provideTimeProvider</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-provideDatabase">
+<h3>provideDatabase <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Provides
+@Singleton
+<span class="kw">fun</span> provideDatabase(@ApplicationContext context: Context): <a href="../com.lucas.mobilemanager.data.db/MobileManagerDatabase.html">MobileManagerDatabase</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L47">DataModule.kt, line 47</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-provideEventLogDao">
+<h3>provideEventLogDao <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Provides
+<span class="kw">fun</span> provideEventLogDao(db: <a href="../com.lucas.mobilemanager.data.db/MobileManagerDatabase.html">MobileManagerDatabase</a>): <a href="../com.lucas.mobilemanager.data.db/EventLogDao.html">EventLogDao</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L52">DataModule.kt, line 52</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-provideProfileDao">
+<h3>provideProfileDao <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Provides
+<span class="kw">fun</span> provideProfileDao(db: <a href="../com.lucas.mobilemanager.data.db/MobileManagerDatabase.html">MobileManagerDatabase</a>): <a href="../com.lucas.mobilemanager.data.db/ProfileDao.html">ProfileDao</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L55">DataModule.kt, line 55</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-provideDailyUsageDao">
+<h3>provideDailyUsageDao <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Provides
+<span class="kw">fun</span> provideDailyUsageDao(db: <a href="../com.lucas.mobilemanager.data.db/MobileManagerDatabase.html">MobileManagerDatabase</a>): <a href="../com.lucas.mobilemanager.data.db/DailyUsageDao.html">DailyUsageDao</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L58">DataModule.kt, line 58</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-provideZoneUsageDao">
+<h3>provideZoneUsageDao <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Provides
+<span class="kw">fun</span> provideZoneUsageDao(db: <a href="../com.lucas.mobilemanager.data.db/MobileManagerDatabase.html">MobileManagerDatabase</a>): <a href="../com.lucas.mobilemanager.data.db/ZoneUsageDao.html">ZoneUsageDao</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L61">DataModule.kt, line 61</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-provideStrictSessionDao">
+<h3>provideStrictSessionDao <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Provides
+<span class="kw">fun</span> provideStrictSessionDao(db: <a href="../com.lucas.mobilemanager.data.db/MobileManagerDatabase.html">MobileManagerDatabase</a>): <a href="../com.lucas.mobilemanager.data.db/StrictSessionDao.html">StrictSessionDao</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L64">DataModule.kt, line 64</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-providePreferencesDataStore">
+<h3>providePreferencesDataStore <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Provides
+@Singleton
+<span class="kw">fun</span> providePreferencesDataStore(@ApplicationContext context: Context): DataStore&lt;Preferences&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L68">DataModule.kt, line 68</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-provideTimeProvider">
+<h3>provideTimeProvider <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Provides
+@Singleton
+<span class="kw">fun</span> provideTimeProvider(): <a href="../com.lucas.mobilemanager.domain.time/TimeProvider.html">TimeProvider</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L75">DataModule.kt, line 75</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="muted refs-none">No reference found outside its declaration.</p>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

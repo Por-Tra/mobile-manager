@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily quotas - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-page="concepts/quotas.html">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../index.html" class="">Overview</a><a href="architecture.html" class="active">Architecture</a><a href="../api/index.html" class="">API reference</a><a href="../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">Documentation</a> <span class="sep">/</span> <span>Daily quotas</span></nav>
+    <article>
+<h1>Daily quotas</h1>
+<p class="lead">A quota is a cumulative daily duration — for example 50 minutes of Instagram Reels. Once it is used, the zone is
+closed until midnight: no pause screen, no extra time. Messages and the rest of the app stay available.</p>
+
+<h2 id="model">A quota is a limit rule</h2>
+<p>No new concept was added to the engine: a quota is a <a href="../api/com.lucas.mobilemanager.domain.rules/RuleAction.Limit.html"><code>RuleAction.Limit</code></a> on a <a href="../api/com.lucas.mobilemanager.domain.rules/Target.Zone.html"><code>Target.Zone</code></a>
+(<code>Zone(instagram, reels) Limit 50 min</code>), or on a <a href="../api/com.lucas.mobilemanager.domain.rules/Target.App.html"><code>Target.App</code></a> for a whole app (<code>App(tiktok) Limit 30 min</code>).
+The only difference is what is measured: <a href="../api/com.lucas.mobilemanager.domain.rules/RuleEngine.html"><code>RuleEngine</code></a> compares a zone limit with <a href="../api/com.lucas.mobilemanager.domain.rules/AppRequest.html#m-zoneUsageToday"><code>AppRequest.zoneUsageToday</code></a> and an app limit
+with <a href="../api/com.lucas.mobilemanager.domain.rules/AppRequest.html#m-usageToday"><code>AppRequest.usageToday</code></a>.</p>
+
+<h2 id="measuring">Measuring time in a zone</h2>
+<p>Android does not know about zones, so their time is measured by the app itself:</p>
+<ul>
+  <li><a href="../api/com.lucas.mobilemanager.domain.zones/ZoneUsageAccumulator.html"><code>ZoneUsageAccumulator</code></a> (domain, pure) adds the time between two consecutive observations “in the zone”, capped at 15 s per
+  gap so that a frozen screen or a suspended service never counts indefinitely, and split at midnight so each day gets its share
+  (<a href="../api/com.lucas.mobilemanager.domain.zones/ZoneUsageDelta.html"><code>ZoneUsageDelta</code></a>).</li>
+  <li><a href="../api/com.lucas.mobilemanager.zones/ZoneEnforcer.html"><code>ZoneEnforcer</code></a> observes at least every 5 s while an accessible zone is on screen (a playing video produces no event) and
+  exactly when the remaining quota runs out.</li>
+  <li>Time is credited <em>before</em> the decision, so the quota is judged on up-to-date usage.</li>
+  <li><a href="../api/com.lucas.mobilemanager.zones/ZoneUsageRecorder.html"><code>ZoneUsageRecorder</code></a> buffers the deltas in memory and writes them to the <code>zone_usage</code> table every 15 s of counted
+  time and when the app leaves the foreground or the screen turns off. <a href="../api/com.lucas.mobilemanager.zones/ZoneUsageRecorder.html#m-usageToday"><code>ZoneUsageRecorder.usageToday</code></a> adds what is stored and what is
+  still buffered.</li>
+</ul>
+
+<h2 id="reached">When the quota is reached</h2>
+<ol>
+  <li><a href="../api/com.lucas.mobilemanager.enforcement/EnforcementCoordinator.html#m-evaluateZone"><code>EnforcementCoordinator.evaluateZone</code></a> returns <a href="../api/com.lucas.mobilemanager.domain.rules/Decision.Blocked.html"><code>Decision.Blocked</code></a> with <a href="../api/com.lucas.mobilemanager.domain.rules/BlockReason.DailyLimitReached.html"><code>BlockReason.DailyLimitReached</code></a>.</li>
+  <li>The zone is left (exit actions), its button is masked, and a short message says “Quota de Reels atteint pour aujourd’hui (50 min)”.</li>
+  <li>Nothing else happens until midnight; the next day starts from zero.</li>
+</ol>
+
+<h2 id="settings">Settings</h2>
+<p>Settings › “Zones et quotas” (<a href="../api/com.lucas.mobilemanager.ui.zones/ZoneRulesViewModel.html"><code>ZoneRulesViewModel</code></a>) lists every zone known by the detectors with three choices — Blocked, Quota
+(5 min to 3 h; 1 and 2 min in debug builds) or Allowed — and the time used today (“32 min sur 50 min aujourd’hui”). Whole-app limits
+are set in the default rules editor. Every change requires the <a href="trusted-code.html">trusted person code</a>
+when one is set. A profile can still allow a zone explicitly (<code>Rule(Zone, Allow)</code>).</p>
+
+<h2 id="history">History: anti-doomscrolling</h2>
+<p>Earlier versions had pause screens after a continuous session and cooldown blocks. Field use showed they were easy to dismiss and
+annoying, so they were replaced by quotas: pauses, continuous sessions, the <code>scroll_guard</code> table (dropped in schema 6) and
+its preferences are gone. Old event types stay in <a href="../api/com.lucas.mobilemanager.domain.model/EventType.html"><code>EventType</code></a> so the journal can still be read, and old <code>session_limit</code>
+blocks are counted as rule blocks by the dashboard.</p>
+
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#model">A quota is a limit rule</a></li><li><a href="#measuring">Measuring time in a zone</a></li><li><a href="#reached">When the quota is reached</a></li><li><a href="#settings">Settings</a></li><li><a href="#history">History: anti-doomscrolling</a></li></ol></aside>
+</div>
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

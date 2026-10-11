@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Goals Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.dashboard/Goals.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.dashboard</a> <span class="sep">/</span> <span>Goals</span></nav>
+    <article>
+<h1>Goals <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.dashboard</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L89">Dashboard.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">data</span> <span class="kw">class</span> Goals(<span class="kw">val</span> daysUnderGoal: Int?, <span class="kw">val</span> daysWithData: Int, <span class="kw">val</span> daysLimitReached: Int, <span class="kw">val</span> sessionsCompleted: Int, <span class="kw">val</span> sessionsEndedEarly: Int)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="Goals.html#m-daysUnderGoal"><code>daysUnderGoal</code></a></td><td>Days (with data) spent under the daily goal; <code>null</code> without a goal.</td></tr><tr><td><a href="Goals.html#m-daysWithData"><code>daysWithData</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="Goals.html#m-daysLimitReached"><code>daysLimitReached</code></a></td><td>Days when at least one daily limit was reached.</td></tr><tr><td><a href="Goals.html#m-sessionsCompleted"><code>sessionsCompleted</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="Goals.html#m-sessionsEndedEarly"><code>sessionsEndedEarly</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-daysUnderGoal">
+<h3>daysUnderGoal <span class="badge">property</span></h3>
+<div class="kdoc"><p>Days (with data) spent under the daily goal; <code>null</code> without a goal.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> daysUnderGoal: Int?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L91">Dashboard.kt, line 91</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L190" title="daysUnderGoal = input.dailyGoal?.let { goal -&gt; daysWithData.count { listOf(it).sumOf(usage) &lt;= goal } },">190</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-daysWithData">
+<h3>daysWithData <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> daysWithData: Int</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L92">Dashboard.kt, line 92</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L186" title="val daysWithData = range.days.filter { it in usage }">186</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L190" title="daysUnderGoal = input.dailyGoal?.let { goal -&gt; daysWithData.count { listOf(it).sumOf(usage) &lt;= goal } },">190</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L191" title="daysWithData = daysWithData.size,">191</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-daysLimitReached">
+<h3>daysLimitReached <span class="badge">property</span></h3>
+<div class="kdoc"><p>Days when at least one daily limit was reached.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> daysLimitReached: Int</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L94">Dashboard.kt, line 94</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L192" title="daysLimitReached = events">192</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-sessionsCompleted">
+<h3>sessionsCompleted <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> sessionsCompleted: Int</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L95">Dashboard.kt, line 95</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L197" title="sessionsCompleted = sessions.count { it.endReason == StrictSession.EndReason.COMPLETED },">197</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-sessionsEndedEarly">
+<h3>sessionsEndedEarly <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> sessionsEndedEarly: Int</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L96">Dashboard.kt, line 96</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L198" title="sessionsEndedEarly = sessions.count { it.endReason == StrictSession.EndReason.OVERRIDDEN },">198</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html">Dashboard.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L108" title="val goals: Goals,">108</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L185" title="private fun goals(input: DashboardInput, range: DateRange, usage: DailyUsage, events: List&lt;EventLogEntry&gt;): Goals {">185</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/dashboard/Dashboard.kt.html#L189" title="return Goals(">189</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

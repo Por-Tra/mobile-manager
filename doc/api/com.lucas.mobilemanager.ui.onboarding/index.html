@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.ui.onboarding package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.onboarding/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.ui.onboarding</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.ui.onboarding <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :app</span><span>2 files</span></div>
+<p>Permission onboarding screen.</p>
+<h2 id="types">Types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="OnboardingViewModel.html"><code>OnboardingViewModel</code></a></td><td>class</td><td><span class="muted">—</span></td></tr><tr><td><a href="PermissionTexts.html"><code>PermissionTexts</code></a></td><td>data class</td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-OnboardingScreen"><code>OnboardingScreen</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-OnboardingContent"><code>OnboardingContent</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-PermissionCard"><code>PermissionCard</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-RequirementLabel"><code>RequirementLabel</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-HintCard"><code>HintCard</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-texts"><code>texts</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingViewModel.kt.html">OnboardingViewModel.kt</a></li></ul>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-OnboardingScreen">
+<h3>OnboardingScreen <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">fun</span> OnboardingScreen(onFinished: () -&gt; Unit, viewModel: <a href="OnboardingViewModel.html">OnboardingViewModel</a> = hiltViewModel())</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L51">OnboardingScreen.kt, line 51</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L12" title="import com.lucas.mobilemanager.ui.onboarding.OnboardingScreen">12</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L58" title="OnboardingScreen(">58</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-OnboardingContent">
+<h3>OnboardingContent <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> OnboardingContent(state: <a href="../com.lucas.mobilemanager.domain.onboarding/OnboardingState.html">OnboardingState</a>, isSamsung: Boolean, onGrant: (<a href="../com.lucas.mobilemanager.domain.onboarding/PermissionKind.html">PermissionKind</a>) -&gt; Unit, onOpenAppDetails: () -&gt; Unit, onOpenBatterySettings: () -&gt; Unit, onFinish: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L93">OnboardingScreen.kt, line 93</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L71" title="OnboardingContent(">71</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-PermissionCard">
+<h3>PermissionCard <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> PermissionCard(item: <a href="../com.lucas.mobilemanager.domain.onboarding/PermissionItem.html">PermissionItem</a>, onGrant: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L201">OnboardingScreen.kt, line 201</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L146" title="PermissionCard(item = item, onGrant = { onGrant(item.kind) })">146</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-RequirementLabel">
+<h3>RequirementLabel <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> RequirementLabel(requirement: <a href="../com.lucas.mobilemanager.domain.onboarding/PermissionRequirement.html">PermissionRequirement</a>)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L241">OnboardingScreen.kt, line 241</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L208" title="RequirementLabel(item.kind.requirement)">208</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-HintCard">
+<h3>HintCard <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> HintCard(@StringRes title: Int, @StringRes body: Int, @StringRes action: Int, onAction: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L260">OnboardingScreen.kt, line 260</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L153" title="HintCard(">153</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L162" title="HintCard(">162</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-texts">
+<h3>texts <span class="badge">extension function</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> <a href="../com.lucas.mobilemanager.domain.onboarding/PermissionKind.html">PermissionKind</a>.texts()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L282">OnboardingScreen.kt, line 282</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html">OnboardingScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L202" title="val texts = item.kind.texts()">202</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L210" title="Text(stringResource(texts.title), style = MaterialTheme.typography.titleMedium)">210</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/onboarding/OnboardingScreen.kt.html#L213" title="stringResource(texts.body),">213</a></td></tr></tbody></table></details>
+</section>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#types">Types</a></li><li><a href="#functions">Functions</a></li><li><a href="#files">Files</a></li><li><a href="#member-details">Member details</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

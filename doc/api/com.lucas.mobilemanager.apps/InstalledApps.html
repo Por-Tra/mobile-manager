@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>InstalledApps Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.apps/InstalledApps.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.apps</a> <span class="sep">/</span> <span>InstalledApps</span></nav>
+    <article>
+<h1>InstalledApps <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.apps</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html#L20">InstalledApps.kt</a></span></div>
+<div class="kdoc"><p>Launchable apps that can be chosen for blocking (without Mobile Manager and vital apps).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Singleton
+<span class="kw">class</span> InstalledApps @Inject <span class="kw">constructor</span>(@ApplicationContext <span class="kw">private</span> <span class="kw">val</span> context: Context, <span class="kw">private</span> <span class="kw">val</span> whitelistProvider: <a href="../com.lucas.mobilemanager.enforcement/SystemWhitelistProvider.html">SystemWhitelistProvider</a>)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="InstalledApps.html#m-context"><code>context</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="InstalledApps.html#m-whitelistProvider"><code>whitelistProvider</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="InstalledApps.html#m-label"><code>label</code></a></td><td>Display name of an app, or <code>null</code> if it is not installed.</td></tr><tr><td><a href="InstalledApps.html#m-blockable"><code>blockable</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-context">
+<h3>context <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@ApplicationContext
+<span class="kw">private</span> <span class="kw">val</span> context: Context</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html#L21">InstalledApps.kt, line 21</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html">InstalledApps.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/apps</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html#L27" title="val packageManager = context.packageManager">27</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html#L35" title="val packageManager = context.packageManager">35</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-whitelistProvider">
+<h3>whitelistProvider <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> whitelistProvider: <a href="../com.lucas.mobilemanager.enforcement/SystemWhitelistProvider.html">SystemWhitelistProvider</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html#L22">InstalledApps.kt, line 22</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html">InstalledApps.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/apps</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html#L43" title="val whitelist = whitelistProvider.current()">43</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-label">
+<h3>label <span class="badge">method</span><span class="badge vis">suspend</span></h3>
+<div class="kdoc"><p>Display name of an app, or <code>null</code> if it is not installed.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">suspend</span> <span class="kw">fun</span> label(packageName: String): String?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html#L25">InstalledApps.kt, line 25</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">10 references in 4 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html">InstalledApps.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/apps</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html#L50" title=".sortedWith { a, b -&gt; collator.compare(a.label, b.label) }">50</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L55" title="val labels = packages.distinct().associateWith { installedApps.label(it) ?: it }">55</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L57" title=".flatMap { app -&gt; app.zones.map { ZoneKey(app.packageName, it.id) to it.label } }">57</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html">ProfileEditViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L123" title="return ProfileDraft(name, auto, schedules, blockAll, appRules.sortedBy { it.label.lowercase() })">123</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L127" title="val label = installedApps.label(packageName)">127</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L130" title="label = label ?: packageName,">130</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L131" title="installed = label != null,">131</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L194" title="draft.copy(appRules = draft.appRules + AppRuleDraft(app.packageName, app.label, installed = true, choice))">194</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html">ZoneRulesViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L74" title="zoneLabel = zone.label,">74</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L92" title="labels.update { current -&gt; current + missing.associateWith { installedApps.label(it) ?: it } }">92</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-blockable">
+<h3>blockable <span class="badge">method</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">suspend</span> <span class="kw">fun</span> blockable(): List&lt;<a href="InstalledApp.html">InstalledApp</a>&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/apps/InstalledApps.kt.html#L34">InstalledApps.kt, line 34</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html">ProfileEditViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L178" title="val apps = installedApps.blockable()">178</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionViewModel.kt.html">StartSessionViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/session</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionViewModel.kt.html#L63" title="val apps = installedApps.blockable()">63</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">8 references in 4 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html">DashboardViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L5" title="import com.lucas.mobilemanager.apps.InstalledApps">5</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardViewModel.kt.html#L38" title="private val installedApps: InstalledApps,">38</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html">ProfileEditViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L8" title="import com.lucas.mobilemanager.apps.InstalledApps">8</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditViewModel.kt.html#L77" title="private val installedApps: InstalledApps,">77</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionViewModel.kt.html">StartSessionViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/session</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionViewModel.kt.html#L7" title="import com.lucas.mobilemanager.apps.InstalledApps">7</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/session/StartSessionViewModel.kt.html#L53" title="private val installedApps: InstalledApps,">53</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html">ZoneRulesViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L5" title="import com.lucas.mobilemanager.apps.InstalledApps">5</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesViewModel.kt.html#L52" title="private val installedApps: InstalledApps,">52</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

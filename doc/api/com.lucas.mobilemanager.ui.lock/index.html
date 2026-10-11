@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>com.lucas.mobilemanager.ui.lock package - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.lock/index.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.ui.lock</span></nav>
+    <article>
+<h1>com.lucas.mobilemanager.ui.lock <span class="h1-kind">package</span></h1>
+<div class="meta"><span>Module: :app</span><span>2 files</span></div>
+<p>Trusted person code UI: banner, PIN dialogs and settings screen.</p>
+<h2 id="types">Types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="LockViewModel.html"><code>LockViewModel</code></a></td><td>class</td><td>Access to the trusted person code from any screen (one instance per navigation screen).</td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-rememberCanModify"><code>rememberCanModify</code></a></td><td>Can the restrictions be changed on this screen (no code, or unlocked)?</td></tr><tr><td><a href="index.html#m-LockBanner"><code>LockBanner</code></a></td><td>“Protégé par le code du proche” banner + “Déverrouiller”, or “Déverrouillé jusqu’à…”.</td></tr><tr><td><a href="index.html#m-UnlockDialog"><code>UnlockDialog</code></a></td><td>Entry of the trusted person code.</td></tr><tr><td><a href="index.html#m-PinDialog"><code>PinDialog</code></a></td><td>Dialog for entering one or two codes (digits hidden).</td></tr><tr><td><a href="index.html#m-time"><code>time</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-LockSettingsScreen"><code>LockSettingsScreen</code></a></td><td>Settings › Code du proche: set, change or remove the code.</td></tr><tr><td><a href="index.html#m-NewPinDialog"><code>NewPinDialog</code></a> <span class=tag>private</span></td><td>New code, entered twice.</td></tr><tr><td><a href="index.html#m-Caption"><code>Caption</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="files">Files</h2>
+<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html">LockComponents.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html">LockSettingsScreen.kt</a></li></ul>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-rememberCanModify">
+<h3>rememberCanModify <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>Can the restrictions be changed on this screen (no code, or unlocked)?</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">fun</span> rememberCanModify(viewModel: <a href="LockViewModel.html">LockViewModel</a> = hiltViewModel()): Boolean</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L73">LockComponents.kt, line 73</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">10 references in 5 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html">DashboardScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L56" title="import com.lucas.mobilemanager.ui.lock.rememberCanModify">56</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/dashboard/DashboardScreen.kt.html#L68" title="val canModify = rememberCanModify()">68</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html">DiagnosticScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L52" title="import com.lucas.mobilemanager.ui.lock.rememberCanModify">52</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L68" title="val readOnly = locked || !rememberCanModify()">68</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html">HomeScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/home</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L50" title="import com.lucas.mobilemanager.ui.lock.rememberCanModify">50</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L75" title="val editable = canActivate &amp;&amp; rememberCanModify()">75</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L70" title="import com.lucas.mobilemanager.ui.lock.rememberCanModify">70</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L86" title="val readOnly = state.locked || !rememberCanModify()">86</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html">ZoneRulesScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L42" title="import com.lucas.mobilemanager.ui.lock.rememberCanModify">42</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L53" title="val readOnly = state.locked || !rememberCanModify()">53</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-LockBanner">
+<h3>LockBanner <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>“Protégé par le code du proche” banner + “Déverrouiller”, or “Déverrouillé jusqu’à…”. Shows nothing when no code is set.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">fun</span> LockBanner(modifier: Modifier = Modifier, viewModel: <a href="LockViewModel.html">LockViewModel</a> = hiltViewModel())</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L83">LockComponents.kt, line 83</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">9 references in 5 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html">DiagnosticScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L51" title="import com.lucas.mobilemanager.ui.lock.LockBanner">51</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L131" title="LockBanner(Modifier.padding(top = 8.dp))">131</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html">HomeScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/home</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L49" title="import com.lucas.mobilemanager.ui.lock.LockBanner">49</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeScreen.kt.html#L121" title="LockBanner(Modifier.padding(top = 8.dp))">121</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html">LockSettingsScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html#L63" title="LockBanner(viewModel = viewModel)">63</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html">ProfileEditScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L69" title="import com.lucas.mobilemanager.ui.lock.LockBanner">69</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/profiles/ProfileEditScreen.kt.html#L107" title="LockBanner(Modifier.padding(bottom = 8.dp))">107</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html">ZoneRulesScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L41" title="import com.lucas.mobilemanager.ui.lock.LockBanner">41</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/zones/ZoneRulesScreen.kt.html#L70" title="item { LockBanner() }">70</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-UnlockDialog">
+<h3>UnlockDialog <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>Entry of the trusted person code. Closes by itself when the code is right.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">fun</span> UnlockDialog(onDismiss: () -&gt; Unit, onUnlocked: () -&gt; Unit = {}, viewModel: <a href="LockViewModel.html">LockViewModel</a> = hiltViewModel())</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L115">LockComponents.kt, line 115</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html">LockComponents.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L110" title="if (unlocking) UnlockDialog(onDismiss = { unlocking = false }, viewModel = viewModel)">110</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-PinDialog">
+<h3>PinDialog <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>Dialog for entering one or two codes (digits hidden).</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">fun</span> PinDialog(title: String, fields: List&lt;String&gt;, error: String?, checking: Boolean, onDismiss: () -&gt; Unit, onSubmit: (List&lt;String&gt;) -&gt; Unit, intro: String? = <span class="kw">null</span>)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L145">LockComponents.kt, line 145</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html">LockComponents.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L120" title="PinDialog(">120</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html">LockSettingsScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html#L110" title="PinDialog(">110</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-time">
+<h3>time <span class="badge">function</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> time(instant: Instant): String</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L192">LockComponents.kt, line 192</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html">LockComponents.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L49" title="import java.time.Instant">49</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L50" title="import java.time.ZoneId">50</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L100" title="Text(stringResource(R.string.lock_banner_unlocked, time(unlockedUntil)), style = MaterialTheme.typography.bodyMedium)">100</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L135" title="is LockPolicy.Attempt.LockedOut -&gt; error = resources.getString(R.string.lock_locked_out, time(result.until))">135</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-LockSettingsScreen">
+<h3>LockSettingsScreen <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>Settings › Code du proche: set, change or remove the code.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+<span class="kw">fun</span> LockSettingsScreen(onBack: () -&gt; Unit, viewModel: <a href="LockViewModel.html">LockViewModel</a> = hiltViewModel())</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html#L40">LockSettingsScreen.kt, line 40</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L11" title="import com.lucas.mobilemanager.ui.lock.LockSettingsScreen">11</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L113" title="LockSettingsScreen(onBack = { navController.popBackStack() })">113</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-NewPinDialog">
+<h3>NewPinDialog <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<div class="kdoc"><p>New code, entered twice.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> NewPinDialog(viewModel: <a href="LockViewModel.html">LockViewModel</a>, onDismiss: () -&gt; Unit, onSaved: () -&gt; Unit)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html#L105">LockSettingsScreen.kt, line 105</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html">LockSettingsScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html#L78" title="NewPinDialog(">78</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-Caption">
+<h3>Caption <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> Caption(text: String)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html#L134">LockSettingsScreen.kt, line 134</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html">LockSettingsScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html#L71" title="Caption(stringResource(R.string.lock_protects_settings))">71</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html#L72" title="Caption(stringResource(R.string.lock_forgot))">72</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockSettingsScreen.kt.html#L73" title="Caption(stringResource(R.string.lock_limits))">73</a></td></tr></tbody></table></details>
+</section>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#types">Types</a></li><li><a href="#functions">Functions</a></li><li><a href="#files">Files</a></li><li><a href="#member-details">Member details</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

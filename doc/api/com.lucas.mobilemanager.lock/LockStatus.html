@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LockStatus Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.lock/LockStatus.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.lock</a> <span class="sep">/</span> <span>LockStatus</span></nav>
+    <article>
+<h1>LockStatus <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.lock</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L32">AppLock.kt</a></span></div>
+<div class="kdoc"><p>State of the trusted person code, for the UI.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">data</span> <span class="kw">class</span> LockStatus(<span class="kw">val</span> isSet: Boolean, <span class="kw">val</span> unlockedUntil: Instant?, <span class="kw">val</span> lockedOutUntil: Instant?)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="LockStatus.html#m-isSet"><code>isSet</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="LockStatus.html#m-unlockedUntil"><code>unlockedUntil</code></a></td><td>End of the current unlock, <code>null</code> when locked.</td></tr><tr><td><a href="LockStatus.html#m-lockedOutUntil"><code>lockedOutUntil</code></a></td><td>End of the wait after too many attempts, <code>null</code> if none.</td></tr><tr><td><a href="LockStatus.html#m-canModify"><code>canModify</code></a></td><td>Settings that loosen restrictions can be changed.</td></tr></tbody></table>
+<h2 id="companion-members">Companion members</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="LockStatus.html#m-NOT_SET"><code>NOT_SET</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-isSet">
+<h3>isSet <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> isSet: Boolean</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L33">AppLock.kt, line 33</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html">AppLock.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L40" title="val canModify: Boolean get() = !isSet || unlockedUntil != null">40</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L43" title="val NOT_SET = LockStatus(isSet = false, unlockedUntil = null, lockedOutUntil = null)">43</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L77" title="isSet = true,">77</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html">LockComponents.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L86" title="if (!current.isSet) return">86</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-unlockedUntil">
+<h3>unlockedUntil <span class="badge">property</span></h3>
+<div class="kdoc"><p>End of the current unlock, <code>null</code> when locked.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> unlockedUntil: Instant?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L35">AppLock.kt, line 35</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">14 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html">AppLock.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L40" title="val canModify: Boolean get() = !isSet || unlockedUntil != null">40</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L43" title="val NOT_SET = LockStatus(isSet = false, unlockedUntil = null, lockedOutUntil = null)">43</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L73" title="val status: Flow&lt;LockStatus&gt; = combine(stored.filterNotNull(), unlockedUntil, ticks) { stored, until, _ -&gt;">73</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L78" title="unlockedUntil = until?.takeIf { now.isBefore(it) },">78</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L92" title="private fun isUnlocked(): Boolean = unlockedUntil.value?.let { timeProvider.now().isBefore(it) } == true">92</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L103" title="if (result == LockPolicy.Attempt.Success) unlockedUntil.value = now + LockPolicy.UNLOCK_DURATION">103</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L108" title="unlockedUntil.value = null">108</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L116" title="unlockedUntil.value = timeProvider.now() + LockPolicy.UNLOCK_DURATION">116</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L124" title="unlockedUntil.value = null">124</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html">LockComponents.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L88" title="val unlockedUntil = current.unlockedUntil">88</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L94" title="Icon(if (unlockedUntil == null) Icons.Outlined.Lock else Icons.Outlined.LockOpen, contentDescription = null)">94</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L97" title="if (unlockedUntil == null) {">97</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L100" title="Text(stringResource(R.string.lock_banner_unlocked, time(unlockedUntil)), style = MaterialTheme.typography.bodyMedium)">100</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L103" title="if (unlockedUntil == null) {">103</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-lockedOutUntil">
+<h3>lockedOutUntil <span class="badge">property</span></h3>
+<div class="kdoc"><p>End of the wait after too many attempts, <code>null</code> if none.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> lockedOutUntil: Instant?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L37">AppLock.kt, line 37</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html">AppLock.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L43" title="val NOT_SET = LockStatus(isSet = false, unlockedUntil = null, lockedOutUntil = null)">43</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L79" title="lockedOutUntil = config.lockedOutUntil?.takeIf { now.isBefore(it) },">79</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-canModify">
+<h3>canModify <span class="badge">property</span></h3>
+<div class="kdoc"><p>Settings that loosen restrictions can be changed.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> canModify: Boolean <span class="kw">get</span>()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L40">AppLock.kt, line 40</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html">LockComponents.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L75" title="return status?.canModify == true">75</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-NOT_SET">
+<h3>NOT_SET <span class="badge">property</span><span class="badge vis">companion</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> NOT_SET</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L43">AppLock.kt, line 43</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html">AppLock.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L75" title="val config = stored.config ?: return@combine LockStatus.NOT_SET">75</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">8 references in 3 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html">AppLock.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L43" title="val NOT_SET = LockStatus(isSet = false, unlockedUntil = null, lockedOutUntil = null)">43</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L73" title="val status: Flow&lt;LockStatus&gt; = combine(stored.filterNotNull(), unlockedUntil, ticks) { stored, until, _ -&gt;">73</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L75" title="val config = stored.config ?: return@combine LockStatus.NOT_SET">75</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt.html#L76" title="LockStatus(">76</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html">LockComponents.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/lock</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L42" title="import com.lucas.mobilemanager.lock.LockStatus">42</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/lock/LockComponents.kt.html#L58" title="val status: StateFlow&lt;LockStatus?&gt; = appLock.status.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)">58</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsViewModel.kt.html">SettingsViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/settings</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsViewModel.kt.html#L14" title="import com.lucas.mobilemanager.lock.LockStatus">14</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsViewModel.kt.html#L34" title="val lockStatus: StateFlow&lt;LockStatus?&gt; = appLock.status.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)">34</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#companion-members">Companion members</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>
