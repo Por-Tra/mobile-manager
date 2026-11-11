@@ -3,22 +3,16 @@ package com.lucas.mobilemanager.ui.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.BarChart
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -30,7 +24,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -55,7 +48,6 @@ import java.time.ZoneId
 @Composable
 fun HomeScreen(
     onOpenPermissions: () -> Unit,
-    onOpenSettings: () -> Unit,
     onStartSession: () -> Unit,
     onRequestOverride: () -> Unit,
     onEditProfile: (Long) -> Unit,
@@ -83,17 +75,6 @@ fun HomeScreen(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.home_title)) },
-                actions = {
-                    IconButton(onClick = onOpenDashboard) {
-                        Icon(Icons.Outlined.BarChart, contentDescription = stringResource(R.string.dashboard_title))
-                    }
-                    IconButton(onClick = onOpenSettings) {
-                        Icon(
-                            Icons.Outlined.Settings,
-                            contentDescription = stringResource(R.string.home_open_settings),
-                        )
-                    }
-                },
             )
         },
     ) { padding ->
@@ -102,9 +83,16 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp),
         ) {
-            item { StatusCard(permissions, onOpenPermissions) }
-            today?.let { summary -> item { TodayCard(summary, onOpenDashboard) } }
+            item {
+                Column(Modifier.padding(vertical = 12.dp)) {
+                    Text(stringResource(R.string.home_welcome), style = MaterialTheme.typography.headlineLarge)
+                    Text(stringResource(R.string.home_subtitle), style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 8.dp))
+                }
+            }
+            if (!permissions.canMonitor) item { StatusCard(permissions, onOpenPermissions) }
             item { SessionCard(session, onStartSession, onRequestOverride) }
+            today?.let { summary -> item { TodayCard(summary, onOpenDashboard) } }
+            if (permissions.canMonitor) item { StatusCard(permissions, onOpenPermissions) }
             item {
                 Text(
                     stringResource(R.string.home_profiles),
@@ -137,11 +125,11 @@ fun HomeScreen(
                 )
             }
             item {
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedButton(onClick = onNewProfile, enabled = editable) {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedButton(onClick = onNewProfile, enabled = editable, modifier = Modifier.fillMaxWidth()) {
                         Text(stringResource(R.string.home_new_profile))
                     }
-                    TextButton(onClick = onEditDefaultRules, enabled = canActivate) {
+                    TextButton(onClick = onEditDefaultRules, enabled = canActivate, modifier = Modifier.fillMaxWidth()) {
                         Text(stringResource(R.string.home_default_rules))
                     }
                 }
@@ -187,10 +175,10 @@ fun HomeScreen(
 private fun TodayCard(summary: DashboardSummary, onOpen: () -> Unit) {
     Card(
         onClick = onOpen,
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Column(Modifier.padding(16.dp)) {
+        Column(Modifier.padding(20.dp)) {
             Text(stringResource(R.string.home_today), style = MaterialTheme.typography.labelLarge)
             Text(Formats.duration(summary.total), style = MaterialTheme.typography.headlineMedium)
             Text(comparisonText(summary, Period.TODAY), style = MaterialTheme.typography.bodySmall)
@@ -241,7 +229,7 @@ private fun StatusCard(permissions: OnboardingState, onOpenPermissions: () -> Un
 @Composable
 private fun SessionCard(session: StrictSession?, onStart: () -> Unit, onRequestOverride: () -> Unit) {
     Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(Modifier.padding(16.dp)) {
@@ -250,7 +238,7 @@ private fun SessionCard(session: StrictSession?, onStart: () -> Unit, onRequestO
                 Spacer(Modifier.padding(2.dp))
                 Text(stringResource(R.string.session_card_body), style = MaterialTheme.typography.bodyMedium)
                 Spacer(Modifier.padding(6.dp))
-                Button(onClick = onStart) { Text(stringResource(R.string.session_card_start)) }
+                Button(onClick = onStart, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.session_card_start)) }
             } else {
                 val endTime = Formats.TIME.format(session.endsAt.atZone(ZoneId.systemDefault()))
                 Text(stringResource(R.string.session_card_running), style = MaterialTheme.typography.titleMedium)

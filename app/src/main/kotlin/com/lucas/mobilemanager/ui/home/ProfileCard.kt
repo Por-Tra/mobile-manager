@@ -59,7 +59,7 @@ fun ProfileCard(
 ) {
     var menuOpen by remember { mutableStateOf(false) }
     Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         modifier = Modifier
             .fillMaxWidth()
             .clickable(enabled = canActivate, onClick = onOpen),

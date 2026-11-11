@@ -33,6 +33,10 @@ class MobileManagerApp : Application(), Configuration.Provider {
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder().setWorkerFactory(workerFactory).build()
 
+    override fun attachBaseContext(base: android.content.Context) {
+        super.attachBaseContext(com.lucas.mobilemanager.locale.AppLanguage.wrap(base))
+    }
+
     override fun onCreate() {
         super.onCreate()
         appScope.launch {

@@ -1772,3 +1772,23 @@ Observation at [now]: in [zone] of [packageName], or outside any zone (`null`). 
 L'app a quitté le premier plan (ou l'écran s'est éteint).
 @@ en
 The app left the foreground (or the screen turned off).
+
+@@ fr
+Langues système par app sur Android 13+ ; contexte localisé et préférence persistée sur Android 10–12.
+@@ en
+Per-app system languages on Android 13+; localized contexts and a persisted preference on Android 10–12.
+
+@@ fr
+Requêtes explicites uniquement. Aucune donnée d'usage, aucun identifiant ni secret transmis.
+@@ en
+Explicit requests only. No usage data, identifiers or secrets are transmitted.
+
+@@ fr
+Valide les métadonnées avant de proposer un téléchargement. Refuse les publications incompatibles.
+@@ en
+Validates metadata before offering a download. Rejects incompatible releases.
+
+@@ fr
+Tags de versions stables uniquement. Les métadonnées de build n'affectent pas l'ordre.
+@@ en
+Stable release tags only. Build metadata does not affect ordering.

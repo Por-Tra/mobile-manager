@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
@@ -20,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.lucas.mobilemanager.domain.dashboard.DayTotal
 import java.time.Duration
 import java.time.format.TextStyle
-import java.util.Locale
 
 /**
  * Barres des 7 derniers jours, aujourd'hui mis en avant. Si un objectif est défini : ligne
@@ -68,7 +68,7 @@ fun WeekChart(week: List<DayTotal>, goal: Duration?, description: String, modifi
         Row(Modifier.fillMaxWidth()) {
             week.forEachIndexed { index, day ->
                 Text(
-                    day.date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.FRENCH).take(3),
+                    day.date.dayOfWeek.getDisplayName(TextStyle.SHORT, LocalConfiguration.current.locales[0]).take(3),
                     style = MaterialTheme.typography.labelSmall,
                     color = if (index == week.lastIndex) primary else MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,

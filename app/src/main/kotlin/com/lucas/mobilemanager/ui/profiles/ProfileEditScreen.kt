@@ -50,6 +50,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -72,7 +73,6 @@ import java.time.DayOfWeek
 import java.time.Duration
 import java.time.LocalTime
 import java.time.format.TextStyle
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -260,7 +260,7 @@ private fun ScheduleCard(
 ) {
     var editing by remember { mutableStateOf<Boolean?>(null) } // true = début, false = fin
     Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(Modifier.padding(12.dp)) {
@@ -270,7 +270,7 @@ private fun ScheduleCard(
                         selected = day in schedule.days,
                         onClick = { onToggleDay(day) },
                         enabled = enabled,
-                        label = { Text(day.getDisplayName(TextStyle.NARROW, Locale.FRENCH)) },
+                        label = { Text(day.getDisplayName(TextStyle.NARROW, LocalConfiguration.current.locales[0])) },
                     )
                 }
             }

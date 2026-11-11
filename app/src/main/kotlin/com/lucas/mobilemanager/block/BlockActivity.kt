@@ -2,7 +2,7 @@ package com.lucas.mobilemanager.block
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import com.lucas.mobilemanager.locale.LocalizedActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -19,7 +19,7 @@ import javax.inject.Inject
  * Pas de « encore 5 minutes », pas de désactivation depuis cet écran.
  */
 @AndroidEntryPoint
-class BlockActivity : ComponentActivity() {
+class BlockActivity : LocalizedActivity() {
 
     @Inject lateinit var timeProvider: TimeProvider
 

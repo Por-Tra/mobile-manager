@@ -201,7 +201,7 @@ private fun OnboardingContent(
 private fun PermissionCard(item: PermissionItem, onGrant: () -> Unit) {
     val texts = item.kind.texts()
     Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(Modifier.padding(16.dp)) {

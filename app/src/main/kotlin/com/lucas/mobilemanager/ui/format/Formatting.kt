@@ -7,8 +7,9 @@ import java.util.Locale
 
 /** Formats d'affichage partagés par les écrans (heures et durées, en français). */
 object Formats {
-    val TIME: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.FRENCH)
-    val DAY_AND_TIME: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE d MMM 'à' HH:mm", Locale.FRENCH)
+    val TIME: DateTimeFormatter get() = DateTimeFormatter.ofPattern("HH:mm", Locale.getDefault())
+    val DAY_AND_TIME: DateTimeFormatter get() = DateTimeFormatter.ofPattern(
+        if (Locale.getDefault().language == "fr") "EEE d MMM 'à' HH:mm" else "EEE, d MMM 'at' HH:mm", Locale.getDefault())
 
     fun time(time: LocalTime): String = TIME.format(time)
 

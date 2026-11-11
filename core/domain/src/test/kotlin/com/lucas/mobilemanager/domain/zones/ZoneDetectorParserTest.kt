@@ -32,8 +32,12 @@ class ZoneDetectorParserTest {
         assertTrue(invalid("{ \"version\": 1, ").message.startsWith("JSON invalide"))
 
     @Test
-    fun `unsupported version is refused`() =
+    fun `unsupported version is refused`() {
         assertTrue(invalid(zoneJson(version = 2)).message.contains("Version 2"))
+        val error = invalid(zoneJson(version = 2))
+        assertEquals(ZoneDetectorParser.Error.VERSION, error.reason)
+        assertEquals(2, error.version)
+    }
 
     @Test
     fun `hide signals and colors are read`() {

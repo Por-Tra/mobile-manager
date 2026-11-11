@@ -24,3 +24,6 @@ Thumbs.db
 
 # Python (doc generator)
 __pycache__/
+
+# Local verification artifacts
+.tmp/

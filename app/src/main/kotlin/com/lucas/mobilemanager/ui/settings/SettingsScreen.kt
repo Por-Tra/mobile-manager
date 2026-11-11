@@ -1,10 +1,13 @@
 package com.lucas.mobilemanager.ui.settings
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -16,6 +19,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
+import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -64,41 +69,49 @@ fun SettingsScreen(
             )
         },
     ) { padding ->
-        Column(Modifier.padding(padding)) {
-            ListItem(
-                headlineContent = { Text(stringResource(R.string.settings_permissions)) },
-                supportingContent = { Text(stringResource(R.string.settings_permissions_body)) },
-                leadingContent = { Icon(Icons.Outlined.Security, contentDescription = null) },
-                modifier = Modifier.clickable(onClick = onOpenPermissions),
-            )
+        Column(Modifier.padding(padding).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            val sessionRunning by viewModel.sessionRunning.collectAsStateWithLifecycle()
             val lockStatus by viewModel.lockStatus.collectAsStateWithLifecycle()
+
+            SettingsHeading(R.string.settings_protection)
+            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {
+                ListItem(
+                colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                    headlineContent = { Text(stringResource(R.string.settings_permissions)) },
+                    supportingContent = { Text(stringResource(R.string.settings_permissions_body)) },
+                    leadingContent = { Icon(Icons.Outlined.Security, contentDescription = null) },
+                    modifier = Modifier.clickable(onClick = onOpenPermissions),
+                )
+
+                ListItem(
+                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                    headlineContent = { Text(stringResource(R.string.lock_title)) },
+                    supportingContent = {
+                        Text(stringResource(if (lockStatus?.isSet == true) R.string.lock_entry_body_on else R.string.lock_entry_body_off))
+                    },
+                    leadingContent = { Icon(Icons.Outlined.Lock, contentDescription = null) },
+                    modifier = Modifier.clickable(onClick = onOpenLock),
+                )
+                ListItem(
+                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                    headlineContent = { Text(stringResource(R.string.zones_title)) },
+                    supportingContent = { Text(stringResource(R.string.zones_entry_body)) },
+                    leadingContent = { Icon(Icons.Outlined.Layers, contentDescription = null) },
+                    modifier = Modifier.clickable(onClick = onOpenZones),
+                )
+            }
+            SettingsHeading(R.string.settings_application)
+            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) { LanguagePreference() }
+            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) { UpdatePreference(enabled = !sessionRunning && lockStatus?.canModify == true) }
+            SettingsHeading(R.string.settings_advanced)
             ListItem(
-                headlineContent = { Text(stringResource(R.string.lock_title)) },
-                supportingContent = {
-                    Text(stringResource(if (lockStatus?.isSet == true) R.string.lock_entry_body_on else R.string.lock_entry_body_off))
-                },
-                leadingContent = { Icon(Icons.Outlined.Lock, contentDescription = null) },
-                modifier = Modifier.clickable(onClick = onOpenLock),
-            )
-            ListItem(
-                headlineContent = { Text(stringResource(R.string.zones_title)) },
-                supportingContent = { Text(stringResource(R.string.zones_entry_body)) },
-                leadingContent = { Icon(Icons.Outlined.Layers, contentDescription = null) },
-                modifier = Modifier.clickable(onClick = onOpenZones),
-            )
-            Text(
-                stringResource(R.string.settings_advanced),
-                style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.padding(start = 16.dp, top = 16.dp),
-            )
-            ListItem(
+                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
                 headlineContent = { Text(stringResource(R.string.diagnostic_title)) },
                 supportingContent = { Text(stringResource(R.string.diagnostic_entry_body)) },
                 leadingContent = { Icon(Icons.Outlined.BugReport, contentDescription = null) },
                 modifier = Modifier.clickable(onClick = onOpenDiagnostic),
             )
             if (BuildConfig.DEBUG) {
-                val sessionRunning by viewModel.sessionRunning.collectAsStateWithLifecycle()
                 DebugTools(
                     lockedReason = when {
                         sessionRunning -> R.string.locked_during_session
@@ -136,7 +149,7 @@ private fun DebugTools(@StringRes lockedReason: Int?, onCreateTestProfile: () ->
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 8.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 8.dp)) {
             OutlinedButton(onClick = onCreateTestProfile, enabled = enabled) {
                 Text(stringResource(R.string.settings_debug_create_test))
             }
@@ -145,4 +158,9 @@ private fun DebugTools(@StringRes lockedReason: Int?, onCreateTestProfile: () ->
             }
         }
     }
+}
+
+@Composable
+private fun SettingsHeading(@StringRes id: Int) {
+    Text(stringResource(id), style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 12.dp, bottom = 4.dp))
 }

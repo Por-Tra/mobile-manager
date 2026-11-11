@@ -1,0 +1,50 @@
+# Contexte Mobile Manager
+
+Lire ce fichier en premier. `CLAUDE.md` contient les décisions détaillées du moteur et les retours terrain ; `UPDATES.md` décrit la distribution. Mettre ces fichiers à jour lorsque l'architecture, les commandes ou les limitations changent.
+
+## Produit et architecture
+
+Application Android personnelle hors Play Store pour gérer le temps d'écran. Ton neutre et encourageant ; ne pas utiliser de rouge alarmant pour une limite atteinte. Données d'usage exclusivement locales. Le seul réseau ajouté est une vérification/téléchargement GitHub déclenché explicitement depuis Réglages.
+
+- `core/domain` : Kotlin/JVM pur, modèles et repositories, moteur de règles, profils/plages, sessions strictes, quotas, usage, verrouillage, statistiques. Aucune API Android. Temps métier via `TimeProvider`.
+- `core/data` : Room v6 (migrations 1→6), DataStore, repositories, injection Hilt. Ne pas changer le schéma sans migration.
+- `app` : Compose Material 3, ViewModels et navigation sérialisée, services Android, permissions, surveillance et blocage.
+- `doc/tools` : générateur de documentation Python sans dépendances ; sources éditoriales dans `pages`, traductions des KDoc dans `kdoc_en.txt`.
+
+Flux principal : `MonitorAccessibilityService` → `EnforcementCoordinator` → `ProfileResolver`/`RuleEngine` → `BlockActivity` ou `ZoneEnforcer`. Liste blanche système avant toute restriction. Priorité : session stricte, profil manuel, profils planifiés, règles globales. Règle la plus précise dans chaque couche ; Allow arrête les couches inférieures, sinon la restriction la plus forte gagne. Ne pas modifier ce comportement à l'occasion de retouches UI.
+
+Les zones Reels/Shorts s'appuient sur `assets/zone_detectors.json`, éventuellement remplacé par un fichier local validé. Ne lire que les nœuds visibles ; préserver la messagerie Instagram. Quotas = règles Limit sur des zones ou apps ; temps des zones dans Room, temps des apps via UsageStats.
+
+## Interface et langues (novembre 2026)
+
+- Navigation principale persistante : Accueil / Statistiques / Réglages. Éditeurs, onboarding et sessions sortent de cette navigation. `MobileManagerNavHost` conserve les piles des onglets.
+- Accueil : introduction, permissions manquantes si nécessaire, action de concentration, usage du jour, état de protection, profils et règles. Les boutons de création/règles sont empilés pour les petits écrans.
+- Réglages défilants : protection, langue/mises à jour, avancé. Thème clair/sombre, cartes arrondies et couleurs de surface centralisés dans `ui/theme`.
+- Français par défaut dans `res/values/strings.xml`, traduction complète dans `values-en/strings.xml`. Tout texte UI doit exister dans les deux, avec les mêmes arguments printf. Vérification : `tools/check_resources.py`.
+- `locale/AppLanguage` : LocaleManager Android 13+, préférence privée et contextes localisés Android 10–12. `LocalizedActivity` est la base des trois activités. Les services lisent les ressources de l'application. Les jours Compose utilisent `LocalConfiguration`, les formats hors Compose la locale courante. Ne pas revenir à `Locale.FRENCH` fixe.
+- Les noms de profils sont des données utilisateur persistées ; ils ne sont pas renommés lors d'un changement de langue.
+
+## Mises à jour
+
+- Domaine : `domain/update/GitHubRelease` valide les métadonnées et `ReleaseVersion` compare des tags stables sémantiques. Tests JVM couvrant versions, URL, taille, digest et assets ambigus.
+- Android : `update/GitHubUpdater` consulte `Por-Tra/mobile-manager/releases/latest`, télécharge l'unique `app-release.apk`, contrôle SHA-256, taille, package, versionCode supérieur et certificat identique. HTTPS borné, redirections GitHub autorisées uniquement ; aucun token embarqué.
+- `UpdateViewModel` gère recherche, disponibilité, progression, erreur et APK prêt. Les opérations et l'installation sont refusées pendant une session et si le code du proche est verrouillé.
+- `ui/settings/AppPreferences` propose langue et mise à jour, ouvre l'autorisation des sources inconnues si nécessaire, puis l'installateur Android via FileProvider privé (cache/updates uniquement).
+- La confirmation système peut être requise. Pas de désinstallation, ni promesse d'installation silencieuse. Une clé différente ne permet pas une mise à jour en place.
+- `.github/workflows/android-release.yml` compile/teste/signe lors d'une Release publiée puis joint l'APK. Secrets et première configuration dans `UPDATES.md`. Aucun secret ni keystore dans Git.
+- Version actuelle 0.2.0 / code 2000 ; propriétés Gradle `releaseVersionName`, `releaseVersionCode`. Code de distribution : major×1 000 000 + minor×1 000 + patch.
+
+## Commandes Windows
+
+```powershell
+$env:JAVA_HOME = 'C:/Program Files/Android/Android Studio/jbr'
+./gradlew.bat :core:domain:test :app:assembleDebug :app:lintDebug --offline
+python tools/check_resources.py
+python doc/tools/gen_docs.py
+```
+
+Le Python système peut être un alias Windows inutilisable ; le runtime fourni par l'application possède un Python fonctionnel (`load_workspace_dependencies`). Gradle utilise son cache dans le profil utilisateur : l'environnement sandbox peut nécessiter une autorisation d'accès. Ne pas confondre un refus d'accès au cache avec une erreur du projet.
+
+SDK : `C:/Users/lucas/AppData/Local/Android/Sdk`. JBR 21, Kotlin 2.4, AGP 9.4 (Kotlin intégré, ne pas ajouter kotlin.android), Gradle 9.8, compile/target 37, min 29. Versions dans `gradle/libs.versions.toml`.
+
+Pour tester l'interface, privilégier l'émulateur existant `Medium_Phone_API_36.1` ; éviter de modifier les autorisations ou données d'un téléphone réel. Ne pas publier de Release ni pousser les commits sans demande. Conventional Commits pour les changements locaux.

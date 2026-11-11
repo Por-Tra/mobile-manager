@@ -1,5 +1,7 @@
 # Mobile Manager
 
+> État actuel : interface français/anglais, navigation Accueil–Statistiques–Réglages et recherche de mises à jour GitHub. Contexte technique : [AGENTS.md](AGENTS.md). Publication et signature des mises à jour : [UPDATES.md](UPDATES.md). Le texte ci-dessous conserve la spécification produit initiale.
+
 Mobile Manager est une application android qui permet de gérer son temps d'écran mais par la manière forte.
 L'application permet de bloquer l'accès à certaines applications pendant une période définie par l'utilisateur et aussi de limiter le temps d'écran sur certaines applications.
 Il peut aussi définir des périodes de temps d'écran autorisées par exemple entre 00h et 06h du matin, impossible de lancer une application (sauf le reveil et l'horloge) pendant cette période.

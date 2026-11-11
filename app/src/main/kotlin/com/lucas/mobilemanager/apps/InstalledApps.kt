@@ -41,7 +41,7 @@ class InstalledApps @Inject constructor(
             packageManager.queryIntentActivities(launcherIntent, 0)
         }
         val whitelist = whitelistProvider.current()
-        val collator = Collator.getInstance(Locale.FRENCH)
+        val collator = Collator.getInstance(Locale.getDefault())
         activities
             .map { it.activityInfo.applicationInfo }
             .distinctBy { it.packageName }

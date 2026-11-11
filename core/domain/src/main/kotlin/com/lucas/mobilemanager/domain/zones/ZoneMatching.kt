@@ -13,18 +13,28 @@ object ZoneDetectorParser {
 
     sealed interface Result {
         data class Valid(val file: ZoneDetectorFile) : Result
-        data class Invalid(val message: String) : Result
+        data class Invalid(
+            val message: String,
+            val reason: Error = Error.JSON,
+            val location: String = "",
+            val version: Int = 0,
+            val detail: String = "",
+        ) : Result
     }
+
+    enum class Error { JSON, VERSION, PACKAGE, ZONE, SIGNALS, EMPTY_SIGNAL, EXIT, COLOR }
 
     fun parse(text: String): Result {
         val file = try {
             json.decodeFromString(ZoneDetectorFile.serializer(), text)
         } catch (e: SerializationException) {
-            return Result.Invalid("JSON invalide : ${e.message?.lineSequence()?.firstOrNull().orEmpty()}")
+            val detail = e.message?.lineSequence()?.firstOrNull().orEmpty()
+            return Result.Invalid("JSON invalide : $detail", detail = detail)
         } catch (e: IllegalArgumentException) {
-            return Result.Invalid("JSON invalide : ${e.message?.lineSequence()?.firstOrNull().orEmpty()}")
+            val detail = e.message?.lineSequence()?.firstOrNull().orEmpty()
+            return Result.Invalid("JSON invalide : $detail", detail = detail)
         }
-        validate(file)?.let { return Result.Invalid(it) }
+        validate(file)?.let { return it }
         return Result.Valid(file)
     }
 
@@ -32,20 +42,20 @@ object ZoneDetectorParser {
 
     fun encode(file: ZoneDetectorFile): String = json.encodeToString(ZoneDetectorFile.serializer(), file)
 
-    private fun validate(file: ZoneDetectorFile): String? {
+    private fun validate(file: ZoneDetectorFile): Result.Invalid? {
         if (file.version != ZoneDetectorFile.SUPPORTED_VERSION) {
-            return "Version ${file.version} non prise en charge (attendue : ${ZoneDetectorFile.SUPPORTED_VERSION})."
+            return Result.Invalid("Version ${file.version} non prise en charge (attendue : ${ZoneDetectorFile.SUPPORTED_VERSION}).", Error.VERSION, version = file.version)
         }
         for (app in file.apps) {
-            if (app.packageName.isBlank()) return "Une app n'a pas de package."
+            if (app.packageName.isBlank()) return Result.Invalid("Une app n'a pas de package.", Error.PACKAGE)
             for (zone in app.zones) {
                 val where = "${app.packageName} / ${zone.id.ifBlank { "?" }}"
-                if (zone.id.isBlank()) return "Une zone de ${app.packageName} n'a pas d'id."
-                if (zone.anyOf.isEmpty()) return "$where : « anyOf » doit contenir au moins un signal."
-                if ((zone.anyOf + zone.noneOf + zone.hide).any { it.isEmpty }) return "$where : un signal ne contient aucune condition."
-                if (zone.exit.any { it.definedActions != 1 }) return "$where : chaque action de sortie doit définir une seule action."
+                if (zone.id.isBlank()) return Result.Invalid("Une zone de ${app.packageName} n'a pas d'id.", Error.ZONE, app.packageName)
+                if (zone.anyOf.isEmpty()) return Result.Invalid("$where : « anyOf » doit contenir au moins un signal.", Error.SIGNALS, where)
+                if ((zone.anyOf + zone.noneOf + zone.hide).any { it.isEmpty }) return Result.Invalid("$where : un signal ne contient aucune condition.", Error.EMPTY_SIGNAL, where)
+                if (zone.exit.any { it.definedActions != 1 }) return Result.Invalid("$where : chaque action de sortie doit définir une seule action.", Error.EXIT, where)
                 if (listOf(zone.hideColor.light, zone.hideColor.dark).any { !COLOR.matches(it) }) {
-                    return "$where : « hideColor » attend des couleurs au format #RRGGBB."
+                    return Result.Invalid("$where : « hideColor » attend des couleurs au format #RRGGBB.", Error.COLOR, where)
                 }
             }
         }

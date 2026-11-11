@@ -9,6 +9,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
 private val LightColors = lightColorScheme(
     primary = SageLight,
@@ -22,9 +23,16 @@ private val LightColors = lightColorScheme(
     background = BackgroundLight,
     surface = BackgroundLight,
     surfaceVariant = SurfaceVariantLight,
+    surfaceContainerLow = Color.White,
+    surfaceContainer = Color(0xFFEDF2EF),
+    surfaceContainerHigh = Color(0xFFE6EDE9),
+    surfaceContainerHighest = Color(0xFFDDE7E1),
     onBackground = OnSurfaceLight,
     onSurface = OnSurfaceLight,
     onSurfaceVariant = OnSurfaceVariantLight,
+    onSecondaryContainer = OnSurfaceLight,
+    outline = Color(0xFF6D8077),
+    outlineVariant = Color(0xFFC4D0C9),
 )
 
 private val DarkColors = darkColorScheme(
@@ -39,9 +47,16 @@ private val DarkColors = darkColorScheme(
     background = BackgroundDark,
     surface = BackgroundDark,
     surfaceVariant = SurfaceVariantDark,
+    surfaceContainerLow = Color(0xFF191F1D),
+    surfaceContainer = Color(0xFF202825),
+    surfaceContainerHigh = Color(0xFF29332F),
+    surfaceContainerHighest = Color(0xFF303D36),
     onBackground = OnSurfaceDark,
     onSurface = OnSurfaceDark,
     onSurfaceVariant = OnSurfaceVariantDark,
+    onSecondaryContainer = OnSurfaceDark,
+    outline = Color(0xFF8C9F95),
+    outlineVariant = Color(0xFF43534B),
 )
 
 /** Couleurs propres à l'app, hors schéma Material. */
@@ -74,6 +89,11 @@ fun MobileManagerTheme(
     ) {
         MaterialTheme(
             colorScheme = if (darkTheme) DarkColors else LightColors,
+            shapes = androidx.compose.material3.Shapes(
+                small = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                medium = androidx.compose.foundation.shape.RoundedCornerShape(20.dp),
+                large = androidx.compose.foundation.shape.RoundedCornerShape(28.dp),
+            ),
             content = content,
         )
     }

@@ -25,7 +25,7 @@ sealed interface EditorMessage {
     data object Valid : EditorMessage
     data object Saved : EditorMessage
     data object Reset : EditorMessage
-    data class Invalid(val message: String) : EditorMessage
+    data class Invalid(val error: ZoneDetectorParser.Result.Invalid) : EditorMessage
 }
 
 @HiltViewModel
@@ -68,7 +68,7 @@ class DiagnosticViewModel @Inject constructor(
     fun check() {
         _message.value = when (val result = ZoneDetectorParser.parse(editorText.value)) {
             is ZoneDetectorParser.Result.Valid -> EditorMessage.Valid
-            is ZoneDetectorParser.Result.Invalid -> EditorMessage.Invalid(result.message)
+            is ZoneDetectorParser.Result.Invalid -> EditorMessage.Invalid(result)
         }
     }
 
@@ -77,7 +77,7 @@ class DiagnosticViewModel @Inject constructor(
         viewModelScope.launch {
             _message.value = when (val result = detectorStore.save(editorText.value)) {
                 is ZoneDetectorParser.Result.Valid -> EditorMessage.Saved
-                is ZoneDetectorParser.Result.Invalid -> EditorMessage.Invalid(result.message)
+                is ZoneDetectorParser.Result.Invalid -> EditorMessage.Invalid(result)
             }
         }
     }

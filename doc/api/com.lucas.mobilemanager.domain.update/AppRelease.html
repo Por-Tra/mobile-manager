@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AppRelease Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.update/AppRelease.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.update</a> <span class="sep">/</span> <span>AppRelease</span></nav>
+    <article>
+<h1>AppRelease <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.update</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L7">GitHubRelease.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">data</span> <span class="kw">class</span> AppRelease(<span class="kw">val</span> version: String, <span class="kw">val</span> url: String, <span class="kw">val</span> size: Long, <span class="kw">val</span> sha256: String)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="AppRelease.html#m-version"><code>version</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="AppRelease.html#m-url"><code>url</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="AppRelease.html#m-size"><code>size</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="AppRelease.html#m-sha256"><code>sha256</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-version">
+<h3>version <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> version: String</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L7">GitHubRelease.kt, line 7</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html">GitHubRelease.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L18" title="val version = requireNotNull(ReleaseVersion.parse(release.tag))">18</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L20" title="if (version &lt;= installed) return null">20</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-url">
+<h3>url <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> url: String</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L7">GitHubRelease.kt, line 7</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">8 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html">GitHubUpdater.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/update</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L54" title="val connection = connect(release.url)">54</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L98" title="var url = URL(address)">98</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L100" title="check(url.protocol == &quot;https&quot; &amp;&amp; url.port in listOf(-1, 443))">100</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L101" title="check(url.host in setOf(&quot;api.github.com&quot;, &quot;github.com&quot;, &quot;release-assets.githubusercontent.com&quot;, &quot;objects.githubusercontent.com&quot;))">101</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L102" title="val connection = (url.openConnection() as HttpURLConnection).apply {">102</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L111" title="url = URL(url, connection.getHeaderField(&quot;Location&quot;) ?: error(&quot;Missing redirect&quot;))">111</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html">GitHubRelease.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L23" title="require(asset.url.startsWith(&quot;https://github.com/$REPOSITORY/releases/download/&quot;))">23</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L25" title="return AppRelease(release.tag, asset.url, asset.size, asset.digest.substringAfter(&quot;:&quot;).lowercase())">25</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-size">
+<h3>size <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> size: Long</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L7">GitHubRelease.kt, line 7</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">6 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html">GitHubUpdater.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/update</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L33" title="check(bytes.size() + count &lt;= 1_048_576)">33</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L68" title="check(total &lt;= release.size &amp;&amp; total &lt;= MAX_APK_SIZE)">68</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L71" title="val percent = (total * 100 / release.size).toInt()">71</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L76" title="check(total == release.size)">76</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html">GitHubRelease.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L22" title="require(asset.size in 1..MAX_APK_SIZE)">22</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L25" title="return AppRelease(release.tag, asset.url, asset.size, asset.digest.substringAfter(&quot;:&quot;).lowercase())">25</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-sha256">
+<h3>sha256 <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> sha256: String</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L7">GitHubRelease.kt, line 7</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html">GitHubUpdater.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/update</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L77" title="check(digest.digest().joinToString(&quot;&quot;) { &quot;%02x&quot;.format(it) } == release.sha256)">77</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">8 references in 3 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html">GitHubUpdater.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/update</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L6" title="import com.lucas.mobilemanager.domain.update.AppRelease">6</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L21" title="suspend fun latest(): AppRelease? = withContext(Dispatchers.IO) {">21</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L48" title="suspend fun download(release: AppRelease, progress: (Int) -&gt; Unit): File = withContext(Dispatchers.IO) {">48</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/UpdateViewModel.kt.html">UpdateViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/update</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/UpdateViewModel.kt.html#L3" title="import com.lucas.mobilemanager.domain.update.AppRelease">3</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/UpdateViewModel.kt.html#L28" title="data class Available(val release: AppRelease) : UpdateState">28</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/UpdateViewModel.kt.html#L51" title="fun download(release: AppRelease) = run {">51</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html">GitHubRelease.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L15" title="fun available(payload: String, installedVersion: String): AppRelease? {">15</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L25" title="return AppRelease(release.tag, asset.url, asset.size, asset.digest.substringAfter(&quot;:&quot;).lowercase())">25</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

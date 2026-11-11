@@ -1,7 +1,7 @@
 package com.lucas.mobilemanager
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import com.lucas.mobilemanager.locale.LocalizedActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -17,7 +17,7 @@ import com.lucas.mobilemanager.ui.theme.MobileManagerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : LocalizedActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 

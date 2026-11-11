@@ -45,6 +45,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.lucas.mobilemanager.domain.zones.ZoneDetectorParser
+import com.lucas.mobilemanager.domain.zones.ZoneDetectorFile
 import com.lucas.mobilemanager.R
 import com.lucas.mobilemanager.domain.zones.UiNode
 import com.lucas.mobilemanager.ui.format.Formats
@@ -151,7 +153,7 @@ fun DiagnosticScreen(onBack: () -> Unit, viewModel: DiagnosticViewModel = hiltVi
                             EditorMessage.Valid -> stringResource(R.string.diagnostic_editor_valid)
                             EditorMessage.Saved -> stringResource(R.string.diagnostic_editor_saved)
                             EditorMessage.Reset -> stringResource(R.string.diagnostic_editor_reset_done)
-                            is EditorMessage.Invalid -> it.message
+                            is EditorMessage.Invalid -> detectorErrorText(it.error)
                         },
                         color = if (it is EditorMessage.Invalid) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.bodyMedium,
@@ -176,9 +178,9 @@ private fun NodeRow(node: UiNode, highlighted: Boolean, onLongClick: () -> Unit)
         node.viewId?.substringAfter(":id/")?.let { "#$it" },
         node.text?.let { "« ${it.take(40)} »" },
         node.desc?.let { "desc=« ${it.take(40)} »" },
-        "sélectionné".takeIf { node.selected },
-        "cliquable".takeIf { node.clickable },
-        "hors écran (ignoré)".takeIf { !node.visible },
+        stringResource(R.string.diagnostic_node_selected).takeIf { node.selected },
+        stringResource(R.string.diagnostic_node_clickable).takeIf { node.clickable },
+        stringResource(R.string.diagnostic_node_hidden).takeIf { !node.visible },
     )
     Text(
         parts.joinToString("  "),
@@ -204,4 +206,21 @@ private fun Title(text: String) {
 @Composable
 private fun Caption(text: String) {
     Column { Text(text, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+}
+
+@Composable
+private fun detectorErrorText(error: ZoneDetectorParser.Result.Invalid): String {
+    val reason = error.reason
+    return when (reason) {
+        ZoneDetectorParser.Error.JSON -> stringResource(R.string.detector_invalid_json, error.detail)
+        ZoneDetectorParser.Error.VERSION -> stringResource(R.string.detector_version, error.version, ZoneDetectorFile.SUPPORTED_VERSION)
+        ZoneDetectorParser.Error.PACKAGE -> stringResource(R.string.detector_package)
+        else -> stringResource(when (reason) {
+            ZoneDetectorParser.Error.ZONE -> R.string.detector_zone
+            ZoneDetectorParser.Error.SIGNALS -> R.string.detector_signals
+            ZoneDetectorParser.Error.EMPTY_SIGNAL -> R.string.detector_empty_signal
+            ZoneDetectorParser.Error.EXIT -> R.string.detector_exit
+            else -> R.string.detector_color
+        }, error.location)
+    }
 }

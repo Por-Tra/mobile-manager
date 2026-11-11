@@ -1,5 +1,6 @@
 package com.lucas.mobilemanager.ui.format
 
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -8,7 +9,6 @@ import com.lucas.mobilemanager.domain.model.Profile
 import com.lucas.mobilemanager.domain.model.Schedule
 import java.time.DayOfWeek
 import java.time.format.TextStyle
-import java.util.Locale
 
 /** « Tous les jours · 00:00–06:00 · 1 règle » */
 @Composable
@@ -33,11 +33,14 @@ fun scheduleText(schedule: Schedule): String {
 }
 
 @Composable
-private fun daysText(days: Set<DayOfWeek>): String = when (days) {
-    Schedule.EVERY_DAY -> stringResource(R.string.days_every_day)
-    Schedule.WEEKDAYS -> stringResource(R.string.days_weekdays)
-    setOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY) -> stringResource(R.string.days_weekend)
-    else -> days.sorted()
-        .joinToString(", ") { it.getDisplayName(TextStyle.SHORT, Locale.FRENCH) }
-        .replaceFirstChar { it.titlecase(Locale.FRENCH) }
+private fun daysText(days: Set<DayOfWeek>): String {
+    val locale = LocalConfiguration.current.locales[0]
+    return when (days) {
+        Schedule.EVERY_DAY -> stringResource(R.string.days_every_day)
+        Schedule.WEEKDAYS -> stringResource(R.string.days_weekdays)
+        setOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY) -> stringResource(R.string.days_weekend)
+        else -> days.sorted()
+            .joinToString(", ") { it.getDisplayName(TextStyle.SHORT, locale) }
+            .replaceFirstChar { it.titlecase(locale) }
+    }
 }

@@ -24,31 +24,62 @@
     <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <span>com.lucas.mobilemanager.ui.settings</span></nav>
     <article>
 <h1>com.lucas.mobilemanager.ui.settings <span class="h1-kind">package</span></h1>
-<div class="meta"><span>Module: :app</span><span>2 files</span></div>
+<div class="meta"><span>Module: :app</span><span>3 files</span></div>
 <p>Settings screen.</p>
 <h2 id="types">Types</h2>
 <table class="summary"><thead><tr><th>Name</th><th>Kind</th><th>Description</th></tr></thead><tbody><tr><td><a href="SettingsViewModel.html"><code>SettingsViewModel</code></a></td><td>class</td><td><span class="muted">—</span></td></tr></tbody></table>
 <h2 id="functions">Functions</h2>
-<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-SettingsScreen"><code>SettingsScreen</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-DebugTools"><code>DebugTools</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="index.html#m-LanguagePreference"><code>LanguagePreference</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-activity"><code>activity</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-UpdatePreference"><code>UpdatePreference</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-SettingsScreen"><code>SettingsScreen</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-DebugTools"><code>DebugTools</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="index.html#m-SettingsHeading"><code>SettingsHeading</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
 <h2 id="files">Files</h2>
-<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html">SettingsScreen.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsViewModel.kt.html">SettingsViewModel.kt</a></li></ul>
+<ul class="files"><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/AppPreferences.kt.html">AppPreferences.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html">SettingsScreen.kt</a></li><li><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsViewModel.kt.html">SettingsViewModel.kt</a></li></ul>
 <h2 id="member-details">Member details</h2>
+<section class="member" id="m-LanguagePreference">
+<h3>LanguagePreference <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">fun</span> LanguagePreference()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/AppPreferences.kt.html#L35">AppPreferences.kt, line 35</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html">SettingsScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/settings</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html#L104" title="Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) { LanguagePreference() }">104</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-activity">
+<h3>activity <span class="badge">extension function</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">tailrec</span> <span class="kw">fun</span> Context.activity(): ComponentActivity?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/AppPreferences.kt.html#L70">AppPreferences.kt, line 70</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/AppPreferences.kt.html">AppPreferences.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/settings</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/AppPreferences.kt.html#L8" title="import androidx.activity.ComponentActivity">8</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/AppPreferences.kt.html#L56" title="context.activity()?.let { AppLanguage.set(it, tag) }">56</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/AppPreferences.kt.html#L72" title="is ContextWrapper -&gt; baseContext.activity()">72</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-UpdatePreference">
+<h3>UpdatePreference <span class="badge">function</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">fun</span> UpdatePreference(enabled: Boolean, viewModel: <a href="../com.lucas.mobilemanager.update/UpdateViewModel.html">UpdateViewModel</a> = hiltViewModel())</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/AppPreferences.kt.html#L77">AppPreferences.kt, line 77</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html">SettingsScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/settings</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html#L105" title="Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) { UpdatePreference(enabled = !sessionRunning &amp;&amp; lockStatu">105</a></td></tr></tbody></table></details>
+</section>
 <section class="member" id="m-SettingsScreen">
 <h3>SettingsScreen <span class="badge">function</span><span class="badge vis">composable</span></h3>
 <p class="muted">No description.</p>
 <div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 <span class="kw">fun</span> SettingsScreen(onBack: () -&gt; Unit, onOpenPermissions: () -&gt; Unit, onOpenZones: () -&gt; Unit, onOpenLock: () -&gt; Unit, onOpenDiagnostic: () -&gt; Unit, viewModel: <a href="SettingsViewModel.html">SettingsViewModel</a> = hiltViewModel())</code></pre></div>
-<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html#L39">SettingsScreen.kt, line 39</a></p>
-<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L16" title="import com.lucas.mobilemanager.ui.settings.SettingsScreen">16</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L98" title="SettingsScreen(">98</a></td></tr></tbody></table></details>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html#L44">SettingsScreen.kt, line 44</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html">MobileManagerNavHost.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/navigation</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L30" title="import com.lucas.mobilemanager.ui.settings.SettingsScreen">30</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/navigation/MobileManagerNavHost.kt.html#L137" title="SettingsScreen(">137</a></td></tr></tbody></table></details>
 </section>
 <section class="member" id="m-DebugTools">
 <h3>DebugTools <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
 <p class="muted">No description.</p>
 <div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
 <span class="kw">private</span> <span class="kw">fun</span> DebugTools(@StringRes lockedReason: Int?, onCreateTestProfile: () -&gt; Unit, onDeleteTestProfile: () -&gt; Unit)</code></pre></div>
-<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html#L123">SettingsScreen.kt, line 123</a></p>
-<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html">SettingsScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/settings</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html#L102" title="DebugTools(">102</a></td></tr></tbody></table></details>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html#L136">SettingsScreen.kt, line 136</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html">SettingsScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/settings</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html#L115" title="DebugTools(">115</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-SettingsHeading">
+<h3>SettingsHeading <span class="badge">function</span><span class="badge vis">private</span><span class="badge vis">composable</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Composable
+<span class="kw">private</span> <span class="kw">fun</span> SettingsHeading(@StringRes id: Int)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html#L164">SettingsScreen.kt, line 164</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html">SettingsScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/settings</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html#L76" title="SettingsHeading(R.string.settings_protection)">76</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html#L103" title="SettingsHeading(R.string.settings_application)">103</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsScreen.kt.html#L106" title="SettingsHeading(R.string.settings_advanced)">106</a></td></tr></tbody></table></details>
 </section>
     </article>
     <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>

@@ -1,6 +1,8 @@
 # Mobile Manager — CLAUDE.md
 
-App Android **personnelle** (APK installé hors Play Store) de gestion du temps d'écran « par la manière forte ». UI en **français**, ton **jamais culpabilisant**. Tout reste en local : pas de compte, pas de réseau, pas de télémétrie, aucune lecture du contenu des messages/posts.
+App Android **personnelle** (APK installé hors Play Store) de gestion du temps d'écran « par la manière forte ». UI en **français et anglais**, ton **jamais culpabilisant**. Données personnelles en local : pas de compte, pas de télémétrie, aucune lecture du contenu des messages/posts. Réseau uniquement pour rechercher/télécharger une mise à jour GitHub à la demande.
+
+**Contexte actualisé : lire `AGENTS.md` en premier.** Ajouts de novembre 2026 : navigation Accueil/Statistiques/Réglages, thème et accueil retravaillés, réglages défilants regroupés, choix français/anglais/langue système, mises à jour GitHub vérifiées et workflow de distribution signée. Configuration et limites : `UPDATES.md`.
 
 Spécification produit complète : `readme.md` + prompt initial. Téléphone cible : **Samsung Galaxy A04s (SM-A047F, Android 14, One UI 6.1)**, branché en ADB (`R58W70316NW`) : depuis la phase 9, tests et débogage directement sur le téléphone (Instagram, YouTube réels) ; l'émulateur reste utile pour les tests destructifs.
 
@@ -37,7 +39,7 @@ export JAVA_HOME="/c/Program Files/Android/Android Studio/jbr"
 - **Conventional Commits** (`feat(onboarding): …`, `fix: …`, `chore: …`), un commit propre par fin de phase au minimum.
 - Logique métier = fonctions/classes pures dans `:core:domain`, testées. L'heure passe toujours par `TimeProvider` (jamais `Instant.now()` direct dans le domaine) pour tester minuit, changements d'heure et jours de semaine.
 - ViewModels exposent des `StateFlow` ; écrans Compose séparés en `XxxScreen` (branche le ViewModel) / contenu sans état.
-- Textes UI uniquement dans `res/values/strings.xml`, en français, formulation neutre ou encourageante. Jamais de rouge agressif pour une limite atteinte : utiliser `LocalExtendedColors.current.limitReachedContainer`.
+- Textes UI dans `res/values/strings.xml` (français) et `res/values-en/strings.xml` (anglais), formulation neutre ou encourageante. Vérifier les arguments avec `tools/check_resources.py`. Jamais de rouge agressif pour une limite atteinte : utiliser `LocalExtendedColors.current.limitReachedContainer`.
 - Enums persistées en texte (nom), jamais en ordinal.
 - Schémas Room exportés dans `core/data/schemas/` (à committer) ; toute évolution = migration explicite.
 

@@ -16,13 +16,26 @@ android {
         applicationId = "com.lucas.mobilemanager"
         minSdk = 29
         targetSdk = 37
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = providers.gradleProperty("releaseVersionCode").orElse("2000").get().toInt()
+        versionName = providers.gradleProperty("releaseVersionName").orElse("0.2.0").get()
+    }
+
+    signingConfigs {
+        val storePath = System.getenv("ANDROID_KEYSTORE_PATH")
+        if (!storePath.isNullOrBlank()) {
+            create("distribution") {
+                storeFile = file(storePath)
+                storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword = System.getenv("ANDROID_KEY_PASSWORD")
+            }
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.findByName("distribution")
         }
     }
 

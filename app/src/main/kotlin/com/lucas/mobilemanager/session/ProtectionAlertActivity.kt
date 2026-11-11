@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import androidx.activity.ComponentActivity
+import com.lucas.mobilemanager.locale.LocalizedActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
@@ -34,7 +34,7 @@ import java.time.Instant
 import java.time.ZoneId
 
 /** Écran affiché si la surveillance est coupée pendant une session. Informatif, sans reproche. */
-class ProtectionAlertActivity : ComponentActivity() {
+class ProtectionAlertActivity : LocalizedActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

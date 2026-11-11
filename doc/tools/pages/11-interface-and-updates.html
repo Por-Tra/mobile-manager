@@ -1,0 +1,15 @@
+<!-- title: Interface, languages and app updates -->
+<!-- order: 11 -->
+<!-- section: Architecture -->
+<h1>Interface, languages and app updates</h1>
+<p class="lead">The main navigation exposes Home, Statistics and Settings. Editors and focus sessions keep their own navigation. Personal usage data stays on the device.</p>
+<h2 id="languages">Languages</h2>
+<p>Settings offers Phone language, Français and English. French is the default resource set, and English provides matching strings and plurals. Android 13 and later use LocaleManager; Android 10–12 use a persisted preference and localized activity contexts. Existing profile names are user data and are preserved.</p>
+<p>Run <code>python tools/check_resources.py</code> to validate resource keys, plurals and printf arguments. Compose day labels observe the current configuration; time formatting follows the app locale.</p>
+<h2 id="updates">Update flow</h2>
+<p>The user checks for updates, downloads the available APK, then opens the Android installer. Android may ask for permission to install unknown apps and for confirmation. Updating keeps app data; it does not require uninstalling the current app. Silent installation is not guaranteed.</p>
+<p>The client requests the latest stable release from <code>Por-Tra/mobile-manager</code>. A release must have a semantic version tag and exactly one uploaded <code>app-release.apk</code> with a SHA-256 digest. APK downloads are size limited and restricted to HTTPS GitHub hosts. The package name, higher Android version code, digest and signing certificates are checked before installation. Drafts, prereleases and incompatible releases are refused.</p>
+<p>Update actions are unavailable during strict sessions and while the trusted PIN is locked. Downloads belong to the Settings ViewModel and must be restarted if that screen is removed or the process dies.</p>
+<h2 id="distribution">Distribution</h2>
+<p>The <code>android-release.yml</code> workflow builds and signs an APK when a GitHub Release is published. Configure the four signing secrets documented in <code>UPDATES.md</code>. Preserve the same signing key across versions. The client does not embed a GitHub access token and requires a publicly readable release.</p>
+<p>Release codes use <code>major × 1,000,000 + minor × 1,000 + patch</code>. The current development baseline is <code>0.2.0</code>, code <code>2000</code>. Publishing an update requires a higher version and code. Legacy releases such as the existing <code>Beta</code> debug APK are not offered by this distribution flow.</p>
