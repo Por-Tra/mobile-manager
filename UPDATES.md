@@ -2,7 +2,7 @@
 
 Le bouton Réglages › Mises à jour consulte uniquement la dernière **GitHub Release stable** de `Por-Tra/mobile-manager`. Il ne consulte pas les commits et n'envoie aucune donnée d'usage. Un dépôt privé sans accès anonyme ne fonctionne pas avec ce client ; aucun jeton personnel ne doit être embarqué dans l'APK.
 
-La distribution stable utilise des tags sémantiques et un asset signé `app-release.apk` depuis `v0.2.1`. Le tag historique `Beta`, qui fournit `app-debug.apk`, est incompatible avec le client de mise à jour. La version préparée le 12 novembre 2026 est `v0.3.0` (code `3000`) : modes de fonctionnement et protection du fil recommandé Instagram avec accès au fil des comptes suivis.
+La distribution stable utilise des tags sémantiques et un asset signé `app-release.apk` depuis `v0.2.1`. Le tag historique `Beta`, qui fournit `app-debug.apk`, est incompatible avec le client de mise à jour. La version préparée le 12 novembre 2026 est `v0.3.5` (code `3005`) : budget quotidien partagé facultatif, pause d'ouverture facultative, bilan hebdomadaire local, préavis de limite, diagnostic de protection, explications des blocages et bouton de désinstallation protégé.
 
 Le parcours est : rechercher → télécharger → installer → confirmation Android. Si nécessaire, Android demande d'autoriser Mobile Manager à installer des applications ; revenir ensuite et toucher Installer. Aucune désinstallation n'est nécessaire : profils, préférences et historique restent en place. Une installation totalement silencieuse n'est pas garantie par Android pour une application personnelle ordinaire.
 
@@ -33,7 +33,7 @@ Publier une Release avec un tag stable `v0.2.1`, par exemple. Le workflow `andro
 
 Le workflow installe `platform-tools` explicitement : le paquet historique `tools` n'est plus disponible. Après correction d'un échec CI, utiliser Actions › Signed Android release › Run workflow depuis `main`, avec `release_tag` égal au tag existant. Le code compilé provient de ce tag ; le workflow de relance provient de `main`. Il n'est pas nécessaire de déplacer le tag ou de recréer la Release.
 
-La version doit augmenter. Le code Android est calculé ainsi : `major × 1 000 000 + minor × 1 000 + patch`, avec minor et patch entre 0 et 999. La version courante est `v0.3.0`, code `3000`, après `v0.2.1` (code `2001`) et la release historique `Beta`. Une future mise à jour devra avoir un code supérieur à `3000`.
+La version doit augmenter. Le code Android est calculé ainsi : `major × 1 000 000 + minor × 1 000 + patch`, avec minor et patch entre 0 et 999. La version courante est `v0.3.5`, code `3005`, après `v0.3.0` (code `3000`). Une future mise à jour devra avoir un code supérieur à `3005`.
 
 ## Contrôles avant installation
 
@@ -51,7 +51,7 @@ Définir `ANDROID_KEYSTORE_PATH` (chemin absolu), `ANDROID_KEYSTORE_PASSWORD`, `
 
 ```powershell
 $env:JAVA_HOME = 'C:/Program Files/Android/Android Studio/jbr'
-./gradlew.bat :core:domain:test :app:lintRelease :app:assembleRelease -PreleaseVersionName=0.3.0 -PreleaseVersionCode=3000
+./gradlew.bat :core:domain:test :app:lintRelease :app:assembleRelease -PreleaseVersionName=0.3.5 -PreleaseVersionCode=3005
 ```
 
 Sans configuration de signature, le build release local produit un APK non signé, qui ne doit pas être publié comme mise à jour. Aucune clé ni Release n'a été créée automatiquement dans le dépôt distant.

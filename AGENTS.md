@@ -47,7 +47,7 @@ Modes : `domain/mode/AppMode` (`FREE`, `SEMI_FREE`, `RESTRICTED`), choix utilisa
 - `ui/settings/AppPreferences` propose langue et mise à jour, ouvre l'autorisation des sources inconnues si nécessaire, puis l'installateur Android via FileProvider privé (cache/updates uniquement).
 - La confirmation système peut être requise. La mise à jour ne désinstalle pas l'app ; aucune promesse d'installation silencieuse. Une clé différente ne permet pas une mise à jour en place.
 - `.github/workflows/android-release.yml` compile/teste/signe lors d'une Release publiée puis joint l'APK. Secrets et première configuration dans `UPDATES.md`. Aucun secret ni keystore dans Git.
-- Version actuelle 0.3.0 / code 3000 ; propriétés Gradle `releaseVersionName`, `releaseVersionCode`. Code de distribution : major×1 000 000 + minor×1 000 + patch.
+- Version actuelle 0.3.5 / code 3005 ; propriétés Gradle `releaseVersionName`, `releaseVersionCode`. Code de distribution : major×1 000 000 + minor×1 000 + patch.
 
 ## Commandes Windows
 
