@@ -4,6 +4,8 @@ App Android **personnelle** (APK installé hors Play Store) de gestion du temps 
 
 **Contexte actualisé : lire `AGENTS.md` en premier.** Ajouts de novembre 2026 : navigation Accueil/Statistiques/Réglages, thème et accueil retravaillés, réglages défilants regroupés, choix français/anglais/langue système, mises à jour GitHub vérifiées et workflow de distribution signée. Configuration et limites : `UPDATES.md`.
 
+**Play Protect** : l'accessibilité d'un APK installé hors boutique peut déclencher un blocage ; une signature release ne garantit pas son acceptation. Diagnostic et contrôle des certificats dans `UPDATES.md`. Les APK locaux audités le 12 novembre 2026 étaient signés Android Debug, y compris un ancien APK nommé release. Ne pas attribuer une alerte à une cause précise sans son texte et l'APK concerné.
+
 Spécification produit complète : `readme.md` + prompt initial. Téléphone cible : **Samsung Galaxy A04s (SM-A047F, Android 14, One UI 6.1)**, branché en ADB (`R58W70316NW`) : depuis la phase 9, tests et débogage directement sur le téléphone (Instagram, YouTube réels) ; l'émulateur reste utile pour les tests destructifs.
 
 ## Stack

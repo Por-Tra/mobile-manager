@@ -32,7 +32,7 @@ Les zones Reels/Shorts s'appuient sur `assets/zone_detectors.json`, éventuellem
 - `ui/settings/AppPreferences` propose langue et mise à jour, ouvre l'autorisation des sources inconnues si nécessaire, puis l'installateur Android via FileProvider privé (cache/updates uniquement).
 - La confirmation système peut être requise. Pas de désinstallation, ni promesse d'installation silencieuse. Une clé différente ne permet pas une mise à jour en place.
 - `.github/workflows/android-release.yml` compile/teste/signe lors d'une Release publiée puis joint l'APK. Secrets et première configuration dans `UPDATES.md`. Aucun secret ni keystore dans Git.
-- Version actuelle 0.2.0 / code 2000 ; propriétés Gradle `releaseVersionName`, `releaseVersionCode`. Code de distribution : major×1 000 000 + minor×1 000 + patch.
+- Version actuelle 0.2.1 / code 2001 ; propriétés Gradle `releaseVersionName`, `releaseVersionCode`. Code de distribution : major×1 000 000 + minor×1 000 + patch.
 
 ## Commandes Windows
 

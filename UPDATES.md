@@ -23,7 +23,7 @@ Utiliser la clé qui a signé l'application actuellement installée. Un APK debu
 
 Publier une Release avec un tag stable `v0.2.1`, par exemple. Le workflow `android-release.yml` exécute les tests, lint et la compilation signée, puis joint `app-release.apk` à cette Release. Le bouton peut afficher une erreur tant que la compilation n'a pas encore joint l'APK ; réessayer après la fin du workflow.
 
-La version doit augmenter. Le code Android est calculé ainsi : `major × 1 000 000 + minor × 1 000 + patch`, avec minor et patch entre 0 et 999. La version de développement actuelle est `0.2.0`, code `2000`. Un tag `v0.2.0` ne constitue donc pas une mise à jour de cette version ; utiliser `v0.2.1` ou supérieur.
+La version doit augmenter. Le code Android est calculé ainsi : `major × 1 000 000 + minor × 1 000 + patch`, avec minor et patch entre 0 et 999. La deuxième release est préparée en `v0.2.1`, code `2001`, après la release historique `Beta`. Une future mise à jour devra avoir un code supérieur à `2001`.
 
 ## Contrôles avant installation
 
@@ -45,5 +45,28 @@ $env:JAVA_HOME = 'C:/Program Files/Android/Android Studio/jbr'
 ```
 
 Sans configuration de signature, le build release local produit un APK non signé, qui ne doit pas être publié comme mise à jour. Aucune clé ni Release n'a été créée automatiquement dans le dépôt distant.
+
+## Diagnostic Google Play Protect
+
+Un APK signé n'est pas automatiquement approuvé par Play Protect. Google documente notamment un blocage possible des applications téléchargées depuis un navigateur, une messagerie ou un gestionnaire de fichiers lorsqu'elles utilisent l'accessibilité. Cette capacité est nécessaire au moteur actuel ; la retirer désactiverait la surveillance et les zones. Le texte exact de l'alerte, le moment où elle apparaît et l'APK concerné sont nécessaires pour identifier le cas.
+
+- Une demande d'analyse d'une application inconnue n'est pas une classification comme application dangereuse : laisser Play Protect analyser l'APK.
+- Pour une application signalée comme dangereuse ou un blocage persistant, examiner les capacités et le consentement, puis demander une réévaluation officielle si la classification paraît erronée. Ne pas désactiver Play Protect.
+- L'app utilise aussi la superposition et l'administration de l'appareil, et referme certains écrans des Paramètres et de désinstallation pendant une session ou un verrouillage. Ces comportements doivent être expliqués explicitement ; leur présence ne prouve pas la cause d'une classification.
+- Distribuer un APK release signé avec une clé de distribution stable. Cela assure l'identité et les mises à jour, sans garantir l'absence d'alerte. Ne pas changer de clé pour tenter de faire disparaître une classification.
+
+Contrôle local du 12 novembre 2026 : les APK présents dans `app/build/outputs/apk` au moment de l'audit étaient tous deux signés par le même certificat **Android Debug**, y compris `release/app-release.apk` (ancienne version 0.1.0 / code 1). Le debug était en 0.2.0 / code 2000. Le nom `app-release.apk` ne suffit donc pas à identifier un APK de distribution à jour ; ce constat ne permet pas de conclure sur l'APK effectivement bloqué sur le téléphone.
+
+Pour contrôler l'APK exact avant distribution (adapter la version des build-tools installés) :
+
+```powershell
+$env:JAVA_HOME = 'C:/Program Files/Android/Android Studio/jbr'
+& "$env:LOCALAPPDATA/Android/Sdk/build-tools/36.1.0/apksigner.bat" verify --print-certs app/build/outputs/apk/release/app-release.apk
+Get-FileHash app/build/outputs/apk/release/app-release.apk -Algorithm SHA256
+```
+
+Conserver pour le diagnostic : texte de l'alerte, version Android, source d'installation, version de l'app, SHA-256 de l'APK et empreinte SHA-256 du certificat. Aucun secret de signature n'est nécessaire.
+
+Références : [messages et recommandations Play Protect](https://developers.google.com/android/play-protect/warning-dev-guidance), [réévaluation d'une classification](https://support.google.com/googleplay/android-developer/answer/2992033), [principes sur les logiciels indésirables](https://developers.google.com/android/play-protect/mobile-unwanted-software).
 
 Références : [langues par application](https://developer.android.com/guide/topics/resources/app-languages), [mises à jour Android](https://developer.android.com/google/play/app-updates), [API GitHub Releases](https://docs.github.com/en/rest/releases/releases).
