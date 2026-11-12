@@ -25,6 +25,13 @@ class DataStoreUserPreferencesRepository @Inject constructor(
             defaultAppBlocksSeeded = prefs[Keys.DEFAULT_APP_BLOCKS_SEEDED] ?: false,
             defaultZoneRulesSeeded = prefs[Keys.DEFAULT_ZONE_RULES_SEEDED] ?: false,
             screenTimeGoalMinutes = prefs[Keys.SCREEN_TIME_GOAL_MIN],
+            sharedBudgetEnabled = prefs[Keys.BUDGET_ENABLED] ?: false,
+            sharedBudgetMinutes = (prefs[Keys.BUDGET_MINUTES] ?: 45).coerceIn(1, 1440),
+            sharedBudgetPackages = prefs[Keys.BUDGET_PACKAGES] ?: emptySet(),
+            openingPauseEnabled = prefs[Keys.PAUSE_ENABLED] ?: false,
+            openingPauseSeconds = (prefs[Keys.PAUSE_SECONDS] ?: 5).coerceIn(3, 30),
+            openingPausePackages = prefs[Keys.PAUSE_PACKAGES] ?: emptySet(),
+            limitWarningsEnabled = prefs[Keys.WARNINGS] ?: true,
         )
     }
 
@@ -52,7 +59,36 @@ class DataStoreUserPreferencesRepository @Inject constructor(
         dataStore.edit { if (minutes != null) it[Keys.SCREEN_TIME_GOAL_MIN] = minutes else it.remove(Keys.SCREEN_TIME_GOAL_MIN) }
     }
 
+    override suspend fun setSharedBudget(enabled: Boolean, minutes: Int, packages: Set<String>) {
+        require(minutes in 1..1440)
+        dataStore.edit {
+            it[Keys.BUDGET_ENABLED] = enabled
+            it[Keys.BUDGET_MINUTES] = minutes
+            it[Keys.BUDGET_PACKAGES] = packages
+        }
+    }
+
+    override suspend fun setOpeningPause(enabled: Boolean, seconds: Int, packages: Set<String>) {
+        require(seconds in 3..30)
+        dataStore.edit {
+            it[Keys.PAUSE_ENABLED] = enabled
+            it[Keys.PAUSE_SECONDS] = seconds
+            it[Keys.PAUSE_PACKAGES] = packages
+        }
+    }
+
+    override suspend fun setLimitWarnings(enabled: Boolean) {
+        dataStore.edit { it[Keys.WARNINGS] = enabled }
+    }
+
     private object Keys {
+        val BUDGET_ENABLED = booleanPreferencesKey("shared_budget_enabled")
+        val BUDGET_MINUTES = intPreferencesKey("shared_budget_minutes")
+        val BUDGET_PACKAGES = stringSetPreferencesKey("shared_budget_packages")
+        val PAUSE_ENABLED = booleanPreferencesKey("opening_pause_enabled")
+        val PAUSE_SECONDS = intPreferencesKey("opening_pause_seconds")
+        val PAUSE_PACKAGES = stringSetPreferencesKey("opening_pause_packages")
+        val WARNINGS = booleanPreferencesKey("limit_warnings_enabled")
         val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
         val DEFAULT_PROFILES_SEEDED = booleanPreferencesKey("default_profiles_seeded")
         val DEFAULT_APP_BLOCKS_SEEDED = booleanPreferencesKey("default_app_blocks_seeded")

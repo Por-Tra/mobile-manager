@@ -37,14 +37,14 @@ class DashboardLoader @Inject constructor(
     private val whitelistProvider: SystemWhitelistProvider,
     private val timeProvider: TimeProvider,
 ) {
-    suspend fun load(period: Period): DashboardSummary = withContext(Dispatchers.IO) {
+    suspend fun load(period: Period, completedDaysOnly: Boolean = false): DashboardSummary = withContext(Dispatchers.IO) {
         snapshotter.ensureSnapshots()
         val now = timeProvider.localNow()
-        val today = now.toLocalDate()
+        val today = now.toLocalDate().minusDays(if (completedDaysOnly) 1 else 0)
         val zone = timeProvider.zone()
         // Deux semaines : la période affichée et la précédente, pour la comparaison.
         val from = today.minusDays(13)
-        val stored = dailyUsageRepository.usageBetween(from, today.minusDays(1))
+        val stored = dailyUsageRepository.usageBetween(from, today)
         val todayUsage = usageStatsReader.usageByPackageOn(today)
         val usage = if (todayUsage != null) stored + (today to todayUsage) else stored
 

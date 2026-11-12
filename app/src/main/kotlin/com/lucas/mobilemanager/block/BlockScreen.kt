@@ -104,8 +104,12 @@ private fun reasonText(reason: BlockReason): String = when (reason) {
     BlockReason.StrictSession -> stringResource(R.string.block_reason_strict)
     BlockReason.GlobalRule -> stringResource(R.string.block_reason_global)
     is BlockReason.Profile -> stringResource(R.string.block_reason_profile, reason.name)
-    is BlockReason.DailyLimitReached ->
-        stringResource(R.string.block_reason_daily_limit, Formats.duration(reason.limit))
+    is BlockReason.DailyLimitReached -> buildString {
+        append(stringResource(if (reason.sharedBudget) R.string.block_reason_shared_budget else R.string.block_reason_daily_limit, Formats.duration(reason.limit)))
+        reason.profileName?.let { append("\n"); append(stringResource(R.string.block_limit_profile, it)) }
+        reason.zone?.let { append("\n"); append(stringResource(R.string.block_limit_zone, it)) }
+        if (!reason.sharedBudget && reason.profileName == null) { append("\n"); append(stringResource(R.string.block_limit_global)) }
+    }
 }
 
 @Composable

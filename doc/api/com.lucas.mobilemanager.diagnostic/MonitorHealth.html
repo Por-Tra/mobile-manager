@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MonitorHealth Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.diagnostic/MonitorHealth.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.diagnostic</a> <span class="sep">/</span> <span>MonitorHealth</span></nav>
+    <article>
+<h1>MonitorHealth <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.diagnostic</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/MonitorHealth.kt.html#L9">MonitorHealth.kt</a></span></div>
+<div class="kdoc"><p>Actual connection in this process, separate from accessibility permission.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Singleton
+<span class="kw">class</span> MonitorHealth @Inject <span class="kw">constructor</span>()</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="MonitorHealth.html#m-connected"><code>connected</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-connected">
+<h3>connected <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> connected</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/diagnostic/MonitorHealth.kt.html#L10">MonitorHealth.kt, line 10</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html">MonitorAccessibilityService.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/service</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html#L108" title="monitorHealth.connected.value = true">108</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html#L386" title="monitorHealth.connected.value = false">386</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsViewModel.kt.html">SettingsViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/settings</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsViewModel.kt.html#L39" title="val monitorConnected = monitorHealth.connected">39</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">2 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html">MonitorAccessibilityService.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/service</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/service/MonitorAccessibilityService.kt.html#L67" title="@Inject lateinit var monitorHealth: com.lucas.mobilemanager.diagnostic.MonitorHealth">67</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsViewModel.kt.html">SettingsViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/settings</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/settings/SettingsViewModel.kt.html#L35" title="monitorHealth: com.lucas.mobilemanager.diagnostic.MonitorHealth,">35</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

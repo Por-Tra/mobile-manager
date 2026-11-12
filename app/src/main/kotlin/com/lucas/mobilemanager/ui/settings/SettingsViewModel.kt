@@ -26,10 +26,43 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val profileRepository: ProfileRepository,
-    strictSessionRepository: StrictSessionRepository,
-    timeProvider: TimeProvider,
+    private val strictSessionRepository: StrictSessionRepository,
+    private val timeProvider: TimeProvider,
     private val appLock: AppLock,
+    private val preferencesRepository: com.lucas.mobilemanager.domain.repository.UserPreferencesRepository,
+    private val installedApps: com.lucas.mobilemanager.apps.InstalledApps,
+    val permissionChecker: com.lucas.mobilemanager.permissions.PermissionChecker,
+    monitorHealth: com.lucas.mobilemanager.diagnostic.MonitorHealth,
 ) : ViewModel() {
+    val preferences = preferencesRepository.preferences.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+    val apps = kotlinx.coroutines.flow.MutableStateFlow<List<com.lucas.mobilemanager.apps.InstalledApp>>(emptyList())
+    val monitorConnected = monitorHealth.connected
+    val modeSettings = appLock.modeSettings
+
+    init { viewModelScope.launch { apps.value = installedApps.blockable() } }
+
+    fun saveBudget(enabled: Boolean, minutes: Int, packages: Set<String>) {
+        viewModelScope.launch {
+            if (!canEdit() || minutes !in 1..1440) return@launch
+            preferencesRepository.setSharedBudget(enabled, minutes, packages)
+        }
+    }
+
+    fun savePause(enabled: Boolean, seconds: Int, packages: Set<String>) {
+        viewModelScope.launch {
+            if (!canEdit() || seconds !in 3..30) return@launch
+            preferencesRepository.setOpeningPause(enabled, seconds, packages)
+        }
+    }
+
+    fun setWarnings(enabled: Boolean) {
+        viewModelScope.launch {
+            if (canEdit()) preferencesRepository.setLimitWarnings(enabled)
+        }
+    }
+
+    private suspend fun canEdit(): Boolean =
+        strictSessionRepository.current()?.isRunning(timeProvider.now()) != true && appLock.canModifyNow()
 
     val lockStatus: StateFlow<LockStatus?> = appLock.status.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 

@@ -48,6 +48,7 @@ class ZoneEnforcer(
     private val usageRecorder: ZoneUsageRecorder,
     /** Repli si la sortie échoue plusieurs fois : écran de blocage classique. */
     private val onEscalate: (packageName: String, decision: Decision.Blocked) -> Unit,
+    private val limitWarnings: com.lucas.mobilemanager.enforcement.LimitWarningNotifier,
 ) {
     /** Bandeau du mode diagnostic, s'il est affiché. */
     var overlay: DiagnosticOverlay? = null
@@ -166,6 +167,7 @@ class ZoneEnforcer(
         }
 
         if (decision is Decision.Allowed) {
+            limitWarnings.showIfNeeded(pkg, decision, match.zone.id)
             // Zone permise (quota non atteint, ou autorisée) : on revient vérifier régulièrement,
             // au plus tard quand le quota sera atteint.
             scheduleTick(decision.remainingToday)

@@ -36,7 +36,12 @@ sealed interface BlockReason {
     data object StrictSession : BlockReason
     data class Profile(val profileId: Long, val name: String) : BlockReason
     data object GlobalRule : BlockReason
-    data class DailyLimitReached(val limit: Duration) : BlockReason
+    data class DailyLimitReached(
+        val limit: Duration,
+        val sharedBudget: Boolean = false,
+        val profileName: String? = null,
+        val zone: String? = null,
+    ) : BlockReason
 }
 
 /**
@@ -59,14 +64,19 @@ class RuleEngine @Inject constructor() {
         whitelist: SystemWhitelist,
         now: ZonedDateTime,
         mode: AppMode = AppMode.RESTRICTED,
+        sharedBudget: SharedBudget? = null,
     ): Decision {
         if (mode == AppMode.FREE) return Decision.Allowed(remainingToday = null)
         if (request.packageName in whitelist) return Decision.Allowed(remainingToday = null)
 
         val restrictions = mutableListOf<Pair<PolicyLayer, Rule>>()
+        var explicitlyAllowed = false
         for (layer in policy.layers) {
             val rule = layer.decisiveRule(request) ?: continue
-            if (rule.action == RuleAction.Allow) break
+            if (rule.action == RuleAction.Allow) {
+                explicitlyAllowed = true
+                break
+            }
             restrictions += layer to rule
         }
 
@@ -78,18 +88,29 @@ class RuleEngine @Inject constructor() {
             )
         }
 
-        val (limit, remaining) = restrictions
-            .mapNotNull { (_, rule) ->
+        data class LimitCandidate(val reason: BlockReason.DailyLimitReached, val remaining: Duration)
+        val candidates = restrictions
+            .mapNotNull { (layer, rule) ->
                 val limit = rule.action as? RuleAction.Limit ?: return@mapNotNull null
                 val used = if (rule.target is Target.Zone) request.zoneUsageToday else request.usageToday
-                limit to limit.dailyLimit - used
-            }
-            .minWithOrNull(compareBy<Pair<RuleAction.Limit, Duration>> { it.second }.thenBy { it.first.dailyLimit })
+                val profileName = when (val source = layer.source) {
+                    is LayerSource.ManualProfile -> source.name
+                    is LayerSource.ScheduledProfile -> source.name
+                    else -> null
+                }
+                LimitCandidate(BlockReason.DailyLimitReached(limit.dailyLimit, profileName = profileName,
+                    zone = (rule.target as? Target.Zone)?.zone), limit.dailyLimit - used)
+            }.toMutableList()
+        if (!explicitlyAllowed && sharedBudget != null && request.packageName in sharedBudget.packages) {
+            candidates += LimitCandidate(BlockReason.DailyLimitReached(sharedBudget.limit, sharedBudget = true), sharedBudget.limit - sharedBudget.used)
+        }
+        val candidate = candidates.minWithOrNull(compareBy<LimitCandidate> { it.remaining }.thenBy { it.reason.limit })
             ?: return Decision.Allowed(remainingToday = null)
+        val remaining = candidate.remaining
 
         return if (remaining.isNegative || remaining.isZero) {
             Decision.Blocked(
-                reason = BlockReason.DailyLimitReached(limit.dailyLimit),
+                reason = candidate.reason,
                 until = DayBoundaries.nextMidnight(now.toInstant(), now.zone),
             )
         } else {

@@ -48,6 +48,7 @@ class EnforcementCoordinator @Inject constructor(
     strictSessionRepository: StrictSessionRepository,
     manualActivationRepository: ManualActivationRepository,
     modeRepository: ModeRepository,
+    preferencesRepository: com.lucas.mobilemanager.domain.repository.UserPreferencesRepository,
     @ApplicationScope appScope: CoroutineScope,
     private val profileResolver: ProfileResolver,
     private val ruleEngine: RuleEngine,
@@ -57,6 +58,9 @@ class EnforcementCoordinator @Inject constructor(
     private val eventLogRepository: EventLogRepository,
     private val zoneUsageRecorder: ZoneUsageRecorder,
 ) {
+    val preferences = preferencesRepository.preferences
+        .stateIn(appScope, SharingStarted.Eagerly, initialValue = null)
+    val preferenceChanges = preferences.filterNotNull().distinctUntilChanged()
     private val modeSettings = modeRepository.settings
         .stateIn(appScope, SharingStarted.Eagerly, initialValue = null)
 
@@ -81,6 +85,14 @@ class EnforcementCoordinator @Inject constructor(
 
     /** Dernier temps d'usage lu pour chaque app et quand (millisecondes de `elapsedRealtime`). */
     private val lastAppUsage = ConcurrentHashMap<String, Pair<Duration, Long>>()
+    private data class BudgetUsage(
+        val date: java.time.LocalDate,
+        val packages: Set<String>,
+        val foreground: String,
+        val used: Duration,
+        val atMs: Long,
+    )
+    @Volatile private var lastBudgetUsage: BudgetUsage? = null
 
     /** Enveloppe pour distinguer « pas encore chargée » (`null`) de « aucune session ». */
     private data class SessionSnapshot(val session: StrictSession?)
@@ -142,7 +154,24 @@ class EnforcementCoordinator @Inject constructor(
             strictSession = runningSession(),
             now = now,
         )
-        return ruleEngine.evaluate(policy, request, whitelistProvider.current(), now, currentMode().effectiveMode)
+        val preferences = preferences.filterNotNull().first()
+        val packages = preferences.sharedBudgetPackages.filterNot(::isWhitelisted).toSet()
+        val budget = if (preferences.sharedBudgetEnabled && request.packageName in packages) {
+            val atMs = SystemClock.elapsedRealtime()
+            val cached = lastBudgetUsage
+            val used = if (request.zone != null && cached != null && cached.date == now.toLocalDate() &&
+                cached.packages == packages && cached.foreground == request.packageName && atMs - cached.atMs <= APP_USAGE_REUSE_MS) {
+                cached.used + Duration.ofMillis(atMs - cached.atMs)
+            } else {
+                val usage = usageStatsReader.usageByPackageOn(now.toLocalDate()).orEmpty()
+                packages.fold(Duration.ZERO) { total, pkg -> total + (usage[pkg] ?: Duration.ZERO) }
+                    .also { lastBudgetUsage = BudgetUsage(now.toLocalDate(), packages, request.packageName, it, atMs) }
+            }
+            com.lucas.mobilemanager.domain.rules.SharedBudget(packages,
+                Duration.ofMinutes(preferences.sharedBudgetMinutes.toLong()),
+                used)
+        } else null
+        return ruleEngine.evaluate(policy, request, whitelistProvider.current(), now, currentMode().effectiveMode, budget)
     }
 
     suspend fun recordZoneRedirect(packageName: String, zone: String) {

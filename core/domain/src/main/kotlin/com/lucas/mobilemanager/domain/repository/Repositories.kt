@@ -36,6 +36,10 @@ interface UserPreferencesRepository {
     suspend fun setDefaultZoneRulesSeeded(seeded: Boolean)
 
     suspend fun setScreenTimeGoal(minutes: Int?)
+
+    suspend fun setSharedBudget(enabled: Boolean, minutes: Int, packages: Set<String>)
+    suspend fun setOpeningPause(enabled: Boolean, seconds: Int, packages: Set<String>)
+    suspend fun setLimitWarnings(enabled: Boolean)
 }
 
 interface StrictSessionRepository {

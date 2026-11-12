@@ -63,6 +63,9 @@ class MonitorAccessibilityService : AccessibilityService() {
     @Inject lateinit var timeProvider: TimeProvider
     @Inject lateinit var zoneUsageRecorder: ZoneUsageRecorder
     @Inject lateinit var appLock: AppLock
+    @Inject lateinit var limitWarnings: com.lucas.mobilemanager.enforcement.LimitWarningNotifier
+    @Inject lateinit var monitorHealth: com.lucas.mobilemanager.diagnostic.MonitorHealth
+    private lateinit var openingPause: com.lucas.mobilemanager.enforcement.OpeningPauseOverlay
 
     private lateinit var zoneEnforcer: ZoneEnforcer
 
@@ -90,6 +93,7 @@ class MonitorAccessibilityService : AccessibilityService() {
                     watchJob?.cancel()
                     protectedCheckJob?.cancel()
                     tracker.reset()
+                    openingPause.reset()
                     zoneEnforcer.onForegroundChanged()
                 }
                 Intent.ACTION_SCREEN_ON, Intent.ACTION_USER_PRESENT -> recoverForeground()
@@ -100,20 +104,31 @@ class MonitorAccessibilityService : AccessibilityService() {
     override fun onServiceConnected() {
         super.onServiceConnected()
         tracker = ForegroundTracker(selfPackage = packageName)
-        zoneEnforcer = ZoneEnforcer(this, scope, coordinator, zoneDetectorStore, timeProvider, zoneUsageRecorder, ::block)
+        openingPause = com.lucas.mobilemanager.enforcement.OpeningPauseOverlay(this, scope)
+        monitorHealth.connected.value = true
+        zoneEnforcer = ZoneEnforcer(this, scope, coordinator, zoneDetectorStore, timeProvider, zoneUsageRecorder, ::block, limitWarnings)
         scope.launch {
             diagnosticStore.overlayEnabled.collect { enabled -> setDiagnosticOverlay(enabled) }
         }
         scope.launch {
             // Le chargement initial des détecteurs peut finir après le premier événement d'app.
             zoneDetectorStore.detectors.collect {
-                if (canMonitor()) tracker.current?.takeIf { it != packageName }?.let(zoneEnforcer::recheck)
+                if (canMonitor() && !openingPause.isShowing) tracker.current?.takeIf { it != packageName }?.let(zoneEnforcer::recheck)
             }
         }
         scope.launch {
             coordinator.modeChanges.collect {
+                openingPause.reset()
                 watchJob?.cancel()
                 protectedCheckJob?.cancel()
+                zoneEnforcer.onForegroundChanged()
+                if (canMonitor()) recoverForeground()
+            }
+        }
+        scope.launch {
+            coordinator.preferenceChanges.collect {
+                openingPause.reset()
+                watchJob?.cancel()
                 zoneEnforcer.onForegroundChanged()
                 if (canMonitor()) recoverForeground()
             }
@@ -145,7 +160,7 @@ class MonitorAccessibilityService : AccessibilityService() {
         }
         if (event.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             if (eventPackage != null && event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
-                zoneEnforcer.onEvent(eventPackage, windowChanged = false)
+                if (!openingPause.isShowing) zoneEnforcer.onEvent(eventPackage, windowChanged = false)
             }
             return
         }
@@ -164,18 +179,20 @@ class MonitorAccessibilityService : AccessibilityService() {
             ForegroundTracker.Change.None -> Unit
             // Nos propres écrans (dont l'écran de blocage) : rien à surveiller.
             ForegroundTracker.Change.Self -> {
+                openingPause.onForeground(packageName)
                 recoveryJob?.cancel()
                 watchJob?.cancel()
                 zoneEnforcer.onForegroundChanged()
             }
             is ForegroundTracker.Change.App -> {
+                openingPause.onForeground(change.packageName)
                 recoveryJob?.cancel()
-                zoneEnforcer.recheck(change.packageName)
+                if (!openingPause.isShowing) zoneEnforcer.recheck(change.packageName)
                 watch(change.packageName)
             }
         }
         if (change == ForegroundTracker.Change.None && eventPackage != null) {
-            zoneEnforcer.onEvent(eventPackage, windowChanged = true)
+            if (!openingPause.isShowing) zoneEnforcer.onEvent(eventPackage, windowChanged = true)
         }
     }
 
@@ -201,9 +218,11 @@ class MonitorAccessibilityService : AccessibilityService() {
                 ) {
                     tracker.onWindowStateChanged(pkg, isActivity = true, overlayPackages, recheckCurrent = true)
                     if (pkg == packageName) {
+                        openingPause.onForeground(pkg)
                         watchJob?.cancel()
                         zoneEnforcer.onForegroundChanged()
                     } else {
+                        openingPause.onForeground(pkg)
                         zoneEnforcer.recheck(pkg)
                         watch(pkg)
                         if (pkg in ProtectedScreenDetector.PROTECTED_PACKAGES) scheduleProtectedScreenCheck(pkg)
@@ -298,6 +317,14 @@ class MonitorAccessibilityService : AccessibilityService() {
                     }
                     is Decision.Allowed -> {
                         if (coordinator.isWhitelisted(pkg)) return@launch
+                        limitWarnings.showIfNeeded(pkg, decision)
+                        val preferences = coordinator.preferences.value
+                        if (coordinator.blocksEnabledNow() && preferences?.openingPauseEnabled == true && pkg in preferences.openingPausePackages) {
+                            openingPause.show(pkg, preferences.openingPauseSeconds) {
+                                if (canMonitor() && tracker.current == pkg) zoneEnforcer.recheck(pkg)
+                            }
+                            if (openingPause.isShowing) zoneEnforcer.onForegroundChanged()
+                        }
                         val delay = EnforcementPolicy.nextCheckDelay(decision) ?: return@launch
                         delay(delay.toMillis())
                     }
@@ -313,6 +340,7 @@ class MonitorAccessibilityService : AccessibilityService() {
     private fun block(pkg: String, decision: Decision.Blocked) {
         if (!canMonitor() || !coordinator.blocksEnabledNow() || tracker.current != pkg) return
         tracker.reset()
+        openingPause.reset()
         zoneEnforcer.onForegroundChanged()
         // Toujours (ré)afficher l'écran : une app qui enchaîne deux écrans au démarrage
         // (ex. Messages et sa page de connexion) repasse sinon par-dessus le blocage.
@@ -355,6 +383,8 @@ class MonitorAccessibilityService : AccessibilityService() {
     override fun onInterrupt() = Unit
 
     override fun onDestroy() {
+        monitorHealth.connected.value = false
+        openingPause.reset()
         zoneEnforcer.overlay?.hide()
         unregisterReceiver(screenReceiver)
         scope.cancel()

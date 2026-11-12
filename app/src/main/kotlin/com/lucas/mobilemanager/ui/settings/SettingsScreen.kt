@@ -75,6 +75,8 @@ fun SettingsScreen(
             val lockStatus by viewModel.lockStatus.collectAsStateWithLifecycle()
 
             ModeCard()
+            ProtectionDiagnostic(viewModel, onOpenPermissions)
+            WellbeingPreferences(viewModel, enabled = !sessionRunning && lockStatus?.canModify == true)
 
             SettingsHeading(R.string.settings_protection)
             Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {

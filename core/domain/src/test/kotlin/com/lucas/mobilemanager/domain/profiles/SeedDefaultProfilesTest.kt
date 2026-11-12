@@ -81,5 +81,10 @@ class SeedDefaultProfilesTest {
             state.update { it.copy(defaultZoneRulesSeeded = seeded) }
         override suspend fun setScreenTimeGoal(minutes: Int?) =
             state.update { it.copy(screenTimeGoalMinutes = minutes) }
+        override suspend fun setSharedBudget(enabled: Boolean, minutes: Int, packages: Set<String>) =
+            state.update { it.copy(sharedBudgetEnabled = enabled, sharedBudgetMinutes = minutes, sharedBudgetPackages = packages) }
+        override suspend fun setOpeningPause(enabled: Boolean, seconds: Int, packages: Set<String>) =
+            state.update { it.copy(openingPauseEnabled = enabled, openingPauseSeconds = seconds, openingPausePackages = packages) }
+        override suspend fun setLimitWarnings(enabled: Boolean) = state.update { it.copy(limitWarningsEnabled = enabled) }
     }
 }

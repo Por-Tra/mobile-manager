@@ -108,6 +108,7 @@ fun DashboardScreen(onBack: () -> Unit, viewModel: DashboardViewModel = hiltView
                 }
             }
             item { TotalCard(summary, state.period) }
+            state.weeklyReport?.let { report -> item { WeeklyReportCard(report, state.appLabels) } }
             item {
                 Section(stringResource(R.string.dashboard_week_chart)) {
                     WeekChart(summary.week, goal, stringResource(R.string.dashboard_week_chart))

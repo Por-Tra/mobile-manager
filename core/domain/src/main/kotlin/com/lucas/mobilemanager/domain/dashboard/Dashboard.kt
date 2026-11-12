@@ -106,6 +106,7 @@ data class DashboardSummary(
     val zones: ZoneStats,
     val interruptions: Interruptions,
     val goals: Goals,
+    val previousDaysWithData: Int = 0,
 ) {
     val hasData: Boolean get() = range.days.any { day -> week.any { it.date == day && it.hasData } } || !total.isZero
 }
@@ -149,6 +150,7 @@ object DashboardCalculator {
             zones = zoneStats(input, range, events),
             interruptions = interruptions(events),
             goals = goals(input, range, usage, events),
+            previousDaysWithData = previous.days.count { it in usage },
         )
     }
 

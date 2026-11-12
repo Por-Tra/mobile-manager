@@ -25,6 +25,9 @@ data class BlockScreenArgs(
                         .putExtra(EXTRA_PROFILE_NAME, reason.name)
                     is BlockReason.DailyLimitReached -> putExtra(EXTRA_REASON, REASON_LIMIT)
                         .putExtra(EXTRA_LIMIT_MINUTES, reason.limit.toMinutes())
+                        .putExtra("shared_budget", reason.sharedBudget)
+                        .putExtra("limit_profile", reason.profileName)
+                        .putExtra("limit_zone", reason.zone)
                 }
             }
 
@@ -40,6 +43,9 @@ data class BlockScreenArgs(
                 )
                 REASON_LIMIT -> BlockReason.DailyLimitReached(
                     Duration.ofMinutes(intent.getLongExtra(EXTRA_LIMIT_MINUTES, 0)),
+                    sharedBudget = intent.getBooleanExtra("shared_budget", false),
+                    profileName = intent.getStringExtra("limit_profile"),
+                    zone = intent.getStringExtra("limit_zone"),
                 )
                 else -> return null
             }

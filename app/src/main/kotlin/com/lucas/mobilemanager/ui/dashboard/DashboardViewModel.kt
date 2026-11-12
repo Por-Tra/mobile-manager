@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 data class DashboardUiState(
     val period: Period = Period.TODAY,
     val summary: DashboardSummary? = null,
+    val weeklyReport: DashboardSummary? = null,
     val loading: Boolean = true,
     val goalMinutes: Int? = null,
     val appLabels: Map<String, String> = emptyMap(),
@@ -49,15 +50,16 @@ class DashboardViewModel @Inject constructor(
         loadJob = viewModelScope.launch {
             _state.update { it.copy(loading = it.summary == null) }
             val summary = loader.load(state.value.period)
+            val weeklyReport = loader.load(Period.WEEK, completedDaysOnly = true)
             val goal = preferencesRepository.preferences.first().screenTimeGoalMinutes
-            val packages = summary.apps.map { it.packageName } +
+            val packages = summary.apps.map { it.packageName } + weeklyReport.apps.map { it.packageName } +
                 (summary.zones.timeByZone.keys + summary.zones.exitsByZone.keys).map { it.packageName }
             val labels = packages.distinct().associateWith { installedApps.label(it) ?: it }
             val zoneLabels = zoneDetectorStore.detectors.value.apps
                 .flatMap { app -> app.zones.map { ZoneKey(app.packageName, it.id) to it.label } }
                 .toMap()
             _state.update {
-                it.copy(summary = summary, loading = false, goalMinutes = goal, appLabels = labels, zoneLabels = zoneLabels)
+                it.copy(summary = summary, weeklyReport = weeklyReport, loading = false, goalMinutes = goal, appLabels = labels, zoneLabels = zoneLabels)
             }
         }
     }

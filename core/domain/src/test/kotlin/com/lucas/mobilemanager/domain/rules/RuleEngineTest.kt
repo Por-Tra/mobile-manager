@@ -144,7 +144,7 @@ class RuleEngineTest {
                 decide(AppRequest(INSTAGRAM, zone = "messages", usageToday = minutes(45)), listOf(instagram)),
             )
             assertEquals(
-                BlockReason.DailyLimitReached(minutes(30)),
+                BlockReason.DailyLimitReached(minutes(30), profileName = "Profil 1"),
                 (decide(AppRequest(INSTAGRAM, zone = "feed", usageToday = minutes(45)), listOf(instagram))
                     as Decision.Blocked).reason,
             )
@@ -232,7 +232,7 @@ class RuleEngineTest {
         fun `limit reached exactly blocks until next midnight`() {
             val p = profile(id = 1, rules = listOf(limit(YOUTUBE, 30)))
             assertEquals(
-                Decision.Blocked(BlockReason.DailyLimitReached(minutes(30)), at(MONDAY.plusDays(1), 0).toInstant()),
+                Decision.Blocked(BlockReason.DailyLimitReached(minutes(30), profileName = "Profil 1"), at(MONDAY.plusDays(1), 0).toInstant()),
                 decide(AppRequest(YOUTUBE, usageToday = minutes(30)), listOf(p)),
             )
         }
@@ -276,7 +276,7 @@ class RuleEngineTest {
         @Test
         fun `quota reached blocks the zone until midnight`() =
             assertEquals(
-                Decision.Blocked(BlockReason.DailyLimitReached(minutes(50)), at(MONDAY.plusDays(1), 0).toInstant()),
+                Decision.Blocked(BlockReason.DailyLimitReached(minutes(50), zone = "reels"), at(MONDAY.plusDays(1), 0).toInstant()),
                 decide(reels(appUsage = 60, zoneUsage = 50), globalRules = listOf(reelsQuota)),
             )
 

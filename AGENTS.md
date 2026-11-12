@@ -30,6 +30,14 @@ Modes : `domain/mode/AppMode` (`FREE`, `SEMI_FREE`, `RESTRICTED`), choix utilisa
 - `locale/AppLanguage` : LocaleManager Android 13+, préférence privée et contextes localisés Android 10–12. `LocalizedActivity` est la base des trois activités. Les services lisent les ressources de l'application. Les jours Compose utilisent `LocalConfiguration`, les formats hors Compose la locale courante. Ne pas revenir à `Locale.FRENCH` fixe.
 - Les noms de profils sont des données utilisateur persistées ; ils ne sont pas renommés lors d'un changement de langue.
 
+## Habitudes et diagnostic
+
+- Budget quotidien partagé facultatif : une sélection d'apps, un budget commun depuis minuit local, sans addition du temps des zones. Préférences DataStore, désactivé par défaut. Restriction de dernier recours après les couches existantes : une règle Allow arrête aussi le budget partagé ; les restrictions supérieures restent retenues. La liste blanche et le mode Libre restent prioritaires.
+- Pause d'ouverture facultative : apps sélectionnées, 3–30 s, désactivée par défaut. Superposition d'accessibilité tactile, puis clic explicite sur Continuer ; Retour à l'accueil disponible. Une validation ne vaut que pour le passage courant dans l'app ; une nouvelle activité du même package ne relance pas la pause. Retirer au changement d'app/mode/préférences, à l'écran éteint et à la destruction du service. Le son peut continuer et Android peut compter ce temps comme usage de l'app.
+- Préavis activé par défaut : Toast neutre à ≤ 5 min restantes, une fois par app/zone et jour local pendant le processus courant. Aucun besoin de permission de notifications ; pas d'alerte en mode Libre. Les options sont protégées par AppLock et non modifiables pendant une session stricte.
+- Statistiques : bilan des 7 journées terminées hier, couverture des données affichée, moyenne sur les jours renseignés ; comparaison seulement si les deux périodes ont 7 jours de données. Aucun envoi ou notification automatique.
+- Réglages : diagnostic des permissions et connexion effective du service via MonitorHealth, actualisé à la reprise ; un état prêt ne garantit pas la survie du service Android. Les limites atteintes indiquent leur origine (budget partagé, profil/global, zone).
+
 ## Mises à jour
 
 - Domaine : `domain/update/GitHubRelease` valide les métadonnées et `ReleaseVersion` compare des tags stables sémantiques. Tests JVM couvrant versions, URL, taille, digest et assets ambigus.

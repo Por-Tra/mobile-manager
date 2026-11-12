@@ -72,6 +72,16 @@ class DashboardCalculatorTest {
     @Nested
     inner class Comparisons {
         @Test
+        fun `weekly coverage distinguishes missing history from recorded zero usage`() {
+            val usage = (0L..13L).associate { MONDAY.minusDays(it) to emptyMap<String, Duration>() }
+            val complete = DashboardCalculator.summarize(input(Period.WEEK, usage))
+            assertEquals(7, complete.previousDaysWithData)
+            assertEquals(7, complete.week.count { it.hasData })
+            val partial = DashboardCalculator.summarize(input(Period.WEEK, usage - MONDAY.minusDays(9)))
+            assertEquals(6, partial.previousDaysWithData)
+        }
+
+        @Test
         fun `less than yesterday`() {
             val summary = DashboardCalculator.summarize(
                 input(usage = mapOf(MONDAY to mapOf(YOUTUBE to min(30)), MONDAY.minusDays(1) to mapOf(YOUTUBE to min(70)))),

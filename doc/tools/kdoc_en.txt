@@ -1,5 +1,40 @@
 # English translations of the KDoc comments (written in French in the code).
 @@ fr
+Connexion effective dans ce processus, distincte de l'autorisation d'accessibilité.
+@@ en
+Actual connection in this process, separate from accessibility permission.
+
+@@ fr
+Préavis discret, au plus une fois par app/zone et par jour, sur le thread principal.
+@@ en
+Discreet warning, at most once per app/zone per day, on the main thread.
+
+@@ fr
+Superposition tactile : aucun lancement de l'app et aucune permission de superposition requise.
+@@ en
+Touch overlay: no app launch and no draw-over-other-apps permission required.
+
+@@ fr
+Une autorisation de continuer vaut uniquement pour le passage courant dans l'app.
+@@ en
+Permission to continue applies only to the current visit to the app.
+
+@@ fr
+Renvoie vrai quand il faut retirer une éventuelle pause de l'ancien premier plan.
+@@ en
+Returns true when any pause for the previous foreground app must be removed.
+
+@@ fr
+Préavis par jour local ; un usage sans limite ou déjà bloqué ne produit aucun préavis.
+@@ en
+Warning per local day; unbounded or already blocked usage produces no warning.
+
+@@ fr
+Budget commun aux apps sélectionnées ; les temps de zones ne s'y ajoutent jamais.
+@@ en
+Shared budget for selected apps; zone durations are never added to it.
+
+@@ fr
 Recouvre le fil recommandé et absorbe les gestes, en laissant les barres Instagram accessibles.
 @@ en
 Covers the recommended feed and absorbs gestures while leaving Instagram's navigation bars accessible.

@@ -1,0 +1,18 @@
+<!-- title: Habits and protection diagnostics -->
+<!-- order: 13 -->
+<!-- section: Features -->
+<h1>Habits and protection diagnostics</h1>
+<p class="lead">Optional shared app budgets and opening pauses complement the existing rules. All settings and reports remain local.</p>
+<h2 id="budget">Shared daily budget</h2>
+<p>Settings offers one daily budget for a selected set of apps. It is disabled by default. {{SharedBudget}} contains the selected packages, limit and aggregated app usage since local midnight. Zone durations are never added to this total. System-whitelisted apps remain exempt.</p>
+<p>{{RuleEngine}} considers the budget after the existing policy layers. An explicit Allow prevents this lower restriction from being considered, while higher restrictions remain effective. Blocks win over limits; otherwise the smallest remaining allowance wins. The budget resets at the next local midnight. Settings changes require permission to edit and are refused during strict sessions.</p>
+<h2 id="pause">Opening pause</h2>
+<p>The optional pause uses an accessibility overlay that receives touches, with a configurable 3–30 second wait. Continue becomes available after the wait and must be pressed explicitly. Return home is available throughout. {{OpeningPauseState}} retains continuation only while the same app remains in the foreground; switching apps, screen off or a mode change revokes it. Additional activities in the same app do not restart the wait.</p>
+<p>App restrictions are checked before and during the pause. Zone checks resume after Continue. The overlay does not guarantee that audio stops, and Android can count this interval as app usage. Free mode disables it. It does not need the draw-over-other-apps permission.</p>
+<h2 id="warning">Limit warning</h2>
+<p>{{LimitWarningPolicy}} permits a discreet Toast when five minutes or less remain, once per app or zone per local day in the current process. Warnings are enabled by default and can be disabled in Settings when editing is allowed. A new process may warn again. No notification permission is needed. Periodic checks may delay the message slightly. No warning is shown for unbounded, exhausted or Free-mode usage.</p>
+<h2 id="review">Weekly review</h2>
+<p>Statistics includes a local review of the seven completed days ending yesterday: coverage, total, average per recorded day, most-used app, highest-usage day and completed focus sessions. Comparison is displayed only when both seven-day periods have full data. Missing days are never presented as recorded zero usage. There is no upload or automatic notification.</p>
+<h2 id="diagnostics">Protection diagnostics and block explanations</h2>
+<p>Settings checks permissions again on resume and displays {{MonitorHealth}}'s actual service connection independently of whether accessibility is enabled in system settings. The diagnostic explains missing usage access, battery optimization and Free mode. It describes the present state without guaranteeing Android will keep the service alive.</p>
+<p>The block screen retains the reason and expected end, and daily limits now include their shared-budget or profile/global origin and zone when applicable.</p>
