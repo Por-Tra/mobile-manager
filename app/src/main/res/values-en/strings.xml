@@ -426,4 +426,11 @@
     <string name="weekly_report_peak">Highest usage day: %1$s (%2$s)</string>
     <string name="weekly_report_sessions">Completed focus sessions: %1$d</string>
     <string name="weekly_report_local">Calculated on this device, without sending data or automatic notifications.</string>
+    <string name="uninstall_title">Leave Mobile Manager</string>
+    <string name="uninstall_message">Your time is precious. Don’t waste it scrolling needlessly through social media.</string>
+    <string name="uninstall_body">Android will ask you to confirm uninstallation. Your profiles, settings and local statistics will be deleted. If active, device administration will be disabled to allow uninstallation, even if you cancel afterwards.</string>
+    <string name="uninstall_action">Uninstall the app</string>
+    <string name="uninstall_preparing">Preparing…</string>
+    <string name="uninstall_locked">Available outside a strict session, after unlocking settings if required.</string>
+    <string name="uninstall_failed">Could not open uninstallation. Check that settings are unlocked and review device administration, then try again.</string>
 </resources>

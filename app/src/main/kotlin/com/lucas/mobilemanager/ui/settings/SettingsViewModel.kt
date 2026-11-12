@@ -64,6 +64,8 @@ class SettingsViewModel @Inject constructor(
     private suspend fun canEdit(): Boolean =
         strictSessionRepository.current()?.isRunning(timeProvider.now()) != true && appLock.canModifyNow()
 
+    suspend fun canUninstall(): Boolean = canEdit()
+
     val lockStatus: StateFlow<LockStatus?> = appLock.status.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     /** Pendant une session de concentration, les outils qui modifient les règles sont désactivés. */

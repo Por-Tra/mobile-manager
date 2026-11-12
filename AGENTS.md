@@ -26,6 +26,7 @@ Modes : `domain/mode/AppMode` (`FREE`, `SEMI_FREE`, `RESTRICTED`), choix utilisa
 - Navigation principale persistante : Accueil / Statistiques / Réglages. Éditeurs, onboarding et sessions sortent de cette navigation. `MobileManagerNavHost` conserve les piles des onglets.
 - Accueil : introduction, permissions manquantes si nécessaire, action de concentration, usage du jour, état de protection, profils et règles. Les boutons de création/règles sont empilés pour les petits écrans.
 - Réglages défilants : protection, langue/mises à jour, avancé. Thème clair/sombre, cartes arrondies et couleurs de surface centralisés dans `ui/theme`.
+- Réglages › Avancé : bouton de désinstallation avec message de départ, protégé par AppLock et refusé pendant une session stricte. Retire notre administration active avant ACTION_DELETE sur notre package, puis confirmation Android. En cas d'annulation, les données restent mais l'administration retirée n'est pas réactivée automatiquement.
 - Français par défaut dans `res/values/strings.xml`, traduction complète dans `values-en/strings.xml`. Tout texte UI doit exister dans les deux, avec les mêmes arguments printf. Vérification : `tools/check_resources.py`.
 - `locale/AppLanguage` : LocaleManager Android 13+, préférence privée et contextes localisés Android 10–12. `LocalizedActivity` est la base des trois activités. Les services lisent les ressources de l'application. Les jours Compose utilisent `LocalConfiguration`, les formats hors Compose la locale courante. Ne pas revenir à `Locale.FRENCH` fixe.
 - Les noms de profils sont des données utilisateur persistées ; ils ne sont pas renommés lors d'un changement de langue.
@@ -44,7 +45,7 @@ Modes : `domain/mode/AppMode` (`FREE`, `SEMI_FREE`, `RESTRICTED`), choix utilisa
 - Android : `update/GitHubUpdater` consulte `Por-Tra/mobile-manager/releases/latest`, télécharge l'unique `app-release.apk`, contrôle SHA-256, taille, package, versionCode supérieur et certificat identique. HTTPS borné, redirections GitHub autorisées uniquement ; aucun token embarqué.
 - `UpdateViewModel` gère recherche, disponibilité, progression, erreur et APK prêt. Les opérations et l'installation sont refusées pendant une session et si le code du proche est verrouillé.
 - `ui/settings/AppPreferences` propose langue et mise à jour, ouvre l'autorisation des sources inconnues si nécessaire, puis l'installateur Android via FileProvider privé (cache/updates uniquement).
-- La confirmation système peut être requise. Pas de désinstallation, ni promesse d'installation silencieuse. Une clé différente ne permet pas une mise à jour en place.
+- La confirmation système peut être requise. La mise à jour ne désinstalle pas l'app ; aucune promesse d'installation silencieuse. Une clé différente ne permet pas une mise à jour en place.
 - `.github/workflows/android-release.yml` compile/teste/signe lors d'une Release publiée puis joint l'APK. Secrets et première configuration dans `UPDATES.md`. Aucun secret ni keystore dans Git.
 - Version actuelle 0.3.0 / code 3000 ; propriétés Gradle `releaseVersionName`, `releaseVersionCode`. Code de distribution : major×1 000 000 + minor×1 000 + patch.
 

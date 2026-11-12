@@ -470,4 +470,11 @@
     <string name="weekly_report_peak">Jour le plus utilisé : %1$s (%2$s)</string>
     <string name="weekly_report_sessions">Sessions de concentration terminées : %1$d</string>
     <string name="weekly_report_local">Calculé sur cet appareil, sans transmission ni notification automatique.</string>
+    <string name="uninstall_title">Quitter Mobile Manager</string>
+    <string name="uninstall_message">Votre temps est précieux. Ne le perdez pas inutilement en scrollant sur les réseaux sociaux.</string>
+    <string name="uninstall_body">Android vous demandera de confirmer la désinstallation. Vos profils, réglages et statistiques locales seront supprimés. Si elle est active, l’administration de l’appareil sera désactivée pour permettre la désinstallation, même si vous annulez ensuite.</string>
+    <string name="uninstall_action">Désinstaller l’application</string>
+    <string name="uninstall_preparing">Préparation…</string>
+    <string name="uninstall_locked">Disponible hors session stricte, après déverrouillage des réglages si nécessaire.</string>
+    <string name="uninstall_failed">Impossible d’ouvrir la désinstallation. Vérifiez le déverrouillage des réglages et l’administration de l’appareil, puis réessayez.</string>
 </resources>

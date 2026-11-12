@@ -109,6 +109,9 @@ fun SettingsScreen(
             Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) { LanguagePreference() }
             Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) { UpdatePreference(enabled = !sessionRunning && lockStatus?.canModify == true) }
             SettingsHeading(R.string.settings_advanced)
+            Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {
+                UninstallPreference(enabled = !sessionRunning && lockStatus?.canModify == true, viewModel = viewModel)
+            }
             ListItem(
                     colors = ListItemDefaults.colors(containerColor = Color.Transparent),
                 headlineContent = { Text(stringResource(R.string.diagnostic_title)) },

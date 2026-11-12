@@ -12,6 +12,10 @@ Les mises à jour sont indisponibles pendant une session stricte ou lorsque le c
 
 La version locale remplace le passage automatique des Reels par un écran qui couvre tout le fil recommandé Instagram, photos comprises, lorsque la règle Reels bloque ou que son quota est atteint. La navigation et les messages restent accessibles. Le bouton « Voir les comptes suivis » ouvre le fil natif « Suivi(e) »/« Following », qui reste disponible, vidéos intégrées comprises ; le lecteur Reels plein écran conserve le blocage habituel. Aucun schéma ni autorisation supplémentaire, aucune collecte d’abonnements. Les détecteurs personnalisés restent prioritaires pour la détection des zones ; leurs anciens champs de défilement sont encore pris en charge. La couverture du fil recommandé s’applique tant qu’une zone `reels` existe dans ces détecteurs. Le masque ne garantit pas l’arrêt du son.
 
+## Désinstallation volontaire
+
+Réglages › Avancé › Désinstaller l'application ouvre la confirmation de désinstallation Android. Ce parcours est distinct des mises à jour et exige l'autorisation de modifier les réglages ; il est indisponible pendant une session stricte. Le bouton retire d'abord notre administration de l'appareil si elle est active. Annuler la confirmation conserve l'application et ses données, mais ne réactive pas cette administration automatiquement. Confirmer supprime l'application et ses données locales. Le message de départ rappelle que le temps de l'utilisateur est précieux. Aucun écran de désinstallation d'une autre application n'est ouvert par ce bouton.
+
 ## Première configuration GitHub
 
 Configurer ces quatre **Actions secrets** dans le dépôt :
