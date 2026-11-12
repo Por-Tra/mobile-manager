@@ -23,6 +23,8 @@ Utiliser la clé qui a signé l'application actuellement installée. Un APK debu
 
 Publier une Release avec un tag stable `v0.2.1`, par exemple. Le workflow `android-release.yml` exécute les tests, lint et la compilation signée, puis joint `app-release.apk` à cette Release. Le bouton peut afficher une erreur tant que la compilation n'a pas encore joint l'APK ; réessayer après la fin du workflow.
 
+Le workflow installe `platform-tools` explicitement : le paquet historique `tools` n'est plus disponible. Après correction d'un échec CI, utiliser Actions › Signed Android release › Run workflow depuis `main`, avec `release_tag` égal au tag existant. Le code compilé provient de ce tag ; le workflow de relance provient de `main`. Il n'est pas nécessaire de déplacer le tag ou de recréer la Release.
+
 La version doit augmenter. Le code Android est calculé ainsi : `major × 1 000 000 + minor × 1 000 + patch`, avec minor et patch entre 0 et 999. La deuxième release est préparée en `v0.2.1`, code `2001`, après la release historique `Beta`. Une future mise à jour devra avoir un code supérieur à `2001`.
 
 ## Contrôles avant installation
