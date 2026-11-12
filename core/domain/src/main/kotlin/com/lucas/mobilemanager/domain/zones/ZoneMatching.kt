@@ -76,8 +76,9 @@ object ZoneMatcher {
 
     fun detect(file: ZoneDetectorFile, packageName: String, nodes: List<UiNode>): ZoneMatch? {
         for (zone in file.zonesFor(packageName)) {
-            if (zone.noneOf.any { signal -> nodes.any { signal.matches(it) } }) continue
+            if (zone.noneOf.any { signal -> signal.hasContext(nodes) && nodes.any { signal.matches(it) } }) continue
             zone.anyOf.forEachIndexed { index, signal ->
+                if (!signal.hasContext(nodes)) return@forEachIndexed
                 val hits = nodes.indices.filter { signal.matches(nodes[it]) }
                 if (hits.isNotEmpty()) return ZoneMatch(zone, index, hits)
             }
@@ -95,10 +96,13 @@ object ZoneMatcher {
         val zones = file.zonesFor(packageName).ifEmpty { return null }
         val ids = mutableSetOf<String>()
         for (zone in zones) {
-            for (signal in zone.anyOf + zone.noneOf + zone.hide) ids += signal.viewId ?: return null
+            for (signal in zone.anyOf + zone.noneOf + zone.hide) {
+                ids += signal.viewId ?: return null
+                signal.requiresViewId?.let { ids += it }
+            }
             for (action in zone.exit) {
                 if (action.back) continue
-                ids += action.clickViewId ?: return null
+                ids += action.clickViewId ?: action.scrollForwardViewId ?: return null
             }
         }
         return ids.mapTo(mutableSetOf()) { if (":id/" in it) it else "$packageName:id/$it" }
@@ -106,8 +110,11 @@ object ZoneMatcher {
 
     /** Indices des points d'entrée visibles de [zone] à masquer (signaux `hide`). */
     fun entryPoints(zone: ZoneDefinition, nodes: List<UiNode>): List<Int> =
-        if (zone.hide.isEmpty()) emptyList() else nodes.indices.filter { i -> zone.hide.any { it.matches(nodes[i]) } }
+        if (zone.hide.isEmpty()) emptyList() else nodes.indices.filter { i -> zone.hide.any { it.hasContext(nodes) && it.matches(nodes[i]) } }
 }
+
+private fun NodeSignal.hasContext(nodes: List<UiNode>): Boolean =
+    requiresViewId == null || nodes.any { it.visible && it.viewId.isViewId(requiresViewId) }
 
 fun NodeSignal.matches(node: UiNode): Boolean {
     if (!node.visible) return false
@@ -134,6 +141,7 @@ private fun String?.containsAny(options: List<String>) = this != null && options
 sealed interface ExitStep {
     /** Cliquer le nœud [nodeIndex] (ou son premier parent cliquable). */
     data class Click(val nodeIndex: Int) : ExitStep
+    data class ScrollForward(val nodeIndex: Int) : ExitStep
     data object Back : ExitStep
 }
 
@@ -147,6 +155,10 @@ object ZoneExitPlanner {
     fun plan(zone: ZoneDefinition, nodes: List<UiNode>, attempt: Int = 0): ExitStep {
         val steps = zone.exit.mapNotNull { action ->
             if (action.back) return@mapNotNull ExitStep.Back
+            action.scrollForwardViewId?.let { id ->
+                val index = nodes.indexOfFirst { it.visible && it.viewId.isViewId(id) }
+                return@mapNotNull if (index >= 0) ExitStep.ScrollForward(index) else null
+            }
             val index = nodes.indexOfFirst { node ->
                 node.visible && (
                     (action.clickViewId != null && node.viewId.isViewId(action.clickViewId)) ||
@@ -156,6 +168,8 @@ object ZoneExitPlanner {
             }
             if (index >= 0) ExitStep.Click(index) else null
         }.distinct()
+        // Le défilement reste la sortie tant que le fil est visible, même après plusieurs essais.
+        steps.filterIsInstance<ExitStep.ScrollForward>().firstOrNull()?.let { return it }
         return steps.getOrNull(attempt.coerceIn(0, (steps.size - 1).coerceAtLeast(0))) ?: ExitStep.Back
     }
 }

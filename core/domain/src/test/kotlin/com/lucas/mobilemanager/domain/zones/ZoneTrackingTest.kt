@@ -41,6 +41,17 @@ class ZoneTrackingTest {
             throttle.onZoneLeft()
             assertEquals(ZoneExitThrottle.Action.EXIT, throttle.onZoneDetected(ms(1700)))
         }
+
+        @Test
+        fun `successful scrolling allows consecutive reels while preserving the interval`() {
+            for (i in 0L..5L) {
+                assertEquals(ZoneExitThrottle.Action.EXIT, throttle.onZoneDetected(ms(i * 1000)))
+                throttle.onExitProgress()
+                assertEquals(ZoneExitThrottle.Action.WAIT, throttle.onZoneDetected(ms(i * 1000 + 300)))
+            }
+            listOf(6000L, 7000L, 8000L).forEach { assertEquals(ZoneExitThrottle.Action.EXIT, throttle.onZoneDetected(ms(it))) }
+            assertEquals(ZoneExitThrottle.Action.ESCALATE, throttle.onZoneDetected(ms(9000)))
+        }
     }
 
     @Nested

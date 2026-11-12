@@ -15,6 +15,7 @@ import com.lucas.mobilemanager.domain.rules.BlockReason
 import com.lucas.mobilemanager.domain.rules.Decision
 import com.lucas.mobilemanager.domain.time.TimeProvider
 import com.lucas.mobilemanager.domain.zones.ExitStep
+import com.lucas.mobilemanager.domain.zones.InstagramFeedPolicy
 import com.lucas.mobilemanager.domain.zones.UiNode
 import com.lucas.mobilemanager.domain.zones.ZoneDefinition
 import com.lucas.mobilemanager.domain.zones.ZoneExitPlanner
@@ -26,6 +27,7 @@ import com.lucas.mobilemanager.ui.format.Formats
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -59,6 +61,8 @@ class ZoneEnforcer(
     private val labels = HashMap<String, String>()
     private val mask = EntryPointMask(service)
     private var maskShown = false
+    private val feedShield = InstagramFeedShield(service, ::openFollowingFeed)
+    private var followingJob: Job? = null
 
     /** Dernière décision par zone (`pkg/zone`) et son heure, pour ne pas réévaluer à chaque événement. */
     private val zoneDecisions = HashMap<String, Pair<Decision, Long>>()
@@ -75,7 +79,7 @@ class ZoneEnforcer(
         if (foregroundPackage == null) return
         val watched = packageName in detectorStore.detectors.value.packages
         // Un masque affiché doit disparaître si une autre fenêtre (volet…) passe devant.
-        if (!watched && overlay == null && !maskShown) return
+        if (!watched && overlay == null && !maskShown && !feedShield.isShown) return
         if (windowChanged) unchangedChecks = 0
         if (checkJob?.isActive == true) return
         val interval = when {
@@ -95,6 +99,7 @@ class ZoneEnforcer(
         checkJob?.cancel()
         hideMask()
         tickJob?.cancel()
+        followingJob?.cancel()
         zoneDecisions.clear()
         lastSignature = null
         unchangedChecks = 0
@@ -128,10 +133,13 @@ class ZoneEnforcer(
 
         // Lire l'arbre = un aller-retour vers l'app par nœud : hors du thread principal, et
         // seulement les identifiants utiles quand les détecteurs le permettent (Instagram).
-        val exactIds = if (watched && overlay == null) ZoneMatcher.exactViewIds(detectors, pkg) else null
+        val exactIds = if (watched && overlay == null) ZoneMatcher.exactViewIds(detectors, pkg)?.let {
+            if (pkg == InstagramFeedPolicy.PACKAGE) it + InstagramFeedPolicy.viewIds else it
+        } else null
         val snapshot = withContext(Dispatchers.Default) {
             if (exactIds != null) AccessibilitySnapshot.captureByIds(root, exactIds) else AccessibilitySnapshot.capture(root, MAX_NODES)
         }
+        if (foregroundPackage != pkg) return
         val match = if (watched) ZoneMatcher.detect(detectors, pkg, snapshot.nodes) else null
         if (BuildConfig.DEBUG && match != null) {
             val ids = match.nodeIndices.map { snapshot.nodes[it].viewId?.substringAfter(":id/") ?: snapshot.nodes[it].desc }
@@ -150,9 +158,10 @@ class ZoneEnforcer(
         usageRecorder.onSnapshot(pkg, match?.zone?.id)
         val decision = match?.let { zoneDecision(pkg, it.zone.id, fresh = true) }
         updateMask(pkg, detectors.zonesFor(pkg), snapshot)
+        if (updateFeedShield(pkg, snapshot)) return
         if (match == null || decision == null) {
             throttle.onZoneLeft()
-            tickJob?.cancel()
+            if (tickJob != currentCoroutineContext()[Job]) tickJob?.cancel()
             return
         }
 
@@ -163,15 +172,24 @@ class ZoneEnforcer(
             return
         }
         decision as Decision.Blocked
-        tickJob?.cancel()
+        if (tickJob != currentCoroutineContext()[Job]) tickJob?.cancel()
         usageRecorder.onSnapshot(pkg, null) // zone inaccessible : plus rien à compter
 
         when (throttle.onZoneDetected(now)) {
-            ZoneExitThrottle.Action.WAIT -> Unit
+            ZoneExitThrottle.Action.WAIT -> {
+                if (ZoneExitPlanner.plan(match.zone, snapshot.nodes) is ExitStep.ScrollForward) {
+                    scheduleTick(Duration.ofSeconds(1))
+                }
+            }
             ZoneExitThrottle.Action.EXIT -> {
-                exit(ZoneExitPlanner.plan(match.zone, snapshot.nodes, throttle.attempts - 1), snapshot.infos)
+                val step = ZoneExitPlanner.plan(match.zone, snapshot.nodes, throttle.attempts - 1)
+                val accepted = exit(step, snapshot.infos)
                 showToast(match.zone.label, decision.reason)
                 withContext(Dispatchers.Default) { coordinator.recordZoneRedirect(pkg, match.zone.id) }
+                if (step is ExitStep.ScrollForward) {
+                    if (accepted) throttle.onExitProgress()
+                    scheduleTick(Duration.ofSeconds(1))
+                }
             }
             ZoneExitThrottle.Action.ESCALATE -> {
                 throttle.onZoneLeft()
@@ -185,7 +203,11 @@ class ZoneEnforcer(
         tickJob?.cancel()
         tickJob = scope.launch {
             delay(delayMs)
-            check()
+            try {
+                check()
+            } finally {
+                if (tickJob == currentCoroutineContext()[Job]) tickJob = null
+            }
         }
     }
 
@@ -209,9 +231,68 @@ class ZoneEnforcer(
     }
 
     private fun hideMask() {
-        if (!maskShown) return
-        mask.clear()
+        feedShield.clear()
+        if (maskShown) mask.clear()
         maskShown = false
+    }
+
+    private suspend fun updateFeedShield(pkg: String, snapshot: AccessibilitySnapshot): Boolean {
+        val isHome = pkg == InstagramFeedPolicy.PACKAGE &&
+            InstagramFeedPolicy.classify(snapshot.nodes) == InstagramFeedPolicy.Surface.RECOMMENDED
+        val hasReels = detectorStore.detectors.value.zonesFor(pkg).any { it.id == "reels" }
+        if (!isHome || !hasReels || zoneDecision(pkg, "reels") !is Decision.Blocked) {
+            feedShield.clear()
+            return false
+        }
+        if (foregroundPackage != pkg) return true
+        fun bounds(id: String): Rect? {
+            val index = snapshot.nodes.indexOfFirst { it.viewId == "$pkg:id/$id" }
+            return if (index >= 0) Rect().apply { snapshot.infos[index].getBoundsInScreen(this) } else null
+        }
+        val viewport = bounds("sticky_header_list") ?: return true
+        bounds("main_feed_action_bar")?.let { viewport.top = maxOf(viewport.top, it.bottom) }
+        bounds("tab_bar")?.let { viewport.bottom = minOf(viewport.bottom, it.top) }
+        val wasShown = feedShield.isShown
+        feedShield.show(viewport)
+        usageRecorder.onSnapshot(pkg, null)
+        throttles[pkg]?.onZoneLeft()
+        if (!wasShown && feedShield.isShown) {
+            if (BuildConfig.DEBUG) Log.d(TAG, "Instagram recommended feed shield shown")
+            withContext(Dispatchers.Default) { coordinator.recordZoneRedirect(pkg, "reels") }
+        }
+        scheduleTick(null)
+        return true
+    }
+
+    private fun openFollowingFeed() {
+        if (followingJob?.isActive == true) return
+        followingJob = scope.launch {
+            fun click(node: AccessibilityNodeInfo?): Boolean {
+                var target = node
+                while (target != null && !target.isClickable) target = target.parent
+                return target?.performAction(AccessibilityNodeInfo.ACTION_CLICK) == true
+            }
+            fun root() = service.rootInActiveWindow?.takeIf {
+                foregroundPackage == InstagramFeedPolicy.PACKAGE && it.packageName?.toString() == InstagramFeedPolicy.PACKAGE
+            }
+            val initial = root() ?: return@launch
+            val menuId = "${InstagramFeedPolicy.PACKAGE}:id/text_title_chevron_container"
+            // Si la barre est repliée, un appui sur Accueil la rend à nouveau accessible.
+            if (initial.findAccessibilityNodeInfosByViewId(menuId).none { it.isVisibleToUser }) {
+                click(initial.findAccessibilityNodeInfosByViewId("${InstagramFeedPolicy.PACKAGE}:id/feed_tab").firstOrNull { it.isVisibleToUser })
+                delay(400)
+            }
+            if (click(root()?.findAccessibilityNodeInfosByViewId(menuId)?.firstOrNull { it.isVisibleToUser })) {
+                repeat(5) {
+                    delay(250)
+                    val current = root() ?: return@launch
+                    val choice = current.findAccessibilityNodeInfosByViewId("${InstagramFeedPolicy.PACKAGE}:id/context_menu_item_label")
+                        .firstOrNull { it.isVisibleToUser && it.text?.toString()?.trim() in InstagramFeedPolicy.followingLabels }
+                    if (choice != null && click(choice)) return@launch
+                }
+            }
+            Toast.makeText(service, R.string.instagram_following_unavailable, Toast.LENGTH_LONG).show()
+        }
     }
 
     /** Capture complète de la fenêtre au premier plan, pour le mode diagnostic. */
@@ -223,13 +304,17 @@ class ZoneEnforcer(
         return HierarchyCapture(pkg, snapshot.nodes, match, timeProvider.now())
     }
 
-    private fun exit(step: ExitStep, infos: List<AccessibilityNodeInfo>) {
+    private fun exit(step: ExitStep, infos: List<AccessibilityNodeInfo>): Boolean {
+        if (step is ExitStep.ScrollForward) {
+            // Ne pas cliquer le média et ne pas quitter Instagram : passer au contenu suivant.
+            return infos.getOrNull(step.nodeIndex)?.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD) == true
+        }
         if (step is ExitStep.Click) {
             var node: AccessibilityNodeInfo? = infos.getOrNull(step.nodeIndex)
             while (node != null && !node.isClickable) node = node.parent
-            if (node?.performAction(AccessibilityNodeInfo.ACTION_CLICK) == true) return
+            if (node?.performAction(AccessibilityNodeInfo.ACTION_CLICK) == true) return true
         }
-        service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
+        return service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
     }
 
     private fun showToast(zoneLabel: String, reason: BlockReason) {

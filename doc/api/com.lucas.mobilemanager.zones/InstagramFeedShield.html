@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>InstagramFeedShield Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.zones/InstagramFeedShield.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.zones</a> <span class="sep">/</span> <span>InstagramFeedShield</span></nav>
+    <article>
+<h1>InstagramFeedShield <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.zones</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L31">InstagramFeedShield.kt</a></span></div>
+<div class="kdoc"><p>Covers the recommended feed and absorbs gestures while leaving Instagram&#x27;s navigation bars accessible.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">class</span> InstagramFeedShield(<span class="kw">private</span> <span class="kw">val</span> service: AccessibilityService, <span class="kw">private</span> <span class="kw">val</span> onFollowing: () -&gt; Unit)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="InstagramFeedShield.html#m-service"><code>service</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="InstagramFeedShield.html#m-onFollowing"><code>onFollowing</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="InstagramFeedShield.html#m-manager"><code>manager</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="InstagramFeedShield.html#m-view"><code>view</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="InstagramFeedShield.html#m-bounds"><code>bounds</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="InstagramFeedShield.html#m-isShown"><code>isShown</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="InstagramFeedShield.html#m-show"><code>show</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="InstagramFeedShield.html#m-clear"><code>clear</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="InstagramFeedShield.html#m-createView"><code>createView</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="InstagramFeedShield.html#m-dp"><code>dp</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-service">
+<h3>service <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> service: AccessibilityService</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L32">InstagramFeedShield.kt, line 32</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">7 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html">InstagramFeedShield.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L35" title="private val manager = service.getSystemService(WindowManager::class.java)">35</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L74" title="val dark = service.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES">74</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L76" title="val container = FrameLayout(service).apply {">76</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L83" title="val content = LinearLayout(service).apply {">83</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L88" title="fun label(resource: Int, size: Float, bold: Boolean = false) = TextView(service).apply {">88</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L98" title="content.addView(Button(service).apply {">98</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L110" title="private fun dp(value: Int) = (value * service.resources.displayMetrics.density).toInt()">110</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-onFollowing">
+<h3>onFollowing <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> onFollowing: () -&gt; Unit,</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L33">InstagramFeedShield.kt, line 33</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html">InstagramFeedShield.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L102" title="setOnClickListener { onFollowing() }">102</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-manager">
+<h3>manager <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> manager</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L35">InstagramFeedShield.kt, line 35</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html">InstagramFeedShield.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L58" title="manager.addView(created, params)">58</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L61" title="manager.updateViewLayout(current, params)">61</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L67" title="view?.let(manager::removeView)">67</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-view">
+<h3>view <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">var</span> view: View?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L36">InstagramFeedShield.kt, line 36</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">10 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html">InstagramFeedShield.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L11" title="import android.view.Gravity">11</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L12" title="import android.view.MotionEvent">12</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L13" title="import android.view.View">13</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L14" title="import android.view.WindowManager">14</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L38" title="val isShown: Boolean get() = view != null">38</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L42" title="if (rect == bounds &amp;&amp; view != null) return">42</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L55" title="val current = view">55</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L59" title="view = created">59</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L67" title="view?.let(manager::removeView)">67</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L68" title="view = null">68</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-bounds">
+<h3>bounds <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">var</span> bounds: Rect?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L37">InstagramFeedShield.kt, line 37</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html">InstagramFeedShield.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L42" title="if (rect == bounds &amp;&amp; view != null) return">42</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L63" title="bounds = Rect(rect)">63</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L69" title="bounds = null">69</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-isShown">
+<h3>isShown <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> isShown: Boolean <span class="kw">get</span>()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L38">InstagramFeedShield.kt, line 38</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html">ZoneEnforcer.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L82" title="if (!watched &amp;&amp; overlay == null &amp;&amp; !maskShown &amp;&amp; !feedShield.isShown) return">82</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L255" title="val wasShown = feedShield.isShown">255</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L259" title="if (!wasShown &amp;&amp; feedShield.isShown) {">259</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-show">
+<h3>show <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> show(rect: Rect)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L40">InstagramFeedShield.kt, line 40</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html">ZoneEnforcer.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L229" title="mask.show(rects)">229</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L256" title="feedShield.show(viewport)">256</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L294" title="Toast.makeText(service, R.string.instagram_following_unavailable, Toast.LENGTH_LONG).show()">294</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L329" title="Toast.makeText(service, text, Toast.LENGTH_SHORT).show()">329</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-clear">
+<h3>clear <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> clear()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L66">InstagramFeedShield.kt, line 66</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">7 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html">InstagramFeedShield.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L41" title="if (rect.isEmpty) return clear()">41</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html">ZoneEnforcer.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L103" title="zoneDecisions.clear()">103</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L106" title="throttles.clear()">106</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L117" title="zoneDecisions.clear()">117</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L234" title="feedShield.clear()">234</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L235" title="if (maskShown) mask.clear()">235</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L244" title="feedShield.clear()">244</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-createView">
+<h3>createView <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@SuppressLint( )
+<span class="kw">private</span> <span class="kw">fun</span> createView(): View</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L73">InstagramFeedShield.kt, line 73</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html">InstagramFeedShield.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L57" title="val created = createView()">57</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-dp">
+<h3>dp <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> dp(<span class="kw">value</span>: Int)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L110">InstagramFeedShield.kt, line 110</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html">InstagramFeedShield.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L86" title="setPadding(dp(28), dp(24), dp(28), dp(24))">86</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/InstagramFeedShield.kt.html#L94" title="setPadding(0, dp(8), 0, dp(8))">94</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html">ZoneEnforcer.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/zones</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/zones/ZoneEnforcer.kt.html#L64" title="private val feedShield = InstagramFeedShield(service, ::openFollowingFeed)">64</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

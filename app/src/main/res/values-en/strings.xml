@@ -207,6 +207,11 @@
     <string name="zones_item">%1$s · %2$s</string>
     <string name="zones_fragile">Detection depends on each app’s internal interface and may break after an update. Settings › Diagnostic mode helps repair it.</string>
     <string name="zone_hidden">%1$s hidden</string>
+    <string name="instagram_feed_paused">The recommended feed is paused</string>
+    <string name="instagram_feed_paused_help">Navigation and messages remain available. To see posts and Reels from accounts you follow, open the Following feed.</string>
+    <string name="instagram_open_following">See followed accounts</string>
+    <string name="instagram_following_unavailable">Open the menu at the top of Instagram, then choose Following.</string>
+    <string name="instagram_feed_rule_help">When blocked or over quota, the entire recommended feed is covered, including photos. The Following feed remains available with its videos. Fullscreen Reels still follow this rule.</string>
     <string name="zone_quota_reached">Daily quota for %1$s reached (%2$s)</string>
     <string name="settings_advanced">Advanced</string>
     <string name="diagnostic_title">Diagnostic mode</string>

@@ -66,6 +66,19 @@ class ZoneDetectorParserTest {
         assertTrue(invalid(zoneJson(exit = """[{"back":true,"clickDesc":["Home"]}]""")).message.contains("une seule action"))
 
     @Test
+    fun `scroll exit and contextual signal survive round trip`() {
+        val text = zoneJson(
+            anyOf = """[{"viewId":"video","requiresViewId":"feed"}]""",
+            exit = """[{"scrollForwardViewId":"android:id/list"}]""",
+        )
+        val file = (ZoneDetectorParser.parse(text) as ZoneDetectorParser.Result.Valid).file
+        assertEquals("feed", file.apps.single().zones.single().anyOf.single().requiresViewId)
+        assertEquals("android:id/list", file.apps.single().zones.single().exit.single().scrollForwardViewId)
+        assertEquals(ZoneDetectorParser.Result.Valid(file), ZoneDetectorParser.parse(ZoneDetectorParser.encode(file)))
+        assertTrue(invalid(zoneJson(exit = """[{"back":true,"scrollForwardViewId":"list"}]""")).message.contains("une seule action"))
+    }
+
+    @Test
     fun `encode then parse gives the same file`() {
         val file = (ZoneDetectorParser.parse(zoneJson()) as ZoneDetectorParser.Result.Valid).file
         assertEquals(ZoneDetectorParser.Result.Valid(file), ZoneDetectorParser.parse(ZoneDetectorParser.encode(file)))

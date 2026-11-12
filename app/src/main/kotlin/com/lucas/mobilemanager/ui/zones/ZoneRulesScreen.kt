@@ -120,6 +120,9 @@ private fun ZoneRow(zone: ZoneItem, enabled: Boolean, onSetting: (ZoneSetting, I
         if (zone.setting == ZoneSetting.QUOTA) {
             LimitPicker(zone.quotaMinutes, enabled, onLimit = { onSetting(ZoneSetting.QUOTA, it) }, options = QUOTA_OPTIONS)
         }
+        if (zone.packageName == "com.instagram.android" && zone.zoneId == "reels") {
+            Caption(stringResource(R.string.instagram_feed_rule_help))
+        }
     }
 }
 

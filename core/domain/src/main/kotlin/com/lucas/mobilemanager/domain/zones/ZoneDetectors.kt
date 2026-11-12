@@ -71,6 +71,8 @@ data class NodeSignal(
     val descContains: List<String>? = null,
     val selected: Boolean? = null,
     val clickable: Boolean? = null,
+    /** Contexte requis : un autre nœud visible doit porter cet identifiant exact. */
+    val requiresViewId: String? = null,
 ) {
     val isEmpty: Boolean
         get() = viewId == null && viewIdContains == null && text == null && textContains == null &&
@@ -84,9 +86,11 @@ data class ExitAction(
     val clickDesc: List<String>? = null,
     val clickText: List<String>? = null,
     val back: Boolean = false,
+    /** Faire défiler ce conteneur vers la suite, sans quitter l'application. */
+    val scrollForwardViewId: String? = null,
 ) {
     val definedActions: Int
-        get() = listOf(clickViewId != null, clickDesc != null, clickText != null, back).count { it }
+        get() = listOf(clickViewId != null, clickDesc != null, clickText != null, back, scrollForwardViewId != null).count { it }
 }
 
 /** Nœud de l'arbre d'accessibilité, indépendant d'Android. */

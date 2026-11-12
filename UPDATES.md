@@ -2,13 +2,15 @@
 
 Le bouton Réglages › Mises à jour consulte uniquement la dernière **GitHub Release stable** de `Por-Tra/mobile-manager`. Il ne consulte pas les commits et n'envoie aucune donnée d'usage. Un dépôt privé sans accès anonyme ne fonctionne pas avec ce client ; aucun jeton personnel ne doit être embarqué dans l'APK.
 
-Au 11 novembre 2026, la Release existante utilise le tag `Beta` et fournit `app-debug.apk`. Elle est signalée comme incompatible ; il faut publier une nouvelle Release au format ci-dessous pour proposer une mise à jour.
+La distribution stable utilise des tags sémantiques et un asset signé `app-release.apk` depuis `v0.2.1`. Le tag historique `Beta`, qui fournit `app-debug.apk`, est incompatible avec le client de mise à jour. La version préparée le 12 novembre 2026 est `v0.3.0` (code `3000`) : modes de fonctionnement et protection du fil recommandé Instagram avec accès au fil des comptes suivis.
 
 Le parcours est : rechercher → télécharger → installer → confirmation Android. Si nécessaire, Android demande d'autoriser Mobile Manager à installer des applications ; revenir ensuite et toucher Installer. Aucune désinstallation n'est nécessaire : profils, préférences et historique restent en place. Une installation totalement silencieuse n'est pas garantie par Android pour une application personnelle ordinaire.
 
 Après une mise à jour depuis une version sans modes, choisir explicitement Libre, Semi-libre ou Restreint sur l'accueil ou dans Réglages. Aucun mode avec blocages n'est imposé : tant que ce choix n'est pas confirmé, les blocages sont désactivés. Les règles et profils antérieurs sont conservés ; choisir Restreint réapplique leur comportement habituel. En Semi-libre sans code du proche, les mises à jour comme les réglages protégés exigent d'abord une demande d'attente puis un déverrouillage ; avec un code, celui-ci reste nécessaire.
 
 Les mises à jour sont indisponibles pendant une session stricte ou lorsque le code du proche est verrouillé : le service protège aussi les écrans de l'installateur dans ces situations.
+
+La version locale remplace le passage automatique des Reels par un écran qui couvre tout le fil recommandé Instagram, photos comprises, lorsque la règle Reels bloque ou que son quota est atteint. La navigation et les messages restent accessibles. Le bouton « Voir les comptes suivis » ouvre le fil natif « Suivi(e) »/« Following », qui reste disponible, vidéos intégrées comprises ; le lecteur Reels plein écran conserve le blocage habituel. Aucun schéma ni autorisation supplémentaire, aucune collecte d’abonnements. Les détecteurs personnalisés restent prioritaires pour la détection des zones ; leurs anciens champs de défilement sont encore pris en charge. La couverture du fil recommandé s’applique tant qu’une zone `reels` existe dans ces détecteurs. Le masque ne garantit pas l’arrêt du son.
 
 ## Première configuration GitHub
 
@@ -27,7 +29,7 @@ Publier une Release avec un tag stable `v0.2.1`, par exemple. Le workflow `andro
 
 Le workflow installe `platform-tools` explicitement : le paquet historique `tools` n'est plus disponible. Après correction d'un échec CI, utiliser Actions › Signed Android release › Run workflow depuis `main`, avec `release_tag` égal au tag existant. Le code compilé provient de ce tag ; le workflow de relance provient de `main`. Il n'est pas nécessaire de déplacer le tag ou de recréer la Release.
 
-La version doit augmenter. Le code Android est calculé ainsi : `major × 1 000 000 + minor × 1 000 + patch`, avec minor et patch entre 0 et 999. La deuxième release est préparée en `v0.2.1`, code `2001`, après la release historique `Beta`. Une future mise à jour devra avoir un code supérieur à `2001`.
+La version doit augmenter. Le code Android est calculé ainsi : `major × 1 000 000 + minor × 1 000 + patch`, avec minor et patch entre 0 et 999. La version courante est `v0.3.0`, code `3000`, après `v0.2.1` (code `2001`) et la release historique `Beta`. Une future mise à jour devra avoir un code supérieur à `3000`.
 
 ## Contrôles avant installation
 
@@ -45,7 +47,7 @@ Définir `ANDROID_KEYSTORE_PATH` (chemin absolu), `ANDROID_KEYSTORE_PASSWORD`, `
 
 ```powershell
 $env:JAVA_HOME = 'C:/Program Files/Android/Android Studio/jbr'
-./gradlew.bat :core:domain:test :app:lintRelease :app:assembleRelease -PreleaseVersionName=0.2.1 -PreleaseVersionCode=2001
+./gradlew.bat :core:domain:test :app:lintRelease :app:assembleRelease -PreleaseVersionName=0.3.0 -PreleaseVersionCode=3000
 ```
 
 Sans configuration de signature, le build release local produit un APK non signé, qui ne doit pas être publié comme mise à jour. Aucune clé ni Release n'a été créée automatiquement dans le dépôt distant.

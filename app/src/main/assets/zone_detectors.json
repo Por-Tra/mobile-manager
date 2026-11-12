@@ -34,7 +34,8 @@
           "anyOf": [
             { "viewId": "clips_viewer_view_pager" },
             { "viewId": "root_clips_layout" },
-            { "viewId": "clips_tab", "selected": true }
+            { "viewId": "clips_tab", "selected": true },
+            { "viewId": "video_container", "requiresViewId": "sticky_header_list" }
           ],
           "noneOf": [
             { "viewId": "reel_viewer_root" }

@@ -261,6 +261,11 @@
     <string name="zones_item">%1$s · %2$s</string>
     <string name="zones_fragile">La détection dépend de l\'interface interne de chaque app et peut casser après une mise à jour. Réglages › Mode diagnostic permet de la réparer.</string>
     <string name="zone_hidden">%1$s masqués</string>
+    <string name="instagram_feed_paused">Le fil recommandé est en pause</string>
+    <string name="instagram_feed_paused_help">La navigation et les messages restent accessibles. Pour voir les publications et Reels des comptes que tu suis, ouvre le fil « Suivi(e) ».</string>
+    <string name="instagram_open_following">Voir les comptes suivis</string>
+    <string name="instagram_following_unavailable">Ouvre le menu en haut d’Instagram, puis choisis « Suivi(e) » ou « Abonnements ».</string>
+    <string name="instagram_feed_rule_help">En cas de blocage ou de quota atteint, tout le fil recommandé est couvert, photos comprises. Le fil « Suivi(e) » reste accessible avec ses vidéos. Les Reels en plein écran restent soumis à cette règle.</string>
     <string name="zone_quota_reached">Quota de %1$s atteint pour aujourd\'hui (%2$s)</string>
 
     <!-- Mode diagnostic -->

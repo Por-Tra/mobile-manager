@@ -15,6 +15,8 @@ Flux principal : `MonitorAccessibilityService` → `EnforcementCoordinator` → 
 
 Les zones Reels/Shorts s'appuient sur `assets/zone_detectors.json`, éventuellement remplacé par un fichier local validé. Ne lire que les nœuds visibles ; préserver la messagerie Instagram. Quotas = règles Limit sur des zones ou apps ; temps des zones dans Room, temps des apps via UsageStats.
 
+Instagram : lorsque la zone `reels` est bloquée ou son quota atteint, `InstagramFeedShield` couvre tout le fil recommandé (photos comprises), absorbe les gestes et conserve les barres de navigation. Aucun passage automatique dans les détecteurs livrés. `InstagramFeedPolicy` reconnaît les surfaces visibles par identifiants exacts ; le fil dédié « Suivi(e) »/« Following » reste ouvert, avec un bouton pour le rejoindre. Ne jamais déduire un abonnement de l’absence du bouton Suivre. L’exception concerne le fil Suivi(e), pas le lecteur Reels plein écran. Pas de liste d’abonnements collectée ; le masque ne garantit pas l’arrêt du son. Retirer les masques au changement de fenêtre, d’app, de mode et à l’extinction de l’écran.
+
 Robustesse : réévaluer les apps et relancer les zones à chaque ouverture d'activité reconnue (même package), au déverrouillage (`USER_PRESENT`), au réveil sans verrouillage et à la connexion du service. Reprendre depuis la fenêtre active avec des tentatives bornées si elle n'est pas prête ; suspendre les contrôles écran éteint/verrouillé. Invalider les décisions de zones à la reprise et annuler les contrôles de l'ancien premier plan.
 
 Modes : `domain/mode/AppMode` (`FREE`, `SEMI_FREE`, `RESTRICTED`), choix utilisateur exclusivement, persisté par `ModeRepository` dans DataStore. Sans choix (y compris après mise à jour), aucun blocage ; profils/règles conservés. Libre désactive apps/zones/masques/protection des écrans système. Semi-libre applique le moteur habituel mais les modifications exigent le code du proche s'il existe ; sinon demande d'attente configurable (1–1 440 min, départ au clic, persistée), puis déverrouillage explicite des réglages pendant 5 min. Aucune levée automatique. Restreint conserve le moteur existant. Session stricte : aucun changement de mode, aucune dérogation par l'attente semi-libre. Pas de démarrage de session en libre. Les commandes manuelles de profils respectent aussi `AppLock`.
@@ -36,7 +38,7 @@ Modes : `domain/mode/AppMode` (`FREE`, `SEMI_FREE`, `RESTRICTED`), choix utilisa
 - `ui/settings/AppPreferences` propose langue et mise à jour, ouvre l'autorisation des sources inconnues si nécessaire, puis l'installateur Android via FileProvider privé (cache/updates uniquement).
 - La confirmation système peut être requise. Pas de désinstallation, ni promesse d'installation silencieuse. Une clé différente ne permet pas une mise à jour en place.
 - `.github/workflows/android-release.yml` compile/teste/signe lors d'une Release publiée puis joint l'APK. Secrets et première configuration dans `UPDATES.md`. Aucun secret ni keystore dans Git.
-- Version actuelle 0.2.1 / code 2001 ; propriétés Gradle `releaseVersionName`, `releaseVersionCode`. Code de distribution : major×1 000 000 + minor×1 000 + patch.
+- Version actuelle 0.3.0 / code 3000 ; propriétés Gradle `releaseVersionName`, `releaseVersionCode`. Code de distribution : major×1 000 000 + minor×1 000 + patch.
 
 ## Commandes Windows
 

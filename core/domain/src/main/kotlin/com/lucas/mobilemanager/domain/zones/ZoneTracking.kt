@@ -35,6 +35,11 @@ class ZoneExitThrottle(
         attempts = 0
         lastActionAt = null
     }
+
+    /** Une sortie acceptée peut révéler un autre Reel : conserver le délai, oublier les échecs. */
+    fun onExitProgress() {
+        attempts = 0
+    }
 }
 
 /** Une zone d'une app (Reels d'Instagram…). */

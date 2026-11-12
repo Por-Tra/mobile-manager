@@ -1,0 +1,317 @@
+[
+  {
+    "viewId": "com.instagram.android:id/action_bar_root",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "android:id/content",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/swipe_navigation_container",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/layout_container_center_right_coordinator_layout",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/layout_container_right",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/activity_and_camera_shared_views_main_container",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/layout_container_main_panel",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/layout_container_main_wrapper",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/layout_container_main",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/swipeable_tab_view_pager",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/swipeable_nav_view_pager_inner_recycler_view",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/layout_container_swipeable",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/sticky_header_list",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/refreshable_container",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "android:id/list",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/zoomable_view_container",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/carousel_video_media_group",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/carousel_video_media_actions",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/carousel_video_image",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/slideout_iconview_icon",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/indicator_background_view",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/indicator_icon_view",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/row_feed_view_group_buttons",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/row_feed_view_group_social_ufi_container",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/row_feed_view_group_social_ufi_buttons",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/row_feed_button_like",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/row_feed_like_count",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/row_feed_button_comment",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/row_feed_comment_count",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/row_feed_button_share",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/row_feed_share_count",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/row_feed_button_save",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/carousel_page_indicator",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/video_container",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/video_container",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/video_states",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/video_container",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/media_group",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/row_feed_profile_header",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/row_feed_photo_profile_imageview",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/row_feed_photo_profile_name",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/secondary_label",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/inline_follow_button",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/media_option_button",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/action_bar_LinearLayout",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/tab_bar_shadow",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/tab_bar",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/feed_tab",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/tab_icon",
+    "selected": true,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/clips_tab",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/tab_icon",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/direct_tab",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/tab_icon",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/search_tab",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/tab_icon",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/profile_tab",
+    "selected": false,
+    "clickable": true
+  },
+  {
+    "viewId": "com.instagram.android:id/wrapper",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/container",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/tab_avatar",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/bottom_sheet_camera_container",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "com.instagram.android:id/overlay_layout_container",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "android:id/statusBarBackground",
+    "selected": false,
+    "clickable": false
+  },
+  {
+    "viewId": "android:id/navigationBarBackground",
+    "selected": false,
+    "clickable": false
+  }
+]

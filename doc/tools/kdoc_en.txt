@@ -1,4 +1,14 @@
 # English translations of the KDoc comments (written in French in the code).
+@@ fr
+Recouvre le fil recommandé et absorbe les gestes, en laissant les barres Instagram accessibles.
+@@ en
+Covers the recommended feed and absorbs gestures while leaving Instagram's navigation bars accessible.
+
+@@ fr
+Reconnaît le fil recommandé et le fil des comptes suivis sans lire les publications.
+@@ en
+Recognises the recommended feed and the Following feed without reading posts.
+
 # Format: "@@ fr" followed by the exact French text, then "@@ en" and its translation.
 # Generate the blocks still missing with: python doc/tools/gen_docs.py --missing out.txt
 
@@ -1853,3 +1863,18 @@ Explicitly chosen mode; no automatic change based on usage.
 Sans choix enregistré, aucun blocage. La demande conserve son heure après redémarrage.
 @@ en
 Without a saved choice, nothing is blocked. The request keeps its timestamp after restarting.
+
+@@ fr
+Contexte requis : un autre nœud visible doit porter cet identifiant exact.
+@@ en
+Required context: another visible node must have this exact identifier.
+
+@@ fr
+Faire défiler ce conteneur vers la suite, sans quitter l'application.
+@@ en
+Scroll this container forward without leaving the application.
+
+@@ fr
+Une sortie acceptée peut révéler un autre Reel : conserver le délai, oublier les échecs.
+@@ en
+An accepted exit may reveal another Reel: preserve the interval and reset failed attempts.

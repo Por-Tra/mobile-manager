@@ -78,6 +78,36 @@ class ZoneMatcherTest {
         fun `home feed is not a zone`() = assertNull(ZoneMatcher.detect(shipped, instagram, fixture("instagram_home")))
 
         @Test
+        fun `inline home reel is detected without an automatic scroll exit`() {
+            val nodes = fixture("instagram_home_reel")
+            assertEquals("reels", ZoneMatcher.detect(shipped, instagram, nodes)?.zone?.id)
+            assertEquals(ExitStep.Back, ZoneExitPlanner.plan(reels, nodes))
+        }
+
+        @Test
+        fun `video container outside home does not block messages`() {
+            val video = UiNode(viewId = "$instagram:id/video_container")
+            assertNull(ZoneMatcher.detect(shipped, instagram, fixture("instagram_direct") + video))
+            assertNull(ZoneMatcher.detect(shipped, instagram, listOf(video)))
+        }
+
+        @Test
+        fun `offscreen home or video cannot trigger inline detection`() {
+            val nodes = fixture("instagram_home_reel")
+            for (id in listOf("sticky_header_list", "video_container")) {
+                val hidden = nodes.map { if (it.viewId == "$instagram:id/$id") it.copy(visible = false) else it }
+                assertNull(ZoneMatcher.detect(shipped, instagram, hidden), id)
+            }
+        }
+
+        @Test
+        fun `carousel remains accessible without standalone video`() {
+            val nodes = fixture("instagram_home_reel").filterNot { it.viewId == "$instagram:id/video_container" }
+            assertTrue(nodes.any { it.viewId == "$instagram:id/carousel_video_media_group" })
+            assertNull(ZoneMatcher.detect(shipped, instagram, nodes))
+        }
+
+        @Test
         fun `direct messages are not a zone`() = assertNull(ZoneMatcher.detect(shipped, instagram, fixture("instagram_direct")))
 
         @Test
@@ -92,7 +122,7 @@ class ZoneMatcherTest {
 
         @Test
         fun `instagram detectors only need exact ids`() = assertEquals(
-            listOf("clips_viewer_view_pager", "root_clips_layout", "clips_tab", "reel_viewer_root", "feed_tab")
+            listOf("clips_viewer_view_pager", "root_clips_layout", "clips_tab", "reel_viewer_root", "feed_tab", "video_container", "sticky_header_list")
                 .map { "$instagram:id/$it" }.toSet(),
             ZoneMatcher.exactViewIds(shipped, instagram),
         )
@@ -100,7 +130,7 @@ class ZoneMatcherTest {
         @Test
         fun `querying only those ids gives the same result as the whole tree`() {
             val ids = ZoneMatcher.exactViewIds(shipped, instagram)!!
-            for (screen in listOf("instagram_home", "instagram_reels", "instagram_direct", "instagram_story")) {
+            for (screen in listOf("instagram_home", "instagram_home_reel", "instagram_reels", "instagram_direct", "instagram_story")) {
                 val all = fixture(screen)
                 val targeted = all.filter { it.viewId in ids }
                 assertEquals(ZoneMatcher.detect(shipped, instagram, all)?.zone, ZoneMatcher.detect(shipped, instagram, targeted)?.zone, screen)
