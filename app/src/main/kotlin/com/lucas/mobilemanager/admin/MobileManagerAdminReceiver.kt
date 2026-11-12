@@ -10,6 +10,7 @@ import com.lucas.mobilemanager.session.SessionEntryPoint
 import com.lucas.mobilemanager.ui.format.Formats
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.first
 
 /**
  * Administration de l'appareil : ajoute une étape avant la désinstallation.
@@ -35,7 +36,10 @@ class MobileManagerAdminReceiver : DeviceAdminReceiver() {
     private fun runningSession(context: Context): StrictSession? {
         val entryPoint = SessionEntryPoint.from(context)
         val now = entryPoint.timeProvider().now()
-        return runBlocking { entryPoint.strictSessionRepository().current() }?.takeIf { it.isRunning(now) }
+        return runBlocking {
+            if (!com.lucas.mobilemanager.domain.mode.ModePolicy.blocksEnabled(entryPoint.modeRepository().settings.first())) null
+            else entryPoint.strictSessionRepository().current()
+        }?.takeIf { it.isRunning(now) }
     }
 
     companion object {

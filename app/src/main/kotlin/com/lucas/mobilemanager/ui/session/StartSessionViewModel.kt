@@ -43,6 +43,7 @@ data class StartSessionState(
     val reflectionDelayMinutes: Int = 5,
     val errors: Set<ValidationError> = emptySet(),
     val alreadyRunning: Boolean = false,
+    val modeDisabled: Boolean = false,
     val confirming: Boolean = false,
     val started: Boolean = false,
 )
@@ -112,6 +113,7 @@ class StartSessionViewModel @Inject constructor(
                     }
                     is StartResult.Invalid -> it.copy(confirming = false, errors = result.errors)
                     StartResult.AlreadyRunning -> it.copy(confirming = false, alreadyRunning = true)
+                    StartResult.ModeDisabled -> it.copy(confirming = false, modeDisabled = true)
                 }
             }
         }

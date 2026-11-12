@@ -51,6 +51,7 @@ class ZoneEnforcer(
     var overlay: DiagnosticOverlay? = null
 
     private var checkJob: Job? = null
+    private var foregroundPackage: String? = null
     /** Vérification périodique tant qu'une zone permise est à l'écran (une vidéo ne génère pas d'événement). */
     private var tickJob: Job? = null
     private val throttles = HashMap<String, ZoneExitThrottle>()
@@ -71,6 +72,7 @@ class ZoneEnforcer(
      * les 400 ms, espacées jusqu'à 1,2 s tant que l'écran ne change pas (zone, boutons).
      */
     fun onEvent(packageName: String, windowChanged: Boolean) {
+        if (foregroundPackage == null) return
         val watched = packageName in detectorStore.detectors.value.packages
         // Un masque affiché doit disparaître si une autre fenêtre (volet…) passe devant.
         if (!watched && overlay == null && !maskShown) return
@@ -89,14 +91,36 @@ class ZoneEnforcer(
 
     /** Une autre app (ou Mobile Manager) est passée au premier plan, ou l'écran s'est éteint. */
     fun onForegroundChanged() {
+        foregroundPackage = null
+        checkJob?.cancel()
         hideMask()
         tickJob?.cancel()
+        zoneDecisions.clear()
+        lastSignature = null
+        unchangedChecks = 0
+        throttles.clear()
         scope.launch { usageRecorder.onLeft() }
+    }
+
+    /** Reprend la détection et les masques avec des décisions fraîches, même dans la même app. */
+    fun recheck(packageName: String) {
+        if (foregroundPackage != packageName) {
+            onForegroundChanged()
+        } else {
+            checkJob?.cancel()
+            tickJob?.cancel()
+            zoneDecisions.clear()
+            lastSignature = null
+            unchangedChecks = 0
+        }
+        foregroundPackage = packageName
+        onEvent(packageName, windowChanged = true)
     }
 
     private suspend fun check() {
         val root = service.rootInActiveWindow ?: return hideMask()
         val pkg = root.packageName?.toString() ?: return hideMask()
+        if (pkg != foregroundPackage) return hideMask()
         val detectors = detectorStore.detectors.value
         val watched = pkg in detectors.packages
         if (!watched) hideMask()

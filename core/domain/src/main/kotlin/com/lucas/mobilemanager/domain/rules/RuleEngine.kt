@@ -1,6 +1,7 @@
 package com.lucas.mobilemanager.domain.rules
 
 import com.lucas.mobilemanager.domain.time.DayBoundaries
+import com.lucas.mobilemanager.domain.mode.AppMode
 import java.time.Duration
 import java.time.Instant
 import java.time.ZonedDateTime
@@ -57,7 +58,9 @@ class RuleEngine @Inject constructor() {
         request: AppRequest,
         whitelist: SystemWhitelist,
         now: ZonedDateTime,
+        mode: AppMode = AppMode.RESTRICTED,
     ): Decision {
+        if (mode == AppMode.FREE) return Decision.Allowed(remainingToday = null)
         if (request.packageName in whitelist) return Decision.Allowed(remainingToday = null)
 
         val restrictions = mutableListOf<Pair<PolicyLayer, Rule>>()

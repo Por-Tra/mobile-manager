@@ -72,4 +72,34 @@ class ForegroundTrackerTest {
     @Test
     fun `missing package is ignored`() =
         assertEquals(Change.None, tracker.onWindowStateChanged(null, isActivity = true, overlays))
+
+    @Test
+    fun `reopening the tracked app requests a fresh evaluation`() {
+        activity(INSTAGRAM)
+        assertEquals(Change.App(INSTAGRAM), tracker.onWindowStateChanged(INSTAGRAM, true, overlays, recheckCurrent = true))
+        assertEquals(INSTAGRAM, tracker.current)
+    }
+
+    @Test
+    fun `forced recheck still ignores overlays and non activity windows`() {
+        activity(INSTAGRAM)
+        assertEquals(Change.None, tracker.onWindowStateChanged("com.android.systemui", true, overlays, recheckCurrent = true))
+        assertEquals(Change.None, tracker.onWindowStateChanged(googleApp, false, overlays, recheckCurrent = true))
+        assertEquals(Change.None, tracker.onWindowStateChanged(null, true, overlays, recheckCurrent = true))
+        assertEquals(INSTAGRAM, tracker.current)
+    }
+
+    @Test
+    fun `rechecking own screen keeps monitoring stopped`() {
+        activity(self)
+        assertEquals(Change.Self, tracker.onWindowStateChanged(self, true, overlays, recheckCurrent = true))
+    }
+
+    @Test
+    fun `unlock recovery can discover a different app after reset`() {
+        activity(INSTAGRAM)
+        tracker.reset()
+        assertEquals(Change.App(YOUTUBE), tracker.onWindowStateChanged(YOUTUBE, true, overlays, recheckCurrent = true))
+        assertEquals(YOUTUBE, tracker.current)
+    }
 }

@@ -20,6 +20,8 @@ every decision can be unit tested without a device.</p>
 </ul>
 
 <h2 id="enforcement-chain">Enforcement chain</h2>
+<p>The user-selected <a href="operating-modes.html">operating mode</a> gates enforcement: free mode disables all blocking;
+semi-free and restricted modes use the policy layers below.</p>
 <figure class="diagram">
 <svg viewBox="0 0 900 400" role="img" aria-label="Enforcement chain">
   <defs><marker id="a2" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0067b8"/></marker></defs>
@@ -74,7 +76,8 @@ zone decisions and escalates to the block screen when leaving a zone fails three
   events. It only reads package names for the foreground decision; content events are ignored immediately except for apps that
   have zone detectors and for protected settings screens.</li>
   <li>{{ForegroundTracker}} keeps the current app. Only windows that are real <em>activities</em> change it: launcher panels
-  (Google Discover, listed in {{HomePanels}}), widgets, popups, the notification shade and keyboards are ignored.</li>
+  (Google Discover, listed in {{HomePanels}}), widgets, popups, the notification shade and keyboards are ignored.
+  Each recognised activity event requests a fresh app and zone evaluation, including a return to the same package.</li>
   <li>{{EnforcementCoordinator.evaluate}} combines the {{SystemWhitelistProvider}} (launcher, dialer, clock, settings, keyboards,
   Mobile Manager itself), the usage read by {{UsageStatsReader}}, the active layers from {{ProfileResolver}} and the
   {{RuleEngine}}. Profiles, global rules and the manual activation are kept in memory with <code>stateIn</code>, so an evaluation
@@ -82,7 +85,10 @@ zone decisions and escalates to the block screen when leaving a zone fails three
   <li>A {{Decision.Blocked}} shows {{BlockActivity}} in its own task (excluded from recents). The screen is always shown again
   (apps that chain two screens at launch would otherwise cover it) but the event log deduplicates a block of the same app within 2 s.</li>
   <li>A {{Decision.Allowed}} is re-evaluated after <code>min(remaining time, 30 s)</code> ({{EnforcementPolicy.nextCheckDelay}})
-  while the app stays in front; re-evaluations stop when the screen turns off and resume when it turns on.</li>
+  while the app stays in front. Screen off cancels app and zone checks, removes masks and forgets the foreground app.
+  <code>USER_PRESENT</code> resumes both checks after unlocking; <code>SCREEN_ON</code> does so when there is no lock screen.
+  Service connection also recovers from the actual active window, with up to eight attempts 250 ms apart if the window is
+  missing or belongs to a system overlay. Checks do not run while the screen is off or locked.</li>
 </ol>
 <div class="alert important"><p class="alert-title">Important</p><p>No <code>GLOBAL_ACTION_HOME</code> is sent before the block
 screen: the action is asynchronous and the home screen ended up above the block screen. {{BlockActivity}} itself returns to the

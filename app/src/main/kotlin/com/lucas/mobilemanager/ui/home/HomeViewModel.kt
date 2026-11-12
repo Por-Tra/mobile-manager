@@ -57,6 +57,7 @@ class HomeViewModel @Inject constructor(
     private val timeProvider: TimeProvider,
     private val appLock: AppLock,
 ) : ViewModel() {
+    val modeSettings = appLock.modeSettings
 
     private val _permissions = MutableStateFlow(OnboardingState.from(permissionChecker.currentStatuses()))
     val permissions: StateFlow<OnboardingState> = _permissions.asStateFlow()
@@ -120,7 +121,7 @@ class HomeViewModel @Inject constructor(
     /** Modifier les profils demande en plus le code du proche, s'il est défini. */
     private fun editable(action: suspend () -> Unit) {
         if (!appLock.canModifyNow()) return
-        outsideSession(action)
+        outsideSession { if (appLock.canModifyNow()) action() }
     }
 
     fun setEnabled(profileId: Long, enabled: Boolean) = editable {
@@ -128,13 +129,13 @@ class HomeViewModel @Inject constructor(
     }
 
     /** Remplace l'éventuelle activation manuelle en cours ; un profil désactivé est réactivé. */
-    fun activateManually(profile: Profile, duration: ManualDuration) = outsideSession {
+    fun activateManually(profile: Profile, duration: ManualDuration) = editable {
         if (!profile.enabled) profileRepository.setEnabled(profile.id, true)
         manualActivationRepository.activate(profile.id, ManualActivationPolicy.until(duration, timeProvider.localNow()))
     }
 
-    /** Désactivable à tout moment (l'engagement ferme, c'est la session de concentration). */
-    fun deactivateManual() = outsideSession { manualActivationRepository.clear() }
+    /** La désactivation manuelle respecte le code du proche et l'attente semi-libre. */
+    fun deactivateManual() = editable { manualActivationRepository.clear() }
 
     fun move(profileId: Long, offset: Int) = editable {
         val ordered = profiles.value.map { it.profile }

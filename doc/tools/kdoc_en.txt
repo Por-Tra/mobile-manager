@@ -1792,3 +1792,64 @@ Validates metadata before offering a download. Rejects incompatible releases.
 Tags de versions stables uniquement. Les métadonnées de build n'affectent pas l'ordre.
 @@ en
 Stable release tags only. Build metadata does not affect ordering.
+
+@@ fr
+@param isActivity la fenêtre correspond à une activité déclarée par [packageName].
+@param overlayPackages packages qui se superposent sans remplacer l'app (volet, claviers).
+@param recheckCurrent réévalue aussi une nouvelle ouverture de l'app déjà suivie.
+@@ en
+@param isActivity whether the window is an activity declared by [packageName].
+@param overlayPackages packages that overlay the app without replacing it (shade, keyboards).
+@param recheckCurrent also re-evaluates a new opening of the app already being tracked.
+
+@@ fr
+Reprend sur la fenêtre réelle, même si Android ne renvoie pas d'événement d'activité.
+@@ en
+Resumes from the actual window, even if Android does not send another activity event.
+
+@@ fr
+Reprend la détection et les masques avec des décisions fraîches, même dans la même app.
+@@ en
+Resumes detection and masks with fresh decisions, even within the same app.
+
+# app/src/main/kotlin/com/lucas/mobilemanager/block/BlockActivity.kt:33 BlockActivity
+@@ fr
+Écran affiché à la place d'une app bloquée. En semi-libre, propose le déverrouillage des réglages par code ou attente ; aucune restriction n'est levée automatiquement.
+@@ en
+The screen shown instead of a blocked app. In semi-free mode, offers settings unlocking by code or waiting; no restriction is lifted automatically.
+
+# app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt:40 LockStatus
+@@ fr
+État du déverrouillage des réglages, par code du proche ou attente semi-libre.
+@@ en
+Settings unlock status, through the trusted person code or semi-free waiting.
+
+# app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt:63 AppLock
+@@ fr
+Autorise les modifications des restrictions selon le mode choisi, le code du proche et l'attente semi-libre. Le déverrouillage de 5 min est en mémoire : un redémarrage reverrouille.
+@@ en
+Authorizes restriction changes according to the chosen mode, trusted person code and semi-free waiting. The five-minute unlock is held in memory: restarting locks again.
+
+# app/src/main/kotlin/com/lucas/mobilemanager/lock/AppLock.kt:112 AppLock.protectsSettingsNow
+@@ fr
+Protège les écrans système pendant un verrouillage par code ou attente, hors mode libre.
+@@ en
+Protects system screens while locked by a code or waiting, except in free mode.
+
+# app/src/main/kotlin/com/lucas/mobilemanager/ui/home/HomeViewModel.kt:138 HomeViewModel.deactivateManual
+@@ fr
+La désactivation manuelle respecte le code du proche et l'attente semi-libre.
+@@ en
+Manual deactivation respects the trusted person code and semi-free waiting.
+
+# core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/mode/AppMode.kt:7 AppMode
+@@ fr
+Mode choisi explicitement ; aucun changement automatique selon l'usage.
+@@ en
+Explicitly chosen mode; no automatic change based on usage.
+
+# core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/mode/AppMode.kt:10 ModeSettings
+@@ fr
+Sans choix enregistré, aucun blocage. La demande conserve son heure après redémarrage.
+@@ en
+Without a saved choice, nothing is blocked. The request keeps its timestamp after restarting.

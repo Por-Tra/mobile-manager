@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operating modes - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-page="concepts/operating-modes.html">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../index.html" class="">Overview</a><a href="architecture.html" class="">Architecture</a><a href="../api/index.html" class="">API reference</a><a href="../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">Documentation</a> <span class="sep">/</span> <span>Operating modes</span></nav>
+    <article>
+<h1>Operating modes</h1>
+<p class="lead">The user chooses the mode explicitly. Profiles, schedules and quotas remain user-configured; the app never switches modes automatically.</p>
+<table><thead><tr><th>Mode</th><th>Behaviour</th></tr></thead><tbody>
+<tr><td>Free</td><td>All app and zone blocking, entry-point masks and protected-screen enforcement are disabled. Saved rules and local statistics remain available.</td></tr>
+<tr><td>Semi-free</td><td>The usual rules apply. Changing or disabling restrictions requires the trusted person code if set; otherwise an explicit waiting request.</td></tr>
+<tr><td>Restricted</td><td>The existing rule engine applies the saved profiles, schedules, quotas and strict sessions, with its usual code and session protections.</td></tr>
+</tbody></table>
+<h2 id="choice">Explicit choice</h2>
+<p><a href="../api/com.lucas.mobilemanager.domain.mode/AppMode.html"><code>AppMode</code></a> is stored by <a href="../api/com.lucas.mobilemanager.domain.repository/ModeRepository.html"><code>ModeRepository</code></a> in DataStore using its name. A missing choice, including after upgrading from a version without modes, leaves blocking disabled until the user confirms a mode on Home or Settings. Existing profiles and rules are preserved. Configure them and the trusted person code before confirming semi-free mode.</p>
+<h2 id="waiting">Requesting an unlock</h2>
+<p>In semi-free mode without a code, the user configures a minimum wait from 1 to 1,440 minutes (60 minutes proposed). The wait starts when Request unlocking is pressed. <a href="../api/com.lucas.mobilemanager.domain.mode/ModeUnlockManager.html"><code>ModeUnlockManager</code></a> persists the request timestamp, keeps the original start on repeated requests, and validates the current mode, code and strict session before granting access. Cancelling and requesting again starts a full new wait.</p>
+<p>When the wait ends, blocking continues. The user must press Unlock, then can edit or disable the desired rules for five minutes. The request survives restarting the process; the five-minute editing window does not. Adding or removing a code or changing mode clears the request. A code, if set, always takes precedence over waiting.</p>
+<h2 id="sessions">Sessions and enforcement</h2>
+<p>Active strict sessions prevent mode changes and waiting-based unlocking. Their existing reflection and override flow remains separate. Free mode cannot start a new strict session. Manual profile activation, replacement and deactivation also require permission to edit, since replacing a policy layer could weaken blocking.</p>
+<p><a href="../api/com.lucas.mobilemanager.domain.rules/RuleEngine.html"><code>RuleEngine</code></a> handles the free-mode gate centrally. Other modes preserve system whitelisting, layer precedence and explicit Allow semantics. The accessibility service observes mode settings and cancels stale checks, clears masks and recovers the foreground window whenever they change. No Room migration is needed.</p>
+
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#choice">Explicit choice</a></li><li><a href="#waiting">Requesting an unlock</a></li><li><a href="#sessions">Sessions and enforcement</a></li></ol></aside>
+</div>
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

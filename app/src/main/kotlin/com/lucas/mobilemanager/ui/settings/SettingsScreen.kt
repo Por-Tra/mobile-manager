@@ -38,6 +38,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lucas.mobilemanager.BuildConfig
 import com.lucas.mobilemanager.R
+import com.lucas.mobilemanager.ui.mode.ModeCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -72,6 +73,8 @@ fun SettingsScreen(
         Column(Modifier.padding(padding).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             val sessionRunning by viewModel.sessionRunning.collectAsStateWithLifecycle()
             val lockStatus by viewModel.lockStatus.collectAsStateWithLifecycle()
+
+            ModeCard()
 
             SettingsHeading(R.string.settings_protection)
             Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {

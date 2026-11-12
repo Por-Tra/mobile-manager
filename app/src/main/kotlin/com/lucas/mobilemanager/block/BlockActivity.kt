@@ -10,18 +10,30 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.lucas.mobilemanager.domain.time.TimeProvider
+import com.lucas.mobilemanager.MainActivity
+import com.lucas.mobilemanager.domain.mode.AppMode
+import com.lucas.mobilemanager.domain.mode.ModePolicy
+import com.lucas.mobilemanager.lock.AppLock
+import com.lucas.mobilemanager.ui.lock.LockBanner
+import com.lucas.mobilemanager.R
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.LaunchedEffect
 import com.lucas.mobilemanager.ui.theme.MobileManagerTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
- * Écran plein écran affiché à la place d'une app bloquée. Une seule sortie : l'accueil.
- * Pas de « encore 5 minutes », pas de désactivation depuis cet écran.
+ * Écran affiché à la place d'une app bloquée. En semi-libre, propose le déverrouillage
+ * des réglages par code ou attente ; aucune restriction n'est levée automatiquement.
  */
 @AndroidEntryPoint
 class BlockActivity : LocalizedActivity() {
 
     @Inject lateinit var timeProvider: TimeProvider
+    @Inject lateinit var appLock: AppLock
 
     private var args by mutableStateOf<BlockScreenArgs?>(null)
 
@@ -41,12 +53,24 @@ class BlockActivity : LocalizedActivity() {
         )
         setContent {
             MobileManagerTheme {
+                val mode by appLock.modeSettings.collectAsStateWithLifecycle()
+                LaunchedEffect(mode) {
+                    if (mode?.let(ModePolicy::blocksEnabled) == false) finishAndRemoveTask()
+                }
                 args?.let {
                     BlockScreen(
                         args = it,
                         now = timeProvider.now(),
                         zone = timeProvider.zone(),
                         onGoHome = ::goHome,
+                        actions = {
+                            if (mode?.selectedMode == AppMode.SEMI_FREE) {
+                                LockBanner()
+                                TextButton(onClick = {
+                                    startActivity(Intent(this@BlockActivity, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                                }) { Text(stringResource(R.string.mode_open_manager)) }
+                            }
+                        },
                     )
                 }
             }

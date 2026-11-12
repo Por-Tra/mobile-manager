@@ -18,6 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 @EntryPoint
 @InstallIn(SingletonComponent::class)
 interface SessionEntryPoint {
+    fun modeRepository(): com.lucas.mobilemanager.domain.repository.ModeRepository
     fun strictSessionRepository(): StrictSessionRepository
     fun strictSessionManager(): StrictSessionManager
     fun timeProvider(): TimeProvider

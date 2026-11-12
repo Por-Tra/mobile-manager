@@ -80,6 +80,9 @@ object DataProvidersModule {
 abstract class DataBindingsModule {
 
     @Binds
+    abstract fun bindModeRepository(impl: com.lucas.mobilemanager.data.repository.DataStoreModeRepository): com.lucas.mobilemanager.domain.repository.ModeRepository
+
+    @Binds
     abstract fun bindEventLogRepository(impl: RoomEventLogRepository): EventLogRepository
 
     @Binds

@@ -216,6 +216,7 @@ class ProfileEditViewModel @Inject constructor(
         val current = state.value
         if (current.locked || current.loading || !appLock.canModifyNow()) return
         viewModelScope.launch {
+            if (!appLock.canModifyNow() || strictSessionRepository.current()?.isRunning(timeProvider.now()) == true) return@launch
             val rules = buildRules(current.draft)
             if (current.isDefaultRules) {
                 val errors = ProfileValidator.validateRules(rules)

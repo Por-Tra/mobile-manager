@@ -47,7 +47,7 @@ data class ZoneRulesState(val zones: List<ZoneItem> = emptyList(), val locked: B
 class ZoneRulesViewModel @Inject constructor(
     detectorStore: ZoneDetectorStore,
     private val profileRepository: ProfileRepository,
-    strictSessionRepository: StrictSessionRepository,
+    private val strictSessionRepository: StrictSessionRepository,
     zoneUsageRepository: ZoneUsageRepository,
     private val installedApps: InstalledApps,
     private val appLock: AppLock,
@@ -100,6 +100,7 @@ class ZoneRulesViewModel @Inject constructor(
     fun setSetting(item: ZoneItem, setting: ZoneSetting, quotaMinutes: Int = item.quotaMinutes) {
         if (state.value.locked || !appLock.canModifyNow()) return
         viewModelScope.launch {
+            if (!appLock.canModifyNow() || strictSessionRepository.current()?.isRunning(timeProvider.now()) == true) return@launch
             val target = Target.Zone(item.packageName, item.zoneId)
             val others = profileRepository.observeGlobalRules().first().filterNot { it.target == target }
             val rule = when (setting) {

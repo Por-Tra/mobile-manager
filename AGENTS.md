@@ -15,6 +15,10 @@ Flux principal : `MonitorAccessibilityService` → `EnforcementCoordinator` → 
 
 Les zones Reels/Shorts s'appuient sur `assets/zone_detectors.json`, éventuellement remplacé par un fichier local validé. Ne lire que les nœuds visibles ; préserver la messagerie Instagram. Quotas = règles Limit sur des zones ou apps ; temps des zones dans Room, temps des apps via UsageStats.
 
+Robustesse : réévaluer les apps et relancer les zones à chaque ouverture d'activité reconnue (même package), au déverrouillage (`USER_PRESENT`), au réveil sans verrouillage et à la connexion du service. Reprendre depuis la fenêtre active avec des tentatives bornées si elle n'est pas prête ; suspendre les contrôles écran éteint/verrouillé. Invalider les décisions de zones à la reprise et annuler les contrôles de l'ancien premier plan.
+
+Modes : `domain/mode/AppMode` (`FREE`, `SEMI_FREE`, `RESTRICTED`), choix utilisateur exclusivement, persisté par `ModeRepository` dans DataStore. Sans choix (y compris après mise à jour), aucun blocage ; profils/règles conservés. Libre désactive apps/zones/masques/protection des écrans système. Semi-libre applique le moteur habituel mais les modifications exigent le code du proche s'il existe ; sinon demande d'attente configurable (1–1 440 min, départ au clic, persistée), puis déverrouillage explicite des réglages pendant 5 min. Aucune levée automatique. Restreint conserve le moteur existant. Session stricte : aucun changement de mode, aucune dérogation par l'attente semi-libre. Pas de démarrage de session en libre. Les commandes manuelles de profils respectent aussi `AppLock`.
+
 ## Interface et langues (novembre 2026)
 
 - Navigation principale persistante : Accueil / Statistiques / Réglages. Éditeurs, onboarding et sessions sortent de cette navigation. `MobileManagerNavHost` conserve les piles des onglets.

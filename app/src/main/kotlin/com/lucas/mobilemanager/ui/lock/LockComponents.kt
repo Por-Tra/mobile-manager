@@ -61,6 +61,12 @@ class LockViewModel @Inject constructor(private val appLock: AppLock) : ViewMode
 
     fun lockNow() = appLock.lockNow()
 
+    fun requestModeUnlock() { viewModelScope.launch { appLock.requestModeUnlock() } }
+
+    fun cancelModeUnlock() { viewModelScope.launch { appLock.cancelModeUnlock() } }
+
+    fun unlockModeAfterWait() { viewModelScope.launch { appLock.unlockModeAfterWait() } }
+
     suspend fun setPin(pin: String): Boolean = appLock.setPin(pin)
 
     fun removePin(onDone: (Boolean) -> Unit) {
@@ -83,7 +89,34 @@ fun rememberCanModify(viewModel: LockViewModel = hiltViewModel()): Boolean {
 fun LockBanner(modifier: Modifier = Modifier, viewModel: LockViewModel = hiltViewModel()) {
     val status by viewModel.status.collectAsStateWithLifecycle()
     val current = status ?: return
-    if (!current.isSet) return
+    if (!current.isSet && !current.requiresWaiting) return
+    if (!current.isSet) {
+        Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer), modifier = modifier.fillMaxWidth()) {
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                when {
+                    current.unlockedUntil != null -> {
+                        Text(stringResource(R.string.lock_banner_unlocked, time(current.unlockedUntil)))
+                        TextButton(onClick = viewModel::lockNow) { Text(stringResource(R.string.lock_lock_now)) }
+                    }
+                    current.waitReadyAt == null -> {
+                        Text(stringResource(R.string.mode_wait_locked))
+                        TextButton(onClick = viewModel::requestModeUnlock) { Text(stringResource(R.string.mode_request_unlock)) }
+                    }
+                    current.waitRemainingSeconds == 0L -> {
+                        Text(stringResource(R.string.mode_wait_ready))
+                        TextButton(onClick = viewModel::unlockModeAfterWait) { Text(stringResource(R.string.lock_unlock)) }
+                        TextButton(onClick = viewModel::cancelModeUnlock) { Text(stringResource(R.string.cancel)) }
+                    }
+                    else -> {
+                        Text(stringResource(R.string.mode_wait_remaining, Formats.duration(java.time.Duration.ofSeconds(current.waitRemainingSeconds ?: 0))))
+                        TextButton(onClick = viewModel::cancelModeUnlock) { Text(stringResource(R.string.mode_cancel_request)) }
+                    }
+                }
+                Text(stringResource(R.string.mode_unlock_help), style = MaterialTheme.typography.bodySmall)
+            }
+        }
+        return
+    }
     var unlocking by remember { mutableStateOf(false) }
     val unlockedUntil = current.unlockedUntil
     Card(

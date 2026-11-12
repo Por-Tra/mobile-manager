@@ -26,14 +26,16 @@ class ForegroundTracker(private val selfPackage: String) {
     /**
      * @param isActivity la fenêtre correspond à une activité déclarée par [packageName].
      * @param overlayPackages packages qui se superposent sans remplacer l'app (volet, claviers).
+     * @param recheckCurrent réévalue aussi une nouvelle ouverture de l'app déjà suivie.
      */
     fun onWindowStateChanged(
         packageName: String?,
         isActivity: Boolean,
         overlayPackages: Set<String>,
+        recheckCurrent: Boolean = false,
     ): Change {
         if (packageName == null || packageName in overlayPackages || !isActivity) return Change.None
-        if (packageName == current) return Change.None
+        if (packageName == current && !recheckCurrent) return Change.None
         current = packageName
         return if (packageName == selfPackage) Change.Self else Change.App(packageName)
     }

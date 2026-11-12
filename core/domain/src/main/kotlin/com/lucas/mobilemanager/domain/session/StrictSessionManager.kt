@@ -3,6 +3,9 @@ package com.lucas.mobilemanager.domain.session
 import com.lucas.mobilemanager.domain.model.EventLogEntry
 import com.lucas.mobilemanager.domain.model.EventType
 import com.lucas.mobilemanager.domain.model.StrictSession
+import com.lucas.mobilemanager.domain.mode.ModePolicy
+import com.lucas.mobilemanager.domain.repository.ModeRepository
+import kotlinx.coroutines.flow.first
 import com.lucas.mobilemanager.domain.repository.EventLogRepository
 import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.session.StrictSessionPolicy.OverrideState
@@ -17,14 +20,17 @@ class StrictSessionManager @Inject constructor(
     private val repository: StrictSessionRepository,
     private val eventLog: EventLogRepository,
     private val timeProvider: TimeProvider,
+    private val modes: ModeRepository,
 ) {
     sealed interface StartResult {
         data class Started(val session: StrictSession) : StartResult
         data class Invalid(val errors: Set<ValidationError>) : StartResult
         data object AlreadyRunning : StartResult
+        data object ModeDisabled : StartResult
     }
 
     suspend fun start(endsAt: Instant, blockedPackages: Set<String>, reflectionDelay: Duration): StartResult {
+        if (!ModePolicy.blocksEnabled(modes.settings.first())) return StartResult.ModeDisabled
         val now = timeProvider.now()
         completeIfDue()
         if (repository.current()?.isRunning(now) == true) return StartResult.AlreadyRunning

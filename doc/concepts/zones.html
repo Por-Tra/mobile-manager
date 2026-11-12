@@ -128,6 +128,10 @@ disappears and no longer reacts. This is the technique used by â€œReels blockerâ
 <p>The mask follows the element at each check and is removed when the app leaves the foreground, when another window (the
 notification shade) becomes active, when the element is no longer visible (keyboard, full screen) or when the zone becomes
 accessible again. Zone decisions used for the mask are cached for 5 s.</p>
+<p>Opening an activity, unlocking the phone or reconnecting the accessibility service restarts zone checks and invalidates
+cached zone decisions, so masks are rebuilt using the current profiles and quotas. Detector loading and replacement also
+restart checks for the foreground app. Leaving an app or turning the screen off cancels pending checks and closes zone usage;
+checks only act on the expected foreground package.</p>
 <p>The automatic exit stays as a safety net: a Reel reached another way (home feed, Explore, a Reel shared in a conversation) is still
 detected and left with back.</p>
 

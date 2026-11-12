@@ -6,6 +6,8 @@ Au 11 novembre 2026, la Release existante utilise le tag `Beta` et fournit `app-
 
 Le parcours est : rechercher → télécharger → installer → confirmation Android. Si nécessaire, Android demande d'autoriser Mobile Manager à installer des applications ; revenir ensuite et toucher Installer. Aucune désinstallation n'est nécessaire : profils, préférences et historique restent en place. Une installation totalement silencieuse n'est pas garantie par Android pour une application personnelle ordinaire.
 
+Après une mise à jour depuis une version sans modes, choisir explicitement Libre, Semi-libre ou Restreint sur l'accueil ou dans Réglages. Aucun mode avec blocages n'est imposé : tant que ce choix n'est pas confirmé, les blocages sont désactivés. Les règles et profils antérieurs sont conservés ; choisir Restreint réapplique leur comportement habituel. En Semi-libre sans code du proche, les mises à jour comme les réglages protégés exigent d'abord une demande d'attente puis un déverrouillage ; avec un code, celui-ci reste nécessaire.
+
 Les mises à jour sont indisponibles pendant une session stricte ou lorsque le code du proche est verrouillé : le service protège aussi les écrans de l'installateur dans ces situations.
 
 ## Première configuration GitHub

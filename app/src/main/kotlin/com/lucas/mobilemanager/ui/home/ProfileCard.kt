@@ -45,8 +45,9 @@ import java.time.ZoneId
 fun ProfileCard(
     item: ProfileItem,
     editable: Boolean,
-    /** Activer ou désactiver à la main (libre, sauf pendant une session). */
+    /** Les commandes manuelles respectent le déverrouillage et les sessions. */
     canActivate: Boolean,
+    canOpen: Boolean,
     canMoveUp: Boolean,
     canMoveDown: Boolean,
     onOpen: () -> Unit,
@@ -62,7 +63,7 @@ fun ProfileCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(enabled = canActivate, onClick = onOpen),
+            .clickable(enabled = canOpen, onClick = onOpen),
     ) {
         Row(
             modifier = Modifier.padding(start = 16.dp, top = 12.dp, bottom = 12.dp, end = 4.dp),
@@ -100,7 +101,7 @@ fun ProfileCard(
             }
             Switch(checked = item.profile.enabled, onCheckedChange = onToggle, enabled = editable)
             Box {
-                IconButton(onClick = { menuOpen = true }, enabled = canActivate) {
+                IconButton(onClick = { menuOpen = true }, enabled = canOpen) {
                     Icon(Icons.Filled.MoreVert, stringResource(R.string.profile_menu))
                 }
                 DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
@@ -109,9 +110,10 @@ fun ProfileCard(
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.profile_manual_deactivate)) },
                             onClick = close(onDeactivate),
+                            enabled = canActivate,
                         )
                     } else {
-                        DropdownMenuItem(text = { Text(stringResource(R.string.profile_activate_now)) }, onClick = close(onActivate))
+                        DropdownMenuItem(text = { Text(stringResource(R.string.profile_activate_now)) }, enabled = canActivate, onClick = close(onActivate))
                     }
                     DropdownMenuItem(text = { Text(stringResource(R.string.profile_edit)) }, onClick = close(onOpen))
                     DropdownMenuItem(

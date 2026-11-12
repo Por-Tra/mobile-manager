@@ -29,6 +29,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.time.Duration
 import javax.inject.Inject
@@ -44,6 +45,7 @@ class StrictSessionService : Service() {
     @Inject lateinit var manager: StrictSessionManager
     @Inject lateinit var permissionChecker: PermissionChecker
     @Inject lateinit var timeProvider: TimeProvider
+    @Inject lateinit var modeRepository: com.lucas.mobilemanager.domain.repository.ModeRepository
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private var job: Job? = null
@@ -110,6 +112,10 @@ class StrictSessionService : Service() {
 
     /** Alerte une fois par coupure si le service d'accessibilité est désactivé pendant la session. */
     private suspend fun checkProtection(session: StrictSession) {
+        if (!com.lucas.mobilemanager.domain.mode.ModePolicy.blocksEnabled(modeRepository.settings.first())) {
+            notifications.cancel(SessionNotifications.PROTECTION_NOTIFICATION_ID)
+            return
+        }
         val monitoring = permissionChecker.status(PermissionKind.ACCESSIBILITY) == PermissionStatus.GRANTED
         if (monitoring) {
             alertedSessionId = null

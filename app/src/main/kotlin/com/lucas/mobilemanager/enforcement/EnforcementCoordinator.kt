@@ -9,6 +9,9 @@ import com.lucas.mobilemanager.domain.model.EventType
 import com.lucas.mobilemanager.domain.model.ManualActivation
 import com.lucas.mobilemanager.domain.model.Profile
 import com.lucas.mobilemanager.domain.model.StrictSession
+import com.lucas.mobilemanager.domain.mode.ModePolicy
+import com.lucas.mobilemanager.domain.mode.ModeSettings
+import com.lucas.mobilemanager.domain.repository.ModeRepository
 import com.lucas.mobilemanager.domain.repository.EventLogRepository
 import com.lucas.mobilemanager.domain.repository.ManualActivationRepository
 import com.lucas.mobilemanager.domain.repository.ProfileRepository
@@ -29,6 +32,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.distinctUntilChanged
 import java.time.Duration
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
@@ -43,6 +47,7 @@ class EnforcementCoordinator @Inject constructor(
     profileRepository: ProfileRepository,
     strictSessionRepository: StrictSessionRepository,
     manualActivationRepository: ManualActivationRepository,
+    modeRepository: ModeRepository,
     @ApplicationScope appScope: CoroutineScope,
     private val profileResolver: ProfileResolver,
     private val ruleEngine: RuleEngine,
@@ -52,6 +57,14 @@ class EnforcementCoordinator @Inject constructor(
     private val eventLogRepository: EventLogRepository,
     private val zoneUsageRecorder: ZoneUsageRecorder,
 ) {
+    private val modeSettings = modeRepository.settings
+        .stateIn(appScope, SharingStarted.Eagerly, initialValue = null)
+
+    val modeChanges = modeSettings.filterNotNull().distinctUntilChanged()
+
+    fun blocksEnabledNow(): Boolean = modeSettings.value?.let(ModePolicy::blocksEnabled) == true
+
+    private suspend fun currentMode(): ModeSettings = modeSettings.filterNotNull().first()
     private data class RulesSnapshot(
         val profiles: List<Profile>,
         val globalRules: List<Rule>,
@@ -84,6 +97,7 @@ class EnforcementCoordinator @Inject constructor(
     fun isWhitelisted(packageName: String): Boolean = packageName in whitelistProvider.current()
 
     suspend fun evaluate(packageName: String): Decision {
+        if (!ModePolicy.blocksEnabled(currentMode())) return Decision.Allowed(remainingToday = null)
         if (packageName in whitelistProvider.current()) return Decision.Allowed(remainingToday = null)
         val usage = usageStatsReader.usageToday(packageName)
         lastAppUsage[packageName] = usage to SystemClock.elapsedRealtime()
@@ -97,6 +111,7 @@ class EnforcementCoordinator @Inject constructor(
      * se mesure au temps passé dans la zone aujourd'hui.
      */
     suspend fun evaluateZone(packageName: String, zone: String): Decision {
+        if (!ModePolicy.blocksEnabled(currentMode())) return Decision.Allowed(remainingToday = null)
         if (packageName in whitelistProvider.current()) return Decision.Allowed(remainingToday = null)
         val zoneUsage = zoneUsageRecorder.usageToday(packageName, zone)
         val request = AppRequest(packageName, zone = zone, usageToday = appUsageForZone(packageName), zoneUsageToday = zoneUsage)
@@ -127,7 +142,7 @@ class EnforcementCoordinator @Inject constructor(
             strictSession = runningSession(),
             now = now,
         )
-        return ruleEngine.evaluate(policy, request, whitelistProvider.current(), now)
+        return ruleEngine.evaluate(policy, request, whitelistProvider.current(), now, currentMode().effectiveMode)
     }
 
     suspend fun recordZoneRedirect(packageName: String, zone: String) {

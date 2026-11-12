@@ -1,6 +1,7 @@
 package com.lucas.mobilemanager.service
 
 import android.accessibilityservice.AccessibilityService
+import android.app.KeyguardManager
 import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
@@ -8,6 +9,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.PowerManager
 import android.os.SystemClock
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
@@ -67,6 +69,7 @@ class MonitorAccessibilityService : AccessibilityService() {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var tracker: ForegroundTracker
     private var watchJob: Job? = null
+    private var recoveryJob: Job? = null
     private var lastBlockedPackage: String? = null
     private var lastBlockedAtMs = 0L
     private var protectedCheckJob: Job? = null
@@ -80,12 +83,16 @@ class MonitorAccessibilityService : AccessibilityService() {
 
     private val screenReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
+            if (BuildConfig.DEBUG) Log.d(TAG, "screen ${intent.action}")
             when (intent.action) {
                 Intent.ACTION_SCREEN_OFF -> {
+                    recoveryJob?.cancel()
                     watchJob?.cancel()
+                    protectedCheckJob?.cancel()
+                    tracker.reset()
                     zoneEnforcer.onForegroundChanged()
                 }
-                Intent.ACTION_SCREEN_ON -> tracker.current?.takeIf { it != packageName }?.let(::watch)
+                Intent.ACTION_SCREEN_ON, Intent.ACTION_USER_PRESENT -> recoverForeground()
             }
         }
     }
@@ -97,6 +104,20 @@ class MonitorAccessibilityService : AccessibilityService() {
         scope.launch {
             diagnosticStore.overlayEnabled.collect { enabled -> setDiagnosticOverlay(enabled) }
         }
+        scope.launch {
+            // Le chargement initial des détecteurs peut finir après le premier événement d'app.
+            zoneDetectorStore.detectors.collect {
+                if (canMonitor()) tracker.current?.takeIf { it != packageName }?.let(zoneEnforcer::recheck)
+            }
+        }
+        scope.launch {
+            coordinator.modeChanges.collect {
+                watchJob?.cancel()
+                protectedCheckJob?.cancel()
+                zoneEnforcer.onForegroundChanged()
+                if (canMonitor()) recoverForeground()
+            }
+        }
         overlayPackages = buildSet {
             add(SYSTEM_UI)
             getSystemService(InputMethodManager::class.java)?.inputMethodList?.forEach { add(it.packageName) }
@@ -107,24 +128,27 @@ class MonitorAccessibilityService : AccessibilityService() {
             IntentFilter().apply {
                 addAction(Intent.ACTION_SCREEN_OFF)
                 addAction(Intent.ACTION_SCREEN_ON)
+                addAction(Intent.ACTION_USER_PRESENT)
             },
-            ContextCompat.RECEIVER_NOT_EXPORTED,
+            // USER_PRESENT peut venir de SystemUI (UID distinct du système). Les trois
+            // actions du filtre sont des broadcasts protégés, non émissibles par une app tierce.
+            ContextCompat.RECEIVER_EXPORTED,
         )
+        recoverForeground()
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        if (event == null) return
+        if (event == null || !canMonitor()) return
         val eventPackage = event.packageName?.toString()
         if (eventPackage != null && eventPackage in ProtectedScreenDetector.PROTECTED_PACKAGES) {
             scheduleProtectedScreenCheck(eventPackage)
         }
-        if (eventPackage != null &&
-            (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED ||
-                event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED)
-        ) {
-            zoneEnforcer.onEvent(eventPackage, windowChanged = event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
+        if (event.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+            if (eventPackage != null && event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+                zoneEnforcer.onEvent(eventPackage, windowChanged = false)
+            }
+            return
         }
-        if (event.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return
         val pkg = eventPackage
         val className = event.className?.toString()
         // Un écran d'app = une activité, hors panneaux intégrés au bureau (flux Google…).
@@ -134,17 +158,59 @@ class MonitorAccessibilityService : AccessibilityService() {
             packageName = pkg,
             isActivity = isAppScreen,
             overlayPackages = overlayPackages,
+            recheckCurrent = true,
         )
         when (change) {
             ForegroundTracker.Change.None -> Unit
             // Nos propres écrans (dont l'écran de blocage) : rien à surveiller.
             ForegroundTracker.Change.Self -> {
+                recoveryJob?.cancel()
                 watchJob?.cancel()
                 zoneEnforcer.onForegroundChanged()
             }
             is ForegroundTracker.Change.App -> {
-                zoneEnforcer.onForegroundChanged()
+                recoveryJob?.cancel()
+                zoneEnforcer.recheck(change.packageName)
                 watch(change.packageName)
+            }
+        }
+        if (change == ForegroundTracker.Change.None && eventPackage != null) {
+            zoneEnforcer.onEvent(eventPackage, windowChanged = true)
+        }
+    }
+
+    private fun canMonitor(): Boolean =
+        getSystemService(PowerManager::class.java).isInteractive &&
+            !getSystemService(KeyguardManager::class.java).isKeyguardLocked
+
+    /** Reprend sur la fenêtre réelle, même si Android ne renvoie pas d'événement d'activité. */
+    private fun recoverForeground() {
+        recoveryJob?.cancel()
+        recoveryJob = scope.launch {
+            // La fenêtre peut encore être celle du verrouillage, ou être absente pendant l'animation.
+            repeat(RECOVERY_ATTEMPTS) {
+                if (!canMonitor()) {
+                    delay(RECOVERY_DELAY_MS)
+                    return@repeat
+                }
+                val root = rootInActiveWindow
+                val pkg = root?.packageName?.toString()
+                if (BuildConfig.DEBUG) Log.d(TAG, "recover foreground=$pkg attempt=${it + 1}")
+                if (pkg != null && pkg !in overlayPackages &&
+                    !HomePanels.isHomePanel(pkg, root.className?.toString())
+                ) {
+                    tracker.onWindowStateChanged(pkg, isActivity = true, overlayPackages, recheckCurrent = true)
+                    if (pkg == packageName) {
+                        watchJob?.cancel()
+                        zoneEnforcer.onForegroundChanged()
+                    } else {
+                        zoneEnforcer.recheck(pkg)
+                        watch(pkg)
+                        if (pkg in ProtectedScreenDetector.PROTECTED_PACKAGES) scheduleProtectedScreenCheck(pkg)
+                    }
+                    return@launch
+                }
+                delay(RECOVERY_DELAY_MS)
             }
         }
     }
@@ -176,11 +242,13 @@ class MonitorAccessibilityService : AccessibilityService() {
      * suffirait à tout contourner). Regroupe les rafales d'événements en une seule vérification.
      */
     private fun scheduleProtectedScreenCheck(pkg: String) {
+        if (!coordinator.blocksEnabledNow()) return
         val session = coordinator.runningSession()
         if (session == null && !appLock.protectsSettingsNow()) return
         protectedCheckJob?.cancel()
         protectedCheckJob = scope.launch {
             delay(PROTECTED_CHECK_DEBOUNCE_MS)
+            if (!canMonitor() || !coordinator.blocksEnabledNow()) return@launch
             val root = rootInActiveWindow ?: return@launch
             if (root.packageName?.toString() != pkg) return@launch
             val labels = setOf(getString(R.string.app_name), getString(R.string.accessibility_service_label))
@@ -222,7 +290,7 @@ class MonitorAccessibilityService : AccessibilityService() {
         watchJob = scope.launch {
             while (isActive) {
                 val decision = withContext(Dispatchers.Default) { coordinator.evaluate(pkg) }
-                if (tracker.current != pkg) return@launch
+                if (tracker.current != pkg || !canMonitor()) return@launch
                 when (decision) {
                     is Decision.Blocked -> {
                         block(pkg, decision)
@@ -243,7 +311,9 @@ class MonitorAccessibilityService : AccessibilityService() {
      * asynchrone et l'accueil recouvrirait l'écran de blocage. C'est l'écran qui renvoie à l'accueil.
      */
     private fun block(pkg: String, decision: Decision.Blocked) {
+        if (!canMonitor() || !coordinator.blocksEnabledNow() || tracker.current != pkg) return
         tracker.reset()
+        zoneEnforcer.onForegroundChanged()
         // Toujours (ré)afficher l'écran : une app qui enchaîne deux écrans au démarrage
         // (ex. Messages et sa page de connexion) repasse sinon par-dessus le blocage.
         startActivity(
@@ -298,5 +368,7 @@ class MonitorAccessibilityService : AccessibilityService() {
         const val PROTECTED_CHECK_DEBOUNCE_MS = 150L
         const val PROTECTED_TOAST_INTERVAL_MS = 3_000L
         const val MAX_NODES_SCANNED = 500
+        const val RECOVERY_ATTEMPTS = 8
+        const val RECOVERY_DELAY_MS = 250L
     }
 }

@@ -32,6 +32,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lucas.mobilemanager.R
+import com.lucas.mobilemanager.domain.mode.ModePolicy
+import com.lucas.mobilemanager.ui.mode.ModeCard
 import com.lucas.mobilemanager.domain.dashboard.DashboardSummary
 import com.lucas.mobilemanager.domain.dashboard.Period
 import com.lucas.mobilemanager.domain.model.Profile
@@ -39,7 +41,6 @@ import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.onboarding.OnboardingState
 import com.lucas.mobilemanager.ui.dashboard.comparisonText
 import com.lucas.mobilemanager.ui.format.Formats
-import com.lucas.mobilemanager.ui.lock.LockBanner
 import com.lucas.mobilemanager.ui.lock.rememberCanModify
 import com.lucas.mobilemanager.ui.theme.LocalExtendedColors
 import java.time.ZoneId
@@ -60,9 +61,11 @@ fun HomeScreen(
     val profiles by viewModel.profiles.collectAsStateWithLifecycle()
     val session by viewModel.session.collectAsStateWithLifecycle()
     val today by viewModel.today.collectAsStateWithLifecycle()
+    val modeSettings by viewModel.modeSettings.collectAsStateWithLifecycle()
+    val blocksEnabled = modeSettings?.let(ModePolicy::blocksEnabled) == true
     var activating by remember { mutableStateOf<Profile?>(null) }
     var deleting by remember { mutableStateOf<Profile?>(null) }
-    // Activer un profil reste libre ; le modifier demande le code du proche, s'il est défini.
+    // Les commandes qui peuvent remplacer ou lever une restriction demandent le déverrouillage.
     val canActivate = session == null
     val editable = canActivate && rememberCanModify()
 
@@ -89,10 +92,11 @@ fun HomeScreen(
                     Text(stringResource(R.string.home_subtitle), style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 8.dp))
                 }
             }
-            if (!permissions.canMonitor) item { StatusCard(permissions, onOpenPermissions) }
-            item { SessionCard(session, onStartSession, onRequestOverride) }
+            item { ModeCard() }
+            if (!permissions.canMonitor) item { StatusCard(permissions, blocksEnabled, onOpenPermissions) }
+            item { SessionCard(session, onStartSession, onRequestOverride, blocksEnabled) }
             today?.let { summary -> item { TodayCard(summary, onOpenDashboard) } }
-            if (permissions.canMonitor) item { StatusCard(permissions, onOpenPermissions) }
+            if (permissions.canMonitor) item { StatusCard(permissions, blocksEnabled, onOpenPermissions) }
             item {
                 Text(
                     stringResource(R.string.home_profiles),
@@ -106,13 +110,13 @@ fun HomeScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
-                LockBanner(Modifier.padding(top = 8.dp))
             }
             itemsIndexed(profiles, key = { _, item -> item.profile.id }) { index, item ->
                 ProfileCard(
                     item = item,
                     editable = editable,
-                    canActivate = canActivate,
+                    canActivate = editable,
+                    canOpen = canActivate,
                     canMoveUp = index > 0,
                     canMoveDown = index < profiles.lastIndex,
                     onOpen = { onEditProfile(item.profile.id) },
@@ -187,7 +191,7 @@ private fun TodayCard(summary: DashboardSummary, onOpen: () -> Unit) {
 }
 
 @Composable
-private fun StatusCard(permissions: OnboardingState, onOpenPermissions: () -> Unit) {
+private fun StatusCard(permissions: OnboardingState, blocksEnabled: Boolean, onOpenPermissions: () -> Unit) {
     val ready = permissions.canMonitor
     // Permissions manquantes : couleur neutre, pas d'alerte rouge.
     val container = if (ready) {
@@ -206,13 +210,13 @@ private fun StatusCard(permissions: OnboardingState, onOpenPermissions: () -> Un
     ) {
         Column(Modifier.padding(16.dp)) {
             Text(
-                stringResource(if (ready) R.string.home_status_ready else R.string.home_status_incomplete),
+                stringResource(if (!blocksEnabled) R.string.mode_free_status else if (ready) R.string.home_status_ready else R.string.home_status_incomplete),
                 style = MaterialTheme.typography.titleMedium,
             )
             Spacer(Modifier.padding(2.dp))
             Text(
                 stringResource(
-                    if (ready) R.string.home_status_ready_body else R.string.home_status_incomplete_body,
+                    if (!blocksEnabled) R.string.mode_free_status_body else if (ready) R.string.home_status_ready_body else R.string.home_status_incomplete_body,
                 ),
                 style = MaterialTheme.typography.bodyMedium,
             )
@@ -227,7 +231,7 @@ private fun StatusCard(permissions: OnboardingState, onOpenPermissions: () -> Un
 }
 
 @Composable
-private fun SessionCard(session: StrictSession?, onStart: () -> Unit, onRequestOverride: () -> Unit) {
+private fun SessionCard(session: StrictSession?, onStart: () -> Unit, onRequestOverride: () -> Unit, blocksEnabled: Boolean) {
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
         modifier = Modifier.fillMaxWidth(),
@@ -238,7 +242,8 @@ private fun SessionCard(session: StrictSession?, onStart: () -> Unit, onRequestO
                 Spacer(Modifier.padding(2.dp))
                 Text(stringResource(R.string.session_card_body), style = MaterialTheme.typography.bodyMedium)
                 Spacer(Modifier.padding(6.dp))
-                Button(onClick = onStart, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.session_card_start)) }
+                if (!blocksEnabled) Text(stringResource(R.string.mode_session_disabled), style = MaterialTheme.typography.bodySmall)
+                Button(onClick = onStart, enabled = blocksEnabled, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.session_card_start)) }
             } else {
                 val endTime = Formats.TIME.format(session.endsAt.atZone(ZoneId.systemDefault()))
                 Text(stringResource(R.string.session_card_running), style = MaterialTheme.typography.titleMedium)

@@ -76,6 +76,17 @@ tracking, usage computation, zone matching against real captures, zone time acco
 listed under <a href="../src/index.html#core-domain-tests"><code>:core:domain (tests)</code></a> in the source files, and appear in
 the <em>Referenced in</em> tables of the API reference with a <span class="tag test">test</span> tag.</p>
 
+<h2 id="mode-checks">Operating mode checks</h2>
+<p>Use an emulator, keeping personal phone data and permissions unchanged. Confirm that an installation without a mode choice
+shows blocking disabled and does not start a strict session. Configure the desired rules before selecting semi-free mode.</p>
+<ol>
+  <li>Select semi-free with a one-minute wait for testing. Restriction controls and mode changes must lock immediately.</li>
+  <li>Request unlocking, restart the app, and confirm that the request keeps its original deadline.</li>
+  <li>When the wait finishes, verify that the mode and rules still apply. Press Unlock explicitly; editing must become available for five minutes.</li>
+  <li>With a trusted person code set, waiting must not grant access. During a strict session, mode changes and waiting-based unlocking must be refused.</li>
+  <li>Confirm restricted mode, then free mode explicitly. Rules must remain saved; free mode removes blocking and masks. Recheck opening apps and unlocking the screen.</li>
+</ol>
+
 <h2 id="documentation">This documentation</h2>
 <p>The site is generated from the code by a dependency-free Python script:</p>
 <div class="code"><div class="code-header"><span>Bash</span><button class="copy" type="button">Copy</button></div><pre><code>python doc/tools/gen_docs.py                  # regenerate doc/
@@ -93,7 +104,7 @@ python doc/tools/gen_docs.py --missing out.txt  # list documentation comments wi
     </article>
     <footer class="page-footer">Generated from the source code by <code>doc/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
   </main>
-  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#commands">Commands</a></li><li><a href="#conventions">Conventions</a></li><li><a href="#emulator">Emulator</a></li><li><a href="#phone">Real phone (Galaxy A04s)</a></li><li><a href="#tests">Unit tests</a></li><li><a href="#documentation">This documentation</a></li></ol></aside>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#commands">Commands</a></li><li><a href="#conventions">Conventions</a></li><li><a href="#emulator">Emulator</a></li><li><a href="#phone">Real phone (Galaxy A04s)</a></li><li><a href="#tests">Unit tests</a></li><li><a href="#mode-checks">Operating mode checks</a></li><li><a href="#documentation">This documentation</a></li></ol></aside>
 </div>
 <script src="../assets/data.js"></script>
 <script src="../assets/site.js"></script>

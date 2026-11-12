@@ -76,6 +76,7 @@ fun StartSessionScreen(
                 if (state.alreadyRunning) {
                     Text(stringResource(R.string.session_already_running), color = MaterialTheme.colorScheme.tertiary)
                 }
+                if (state.modeDisabled) Text(stringResource(R.string.mode_session_disabled), color = MaterialTheme.colorScheme.tertiary)
                 Button(
                     onClick = viewModel::askConfirmation,
                     enabled = state.selected.isNotEmpty(),

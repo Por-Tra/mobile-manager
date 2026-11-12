@@ -8,6 +8,9 @@ import com.lucas.mobilemanager.domain.at
 import com.lucas.mobilemanager.domain.model.EventLogEntry
 import com.lucas.mobilemanager.domain.model.EventType
 import com.lucas.mobilemanager.domain.model.StrictSession
+import com.lucas.mobilemanager.domain.mode.AppMode
+import com.lucas.mobilemanager.domain.mode.ModeSettings
+import com.lucas.mobilemanager.domain.repository.ModeRepository
 import com.lucas.mobilemanager.domain.repository.EventLogRepository
 import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.session.StrictSessionManager.StartResult
@@ -30,7 +33,28 @@ class StrictSessionManagerTest {
     private val clock = FakeTime(at(MONDAY, 9).toInstant())
     private val repository = FakeSessionRepository()
     private val events = mutableListOf<EventLogEntry>()
-    private val manager = StrictSessionManager(repository, FakeEventLog(events), clock)
+    private var mode = ModeSettings(selectedMode = AppMode.RESTRICTED)
+    private val modes = object : ModeRepository {
+        override val settings get() = flowOf(mode)
+        override suspend fun update(transform: (ModeSettings) -> ModeSettings) { mode = transform(mode) }
+    }
+    private val manager = StrictSessionManager(repository, FakeEventLog(events), clock, modes)
+
+    @Test
+    fun `free and unselected modes refuse to start a strict session`() = runTest {
+        for (choice in listOf(null, AppMode.FREE)) {
+            mode = ModeSettings(selectedMode = choice)
+            assertEquals(StartResult.ModeDisabled, startDefault())
+        }
+        assertTrue(repository.sessions.isEmpty())
+        assertTrue(events.isEmpty())
+    }
+
+    @Test
+    fun `semi free mode still permits an explicit strict session`() = runTest {
+        mode = ModeSettings(selectedMode = AppMode.SEMI_FREE)
+        assertTrue(startDefault() is StartResult.Started)
+    }
 
     private fun minutes(m: Long) = Duration.ofMinutes(m)
     private fun advance(d: Duration) { clock.now = clock.now + d }

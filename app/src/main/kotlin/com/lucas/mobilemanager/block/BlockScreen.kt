@@ -3,6 +3,8 @@ package com.lucas.mobilemanager.block
 import android.content.pm.PackageManager
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -42,6 +44,7 @@ fun BlockScreen(
     now: Instant,
     zone: ZoneId,
     onGoHome: () -> Unit,
+    actions: @Composable () -> Unit = {},
 ) {
     val context = LocalContext.current
     val app = remember(args.packageName) { loadAppInfo(context.packageManager, args.packageName) }
@@ -50,6 +53,7 @@ fun BlockScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(colors.limitReachedContainer)
             .safeDrawingPadding()
             .padding(horizontal = 32.dp),
@@ -91,6 +95,7 @@ fun BlockScreen(
         ) {
             Text(stringResource(R.string.block_go_home))
         }
+        actions()
     }
 }
 

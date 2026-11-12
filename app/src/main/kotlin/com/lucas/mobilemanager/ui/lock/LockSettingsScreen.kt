@@ -62,7 +62,7 @@ fun LockSettingsScreen(onBack: () -> Unit, viewModel: LockViewModel = hiltViewMo
             Text(stringResource(R.string.lock_intro), style = MaterialTheme.typography.bodyMedium)
             LockBanner(viewModel = viewModel)
             if (!isSet) {
-                Button(onClick = { choosingPin = true }, enabled = status != null) { Text(stringResource(R.string.lock_set)) }
+                Button(onClick = { choosingPin = true }, enabled = canModify) { Text(stringResource(R.string.lock_set)) }
             } else {
                 OutlinedButton(onClick = { choosingPin = true }, enabled = canModify) { Text(stringResource(R.string.lock_change)) }
                 OutlinedButton(onClick = { confirmingRemoval = true }, enabled = canModify) { Text(stringResource(R.string.lock_remove)) }

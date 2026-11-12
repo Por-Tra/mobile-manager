@@ -7,7 +7,13 @@ import com.lucas.mobilemanager.di.ApplicationScope
 import com.lucas.mobilemanager.domain.lock.LockConfig
 import com.lucas.mobilemanager.domain.lock.LockPolicy
 import com.lucas.mobilemanager.domain.lock.PinHasher
+import com.lucas.mobilemanager.domain.mode.AppMode
+import com.lucas.mobilemanager.domain.mode.ModePolicy
+import com.lucas.mobilemanager.domain.mode.ModeSettings
+import com.lucas.mobilemanager.domain.mode.ModeUnlockManager
 import com.lucas.mobilemanager.domain.repository.LockRepository
+import com.lucas.mobilemanager.domain.repository.ModeRepository
+import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
 import com.lucas.mobilemanager.domain.time.TimeProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,20 +30,25 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.time.Instant
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/** État du code du proche, pour l'interface. */
+/** État du déverrouillage des réglages, par code du proche ou attente semi-libre. */
 data class LockStatus(
     val isSet: Boolean,
     /** Fin du déverrouillage en cours, `null` si verrouillé. */
     val unlockedUntil: Instant?,
     /** Fin de l'attente après trop d'essais, `null` si aucune. */
     val lockedOutUntil: Instant?,
+    val requiresWaiting: Boolean = false,
+    val waitReadyAt: Instant? = null,
+    val waitRemainingSeconds: Long? = null,
 ) {
     /** Les réglages qui assouplissent les restrictions sont modifiables. */
-    val canModify: Boolean get() = !isSet || unlockedUntil != null
+    val canModify: Boolean get() = unlockedUntil != null || !isSet && !requiresWaiting
 
     companion object {
         val NOT_SET = LockStatus(isSet = false, unlockedUntil = null, lockedOutUntil = null)
@@ -45,12 +56,15 @@ data class LockStatus(
 }
 
 /**
- * Code du proche : tant qu'il est défini, toute modification des restrictions demande de le
- * saisir. Le déverrouillage (5 min) est gardé en mémoire : un redémarrage reverrouille.
+ * Autorise les modifications des restrictions selon le mode choisi, le code du proche et
+ * l'attente semi-libre. Le déverrouillage de 5 min est en mémoire : un redémarrage reverrouille.
  */
 @Singleton
 class AppLock @Inject constructor(
     private val repository: LockRepository,
+    private val modeRepository: ModeRepository,
+    private val sessions: StrictSessionRepository,
+    private val modeUnlockManager: ModeUnlockManager,
     private val timeProvider: TimeProvider,
     @ApplicationScope scope: CoroutineScope,
 ) {
@@ -61,6 +75,10 @@ class AppLock @Inject constructor(
         .stateIn(scope, SharingStarted.Eagerly, initialValue = null)
 
     private val unlockedUntil = MutableStateFlow<Instant?>(null)
+    private val changes = Mutex()
+
+    val modeSettings: StateFlow<ModeSettings?> = modeRepository.settings
+        .stateIn(scope, SharingStarted.Eagerly, initialValue = null)
 
     /** Battement d'une seconde : la fin du déverrouillage ou de l'attente se voit sans action. */
     private val ticks: Flow<Unit> = flow {
@@ -70,30 +88,57 @@ class AppLock @Inject constructor(
         }
     }
 
-    val status: Flow<LockStatus> = combine(stored.filterNotNull(), unlockedUntil, ticks) { stored, until, _ ->
+    val status: Flow<LockStatus> = combine(stored.filterNotNull(), modeSettings.filterNotNull(), unlockedUntil, ticks) { stored, mode, until, _ ->
         val now = timeProvider.now()
-        val config = stored.config ?: return@combine LockStatus.NOT_SET
+        val config = stored.config
         LockStatus(
-            isSet = true,
+            isSet = config != null,
             unlockedUntil = until?.takeIf { now.isBefore(it) },
-            lockedOutUntil = config.lockedOutUntil?.takeIf { now.isBefore(it) },
+            lockedOutUntil = config?.lockedOutUntil?.takeIf { now.isBefore(it) },
+            requiresWaiting = ModePolicy.requiresWait(mode, hasPin = config != null),
+            waitReadyAt = ModePolicy.readyAt(mode),
+            waitRemainingSeconds = ModePolicy.readyAt(mode)?.let { java.time.Duration.between(now, it).seconds.coerceAtLeast(0) },
         )
     }.distinctUntilChanged()
 
     /** Vérification immédiate pour les ViewModels : refuse tant que le code n'a pas été lu. */
     fun canModifyNow(): Boolean {
-        if ((stored.value ?: return false).config == null) return true
-        return isUnlocked()
+        val config = (stored.value ?: return false).config
+        val mode = modeSettings.value ?: return false
+        return ModePolicy.canModify(mode, config != null, unlockedUntil.value, timeProvider.now())
     }
 
-    /** Pour le service d'accessibilité : un code existe et l'app n'est pas déverrouillée. */
-    fun protectsSettingsNow(): Boolean = stored.value?.config != null && !isUnlocked()
+    /** Protège les écrans système pendant un verrouillage par code ou attente, hors mode libre. */
+    fun protectsSettingsNow(): Boolean = modeSettings.value?.let(ModePolicy::blocksEnabled) == true &&
+        !canModifyNow()
 
-    private fun isUnlocked(): Boolean = unlockedUntil.value?.let { timeProvider.now().isBefore(it) } == true
+    suspend fun selectMode(mode: AppMode, minimumWaitMinutes: Int): Boolean = changes.withLock {
+        if (!canModifyNow() || sessions.current()?.isRunning(timeProvider.now()) == true) return@withLock false
+        if (minimumWaitMinutes !in 1..1440) return@withLock false
+        modeRepository.update {
+            ModeSettings(selectedMode = mode, minimumWaitMinutes = minimumWaitMinutes)
+        }
+        unlockedUntil.value = null
+        true
+    }
+
+    suspend fun requestModeUnlock() = changes.withLock {
+        modeUnlockManager.request()
+    }
+
+    suspend fun cancelModeUnlock() = changes.withLock {
+        modeUnlockManager.cancel()
+    }
+
+    suspend fun unlockModeAfterWait(): Boolean = changes.withLock {
+        val accepted = modeUnlockManager.consume()
+        if (accepted) unlockedUntil.value = timeProvider.now() + LockPolicy.UNLOCK_DURATION
+        accepted
+    }
 
     /** Un essai du code. En cas de succès, les réglages sont modifiables pendant 5 min. */
-    suspend fun unlock(pin: String): LockPolicy.Attempt {
-        val config = stored.filterNotNull().first().config ?: return LockPolicy.Attempt.Success
+    suspend fun unlock(pin: String): LockPolicy.Attempt = changes.withLock {
+        val config = repository.config.first() ?: return@withLock LockPolicy.Attempt.Success
         val now = timeProvider.now()
         // PBKDF2 est volontairement coûteux : hors du thread principal.
         val startedMs = SystemClock.elapsedRealtime()
@@ -101,7 +146,7 @@ class AppLock @Inject constructor(
         if (BuildConfig.DEBUG) Log.d(TAG, "unlock attempt in ${SystemClock.elapsedRealtime() - startedMs} ms -> $result")
         if (updated != config) repository.save(updated)
         if (result == LockPolicy.Attempt.Success) unlockedUntil.value = now + LockPolicy.UNLOCK_DURATION
-        return result
+        result
     }
 
     fun lockNow() {
@@ -109,20 +154,22 @@ class AppLock @Inject constructor(
     }
 
     /** Définit (ou remplace) le code ; possible seulement sans code ou déverrouillé. */
-    suspend fun setPin(pin: String): Boolean {
-        if (!canModifyNow() || !LockPolicy.isValidPin(pin)) return false
+    suspend fun setPin(pin: String): Boolean = changes.withLock {
+        if (!canModifyNow() || !LockPolicy.isValidPin(pin)) return@withLock false
         val config = withContext(Dispatchers.Default) { PinHasher.newConfig(pin) }
         repository.save(config)
+        modeUnlockManager.cancel()
         unlockedUntil.value = timeProvider.now() + LockPolicy.UNLOCK_DURATION
-        return true
+        true
     }
 
     /** Retire le code ; possible seulement déverrouillé. */
-    suspend fun removePin(): Boolean {
-        if (!canModifyNow()) return false
+    suspend fun removePin(): Boolean = changes.withLock {
+        if (!canModifyNow()) return@withLock false
         repository.save(null)
+        modeUnlockManager.cancel()
         unlockedUntil.value = null
-        return true
+        true
     }
 
     private companion object {
