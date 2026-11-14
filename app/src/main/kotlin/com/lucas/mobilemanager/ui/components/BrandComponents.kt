@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalDensity
 import com.lucas.mobilemanager.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -96,9 +97,16 @@ fun FocusHero(onClick: () -> Unit, enabled: Boolean) {
             }
             Column(Modifier.padding(22.dp)) {
                 Text(stringResource(R.string.hero_eyebrow), style = MaterialTheme.typography.labelMedium, color = G.mintLight)
-                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 12.dp)) {
-                    Text(stringResource(R.string.home_welcome), style = MaterialTheme.typography.headlineLarge, modifier = Modifier.weight(1f))
-                    GraphicScene(SceneKind.FOCUS, Modifier.size(126.dp))
+                BoxWithConstraints(Modifier.fillMaxWidth().padding(top = 12.dp)) {
+                    if (maxWidth < 260.dp || LocalDensity.current.fontScale > 1.15f) {
+                        Column {
+                            GraphicScene(SceneKind.FOCUS, Modifier.align(Alignment.End).size(100.dp))
+                            Text(stringResource(R.string.home_welcome), style = MaterialTheme.typography.headlineLarge)
+                        }
+                    } else Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(stringResource(R.string.home_welcome), style = MaterialTheme.typography.headlineLarge, modifier = Modifier.weight(1f))
+                        GraphicScene(SceneKind.FOCUS, Modifier.size(126.dp))
+                    }
                 }
                 Text(stringResource(R.string.home_subtitle), Modifier.padding(top = 8.dp, bottom = 16.dp), style = MaterialTheme.typography.bodyMedium, color = Color.White.copy(alpha = .9f))
                 Button(
