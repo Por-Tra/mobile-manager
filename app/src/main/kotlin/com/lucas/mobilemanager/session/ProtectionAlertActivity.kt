@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.provider.Settings
 import com.lucas.mobilemanager.locale.LocalizedActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
+import com.lucas.mobilemanager.ui.theme.enableMobileManagerEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,7 +38,7 @@ class ProtectionAlertActivity : LocalizedActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableMobileManagerEdgeToEdge()
         val endsAt = Instant.ofEpochMilli(intent.getLongExtra(EXTRA_ENDS_AT, 0))
         val endTime = Formats.TIME.format(endsAt.atZone(ZoneId.systemDefault()))
         setContent {

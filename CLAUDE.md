@@ -2,7 +2,7 @@
 
 App Android **personnelle** (APK installé hors Play Store) de gestion du temps d'écran « par la manière forte ». UI en **français et anglais**, ton **jamais culpabilisant**. Données personnelles en local : pas de compte, pas de télémétrie, aucune lecture du contenu des messages/posts. Réseau uniquement pour rechercher/télécharger une mise à jour GitHub à la demande.
 
-**Contexte actualisé : lire `AGENTS.md` en premier.** Ajouts de novembre 2026 : navigation Accueil/Statistiques/Réglages, thème et accueil retravaillés, réglages défilants regroupés, choix français/anglais/langue système, mises à jour GitHub vérifiées et workflow de distribution signée. Configuration et limites : `UPDATES.md`.
+**Contexte actualisé : lire `AGENTS.md` en premier.** Ajouts de novembre 2026 : navigation Menu/Statistiques/Profils/Anti-scroll/Réglages, thème et accueil retravaillés, réglages défilants regroupés, choix français/anglais/langue système, mises à jour GitHub vérifiées et workflow de distribution signée. Configuration et limites : `UPDATES.md`.
 
 **Play Protect** : l'accessibilité d'un APK installé hors boutique peut déclencher un blocage ; une signature release ne garantit pas son acceptation. Diagnostic et contrôle des certificats dans `UPDATES.md`. Les APK locaux audités le 12 novembre 2026 étaient signés Android Debug, y compris un ancien APK nommé release. Ne pas attribuer une alerte à une cause précise sans son texte et l'APK concerné.
 
@@ -35,7 +35,7 @@ export JAVA_HOME="/c/Program Files/Android/Android Studio/jbr"
 ./gradlew installDebug             # sur l'émulateur/téléphone connecté
 ```
 
-**Documentation** (`doc/`, anglais, style Microsoft Learn, générée depuis le code) : `python doc/tools/gen_docs.py` après chaque modification (aucune dépendance). Articles écrits à la main dans `doc/tools/pages/*.html` (`{{Type}}` / `{{Type.membre}}` → lien vers la référence) ; traductions anglaises des KDoc (en français dans le code) dans `doc/tools/kdoc_en.txt` — `--missing out.txt` liste celles qui manquent (affichées en français sinon). Ouvrir `doc/index.html` directement dans un navigateur.
+**Documentation** (`docs/`, anglais, style Microsoft Learn, générée depuis le code) : `python docs/tools/gen_docs.py` après chaque modification (aucune dépendance). Articles écrits à la main dans `docs/tools/pages/*.html` (`{{Type}}` / `{{Type.membre}}` → lien vers la référence) ; traductions anglaises des KDoc (en français dans le code) dans `docs/tools/kdoc_en.txt` — `--missing out.txt` liste celles qui manquent (affichées en français sinon). Ouvrir `docs/index.html` directement dans un navigateur.
 
 ## Conventions
 - **Conventional Commits** (`feat(onboarding): …`, `fix: …`, `chore: …`), un commit propre par fin de phase au minimum.
@@ -46,6 +46,13 @@ export JAVA_HOME="/c/Program Files/Android/Android Studio/jbr"
 - Schémas Room exportés dans `core/data/schemas/` (à committer) ; toute évolution = migration explicite.
 
 ## Décisions d'architecture
+
+### Refonte visuelle et navigation (14 novembre 2026)
+- Version locale 0.4.0 / code 4000 : thème clair lavande, cartes blanches, violet/menthe/abricot, titres renforcés et logo vectoriel téléphone avec validation. `BrandComponents` centralise en-têtes, introduction, raccourcis et illustration de concentration. Les couleurs sombres restent disponibles explicitement.
+- Cinq onglets persistants conservant leur état : Menu (résumé actuel), Statistiques, Profils, Anti-scroll, Réglages. Création et règles globales en tête de Profils ; activation manuelle visible sans menu supplémentaire. Les éditeurs et sessions restent hors navigation principale. La barre défile si nécessaire sur petit écran ou grande police et remet la sélection en vue. Le graphique statistique précède le bilan hebdomadaire compact, dont les détails se déplient.
+- Anti-scroll contient Reels et Shorts / Habitudes ; les habitudes quittent Réglages. Réglages utilise Protection / Application / Avancé pour accéder directement à la langue, aux mises à jour et aux diagnostics. Accès aux entrées principales en 1–3 appuis ; les formulaires, confirmations, code du proche et attente semi-libre conservent leurs étapes.
+- Aucun changement du moteur, des données persistées, des autorisations ou de la priorité des règles. Les états libres ne présentent pas les restrictions enregistrées comme des blocages actifs.
+
 
 ### Habitudes, bilan et diagnostic (novembre 2026)
 - `UninstallPreference` dans Réglages › Avancé affiche le message de départ français/anglais et ouvre la confirmation Android via ACTION_DELETE pour notre package exclusivement (`REQUEST_DELETE_PACKAGES`). `SettingsViewModel.canUninstall` revérifie AppLock et la session avant de retirer notre administration active et avant de lancer l'intent. Retrait asynchrone borné à 2 s ; échec visible sans fermer l'app. Android supprime les données si l'utilisateur confirme. Annuler conserve les données, mais l'administration retirée reste désactivée (expliqué avant le clic). Aucune désinstallation silencieuse.

@@ -9,7 +9,7 @@ Application Android personnelle hors Play Store pour gérer le temps d'écran. T
 - `core/domain` : Kotlin/JVM pur, modèles et repositories, moteur de règles, profils/plages, sessions strictes, quotas, usage, verrouillage, statistiques. Aucune API Android. Temps métier via `TimeProvider`.
 - `core/data` : Room v6 (migrations 1→6), DataStore, repositories, injection Hilt. Ne pas changer le schéma sans migration.
 - `app` : Compose Material 3, ViewModels et navigation sérialisée, services Android, permissions, surveillance et blocage.
-- `doc/tools` : générateur de documentation Python sans dépendances ; sources éditoriales dans `pages`, traductions des KDoc dans `kdoc_en.txt`.
+- `docs/tools` : générateur de documentation Python sans dépendances ; sources éditoriales dans `pages`, traductions des KDoc dans `kdoc_en.txt`.
 
 Flux principal : `MonitorAccessibilityService` → `EnforcementCoordinator` → `ProfileResolver`/`RuleEngine` → `BlockActivity` ou `ZoneEnforcer`. Liste blanche système avant toute restriction. Priorité : session stricte, profil manuel, profils planifiés, règles globales. Règle la plus précise dans chaque couche ; Allow arrête les couches inférieures, sinon la restriction la plus forte gagne. Ne pas modifier ce comportement à l'occasion de retouches UI.
 
@@ -23,9 +23,9 @@ Modes : `domain/mode/AppMode` (`FREE`, `SEMI_FREE`, `RESTRICTED`), choix utilisa
 
 ## Interface et langues (novembre 2026)
 
-- Navigation principale persistante : Accueil / Statistiques / Réglages. Éditeurs, onboarding et sessions sortent de cette navigation. `MobileManagerNavHost` conserve les piles des onglets.
-- Accueil : introduction, permissions manquantes si nécessaire, action de concentration, usage du jour, état de protection, profils et règles. Les boutons de création/règles sont empilés pour les petits écrans.
-- Réglages défilants : protection, langue/mises à jour, avancé. Thème clair/sombre, cartes arrondies et couleurs de surface centralisés dans `ui/theme`.
+- Navigation principale persistante : Menu / Statistiques / Profils / Anti-scroll / Réglages. Éditeurs, onboarding et sessions sortent de cette navigation. `MobileManagerNavHost` conserve les piles des onglets.
+- Menu : illustration de concentration, usage du jour, raccourcis Profils/Anti-scroll, mode et état de protection, profils actifs et habitudes activées. Profils : création et règles globales en tête, activation manuelle directe, liste ordonnée. Anti-scroll : onglets Reels et Shorts / Habitudes (budget partagé, pause, préavis).
+- Réglages : onglets Protection / Application (langue et mises à jour) / Avancé. Thème clair par défaut, lavande/violet/menthe/abricot, cartes blanches arrondies, typographie et couleurs centralisées dans `ui/theme` ; variante sombre conservée pour utilisation explicite. Logo vectoriel téléphone et validation, illustration assortie. Barre principale défilante si la largeur ou la taille de police empêche cinq libellés lisibles ; onglet sélectionné remis en vue. Statistiques : graphique avant le bilan hebdomadaire compact, détails dépliables. Entrées des fonctions en 1–3 appuis depuis les onglets principaux ; saisies, choix multiples, confirmations et protections restent des interactions supplémentaires.
 - Réglages › Avancé : bouton de désinstallation avec message de départ, protégé par AppLock et refusé pendant une session stricte. Retire notre administration active avant ACTION_DELETE sur notre package, puis confirmation Android. En cas d'annulation, les données restent mais l'administration retirée n'est pas réactivée automatiquement.
 - Français par défaut dans `res/values/strings.xml`, traduction complète dans `values-en/strings.xml`. Tout texte UI doit exister dans les deux, avec les mêmes arguments printf. Vérification : `tools/check_resources.py`.
 - `locale/AppLanguage` : LocaleManager Android 13+, préférence privée et contextes localisés Android 10–12. `LocalizedActivity` est la base des trois activités. Les services lisent les ressources de l'application. Les jours Compose utilisent `LocalConfiguration`, les formats hors Compose la locale courante. Ne pas revenir à `Locale.FRENCH` fixe.
@@ -47,7 +47,7 @@ Modes : `domain/mode/AppMode` (`FREE`, `SEMI_FREE`, `RESTRICTED`), choix utilisa
 - `ui/settings/AppPreferences` propose langue et mise à jour, ouvre l'autorisation des sources inconnues si nécessaire, puis l'installateur Android via FileProvider privé (cache/updates uniquement).
 - La confirmation système peut être requise. La mise à jour ne désinstalle pas l'app ; aucune promesse d'installation silencieuse. Une clé différente ne permet pas une mise à jour en place.
 - `.github/workflows/android-release.yml` compile/teste/signe lors d'une Release publiée puis joint l'APK. Secrets et première configuration dans `UPDATES.md`. Aucun secret ni keystore dans Git.
-- Version actuelle 0.3.5 / code 3005 ; propriétés Gradle `releaseVersionName`, `releaseVersionCode`. Code de distribution : major×1 000 000 + minor×1 000 + patch.
+- Version locale 0.4.0 / code 4000 (non publiée) ; propriétés Gradle `releaseVersionName`, `releaseVersionCode`. Code de distribution : major×1 000 000 + minor×1 000 + patch.
 
 ## Commandes Windows
 
@@ -55,7 +55,7 @@ Modes : `domain/mode/AppMode` (`FREE`, `SEMI_FREE`, `RESTRICTED`), choix utilisa
 $env:JAVA_HOME = 'C:/Program Files/Android/Android Studio/jbr'
 ./gradlew.bat :core:domain:test :app:assembleDebug :app:lintDebug --offline
 python tools/check_resources.py
-python doc/tools/gen_docs.py
+python docs/tools/gen_docs.py
 ```
 
 Le Python système peut être un alias Windows inutilisable ; le runtime fourni par l'application possède un Python fonctionnel (`load_workspace_dependencies`). Gradle utilise son cache dans le profil utilisateur : l'environnement sandbox peut nécessiter une autorisation d'accès. Ne pas confondre un refus d'accès au cache avec une erreur du projet.

@@ -33,14 +33,11 @@
     <string name="samsung_battery_title">Recommended Samsung setting</string>
     <string name="samsung_battery_body">In Settings › Battery › Background usage limits, add Mobile Manager to Never sleeping apps. Otherwise, One UI may stop monitoring.</string>
     <string name="samsung_battery_action">Open battery settings</string>
-    <string name="home_title">Mobile Manager</string>
     <string name="home_status_ready">Monitoring is ready</string>
     <string name="home_status_ready_body">Enabled profiles below apply automatically.</string>
     <string name="home_status_incomplete">Some permissions are missing</string>
     <string name="home_status_incomplete_body">Monitoring cannot work reliably yet.</string>
     <string name="home_open_permissions">Review permissions</string>
-    <string name="home_open_settings">Settings</string>
-    <string name="home_profiles">Profiles</string>
     <string name="profile_active_now">Active now</string>
     <string name="profile_manual_only">Manual activation</string>
     <string name="days_every_day">Every day</string>
@@ -196,8 +193,7 @@
     <string name="lock_limits">The PIN adds friction without locking the phone: safe mode or a computer can still bypass it.</string>
     <string name="protected_screen_locked">Protected by a trusted person’s PIN</string>
     <string name="zones_title">Zones and quotas</string>
-    <string name="zones_entry_body">Reels, Shorts: blocked or limited each day</string>
-    <string name="zones_intro">Affects only part of an app: Instagram messages and posts remain accessible. Blocked: the button is hidden and the zone closes automatically. Quota: daily accumulated time, then unavailable until midnight.</string>
+    <string name="zones_intro">Block short videos or set a daily quota. Profile rules still take priority.</string>
     <string name="zones_quota">Quota</string>
     <string name="zones_used_of">%1$s of %2$s today</string>
     <string name="zones_used">%1$s today</string>
@@ -279,11 +275,11 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="navigate_back">Back</string>
-    <string name="nav_home">Home</string>
-    <string name="nav_statistics">Statistics</string>
+    <string name="nav_home">Menu</string>
+    <string name="nav_statistics">Stats</string>
     <string name="home_welcome">Time for yourself.</string>
     <string name="home_subtitle">Set your limits. Find your focus.</string>
-    <string name="settings_protection">Protection and limits</string>
+    <string name="settings_protection">Protection</string>
     <string name="settings_application">Application</string>
     <string name="language_title">Language</string>
     <string name="language_system">Phone language</string>
@@ -433,4 +429,27 @@
     <string name="uninstall_preparing">Preparing…</string>
     <string name="uninstall_locked">Available outside a strict session, after unlocking settings if required.</string>
     <string name="uninstall_failed">Could not open uninstallation. Check that settings are unlocked and review device administration, then try again.</string>
+    <string name="nav_profiles">Profiles</string>
+    <string name="nav_antiscroll">Anti-scroll</string>
+    <string name="hero_eyebrow">YOUR TIME, YOUR BALANCE</string>
+    <string name="profiles_heading">A profile for every moment.</string>
+    <string name="profiles_intro">Organise your rules and schedules. Profiles at the top take priority.</string>
+    <string name="profiles_empty">Create your first profile to organise your focus time.</string>
+    <string name="profiles_shortcut">Your rules, your rhythm.</string>
+    <string name="antiscroll_shortcut">Less scrolling, more choice.</string>
+    <string name="home_active_heading">Right now</string>
+    <string name="antiscroll_title">Anti-doomscroll</string>
+    <string name="antiscroll_zones">Reels &amp; Shorts</string>
+    <string name="antiscroll_habits">Habits</string>
+    <string name="antiscroll_heading">Take back your feed.</string>
+    <string name="habits_heading">Make room for a pause.</string>
+    <string name="habits_intro">A shared budget, a pause before you start and a gentle reminder.</string>
+    <string name="settings_application_heading">Make it yours.</string>
+    <string name="settings_application_intro">Choose your language and keep your app up to date.</string>
+    <plurals name="home_global_summary">
+        <item quantity="one">%1$d restriction configured, subject to profile priorities.</item>
+        <item quantity="other">%1$d restrictions configured, subject to profile priorities.</item>
+    </plurals>
+    <string name="weekly_report_details">View report details</string>
+    <string name="weekly_report_less">Collapse report</string>
 </resources>

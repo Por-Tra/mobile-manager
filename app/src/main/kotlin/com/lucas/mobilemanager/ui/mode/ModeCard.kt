@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -71,11 +72,11 @@ fun ModeCard(viewModel: ModeViewModel = hiltViewModel()) {
     var choosing by remember { mutableStateOf(false) }
     val current = settings ?: return
     val editable = lock?.canModify == true && !session
-    Card(Modifier.fillMaxWidth()) {
+    Card(Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(stringResource(R.string.mode_title), style = MaterialTheme.typography.titleMedium)
             Text(stringResource(current.selectedMode?.let(::modeName) ?: R.string.mode_not_selected), style = MaterialTheme.typography.titleLarge)
-            Text(stringResource(current.selectedMode?.let(::modeDescription) ?: R.string.mode_choose_help))
+            Text(stringResource(current.selectedMode?.let(::modeDescription) ?: R.string.mode_choose_help), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (current.selectedMode == AppMode.SEMI_FREE) {
                 Text(stringResource(if (lock?.isSet == true) R.string.mode_pin_required else R.string.mode_delay_config, current.minimumWaitMinutes))
             }

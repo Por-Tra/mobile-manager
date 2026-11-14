@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.lucas.mobilemanager.locale.LocalizedActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
+import com.lucas.mobilemanager.ui.theme.enableMobileManagerEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -39,7 +39,7 @@ class BlockActivity : LocalizedActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableMobileManagerEdgeToEdge()
         args = BlockScreenArgs.from(intent)
         if (args == null) {
             goHome()

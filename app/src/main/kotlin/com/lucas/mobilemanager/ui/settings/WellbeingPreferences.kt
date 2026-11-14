@@ -42,6 +42,7 @@ fun WellbeingPreferences(viewModel: SettingsViewModel, enabled: Boolean) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(stringResource(R.string.wellbeing_title), style = MaterialTheme.typography.titleMedium)
             ListItem(
+                colors = androidx.compose.material3.ListItemDefaults.colors(containerColor = androidx.compose.ui.graphics.Color.Transparent),
                 headlineContent = { Text(stringResource(R.string.shared_budget_title)) },
                 supportingContent = { Text(stringResource(R.string.shared_budget_body)) },
                 trailingContent = { Switch(prefs.sharedBudgetEnabled, { viewModel.saveBudget(it, prefs.sharedBudgetMinutes, prefs.sharedBudgetPackages) }, enabled = enabled) },
@@ -52,6 +53,7 @@ fun WellbeingPreferences(viewModel: SettingsViewModel, enabled: Boolean) {
             }
             if (prefs.sharedBudgetEnabled && prefs.sharedBudgetPackages.isEmpty()) Text(stringResource(R.string.wellbeing_no_apps))
             ListItem(
+                colors = androidx.compose.material3.ListItemDefaults.colors(containerColor = androidx.compose.ui.graphics.Color.Transparent),
                 headlineContent = { Text(stringResource(R.string.opening_pause_title)) },
                 supportingContent = { Text(stringResource(R.string.opening_pause_setting_body)) },
                 trailingContent = { Switch(prefs.openingPauseEnabled, { viewModel.savePause(it, prefs.openingPauseSeconds, prefs.openingPausePackages) }, enabled = enabled) },
@@ -75,6 +77,7 @@ fun WellbeingPreferences(viewModel: SettingsViewModel, enabled: Boolean) {
             }
             if (prefs.openingPauseEnabled && prefs.openingPausePackages.isEmpty()) Text(stringResource(R.string.wellbeing_no_apps))
             ListItem(
+                colors = androidx.compose.material3.ListItemDefaults.colors(containerColor = androidx.compose.ui.graphics.Color.Transparent),
                 headlineContent = { Text(stringResource(R.string.limit_warning_title)) },
                 supportingContent = { Text(stringResource(R.string.limit_warning_body)) },
                 trailingContent = { Switch(prefs.limitWarningsEnabled, viewModel::setWarnings, enabled = enabled) },

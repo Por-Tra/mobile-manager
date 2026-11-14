@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Icône provisoire : un sablier sobre. L'icône finale arrive en phase 9. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path
-        android:fillColor="@color/ic_launcher_foreground"
-        android:fillType="evenOdd"
-        android:pathData="M38,34h32v4h-3v4c0,6 -4,9.5 -8,12c4,2.5 8,6 8,12v4h3v4H38v-4h3v-4c0,-6 4,-9.5 8,-12c-4,-2.5 -8,-6 -8,-12v-4h-3z M45,38v4c0,4.5 3.5,7 9,10c5.5,-3 9,-5.5 9,-10v-4z M54,58c-5.5,3 -9,5.5 -9,10v2h18v-2c0,-4.5 -3.5,-7 -9,-10z" />
+    <group android:scaleX="0.85" android:scaleY="0.85" android:pivotX="54" android:pivotY="54" android:translateX="-4">
+    <path android:fillColor="#4D2C9E" android:pathData="M42,26h28q8,0 8,8v44q0,8 -8,8H42q-8,0 -8,-8V34q0,-8 8,-8" />
+    <path android:fillColor="#FFFFFF" android:pathData="M39,23h28q8,0 8,8v44q0,8 -8,8H39q-8,0 -8,-8V31q0,-8 8,-8" />
+    <path android:fillColor="#E9DFFF" android:pathData="M38,34h30v37H38z" />
+    <path android:fillColor="#8C63EE" android:pathData="M47,27h12a2,2 0,0 1,0 4H47a2,2 0,0 1,0 -4M49,75h8a2,2 0,0 1,0 4h-8a2,2 0,0 1,0 -4" />
+    <path android:fillColor="#56DBC5" android:pathData="M79,56a16,16 0,1 0,0 32a16,16 0,1 0,0 -32" />
+    <path android:fillColor="#00000000" android:strokeColor="#274E4B" android:strokeWidth="3.5" android:strokeLineCap="round" android:strokeLineJoin="round" android:pathData="M70,72l6,6 10,-12" />
+    </group>
 </vector>

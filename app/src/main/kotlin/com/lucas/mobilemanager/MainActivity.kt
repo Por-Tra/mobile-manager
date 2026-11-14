@@ -3,7 +3,7 @@ package com.lucas.mobilemanager
 import android.os.Bundle
 import com.lucas.mobilemanager.locale.LocalizedActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
+import com.lucas.mobilemanager.ui.theme.enableMobileManagerEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -23,7 +23,7 @@ class MainActivity : LocalizedActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableMobileManagerEdgeToEdge()
         // Ouverture depuis le bandeau du mode diagnostic, après une capture.
         val openDiagnostic = savedInstanceState == null && intent.getBooleanExtra(EXTRA_OPEN_DIAGNOSTIC, false)
         setContent {

@@ -41,14 +41,11 @@
     <string name="samsung_battery_action">Ouvrir les paramètres de batterie</string>
 
     <!-- Accueil -->
-    <string name="home_title">Mobile Manager</string>
     <string name="home_status_ready">Surveillance prête</string>
     <string name="home_status_ready_body">Les profils activés ci-dessous s\'appliquent automatiquement.</string>
     <string name="home_status_incomplete">Il manque des autorisations</string>
     <string name="home_status_incomplete_body">La surveillance ne peut pas encore fonctionner de façon fiable.</string>
     <string name="home_open_permissions">Voir les autorisations</string>
-    <string name="home_open_settings">Réglages</string>
-    <string name="home_profiles">Profils</string>
 
     <!-- Profils -->
     <string name="profile_active_now">Actif maintenant</string>
@@ -250,8 +247,7 @@
 
     <!-- Zones et quotas -->
     <string name="zones_title">Zones et quotas</string>
-    <string name="zones_entry_body">Reels, Shorts : bloqués ou limités chaque jour</string>
-    <string name="zones_intro">Agit seulement sur une partie d\'une app : la messagerie et les publications d\'Instagram restent accessibles. Bloquée : le bouton est masqué et la zone quittée automatiquement. Quota : temps cumulé par jour, puis c\'est fini jusqu\'à minuit.</string>
+    <string name="zones_intro">Bloque les vidéos courtes ou fixe un quota quotidien. Les règles des profils restent prioritaires.</string>
     <string name="zones_quota">Quota</string>
     <string name="zones_used_of">%1$s sur %2$s aujourd\'hui</string>
     <string name="zones_used">%1$s aujourd\'hui</string>
@@ -363,11 +359,11 @@
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <string name="navigate_back">Retour</string>
-    <string name="nav_home">Accueil</string>
-    <string name="nav_statistics">Statistiques</string>
+    <string name="nav_home">Menu</string>
+    <string name="nav_statistics">Stats</string>
     <string name="home_welcome">Du temps pour toi.</string>
     <string name="home_subtitle">Choisis tes limites, retrouve ta concentration.</string>
-    <string name="settings_protection">Protection et limites</string>
+    <string name="settings_protection">Protection</string>
     <string name="settings_application">Application</string>
     <string name="language_title">Langue</string>
     <string name="language_system">Langue du téléphone</string>
@@ -477,4 +473,27 @@
     <string name="uninstall_preparing">Préparation…</string>
     <string name="uninstall_locked">Disponible hors session stricte, après déverrouillage des réglages si nécessaire.</string>
     <string name="uninstall_failed">Impossible d’ouvrir la désinstallation. Vérifiez le déverrouillage des réglages et l’administration de l’appareil, puis réessayez.</string>
+    <string name="nav_profiles">Profils</string>
+    <string name="nav_antiscroll">Anti-scroll</string>
+    <string name="hero_eyebrow">TON TEMPS, TON ÉQUILIBRE</string>
+    <string name="profiles_heading">À chaque moment, son profil.</string>
+    <string name="profiles_intro">Organise tes règles et tes horaires. Les profils les plus hauts sont prioritaires.</string>
+    <string name="profiles_empty">Crée ton premier profil pour organiser tes moments de concentration.</string>
+    <string name="profiles_shortcut">Tes règles, à ton rythme.</string>
+    <string name="antiscroll_shortcut">Moins de défilement, plus de choix.</string>
+    <string name="home_active_heading">En ce moment</string>
+    <string name="antiscroll_title">Anti-doomscroll</string>
+    <string name="antiscroll_zones">Reels et Shorts</string>
+    <string name="antiscroll_habits">Habitudes</string>
+    <string name="antiscroll_heading">Reprends le fil.</string>
+    <string name="habits_heading">Fais une place à la pause.</string>
+    <string name="habits_intro">Un budget commun, une pause avant de commencer et un rappel en douceur.</string>
+    <string name="settings_application_heading">À ta façon.</string>
+    <string name="settings_application_intro">Choisis ta langue et garde ton application à jour.</string>
+    <plurals name="home_global_summary">
+        <item quantity="one">%1$d restriction configurée, selon les priorités des profils.</item>
+        <item quantity="other">%1$d restrictions configurées, selon les priorités des profils.</item>
+    </plurals>
+    <string name="weekly_report_details">Voir le bilan détaillé</string>
+    <string name="weekly_report_less">Réduire le bilan</string>
 </resources>

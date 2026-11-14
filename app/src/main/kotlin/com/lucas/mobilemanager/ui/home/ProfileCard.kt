@@ -93,9 +93,9 @@ fun ProfileCard(
                         modifier = Modifier.padding(top = 4.dp),
                     )
                 }
-                if (item.manual && canActivate) {
-                    TextButton(onClick = onDeactivate, contentPadding = PaddingValues(0.dp)) {
-                        Text(stringResource(R.string.profile_manual_deactivate))
+                if (canActivate) {
+                    TextButton(onClick = if (item.manual) onDeactivate else onActivate, contentPadding = PaddingValues(0.dp)) {
+                        Text(stringResource(if (item.manual) R.string.profile_manual_deactivate else R.string.profile_activate_now))
                     }
                 }
             }

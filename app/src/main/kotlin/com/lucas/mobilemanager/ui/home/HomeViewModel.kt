@@ -17,6 +17,7 @@ import com.lucas.mobilemanager.domain.profiles.ProfileOrdering
 import com.lucas.mobilemanager.domain.repository.ManualActivationRepository
 import com.lucas.mobilemanager.domain.repository.ProfileRepository
 import com.lucas.mobilemanager.domain.repository.StrictSessionRepository
+import com.lucas.mobilemanager.domain.repository.UserPreferencesRepository
 import com.lucas.mobilemanager.domain.time.ScheduleEvaluator
 import com.lucas.mobilemanager.domain.time.TimeProvider
 import com.lucas.mobilemanager.lock.AppLock
@@ -56,8 +57,13 @@ class HomeViewModel @Inject constructor(
     private val dashboardLoader: DashboardLoader,
     private val timeProvider: TimeProvider,
     private val appLock: AppLock,
+    userPreferencesRepository: UserPreferencesRepository,
 ) : ViewModel() {
     val modeSettings = appLock.modeSettings
+    val preferences = userPreferencesRepository.preferences
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+    val globalRules = profileRepository.observeGlobalRules()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     private val _permissions = MutableStateFlow(OnboardingState.from(permissionChecker.currentStatuses()))
     val permissions: StateFlow<OnboardingState> = _permissions.asStateFlow()
@@ -96,10 +102,10 @@ class HomeViewModel @Inject constructor(
     ) { session, _ -> session?.takeIf { it.isRunning(timeProvider.now()) } }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
-    fun refresh() {
+    fun refresh(loadToday: Boolean = true) {
         _permissions.value = OnboardingState.from(permissionChecker.currentStatuses())
         refreshTick.value++
-        viewModelScope.launch { _today.value = dashboardLoader.load(Period.TODAY) }
+        if (loadToday) viewModelScope.launch { _today.value = dashboardLoader.load(Period.TODAY) }
         viewModelScope.launch {
             // Filet de sécurité : si le service de session a été arrêté, on le relance (app au premier plan).
             if (strictSessionRunning()) StrictSessionService.start(context)

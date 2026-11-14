@@ -22,10 +22,10 @@ import com.lucas.mobilemanager.ui.theme.BackgroundDark
 import com.lucas.mobilemanager.ui.theme.BackgroundLight
 import com.lucas.mobilemanager.ui.theme.OnSurfaceDark
 import com.lucas.mobilemanager.ui.theme.OnSurfaceLight
-import com.lucas.mobilemanager.ui.theme.SageDark
-import com.lucas.mobilemanager.ui.theme.SageLight
-import com.lucas.mobilemanager.ui.theme.OnSageDark
-import com.lucas.mobilemanager.ui.theme.OnSageLight
+import com.lucas.mobilemanager.ui.theme.LavenderDark
+import com.lucas.mobilemanager.ui.theme.LavenderLight
+import com.lucas.mobilemanager.ui.theme.OnLavenderDark
+import com.lucas.mobilemanager.ui.theme.OnLavenderLight
 
 /** Recouvre le fil recommandé et absorbe les gestes, en laissant les barres Instagram accessibles. */
 class InstagramFeedShield(
@@ -97,8 +97,8 @@ class InstagramFeedShield(
         content.addView(label(R.string.instagram_feed_paused_help, 16f))
         content.addView(Button(service).apply {
             setText(R.string.instagram_open_following)
-            backgroundTintList = ColorStateList.valueOf((if (dark) SageDark else SageLight).toArgb())
-            setTextColor((if (dark) OnSageDark else OnSageLight).toArgb())
+            backgroundTintList = ColorStateList.valueOf((if (dark) LavenderDark else LavenderLight).toArgb())
+            setTextColor((if (dark) OnLavenderDark else OnLavenderLight).toArgb())
             setOnClickListener { onFollowing() }
         })
         container.addView(content, FrameLayout.LayoutParams(

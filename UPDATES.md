@@ -12,6 +12,12 @@ Les mises à jour sont indisponibles pendant une session stricte ou lorsque le c
 
 La version locale remplace le passage automatique des Reels par un écran qui couvre tout le fil recommandé Instagram, photos comprises, lorsque la règle Reels bloque ou que son quota est atteint. La navigation et les messages restent accessibles. Le bouton « Voir les comptes suivis » ouvre le fil natif « Suivi(e) »/« Following », qui reste disponible, vidéos intégrées comprises ; le lecteur Reels plein écran conserve le blocage habituel. Aucun schéma ni autorisation supplémentaire, aucune collecte d’abonnements. Les détecteurs personnalisés restent prioritaires pour la détection des zones ; leurs anciens champs de défilement sont encore pris en charge. La couverture du fil recommandé s’applique tant qu’une zone `reels` existe dans ces détecteurs. Le masque ne garantit pas l’arrêt du son.
 
+## Version locale 0.4.0 (14 novembre 2026)
+
+Code Android `4000`. Refonte claire lavande/violet/menthe, logo vectoriel assorti, navigation Menu / Statistiques / Profils / Anti-scroll / Réglages. Profils et règles globales ont un accès direct ; Anti-scroll regroupe les zones et les habitudes ; Réglages propose Protection / Application / Avancé. Aucune migration de données ni nouvelle permission. Les entrées des fonctions principales prennent un à trois appuis depuis les onglets ; formulaires, confirmations et déverrouillages gardent leurs étapes.
+
+Cette version est préparée localement, sans publication GitHub automatique. L’APK debug de validation conserve la clé debug locale ; la distribution doit toujours utiliser la même clé que les installations destinataires. Une mise à jour en place conserve les profils, préférences et statistiques.
+
 ## Désinstallation volontaire
 
 Réglages › Avancé › Désinstaller l'application ouvre la confirmation de désinstallation Android. Ce parcours est distinct des mises à jour et exige l'autorisation de modifier les réglages ; il est indisponible pendant une session stricte. Le bouton retire d'abord notre administration de l'appareil si elle est active. Annuler la confirmation conserve l'application et ses données, mais ne réactive pas cette administration automatiquement. Confirmer supprime l'application et ses données locales. Le message de départ rappelle que le temps de l'utilisateur est précieux. Aucun écran de désinstallation d'une autre application n'est ouvert par ce bouton.
@@ -33,7 +39,7 @@ Publier une Release avec un tag stable `v0.2.1`, par exemple. Le workflow `andro
 
 Le workflow installe `platform-tools` explicitement : le paquet historique `tools` n'est plus disponible. Après correction d'un échec CI, utiliser Actions › Signed Android release › Run workflow depuis `main`, avec `release_tag` égal au tag existant. Le code compilé provient de ce tag ; le workflow de relance provient de `main`. Il n'est pas nécessaire de déplacer le tag ou de recréer la Release.
 
-La version doit augmenter. Le code Android est calculé ainsi : `major × 1 000 000 + minor × 1 000 + patch`, avec minor et patch entre 0 et 999. La version courante est `v0.3.5`, code `3005`, après `v0.3.0` (code `3000`). Une future mise à jour devra avoir un code supérieur à `3005`.
+La version doit augmenter. Le code Android est calculé ainsi : `major × 1 000 000 + minor × 1 000 + patch`, avec minor et patch entre 0 et 999. La version locale est `v0.4.0`, code `4000`, après `v0.3.5` (code `3005`). Une future mise à jour devra avoir un code supérieur à `4000`.
 
 ## Contrôles avant installation
 
@@ -51,7 +57,7 @@ Définir `ANDROID_KEYSTORE_PATH` (chemin absolu), `ANDROID_KEYSTORE_PASSWORD`, `
 
 ```powershell
 $env:JAVA_HOME = 'C:/Program Files/Android/Android Studio/jbr'
-./gradlew.bat :core:domain:test :app:lintRelease :app:assembleRelease -PreleaseVersionName=0.3.5 -PreleaseVersionCode=3005
+./gradlew.bat :core:domain:test :app:lintRelease :app:assembleRelease -PreleaseVersionName=0.4.0 -PreleaseVersionCode=4000
 ```
 
 Sans configuration de signature, le build release local produit un APK non signé, qui ne doit pas être publié comme mise à jour. Aucune clé ni Release n'a été créée automatiquement dans le dépôt distant.

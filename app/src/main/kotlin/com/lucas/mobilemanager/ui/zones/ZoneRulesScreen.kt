@@ -48,12 +48,13 @@ fun ZoneRulesScreen(
     onBack: () -> Unit,
     onOpenDefaultRules: () -> Unit,
     viewModel: ZoneRulesViewModel = hiltViewModel(),
+    showTopBar: Boolean = true,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val readOnly = state.locked || !rememberCanModify()
     Scaffold(
         topBar = {
-            TopAppBar(
+            if (showTopBar) TopAppBar(
                 title = { Text(stringResource(R.string.zones_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.navigate_back)) }
@@ -66,7 +67,7 @@ fun ZoneRulesScreen(
             contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            item { Caption(stringResource(R.string.zones_intro)) }
+            item { com.lucas.mobilemanager.ui.components.PageIntro(stringResource(R.string.antiscroll_heading), stringResource(R.string.zones_intro)) }
             item { LockBanner() }
             if (state.locked) item { Caption(stringResource(R.string.locked_during_session)) }
             items(state.zones, key = { "${it.packageName}/${it.zoneId}" }) { zone ->
@@ -89,7 +90,8 @@ fun ZoneRulesScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ZoneRow(zone: ZoneItem, enabled: Boolean, onSetting: (ZoneSetting, Int) -> Unit) {
-    Column {
+    androidx.compose.material3.Card(colors = androidx.compose.material3.CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {
+      Column(Modifier.padding(16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             AppIcon(zone.packageName, Modifier.size(32.dp))
             Spacer(Modifier.width(12.dp))
@@ -123,6 +125,7 @@ private fun ZoneRow(zone: ZoneItem, enabled: Boolean, onSetting: (ZoneSetting, I
         if (zone.packageName == "com.instagram.android" && zone.zoneId == "reels") {
             Caption(stringResource(R.string.instagram_feed_rule_help))
         }
+      }
     }
 }
 
