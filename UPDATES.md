@@ -12,13 +12,13 @@ Les mises à jour sont indisponibles pendant une session stricte ou lorsque le c
 
 La version locale remplace le passage automatique des Reels par un écran qui couvre tout le fil recommandé Instagram, photos comprises, lorsque la règle Reels bloque ou que son quota est atteint. La navigation et les messages restent accessibles. Le bouton « Voir les comptes suivis » ouvre le fil natif « Suivi(e) »/« Following », qui reste disponible, vidéos intégrées comprises ; le lecteur Reels plein écran conserve le blocage habituel. Aucun schéma ni autorisation supplémentaire, aucune collecte d’abonnements. Les détecteurs personnalisés restent prioritaires pour la détection des zones ; leurs anciens champs de défilement sont encore pris en charge. La couverture du fil recommandé s’applique tant qu’une zone `reels` existe dans ces détecteurs. Le masque ne garantit pas l’arrêt du son.
 
-## Version locale 0.4.0 (14 novembre 2026)
+## Version 0.4.1 (14 novembre 2026)
 
-Code Android `4000`. Refonte claire lavande/violet/menthe, logo vectoriel assorti, navigation Menu / Statistiques / Profils / Anti-scroll / Réglages. Profils et règles globales ont un accès direct ; Anti-scroll regroupe les zones et les habitudes ; Réglages propose Protection / Application / Avancé. Aucune migration de données ni nouvelle permission. Les entrées des fonctions principales prennent un à trois appuis depuis les onglets ; formulaires, confirmations et déverrouillages gardent leurs étapes.
+Code Android `4001`. Cette version regroupe les changements testés localement en 0.4.0 / code 4000 et permet aussi leur mise à jour. Refonte claire lavande/violet/menthe, logo vectoriel assorti, navigation Menu / Statistiques / Profils / Anti-scroll / Réglages. Profils et règles globales ont un accès direct ; Anti-scroll regroupe les zones et les habitudes ; Réglages propose Protection / Application / Avancé. Aucune migration de données ni nouvelle permission. Les entrées des fonctions principales prennent un à trois appuis depuis les onglets ; formulaires, confirmations et déverrouillages gardent leurs étapes.
 
 Retouches graphiques locales : scènes natives avec relief, animations d’entrée courtes, anneau de répartition réelle de l’usage, frises horaires des profils et graphique hebdomadaire enrichi. Aucune nouvelle donnée persistée ni réseau ajouté.
 
-Cette version est préparée localement, sans publication GitHub automatique. L’APK debug de validation conserve la clé debug locale ; la distribution doit toujours utiliser la même clé que les installations destinataires. Une mise à jour en place conserve les profils, préférences et statistiques.
+La publication GitHub est déclenchée explicitement à la demande de l’utilisateur, puis le workflow teste et compile l’APK de distribution. La signature historique est conservée : son certificat Android Debug correspond à celui de la Release 0.3.5 et des installations locales validées. Le type de build release ne change pas le nom du certificat. Une mise à jour en place conserve les profils, préférences et statistiques.
 
 ## Désinstallation volontaire
 
@@ -41,7 +41,7 @@ Publier une Release avec un tag stable `v0.2.1`, par exemple. Le workflow `andro
 
 Le workflow installe `platform-tools` explicitement : le paquet historique `tools` n'est plus disponible. Après correction d'un échec CI, utiliser Actions › Signed Android release › Run workflow depuis `main`, avec `release_tag` égal au tag existant. Le code compilé provient de ce tag ; le workflow de relance provient de `main`. Il n'est pas nécessaire de déplacer le tag ou de recréer la Release.
 
-La version doit augmenter. Le code Android est calculé ainsi : `major × 1 000 000 + minor × 1 000 + patch`, avec minor et patch entre 0 et 999. La version locale est `v0.4.0`, code `4000`, après `v0.3.5` (code `3005`). Une future mise à jour devra avoir un code supérieur à `4000`.
+La version doit augmenter. Le code Android est calculé ainsi : `major × 1 000 000 + minor × 1 000 + patch`, avec minor et patch entre 0 et 999. La version de distribution est `v0.4.1`, code `4001`, après `v0.3.5` (code `3005`) et les tests locaux `0.4.0` (code `4000`). Une future mise à jour devra avoir un code supérieur à `4001`.
 
 ## Contrôles avant installation
 
@@ -59,7 +59,7 @@ Définir `ANDROID_KEYSTORE_PATH` (chemin absolu), `ANDROID_KEYSTORE_PASSWORD`, `
 
 ```powershell
 $env:JAVA_HOME = 'C:/Program Files/Android/Android Studio/jbr'
-./gradlew.bat :core:domain:test :app:lintRelease :app:assembleRelease -PreleaseVersionName=0.4.0 -PreleaseVersionCode=4000
+./gradlew.bat :core:domain:test :app:lintRelease :app:assembleRelease -PreleaseVersionName=0.4.1 -PreleaseVersionCode=4001
 ```
 
 Sans configuration de signature, le build release local produit un APK non signé, qui ne doit pas être publié comme mise à jour. Aucune clé ni Release n'a été créée automatiquement dans le dépôt distant.

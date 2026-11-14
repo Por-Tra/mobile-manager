@@ -16,8 +16,8 @@ android {
         applicationId = "com.lucas.mobilemanager"
         minSdk = 29
         targetSdk = 37
-        versionCode = providers.gradleProperty("releaseVersionCode").orElse("4000").get().toInt()
-        versionName = providers.gradleProperty("releaseVersionName").orElse("0.4.0").get()
+        versionCode = providers.gradleProperty("releaseVersionCode").orElse("4001").get().toInt()
+        versionName = providers.gradleProperty("releaseVersionName").orElse("0.4.1").get()
     }
 
     signingConfigs {
