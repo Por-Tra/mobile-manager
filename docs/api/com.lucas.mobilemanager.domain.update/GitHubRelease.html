@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitHubRelease Object - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.update/GitHubRelease.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.update</a> <span class="sep">/</span> <span>GitHubRelease</span></nav>
+    <article>
+<h1>GitHubRelease <span class="h1-kind">object</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.update</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L10">GitHubRelease.kt</a></span></div>
+<div class="kdoc"><p>Validates metadata before offering a download. Rejects incompatible releases.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">object</span> GitHubRelease</code></pre></div>
+<h2 id="nested-types">Nested types</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="GitHubRelease.Release.html"><code>Release</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="GitHubRelease.Asset.html"><code>Asset</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="GitHubRelease.html#m-REPOSITORY"><code>REPOSITORY</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="GitHubRelease.html#m-MAX_APK_SIZE"><code>MAX_APK_SIZE</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="GitHubRelease.html#m-json"><code>json</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="GitHubRelease.html#m-available"><code>available</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-REPOSITORY">
+<h3>REPOSITORY <span class="badge">constant</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">const</span> <span class="kw">val</span> REPOSITORY</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L11">GitHubRelease.kt, line 11</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-MAX_APK_SIZE">
+<h3>MAX_APK_SIZE <span class="badge">constant</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">const</span> <span class="kw">val</span> MAX_APK_SIZE</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L12">GitHubRelease.kt, line 12</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 3 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html">GitHubUpdater.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/update</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L68" title="check(total &lt;= release.size &amp;&amp; total &lt;= MAX_APK_SIZE)">68</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html">GitHubRelease.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L22" title="require(asset.size in 1..MAX_APK_SIZE)">22</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html">GitHubReleaseTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L37" title="asset(hash = &quot;&quot;), asset(hash = &quot;sha256:1234&quot;), asset(size = 0), asset(size = GitHubRelease.MAX_APK_SIZE + 1),">37</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-json">
+<h3>json <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> json</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L13">GitHubRelease.kt, line 13</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html">GitHubRelease.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L5" title="import kotlinx.serialization.json.Json">5</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L16" title="val release = json.decodeFromString&lt;Release&gt;(payload)">16</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-available">
+<h3>available <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> available(payload: String, installedVersion: String): <a href="AppRelease.html">AppRelease</a>?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L15">GitHubRelease.kt, line 15</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">8 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html">GitHubUpdater.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/update</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L39" title="GitHubRelease.available(payload, BuildConfig.VERSION_NAME)">39</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html">GitHubReleaseTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L14" title="val result = GitHubRelease.available(release(assets = asset(hash = &quot;sha256:${digest.uppercase()}&quot;)), &quot;0.2.0&quot;)!!">14</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L20" title="assertNull(GitHubRelease.available(release(tag = &quot;v0.2.0&quot;), &quot;0.2.0&quot;))">20</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L21" title="assertNull(GitHubRelease.available(release(tag = &quot;v0.1.9&quot;), &quot;0.2.0&quot;))">21</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L25" title="assertThrows(IllegalArgumentException::class.java) { GitHubRelease.available(it, &quot;0.2.0&quot;) }">25</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L29" title="assertThrows(NoSuchElementException::class.java) { GitHubRelease.available(release(assets = &quot;&quot;), &quot;0.2.0&quot;) }">29</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L30" title="assertThrows(IllegalArgumentException::class.java) { GitHubRelease.available(release(assets = &quot;${asset()},${asset()}&quot;), &quot;0.2.0&quot;) }">30</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L39" title="assertThrows(IllegalArgumentException::class.java) { GitHubRelease.available(release(assets = it), &quot;0.2.0&quot;) }">39</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">12 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html">GitHubUpdater.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/update</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L7" title="import com.lucas.mobilemanager.domain.update.GitHubRelease">7</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L39" title="GitHubRelease.available(payload, BuildConfig.VERSION_NAME)">39</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L122" title="const val REPOSITORY = GitHubRelease.REPOSITORY">122</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/update/GitHubUpdater.kt.html#L123" title="private const val MAX_APK_SIZE = GitHubRelease.MAX_APK_SIZE">123</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html">GitHubReleaseTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L14" title="val result = GitHubRelease.available(release(assets = asset(hash = &quot;sha256:${digest.uppercase()}&quot;)), &quot;0.2.0&quot;)!!">14</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L20" title="assertNull(GitHubRelease.available(release(tag = &quot;v0.2.0&quot;), &quot;0.2.0&quot;))">20</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L21" title="assertNull(GitHubRelease.available(release(tag = &quot;v0.1.9&quot;), &quot;0.2.0&quot;))">21</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L25" title="assertThrows(IllegalArgumentException::class.java) { GitHubRelease.available(it, &quot;0.2.0&quot;) }">25</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L29" title="assertThrows(NoSuchElementException::class.java) { GitHubRelease.available(release(assets = &quot;&quot;), &quot;0.2.0&quot;) }">29</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L30" title="assertThrows(IllegalArgumentException::class.java) { GitHubRelease.available(release(assets = &quot;${asset()},${asset()}&quot;), &quot;0.2.0&quot;) }">30</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L37" title="asset(hash = &quot;&quot;), asset(hash = &quot;sha256:1234&quot;), asset(size = 0), asset(size = GitHubRelease.MAX_APK_SIZE + 1),">37</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/GitHubReleaseTest.kt.html#L39" title="assertThrows(IllegalArgumentException::class.java) { GitHubRelease.available(release(assets = it), &quot;0.2.0&quot;) }">39</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>docs/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#nested-types">Nested types</a></li><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

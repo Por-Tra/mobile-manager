@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReleaseVersion Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.update/ReleaseVersion.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.update</a> <span class="sep">/</span> <span>ReleaseVersion</span></nav>
+    <article>
+<h1>ReleaseVersion <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.update</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html#L4">ReleaseVersion.kt</a></span></div>
+<div class="kdoc"><p>Stable release tags only. Build metadata does not affect ordering.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">data</span> <span class="kw">class</span> ReleaseVersion(<span class="kw">val</span> major: Int, <span class="kw">val</span> minor: Int, <span class="kw">val</span> patch: Int) : Comparable&lt;ReleaseVersion&gt;</code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Extends / implements</th><td><code>Comparable</code></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="ReleaseVersion.html#m-major"><code>major</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="ReleaseVersion.html#m-minor"><code>minor</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="ReleaseVersion.html#m-patch"><code>patch</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="ReleaseVersion.html#m-compareTo"><code>compareTo</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="companion-members">Companion members</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="ReleaseVersion.html#m-parse"><code>parse</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-major">
+<h3>major <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> major: Int</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html#L4">ReleaseVersion.kt, line 4</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html">ReleaseVersion.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html#L6" title="compareValuesBy(this, other, ReleaseVersion::major, ReleaseVersion::minor, ReleaseVersion::patch)">6</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-minor">
+<h3>minor <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> minor: Int</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html#L4">ReleaseVersion.kt, line 4</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html">ReleaseVersion.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html#L6" title="compareValuesBy(this, other, ReleaseVersion::major, ReleaseVersion::minor, ReleaseVersion::patch)">6</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-patch">
+<h3>patch <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> patch: Int</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html#L4">ReleaseVersion.kt, line 4</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html">ReleaseVersion.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html#L6" title="compareValuesBy(this, other, ReleaseVersion::major, ReleaseVersion::minor, ReleaseVersion::patch)">6</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-compareTo">
+<h3>compareTo <span class="badge">method</span><span class="badge vis">override</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">fun</span> compareTo(other: <a href="ReleaseVersion.html">ReleaseVersion</a>): Int</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html#L5">ReleaseVersion.kt, line 5</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-parse">
+<h3>parse <span class="badge">method</span><span class="badge vis">companion</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> parse(<span class="kw">value</span>: String): <a href="ReleaseVersion.html">ReleaseVersion</a>?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html#L9">ReleaseVersion.kt, line 9</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">6 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html">GitHubRelease.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L18" title="val version = requireNotNull(ReleaseVersion.parse(release.tag))">18</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L19" title="val installed = requireNotNull(ReleaseVersion.parse(installedVersion))">19</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersionTest.kt.html">ReleaseVersionTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersionTest.kt.html#L8" title="assertTrue(ReleaseVersion.parse(&quot;v1.10.0&quot;)!! &gt; ReleaseVersion.parse(&quot;1.9.9&quot;)!!)">8</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersionTest.kt.html#L9" title="assertTrue(ReleaseVersion.parse(&quot;2.0.0&quot;)!! &gt; ReleaseVersion.parse(&quot;1.99.99&quot;)!!)">9</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersionTest.kt.html#L10" title="assertEquals(ReleaseVersion.parse(&quot;1.2.3&quot;), ReleaseVersion.parse(&quot;v1.2.3+build.12&quot;))">10</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersionTest.kt.html#L14" title="assertNull(ReleaseVersion.parse(it), it)">14</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">10 references in 3 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html">GitHubRelease.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L18" title="val version = requireNotNull(ReleaseVersion.parse(release.tag))">18</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/GitHubRelease.kt.html#L19" title="val installed = requireNotNull(ReleaseVersion.parse(installedVersion))">19</a></td></tr><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html">ReleaseVersion.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html#L5" title="override fun compareTo(other: ReleaseVersion): Int =">5</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html#L6" title="compareValuesBy(this, other, ReleaseVersion::major, ReleaseVersion::minor, ReleaseVersion::patch)">6</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html#L9" title="fun parse(value: String): ReleaseVersion? {">9</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersion.kt.html#L12" title="return ReleaseVersion(parts[0], parts[1], parts[2])">12</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersionTest.kt.html">ReleaseVersionTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersionTest.kt.html#L8" title="assertTrue(ReleaseVersion.parse(&quot;v1.10.0&quot;)!! &gt; ReleaseVersion.parse(&quot;1.9.9&quot;)!!)">8</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersionTest.kt.html#L9" title="assertTrue(ReleaseVersion.parse(&quot;2.0.0&quot;)!! &gt; ReleaseVersion.parse(&quot;1.99.99&quot;)!!)">9</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersionTest.kt.html#L10" title="assertEquals(ReleaseVersion.parse(&quot;1.2.3&quot;), ReleaseVersion.parse(&quot;v1.2.3+build.12&quot;))">10</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/update/ReleaseVersionTest.kt.html#L14" title="assertNull(ReleaseVersion.parse(it), it)">14</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>docs/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#companion-members">Companion members</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

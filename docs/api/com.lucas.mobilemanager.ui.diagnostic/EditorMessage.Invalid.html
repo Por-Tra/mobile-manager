@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EditorMessage.Invalid Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.diagnostic/EditorMessage.Invalid.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.ui.diagnostic</a> <span class="sep">/</span> <a href="EditorMessage.html">EditorMessage</a> <span class="sep">/</span> <span>Invalid</span></nav>
+    <article>
+<h1>EditorMessage.Invalid <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.ui.diagnostic</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticViewModel.kt.html#L28">DiagnosticViewModel.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">data</span> <span class="kw">class</span> Invalid(<span class="kw">val</span> error: <a href="../com.lucas.mobilemanager.domain.zones/ZoneDetectorParser.html">ZoneDetectorParser</a>.<a href="../com.lucas.mobilemanager.domain.zones/ZoneDetectorParser.Result.html">Result</a>.Invalid) : <a href="EditorMessage.html">EditorMessage</a></code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Nested in</th><td><a href="EditorMessage.html"><code>EditorMessage</code></a></td></tr><tr><th>Extends / implements</th><td><a href="EditorMessage.html"><code>EditorMessage</code></a></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="EditorMessage.Invalid.html#m-error"><code>error</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-error">
+<h3>error <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> error: <a href="../com.lucas.mobilemanager.domain.zones/ZoneDetectorParser.html">ZoneDetectorParser</a>.<a href="../com.lucas.mobilemanager.domain.zones/ZoneDetectorParser.Result.html">Result</a>.<a href="EditorMessage.Invalid.html">Invalid</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticViewModel.kt.html#L28">DiagnosticViewModel.kt, line 28</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">9 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html">DiagnosticScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L156" title="is EditorMessage.Invalid -&gt; detectorErrorText(it.error)">156</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L212" title="private fun detectorErrorText(error: ZoneDetectorParser.Result.Invalid): String {">212</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L213" title="val reason = error.reason">213</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L215" title="ZoneDetectorParser.Error.JSON -&gt; stringResource(R.string.detector_invalid_json, error.detail)">215</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L216" title="ZoneDetectorParser.Error.VERSION -&gt; stringResource(R.string.detector_version, error.version, ZoneDetectorFile.SUPPORTED_VERSION)">216</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L224" title="}, error.location)">224</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectorParserTest.kt.html">ZoneDetectorParserTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectorParserTest.kt.html#L37" title="val error = invalid(zoneJson(version = 2))">37</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectorParserTest.kt.html#L38" title="assertEquals(ZoneDetectorParser.Error.VERSION, error.reason)">38</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/zones/ZoneDetectorParserTest.kt.html#L39" title="assertEquals(2, error.version)">39</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">5 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html">DiagnosticScreen.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L156" title="is EditorMessage.Invalid -&gt; detectorErrorText(it.error)">156</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L158" title="color = if (it is EditorMessage.Invalid) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary,">158</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticScreen.kt.html#L212" title="private fun detectorErrorText(error: ZoneDetectorParser.Result.Invalid): String {">212</a></td></tr><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticViewModel.kt.html">DiagnosticViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticViewModel.kt.html#L71" title="is ZoneDetectorParser.Result.Invalid -&gt; EditorMessage.Invalid(result)">71</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/DiagnosticViewModel.kt.html#L80" title="is ZoneDetectorParser.Result.Invalid -&gt; EditorMessage.Invalid(result)">80</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>docs/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

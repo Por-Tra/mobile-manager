@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpeningPauseState Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.rules/OpeningPauseState.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.rules</a> <span class="sep">/</span> <span>OpeningPauseState</span></nav>
+    <article>
+<h1>OpeningPauseState <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.rules</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L7">HabitSupport.kt</a></span></div>
+<div class="kdoc"><p>Permission to continue applies only to the current visit to the app.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">class</span> OpeningPauseState</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="OpeningPauseState.html#m-foreground"><code>foreground</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="OpeningPauseState.html#m-passed"><code>passed</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="OpeningPauseState.html#m-onForeground"><code>onForeground</code></a></td><td>Returns true when any pause for the previous foreground app must be removed.</td></tr><tr><td><a href="OpeningPauseState.html#m-needsPause"><code>needsPause</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="OpeningPauseState.html#m-continueOpening"><code>continueOpening</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="OpeningPauseState.html#m-reset"><code>reset</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-foreground">
+<h3>foreground <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">var</span> foreground: String?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L8">HabitSupport.kt, line 8</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html">HabitSupport.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L13" title="if (foreground == packageName) return false">13</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L14" title="foreground = packageName">14</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L19" title="fun needsPause(packageName: String): Boolean = foreground == packageName &amp;&amp; passed != packageName">19</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L20" title="fun continueOpening(packageName: String) { if (foreground == packageName) passed = packageName }">20</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L21" title="fun reset() { foreground = null; passed = null }">21</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-passed">
+<h3>passed <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">var</span> passed: String?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L9">HabitSupport.kt, line 9</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html">HabitSupport.kt</a><div class="path">core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain</td><td class="lines"><a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L15" title="passed = null">15</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L19" title="fun needsPause(packageName: String): Boolean = foreground == packageName &amp;&amp; passed != packageName">19</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L20" title="fun continueOpening(packageName: String) { if (foreground == packageName) passed = packageName }">20</a>, <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L21" title="fun reset() { foreground = null; passed = null }">21</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-onForeground">
+<h3>onForeground <span class="badge">method</span></h3>
+<div class="kdoc"><p>Returns true when any pause for the previous foreground app must be removed.</p></div>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> onForeground(packageName: String?): Boolean</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L12">HabitSupport.kt, line 12</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">7 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/OpeningPauseOverlay.kt.html">OpeningPauseOverlay.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/OpeningPauseOverlay.kt.html#L31" title="if (state.onForeground(packageName)) clear()">31</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html">HabitSupportTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L11" title="assertTrue(state.onForeground(&quot;a&quot;))">11</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L14" title="assertFalse(state.onForeground(&quot;a&quot;))">14</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L16" title="state.onForeground(&quot;b&quot;)">16</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L17" title="state.onForeground(&quot;a&quot;)">17</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L23" title="state.onForeground(&quot;a&quot;)">23</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L26" title="state.onForeground(&quot;a&quot;)">26</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-needsPause">
+<h3>needsPause <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> needsPause(packageName: String): Boolean</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L19">HabitSupport.kt, line 19</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">6 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/OpeningPauseOverlay.kt.html">OpeningPauseOverlay.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/OpeningPauseOverlay.kt.html#L35" title="if (!state.needsPause(packageName) || view != null) return">35</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html">HabitSupportTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L12" title="assertTrue(state.needsPause(&quot;a&quot;))">12</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L15" title="assertFalse(state.needsPause(&quot;a&quot;))">15</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L18" title="assertTrue(state.needsPause(&quot;a&quot;))">18</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L27" title="assertTrue(state.needsPause(&quot;a&quot;))">27</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L29" title="assertTrue(state.needsPause(&quot;a&quot;))">29</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-continueOpening">
+<h3>continueOpening <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> continueOpening(packageName: String)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L20">HabitSupport.kt, line 20</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/OpeningPauseOverlay.kt.html">OpeningPauseOverlay.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/OpeningPauseOverlay.kt.html#L59" title="state.continueOpening(packageName)">59</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html">HabitSupportTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L13" title="state.continueOpening(&quot;a&quot;)">13</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L24" title="state.continueOpening(&quot;a&quot;)">24</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L28" title="state.continueOpening(&quot;b&quot;)">28</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-reset">
+<h3>reset <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> reset()</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupport.kt.html#L21">HabitSupport.kt, line 21</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html">HabitSupportTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L21" title="@Test fun `screen off reset revokes previous continuation`() {">21</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L25" title="state.reset()">25</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">3 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/OpeningPauseOverlay.kt.html">OpeningPauseOverlay.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/enforcement</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/enforcement/OpeningPauseOverlay.kt.html#L27" title="private val state = com.lucas.mobilemanager.domain.rules.OpeningPauseState()">27</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html">HabitSupportTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L10" title="val state = OpeningPauseState()">10</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/rules/HabitSupportTest.kt.html#L22" title="val state = OpeningPauseState()">22</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>docs/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>
