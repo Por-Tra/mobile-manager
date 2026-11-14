@@ -59,7 +59,7 @@ Définir `ANDROID_KEYSTORE_PATH` (chemin absolu), `ANDROID_KEYSTORE_PASSWORD`, `
 
 ```powershell
 $env:JAVA_HOME = 'C:/Program Files/Android/Android Studio/jbr'
-./gradlew.bat :core:domain:test :app:lintRelease :app:assembleRelease -PreleaseVersionName=0.4.1 -PreleaseVersionCode=4001
+./gradlew.bat :core:domain:test :app:lintRelease :app:assembleRelease '-PreleaseVersionName=0.4.1' '-PreleaseVersionCode=4001'
 ```
 
 Sans configuration de signature, le build release local produit un APK non signé, qui ne doit pas être publié comme mise à jour. Aucune clé ni Release n'a été créée automatiquement dans le dépôt distant.
