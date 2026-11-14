@@ -13,6 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import com.lucas.mobilemanager.ui.components.entranceProgress
+import com.lucas.mobilemanager.ui.theme.GraphicColors as G
+import com.lucas.mobilemanager.ui.format.Formats
+import com.lucas.mobilemanager.R
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -30,29 +38,47 @@ import java.time.format.TextStyle
 fun WeekChart(week: List<DayTotal>, goal: Duration?, description: String, modifier: Modifier = Modifier) {
     val primary = MaterialTheme.colorScheme.primary
     val past = MaterialTheme.colorScheme.primaryContainer
+    val grid = MaterialTheme.colorScheme.outlineVariant
+    val progress = entranceProgress()
+    val missing = stringResource(R.string.graphic_no_data)
+    val locale = LocalConfiguration.current.locales[0]
+    val accessible = description + ": " + week.joinToString("; ") {
+        it.date.dayOfWeek.getDisplayName(TextStyle.FULL, locale) + ": " + if (it.hasData) Formats.duration(it.total) else missing
+    }
     val overGoal = MaterialTheme.colorScheme.tertiary
     val goalLine = MaterialTheme.colorScheme.onSurfaceVariant
     val maxMinutes = (week.maxOfOrNull { it.total.toMinutes() } ?: 0L)
         .coerceAtLeast(goal?.toMinutes() ?: 0L)
         .coerceAtLeast(30L) * 1.1f
 
-    Column(modifier.semantics { contentDescription = description }) {
+    Column(modifier.semantics { contentDescription = accessible }) {
         Canvas(Modifier.fillMaxWidth().height(140.dp)) {
+            if (week.isEmpty()) return@Canvas
             val slot = size.width / week.size
-            val barWidth = slot * 0.55f
+            val barWidth = slot * .48f
+            for (line in 1..3) {
+                val y = size.height * line / 3
+                drawLine(grid.copy(alpha = .5f), Offset(0f, y), Offset(size.width, y), 1.dp.toPx(), pathEffect = PathEffect.dashPathEffect(floatArrayOf(4.dp.toPx(), 4.dp.toPx())))
+            }
             week.forEachIndexed { index, day ->
-                val height = size.height * (day.total.toMinutes() / maxMinutes)
+                val x = slot * index + (slot - barWidth) / 2
+                if (index == week.lastIndex) drawRoundRect(past.copy(alpha = .45f), Offset(slot * index + 2.dp.toPx(), 0f), Size(slot - 4.dp.toPx(), size.height), CornerRadius(12.dp.toPx()))
+                if (!day.hasData) {
+                    drawCircle(grid, 3.dp.toPx(), Offset(slot * (index + .5f), size.height - 3.dp.toPx()), style = Stroke(1.5.dp.toPx()))
+                    return@forEachIndexed
+                }
+                val height = (size.height - 10.dp.toPx()) * (day.total.toMinutes() / maxMinutes) * progress
                 val color = when {
                     goal != null && day.total > goal -> overGoal
                     index == week.lastIndex -> primary
-                    else -> past
+                    else -> G.chart[index % G.chart.size]
                 }
-                drawRoundRect(
-                    color = color,
-                    topLeft = Offset(slot * index + (slot - barWidth) / 2, size.height - height),
-                    size = Size(barWidth, height),
-                    cornerRadius = CornerRadius(6.dp.toPx()),
-                )
+                if (height > 0) {
+                    drawRoundRect(Brush.verticalGradient(listOf(color.copy(alpha = .5f), color)), Offset(x, size.height - height), Size(barWidth, height), CornerRadius(8.dp.toPx()))
+                    drawCircle(Color.White, 2.5.dp.toPx(), Offset(slot * (index + .5f), size.height - height + 7.dp.toPx()))
+                } else {
+                    drawCircle(color, 3.dp.toPx(), Offset(slot * (index + .5f), size.height - 3.dp.toPx()))
+                }
             }
             goal?.let {
                 val y = size.height - size.height * (it.toMinutes() / maxMinutes)

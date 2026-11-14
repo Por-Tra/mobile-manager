@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
@@ -74,8 +75,16 @@ fun ModeCard(viewModel: ModeViewModel = hiltViewModel()) {
     val editable = lock?.canModify == true && !session
     Card(Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(stringResource(R.string.mode_title), style = MaterialTheme.typography.titleMedium)
-            Text(stringResource(current.selectedMode?.let(::modeName) ?: R.string.mode_not_selected), style = MaterialTheme.typography.titleLarge)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                com.lucas.mobilemanager.ui.components.GraphicScene(
+                    if (current.selectedMode == AppMode.FREE) com.lucas.mobilemanager.ui.components.SceneKind.BALANCE else com.lucas.mobilemanager.ui.components.SceneKind.SHIELD,
+                    Modifier.size(72.dp),
+                )
+                Column(Modifier.weight(1f).padding(start = 8.dp)) {
+                    Text(stringResource(R.string.mode_title), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(stringResource(current.selectedMode?.let(::modeName) ?: R.string.mode_not_selected), style = MaterialTheme.typography.titleLarge)
+                }
+            }
             Text(stringResource(current.selectedMode?.let(::modeDescription) ?: R.string.mode_choose_help), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (current.selectedMode == AppMode.SEMI_FREE) {
                 Text(stringResource(if (lock?.isSet == true) R.string.mode_pin_required else R.string.mode_delay_config, current.minimumWaitMinutes))

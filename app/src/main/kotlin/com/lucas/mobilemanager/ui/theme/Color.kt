@@ -2,6 +2,18 @@ package com.lucas.mobilemanager.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+internal object GraphicColors {
+    val iris = Color(0xFF8C63EE)
+    val deep = Color(0xFF4D2C9E)
+    val lavender = Color(0xFFD9C8FF)
+    val mint = Color(0xFF56DBC5)
+    val mintLight = Color(0xFFCBFFF0)
+    val apricot = Color(0xFFFFC778)
+    val blue = Color(0xFF8AAEFF)
+    val ink = Color(0xFF30205D)
+    val chart = listOf(iris, mint, apricot, blue, lavender)
+}
+
 // Lavender, mint and apricot: calm accents, including when a limit is reached.
 
 internal val LavenderLight = Color(0xFF6943CC)

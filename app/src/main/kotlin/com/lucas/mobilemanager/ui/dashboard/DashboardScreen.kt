@@ -152,14 +152,7 @@ private fun TotalCard(summary: DashboardSummary, period: Period) {
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Column(Modifier.padding(16.dp)) {
-            Text(
-                stringResource(if (period == Period.TODAY) R.string.dashboard_total_today else R.string.dashboard_total_week),
-                style = MaterialTheme.typography.labelLarge,
-            )
-            Text(Formats.duration(summary.total), style = MaterialTheme.typography.displaySmall)
-            Text(comparisonText(summary, period), style = MaterialTheme.typography.bodyMedium)
-        }
+        com.lucas.mobilemanager.ui.components.UsageOverview(summary, period)
     }
 }
 

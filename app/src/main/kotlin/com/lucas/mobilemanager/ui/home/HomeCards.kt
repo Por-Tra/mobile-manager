@@ -3,6 +3,7 @@ package com.lucas.mobilemanager.ui.home
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -21,7 +22,6 @@ import com.lucas.mobilemanager.domain.dashboard.DashboardSummary
 import com.lucas.mobilemanager.domain.dashboard.Period
 import com.lucas.mobilemanager.domain.model.StrictSession
 import com.lucas.mobilemanager.domain.onboarding.OnboardingState
-import com.lucas.mobilemanager.ui.dashboard.comparisonText
 import com.lucas.mobilemanager.ui.format.Formats
 import com.lucas.mobilemanager.ui.theme.LocalExtendedColors
 import java.time.ZoneId
@@ -34,11 +34,7 @@ internal fun TodayCard(summary: DashboardSummary, onOpen: () -> Unit) {
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Column(Modifier.padding(20.dp)) {
-            Text(stringResource(R.string.home_today), style = MaterialTheme.typography.labelLarge)
-            Text(Formats.duration(summary.total), style = MaterialTheme.typography.headlineMedium)
-            Text(comparisonText(summary, Period.TODAY), style = MaterialTheme.typography.bodySmall)
-        }
+        com.lucas.mobilemanager.ui.components.UsageOverview(summary, Period.TODAY)
     }
 }
 
@@ -61,6 +57,10 @@ internal fun StatusCard(permissions: OnboardingState, blocksEnabled: Boolean, on
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(Modifier.padding(16.dp)) {
+            com.lucas.mobilemanager.ui.components.GraphicScene(
+                if (blocksEnabled) com.lucas.mobilemanager.ui.components.SceneKind.SHIELD else com.lucas.mobilemanager.ui.components.SceneKind.BALANCE,
+                Modifier.fillMaxWidth().height(84.dp),
+            )
             Text(
                 stringResource(if (!blocksEnabled) R.string.mode_free_status else if (ready) R.string.home_status_ready else R.string.home_status_incomplete),
                 style = MaterialTheme.typography.titleMedium,

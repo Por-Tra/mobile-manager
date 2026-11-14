@@ -85,6 +85,7 @@ fun ProfileCard(
                     item.activeNow -> stringResource(R.string.profile_active_now)
                     else -> null
                 }
+                com.lucas.mobilemanager.ui.components.ScheduleRibbon(item.profile.schedules, item.profile.enabled, Modifier.padding(top = 8.dp, bottom = 4.dp))
                 badge?.let {
                     Text(
                         it,

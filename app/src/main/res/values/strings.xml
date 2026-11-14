@@ -293,7 +293,6 @@
     <string name="diagnostic_editor_reset_done">Détecteurs d\'origine rétablis.</string>
 
     <!-- Tableau de bord : mesurer sans juger -->
-    <string name="home_today">Aujourd\'hui</string>
     <string name="dashboard_title">Tableau de bord</string>
     <string name="dashboard_today">Aujourd\'hui</string>
     <string name="dashboard_week">7 jours</string>
@@ -496,4 +495,13 @@
     </plurals>
     <string name="weekly_report_details">Voir le bilan détaillé</string>
     <string name="weekly_report_less">Réduire le bilan</string>
+    <string name="graphic_usage_distribution">Répartition du temps d\'écran entre les applications</string>
+    <string name="graphic_app_share">%1$d %%</string>
+    <string name="graphic_schedule_union">Plages sur 24 heures, tous les jours sélectionnés confondus. Les jours exacts figurent dans le résumé du profil.</string>
+    <string name="graphic_axis_start">00:00</string>
+    <string name="graphic_axis_middle">12:00</string>
+    <string name="graphic_axis_end">24:00</string>
+    <string name="graphic_no_data">Données absentes</string>
+    <string name="graphic_app_share_small" formatted="false">&lt; 1 %</string>
+    <string name="graphic_app_distribution_label">%1$s : %2$s du temps d\'écran</string>
 </resources>

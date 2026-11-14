@@ -54,6 +54,12 @@ export JAVA_HOME="/c/Program Files/Android/Android Studio/jbr"
 - Aucun changement du moteur, des données persistées, des autorisations ou de la priorité des règles. Les états libres ne présentent pas les restrictions enregistrées comme des blocages actifs.
 
 
+### Enrichissement graphique (14 novembre 2026)
+- `GraphicScenes` dessine cinq scènes vectorielles natives : téléphone de concentration, profils empilés, carte vidéo en pause, équilibre et bouclier. Volumes, ombres, dégradés et particules fixes remplacent les cadres purement textuels. `GraphicColors` centralise les accents ; aucun asset distant ni dépendance supplémentaire.
+- Entrées finies de 700 ms via `Animatable`, pressions des raccourcis via l’interaction Material et `animateFloatAsState`. Pas de boucle permanente. Les animations Compose utilisent l’échelle de durée système.
+- `UsageOverview` regroupe total, anneau de répartition réelle et trois principales applications avec leurs pourcentages. Aucun objectif fictif ; sans usage, anneau vide. Le graphique hebdomadaire conserve les durées réelles, différencie les jours sans données et fournit les valeurs en sémantique d’accessibilité.
+- `ScheduleRibbon` illustre l’union des horaires d’un profil sur 24 heures, tous jours sélectionnés confondus ; les jours restent détaillés dans le résumé. Minuit et plages traversant minuit sont représentés. Les illustrations n’indiquent pas une permission ou un blocage effectif à elles seules.
+
 ### Habitudes, bilan et diagnostic (novembre 2026)
 - `UninstallPreference` dans Réglages › Avancé affiche le message de départ français/anglais et ouvre la confirmation Android via ACTION_DELETE pour notre package exclusivement (`REQUEST_DELETE_PACKAGES`). `SettingsViewModel.canUninstall` revérifie AppLock et la session avant de retirer notre administration active et avant de lancer l'intent. Retrait asynchrone borné à 2 s ; échec visible sans fermer l'app. Android supprime les données si l'utilisateur confirme. Annuler conserve les données, mais l'administration retirée reste désactivée (expliqué avant le clic). Aucune désinstallation silencieuse.
 - Les options de budget partagé, de pause d'ouverture et de préavis vivent dans `UserPreferences`/DataStore ; aucun changement Room. Budget et pause désactivés par défaut, préavis activé. Modifications refusées par `SettingsViewModel` si AppLock verrouille ou qu'une session stricte est active, avec revérification lors de l'enregistrement.

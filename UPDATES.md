@@ -16,6 +16,8 @@ La version locale remplace le passage automatique des Reels par un écran qui co
 
 Code Android `4000`. Refonte claire lavande/violet/menthe, logo vectoriel assorti, navigation Menu / Statistiques / Profils / Anti-scroll / Réglages. Profils et règles globales ont un accès direct ; Anti-scroll regroupe les zones et les habitudes ; Réglages propose Protection / Application / Avancé. Aucune migration de données ni nouvelle permission. Les entrées des fonctions principales prennent un à trois appuis depuis les onglets ; formulaires, confirmations et déverrouillages gardent leurs étapes.
 
+Retouches graphiques locales : scènes natives avec relief, animations d’entrée courtes, anneau de répartition réelle de l’usage, frises horaires des profils et graphique hebdomadaire enrichi. Aucune nouvelle donnée persistée ni réseau ajouté.
+
 Cette version est préparée localement, sans publication GitHub automatique. L’APK debug de validation conserve la clé debug locale ; la distribution doit toujours utiliser la même clé que les installations destinataires. Une mise à jour en place conserve les profils, préférences et statistiques.
 
 ## Désinstallation volontaire

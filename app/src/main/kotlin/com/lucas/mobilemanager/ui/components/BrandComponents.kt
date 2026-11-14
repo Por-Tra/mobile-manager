@@ -1,5 +1,12 @@
 package com.lucas.mobilemanager.ui.components
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.graphicsLayer
+import com.lucas.mobilemanager.ui.theme.GraphicColors as G
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -33,22 +40,42 @@ fun PageTopBar(title: String) {
 }
 
 @Composable
-fun PageIntro(title: String, body: String) {
-    Column(Modifier.padding(top = 8.dp, bottom = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(title, style = MaterialTheme.typography.headlineLarge)
-        Text(body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+fun PageIntro(title: String, body: String, scene: SceneKind = SceneKind.PROFILES) {
+    val mint = scene == SceneKind.SCROLL || scene == SceneKind.BALANCE
+    val colors = MaterialTheme.colorScheme
+    Column(
+        Modifier.fillMaxWidth().padding(vertical = 8.dp).clip(RoundedCornerShape(26.dp))
+            .background(Brush.linearGradient(listOf(if (mint) colors.secondaryContainer else colors.primaryContainer, colors.surfaceContainerLow)))
+            .padding(18.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(title, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.weight(1f))
+            GraphicScene(scene, Modifier.size(92.dp))
+        }
+        Text(body, style = MaterialTheme.typography.bodyMedium, color = colors.onSurfaceVariant)
     }
 }
 
 @Composable
 fun FeatureTile(title: String, body: String, icon: ImageVector, modifier: Modifier = Modifier, mint: Boolean = false, onClick: () -> Unit) {
     val colors = MaterialTheme.colorScheme
-    Card(onClick = onClick, modifier = modifier, colors = CardDefaults.cardColors(containerColor = if (mint) colors.secondaryContainer else colors.primaryContainer)) {
-        Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Surface(shape = RoundedCornerShape(16.dp), color = colors.surfaceContainerLow) {
-                Icon(icon, null, Modifier.padding(12.dp).size(26.dp), tint = if (mint) colors.secondary else colors.primary)
+    val interaction = remember { MutableInteractionSource() }
+    val pressed by interaction.collectIsPressedAsState()
+    val scale by animateFloatAsState(if (pressed) .96f else 1f, label = "feature press")
+    Card(
+        onClick = onClick,
+        interactionSource = interaction,
+        modifier = modifier.graphicsLayer { scaleX = scale; scaleY = scale },
+        colors = CardDefaults.cardColors(containerColor = if (mint) colors.secondaryContainer else colors.primaryContainer),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp, pressedElevation = 0.dp),
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            GraphicScene(if (mint) SceneKind.SCROLL else SceneKind.PROFILES, Modifier.fillMaxWidth().height(112.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(icon, null, Modifier.size(18.dp), tint = if (mint) colors.secondary else colors.primary)
+                Text(title, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f).padding(start = 6.dp))
             }
-            Text(title, style = MaterialTheme.typography.titleMedium)
             Text(body, style = MaterialTheme.typography.bodySmall)
             Icon(Icons.AutoMirrored.Outlined.ArrowForward, null, Modifier.size(20.dp))
         }
@@ -57,20 +84,29 @@ fun FeatureTile(title: String, body: String, icon: ImageVector, modifier: Modifi
 
 @Composable
 fun FocusHero(onClick: () -> Unit, enabled: Boolean) {
-    Card(colors = CardDefaults.cardColors(containerColor = Color(0xFFECE3FF)), modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.background(Brush.linearGradient(listOf(Color(0xFFF0E9FF), Color(0xFFDDD0FF)))).padding(22.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text(stringResource(R.string.hero_eyebrow), style = MaterialTheme.typography.labelLarge, color = Color(0xFF5935AA))
-                    Text(stringResource(R.string.home_welcome), style = MaterialTheme.typography.headlineLarge, color = Color(0xFF30205D))
+    Card(
+        colors = CardDefaults.cardColors(containerColor = G.deep, contentColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Box(Modifier.background(Brush.linearGradient(listOf(G.iris, G.deep)))) {
+            androidx.compose.foundation.Canvas(Modifier.matchParentSize()) {
+                drawCircle(Color.White.copy(alpha = .07f), size.width * .6f, androidx.compose.ui.geometry.Offset(size.width, 0f))
+                drawCircle(Color.White.copy(alpha = .05f), size.width * .7f, androidx.compose.ui.geometry.Offset(size.width * .9f, size.height))
+            }
+            Column(Modifier.padding(22.dp)) {
+                Text(stringResource(R.string.hero_eyebrow), style = MaterialTheme.typography.labelMedium, color = G.mintLight)
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 12.dp)) {
+                    Text(stringResource(R.string.home_welcome), style = MaterialTheme.typography.headlineLarge, modifier = Modifier.weight(1f))
+                    GraphicScene(SceneKind.FOCUS, Modifier.size(126.dp))
                 }
-                Image(painterResource(R.drawable.ic_focus_illustration), null, Modifier.size(112.dp))
+                Text(stringResource(R.string.home_subtitle), Modifier.padding(top = 8.dp, bottom = 16.dp), style = MaterialTheme.typography.bodyMedium, color = Color.White.copy(alpha = .9f))
+                Button(
+                    onClick = onClick, enabled = enabled, modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = G.deep, disabledContainerColor = Color.White.copy(alpha = .18f), disabledContentColor = Color.White.copy(alpha = .75f)),
+                ) { Text(stringResource(R.string.session_card_start)) }
+                if (!enabled) Text(stringResource(R.string.mode_session_disabled), style = MaterialTheme.typography.bodySmall, color = Color.White.copy(alpha = .85f), modifier = Modifier.padding(top = 8.dp))
             }
-            Text(stringResource(R.string.home_subtitle), Modifier.padding(top = 10.dp, bottom = 16.dp), style = MaterialTheme.typography.bodyMedium, color = Color(0xFF514368))
-            Button(onClick = onClick, enabled = enabled, modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(R.string.session_card_start))
-            }
-            if (!enabled) Text(stringResource(R.string.mode_session_disabled), style = MaterialTheme.typography.bodySmall, color = Color(0xFF514368), modifier = Modifier.padding(top = 8.dp))
         }
     }
 }

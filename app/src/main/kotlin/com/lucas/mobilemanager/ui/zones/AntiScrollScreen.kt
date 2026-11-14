@@ -34,7 +34,7 @@ fun AntiScrollScreen(onOpenDefaultRules: () -> Unit, viewModel: SettingsViewMode
                 ZoneRulesScreen(onBack = {}, onOpenDefaultRules = onOpenDefaultRules, showTopBar = false)
             } else {
                 Column(Modifier.verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                    PageIntro(stringResource(R.string.habits_heading), stringResource(R.string.habits_intro))
+                    PageIntro(stringResource(R.string.habits_heading), stringResource(R.string.habits_intro), com.lucas.mobilemanager.ui.components.SceneKind.BALANCE)
                     WellbeingPreferences(viewModel, enabled = !session && lock?.canModify == true)
                 }
             }

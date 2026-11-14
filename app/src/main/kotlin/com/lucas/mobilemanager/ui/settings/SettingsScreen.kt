@@ -81,7 +81,7 @@ fun SettingsScreen(
                             ProtectionDiagnostic(viewModel, onOpenPermissions)
                         }
                         1 -> {
-                            com.lucas.mobilemanager.ui.components.PageIntro(stringResource(R.string.settings_application_heading), stringResource(R.string.settings_application_intro))
+                            com.lucas.mobilemanager.ui.components.PageIntro(stringResource(R.string.settings_application_heading), stringResource(R.string.settings_application_intro), com.lucas.mobilemanager.ui.components.SceneKind.BALANCE)
                             Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) { LanguagePreference() }
                             Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) { UpdatePreference(enabled = !sessionRunning && lockStatus?.canModify == true) }
                         }
