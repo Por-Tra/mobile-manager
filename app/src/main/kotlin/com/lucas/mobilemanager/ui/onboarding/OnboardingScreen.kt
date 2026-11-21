@@ -50,6 +50,7 @@ import com.lucas.mobilemanager.permissions.PermissionIntents
 @Composable
 fun OnboardingScreen(
     onFinished: () -> Unit,
+    onOpenTest: () -> Unit,
     viewModel: OnboardingViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -86,6 +87,7 @@ fun OnboardingScreen(
             PermissionIntents.launch(context, PermissionIntents.batterySettings())
         },
         onFinish = { viewModel.finish(onFinished) },
+        onTest = onOpenTest,
     )
 }
 
@@ -97,6 +99,7 @@ private fun OnboardingContent(
     onOpenAppDetails: () -> Unit,
     onOpenBatterySettings: () -> Unit,
     onFinish: () -> Unit,
+    onTest: () -> Unit,
 ) {
     val accessibilityMissing = state.items
         .first { it.kind == PermissionKind.ACCESSIBILITY }
@@ -181,6 +184,9 @@ private fun OnboardingContent(
         }
 
         Column(Modifier.padding(vertical = 16.dp)) {
+            TextButton(onClick = onTest, modifier = Modifier.fillMaxWidth()) {
+                Text(stringResource(R.string.probe_title))
+            }
             Button(
                 onClick = onFinish,
                 enabled = state.canMonitor,

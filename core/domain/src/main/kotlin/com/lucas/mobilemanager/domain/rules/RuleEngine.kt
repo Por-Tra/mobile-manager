@@ -41,6 +41,7 @@ sealed interface BlockReason {
         val sharedBudget: Boolean = false,
         val profileName: String? = null,
         val zone: String? = null,
+        val goalTitle: String? = null,
     ) : BlockReason
 }
 
@@ -65,6 +66,7 @@ class RuleEngine @Inject constructor() {
         now: ZonedDateTime,
         mode: AppMode = AppMode.RESTRICTED,
         sharedBudget: SharedBudget? = null,
+        goalBudgets: List<com.lucas.mobilemanager.domain.goals.GoalBudget> = emptyList(),
     ): Decision {
         if (mode == AppMode.FREE) return Decision.Allowed(remainingToday = null)
         if (request.packageName in whitelist) return Decision.Allowed(remainingToday = null)
@@ -103,6 +105,12 @@ class RuleEngine @Inject constructor() {
             }.toMutableList()
         if (!explicitlyAllowed && sharedBudget != null && request.packageName in sharedBudget.packages) {
             candidates += LimitCandidate(BlockReason.DailyLimitReached(sharedBudget.limit, sharedBudget = true), sharedBudget.limit - sharedBudget.used)
+        }
+        if (!explicitlyAllowed) goalBudgets.filter {
+            it.goal.isActive(now.toLocalDate()) && request.packageName in it.goal.packages
+        }.forEach { budget ->
+            val limit = Duration.ofMinutes(budget.goal.dailyBudgetMinutes.toLong())
+            candidates += LimitCandidate(BlockReason.DailyLimitReached(limit, goalTitle = budget.goal.title), limit - budget.used)
         }
         val candidate = candidates.minWithOrNull(compareBy<LimitCandidate> { it.remaining }.thenBy { it.reason.limit })
             ?: return Decision.Allowed(remainingToday = null)

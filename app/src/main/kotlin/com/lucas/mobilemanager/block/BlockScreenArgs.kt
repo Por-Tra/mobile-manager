@@ -28,6 +28,7 @@ data class BlockScreenArgs(
                         .putExtra("shared_budget", reason.sharedBudget)
                         .putExtra("limit_profile", reason.profileName)
                         .putExtra("limit_zone", reason.zone)
+                        .putExtra("limit_goal", reason.goalTitle)
                 }
             }
 
@@ -46,6 +47,7 @@ data class BlockScreenArgs(
                     sharedBudget = intent.getBooleanExtra("shared_budget", false),
                     profileName = intent.getStringExtra("limit_profile"),
                     zone = intent.getStringExtra("limit_zone"),
+                    goalTitle = intent.getStringExtra("limit_goal"),
                 )
                 else -> return null
             }

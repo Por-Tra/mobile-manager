@@ -43,6 +43,7 @@ fun SettingsScreen(
     onOpenPermissions: () -> Unit,
     onOpenLock: () -> Unit,
     onOpenDiagnostic: () -> Unit,
+    onOpenProtectionTest: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
@@ -79,6 +80,7 @@ fun SettingsScreen(
                             }
                             ModeCard()
                             ProtectionDiagnostic(viewModel, onOpenPermissions)
+                            OutlinedButton(onClick = onOpenProtectionTest) { Text(stringResource(R.string.probe_title)) }
                         }
                         1 -> {
                             com.lucas.mobilemanager.ui.components.PageIntro(stringResource(R.string.settings_application_heading), stringResource(R.string.settings_application_intro), com.lucas.mobilemanager.ui.components.SceneKind.BALANCE)

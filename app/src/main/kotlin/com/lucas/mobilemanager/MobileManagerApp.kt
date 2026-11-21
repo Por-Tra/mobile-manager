@@ -12,6 +12,8 @@ import com.lucas.mobilemanager.domain.zones.SeedDefaultZoneRules
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -26,6 +28,8 @@ class MobileManagerApp : Application(), Configuration.Provider {
     @Inject lateinit var dailyUsageSnapshotter: DailyUsageSnapshotter
 
     @Inject lateinit var workerFactory: HiltWorkerFactory
+    @Inject lateinit var goals: com.lucas.mobilemanager.domain.goals.GoalRepository
+    @Inject lateinit var time: com.lucas.mobilemanager.domain.time.TimeProvider
 
     @Inject @ApplicationScope lateinit var appScope: CoroutineScope
 
@@ -46,5 +50,12 @@ class MobileManagerApp : Application(), Configuration.Provider {
             dailyUsageSnapshotter.ensureSnapshots()
         }
         DailyUsageWorker.schedule(this)
+        appScope.launch {
+            goals.goals.map { all -> all.any { it.remindersEnabled && it.isActive(time.localNow().toLocalDate()) && it.slots.isNotEmpty() } }
+                .distinctUntilChanged().collect { enabled ->
+                    if (enabled) com.lucas.mobilemanager.goals.GoalReminderWorker.schedule(this@MobileManagerApp)
+                    else androidx.work.WorkManager.getInstance(this@MobileManagerApp).cancelUniqueWork("goal_preparation")
+                }
+        }
     }
 }

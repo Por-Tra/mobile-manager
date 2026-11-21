@@ -28,6 +28,7 @@ fun HomeScreen(
     onOpenAntiScroll: () -> Unit,
     onEditProfile: (Long) -> Unit,
     onOpenDashboard: () -> Unit,
+    onOpenProtectionTest: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val permissions by viewModel.permissions.collectAsStateWithLifecycle()
@@ -46,6 +47,7 @@ fun HomeScreen(
             contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 8.dp, bottom = 24.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
+            item { com.lucas.mobilemanager.ui.diagnostic.ProtectionReviewCard(onOpenProtectionTest) }
             item {
                 if (session == null) FocusHero(onStartSession, blocksEnabled)
                 else SessionCard(session, onStartSession, onRequestOverride, blocksEnabled)

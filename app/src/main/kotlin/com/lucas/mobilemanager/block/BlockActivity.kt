@@ -34,6 +34,8 @@ class BlockActivity : LocalizedActivity() {
 
     @Inject lateinit var timeProvider: TimeProvider
     @Inject lateinit var appLock: AppLock
+    @Inject lateinit var temporaryAccess: com.lucas.mobilemanager.goals.TemporaryAccessManager
+    @Inject lateinit var coordinator: com.lucas.mobilemanager.enforcement.EnforcementCoordinator
 
     private var args by mutableStateOf<BlockScreenArgs?>(null)
 
@@ -54,6 +56,14 @@ class BlockActivity : LocalizedActivity() {
         setContent {
             MobileManagerTheme {
                 val mode by appLock.modeSettings.collectAsStateWithLifecycle()
+                val lock by appLock.status.collectAsStateWithLifecycle(initialValue = null)
+                var sessionRunning by androidx.compose.runtime.remember { mutableStateOf(true) }
+                LaunchedEffect(Unit) {
+                    while (true) {
+                        sessionRunning = coordinator.runningSession() != null
+                        kotlinx.coroutines.delay(1000)
+                    }
+                }
                 LaunchedEffect(mode) {
                     if (mode?.let(ModePolicy::blocksEnabled) == false) finishAndRemoveTask()
                 }
@@ -64,8 +74,14 @@ class BlockActivity : LocalizedActivity() {
                         zone = timeProvider.zone(),
                         onGoHome = ::goHome,
                         actions = {
+                            if (!sessionRunning) LockBanner()
+                            com.lucas.mobilemanager.ui.goals.TemporaryAccessAction(it.packageName, temporaryAccess,
+                                enabled = !sessionRunning && lock?.canModify == true, onGranted = {
+                                    packageManager.getLaunchIntentForPackage(it.packageName)?.let(::startActivity)
+                                    finishAndRemoveTask()
+                                })
+                            if (sessionRunning) Text(stringResource(R.string.temporary_strict))
                             if (mode?.selectedMode == AppMode.SEMI_FREE) {
-                                LockBanner()
                                 TextButton(onClick = {
                                     startActivity(Intent(this@BlockActivity, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                                 }) { Text(stringResource(R.string.mode_open_manager)) }

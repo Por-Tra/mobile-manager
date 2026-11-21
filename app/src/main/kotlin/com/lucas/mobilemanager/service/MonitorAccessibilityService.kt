@@ -65,6 +65,7 @@ class MonitorAccessibilityService : AccessibilityService() {
     @Inject lateinit var appLock: AppLock
     @Inject lateinit var limitWarnings: com.lucas.mobilemanager.enforcement.LimitWarningNotifier
     @Inject lateinit var monitorHealth: com.lucas.mobilemanager.diagnostic.MonitorHealth
+    @Inject lateinit var protectionTest: com.lucas.mobilemanager.diagnostic.ProtectionTestStore
     private lateinit var openingPause: com.lucas.mobilemanager.enforcement.OpeningPauseOverlay
 
     private lateinit var zoneEnforcer: ZoneEnforcer
@@ -106,7 +107,9 @@ class MonitorAccessibilityService : AccessibilityService() {
         tracker = ForegroundTracker(selfPackage = packageName)
         openingPause = com.lucas.mobilemanager.enforcement.OpeningPauseOverlay(this, scope)
         monitorHealth.connected.value = true
-        zoneEnforcer = ZoneEnforcer(this, scope, coordinator, zoneDetectorStore, timeProvider, zoneUsageRecorder, ::block, limitWarnings)
+        com.lucas.mobilemanager.diagnostic.ProtectionTestRunner.configure(this)
+        zoneEnforcer = ZoneEnforcer(this, scope, coordinator, zoneDetectorStore, timeProvider, zoneUsageRecorder, ::block, limitWarnings, protectionTest)
+        com.lucas.mobilemanager.diagnostic.ProtectionTestRunner(this, protectionTest, zoneDetectorStore, coordinator).start(scope)
         scope.launch {
             diagnosticStore.overlayEnabled.collect { enabled -> setDiagnosticOverlay(enabled) }
         }
@@ -127,6 +130,14 @@ class MonitorAccessibilityService : AccessibilityService() {
         }
         scope.launch {
             coordinator.preferenceChanges.collect {
+                openingPause.reset()
+                watchJob?.cancel()
+                zoneEnforcer.onForegroundChanged()
+                if (canMonitor()) recoverForeground()
+            }
+        }
+        scope.launch {
+            coordinator.goalChanges.collect {
                 openingPause.reset()
                 watchJob?.cancel()
                 zoneEnforcer.onForegroundChanged()
@@ -155,6 +166,7 @@ class MonitorAccessibilityService : AccessibilityService() {
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (event == null || !canMonitor()) return
         val eventPackage = event.packageName?.toString()
+        protectionTest.event(eventPackage)
         if (eventPackage != null && eventPackage in ProtectedScreenDetector.PROTECTED_PACKAGES) {
             scheduleProtectedScreenCheck(eventPackage)
         }
@@ -193,6 +205,11 @@ class MonitorAccessibilityService : AccessibilityService() {
         }
         if (change == ForegroundTracker.Change.None && eventPackage != null) {
             if (!openingPause.isShowing) zoneEnforcer.onEvent(eventPackage, windowChanged = true)
+            // Certaines variantes d'app n'exposent pas une classe d'activité résoluble.
+            // La fenêtre active est alors vérifiée avec les tentatives bornées habituelles.
+            if (eventPackage in zoneDetectorStore.detectors.value.packages && tracker.current != eventPackage) {
+                recoverForeground()
+            }
         }
     }
 
@@ -319,7 +336,7 @@ class MonitorAccessibilityService : AccessibilityService() {
                         if (coordinator.isWhitelisted(pkg)) return@launch
                         limitWarnings.showIfNeeded(pkg, decision)
                         val preferences = coordinator.preferences.value
-                        if (coordinator.blocksEnabledNow() && preferences?.openingPauseEnabled == true && pkg in preferences.openingPausePackages) {
+                        if (coordinator.blocksEnabledNow() && coordinator.temporaryRemainingNow(pkg) == null && preferences?.openingPauseEnabled == true && pkg in preferences.openingPausePackages) {
                             openingPause.show(pkg, preferences.openingPauseSeconds) {
                                 if (canMonitor() && tracker.current == pkg) zoneEnforcer.recheck(pkg)
                             }
@@ -385,6 +402,7 @@ class MonitorAccessibilityService : AccessibilityService() {
     override fun onDestroy() {
         monitorHealth.connected.value = false
         openingPause.reset()
+        zoneEnforcer.onForegroundChanged()
         zoneEnforcer.overlay?.hide()
         unregisterReceiver(screenReceiver)
         scope.cancel()

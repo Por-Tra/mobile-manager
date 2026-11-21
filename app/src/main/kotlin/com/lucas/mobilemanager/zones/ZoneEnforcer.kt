@@ -49,6 +49,7 @@ class ZoneEnforcer(
     /** Repli si la sortie échoue plusieurs fois : écran de blocage classique. */
     private val onEscalate: (packageName: String, decision: Decision.Blocked) -> Unit,
     private val limitWarnings: com.lucas.mobilemanager.enforcement.LimitWarningNotifier,
+    private val protectionTest: com.lucas.mobilemanager.diagnostic.ProtectionTestStore,
 ) {
     /** Bandeau du mode diagnostic, s'il est affiché. */
     var overlay: DiagnosticOverlay? = null
@@ -64,6 +65,8 @@ class ZoneEnforcer(
     private var maskShown = false
     private val feedShield = InstagramFeedShield(service, ::openFollowingFeed)
     private var followingJob: Job? = null
+    private val fullTreePackages = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
+    private val lastFallbackAt = java.util.concurrent.ConcurrentHashMap<String, Long>()
 
     /** Dernière décision par zone (`pkg/zone`) et son heure, pour ne pas réévaluer à chaque événement. */
     private val zoneDecisions = HashMap<String, Pair<Decision, Long>>()
@@ -138,10 +141,28 @@ class ZoneEnforcer(
             if (pkg == InstagramFeedPolicy.PACKAGE) it + InstagramFeedPolicy.viewIds else it
         } else null
         val snapshot = withContext(Dispatchers.Default) {
-            if (exactIds != null) AccessibilitySnapshot.captureByIds(root, exactIds) else AccessibilitySnapshot.capture(root, MAX_NODES)
+            if (exactIds == null || pkg in fullTreePackages) {
+                AccessibilitySnapshot.capture(root, MAX_NODES)
+            } else {
+                val targeted = AccessibilitySnapshot.captureByIds(root, exactIds)
+                val nowMs = SystemClock.elapsedRealtime()
+                if (targeted.nodes.isEmpty() && nowMs - (lastFallbackAt[pkg] ?: -FALLBACK_INTERVAL_MS) >= FALLBACK_INTERVAL_MS) {
+                    lastFallbackAt[pkg] = nowMs
+                    val full = AccessibilitySnapshot.capture(root, MAX_NODES)
+                    // Certains fournisseurs exposent les identifiants dans l'arbre mais échouent
+                    // à la recherche directe. Conserver le parcours visible pour ce processus.
+                    if (full.nodes.any { it.viewId in exactIds }) {
+                        fullTreePackages += pkg
+                        protectionTest.fallback(pkg)
+                    }
+                    full
+                } else targeted
+            }
         }
         if (foregroundPackage != pkg) return
         val match = if (watched) ZoneMatcher.detect(detectors, pkg, snapshot.nodes) else null
+        protectionTest.snapshot(pkg, snapshot.nodes.size, snapshot.nodes.count { it.viewId != null }, match?.zone?.id)
+        if (pkg in fullTreePackages) protectionTest.fallback(pkg)
         if (BuildConfig.DEBUG && match != null) {
             val ids = match.nodeIndices.map { snapshot.nodes[it].viewId?.substringAfter(":id/") ?: snapshot.nodes[it].desc }
             Log.d(TAG, "$pkg zone ${match.zone.id} signal ${match.signalIndex + 1} $ids")
@@ -158,6 +179,7 @@ class ZoneEnforcer(
         // le quota est jugé sur l'usage à jour.
         usageRecorder.onSnapshot(pkg, match?.zone?.id)
         val decision = match?.let { zoneDecision(pkg, it.zone.id, fresh = true) }
+        if (match != null) protectionTest.detection(pkg, match.zone.id, blocked = decision is Decision.Blocked)
         updateMask(pkg, detectors.zonesFor(pkg), snapshot)
         if (updateFeedShield(pkg, snapshot)) return
         if (match == null || decision == null) {
@@ -186,6 +208,7 @@ class ZoneEnforcer(
             ZoneExitThrottle.Action.EXIT -> {
                 val step = ZoneExitPlanner.plan(match.zone, snapshot.nodes, throttle.attempts - 1)
                 val accepted = exit(step, snapshot.infos)
+                protectionTest.detection(pkg, match.zone.id, blocked = true, action = accepted)
                 showToast(match.zone.label, decision.reason)
                 withContext(Dispatchers.Default) { coordinator.recordZoneRedirect(pkg, match.zone.id) }
                 if (step is ExitStep.ScrollForward) {
@@ -224,12 +247,15 @@ class ZoneEnforcer(
 
     /** Masque les points d'entrée visibles des zones inaccessibles maintenant. */
     private suspend fun updateMask(pkg: String, zones: List<ZoneDefinition>, snapshot: AccessibilitySnapshot) {
-        val rects = zones.filter { it.hide.isNotEmpty() && zoneDecision(pkg, it.id) is Decision.Blocked }
-            .flatMap { zone -> ZoneMatcher.entryPoints(zone, snapshot.nodes).map { it to zone.hideColor } }
-            .map { (index, color) -> Rect().apply { snapshot.infos[index].getBoundsInScreen(this) } to color }
-            .filter { !it.first.isEmpty }
+        val entries = zones.filter { it.hide.isNotEmpty() && zoneDecision(pkg, it.id) is Decision.Blocked }
+            .flatMap { zone -> ZoneMatcher.entryPoints(zone, snapshot.nodes).map { index ->
+                Triple(zone.id, Rect().apply { snapshot.infos[index].getBoundsInScreen(this) }, zone.hideColor)
+            } }
+            .filter { !it.second.isEmpty }
+        val rects = entries.map { it.second to it.third }
         mask.show(rects)
         maskShown = rects.isNotEmpty()
+        entries.forEach { protectionTest.entryMask(pkg, it.first) }
     }
 
     private fun hideMask() {
@@ -256,6 +282,7 @@ class ZoneEnforcer(
         bounds("tab_bar")?.let { viewport.bottom = minOf(viewport.bottom, it.top) }
         val wasShown = feedShield.isShown
         feedShield.show(viewport)
+        if (feedShield.isShown) protectionTest.detection(pkg, "reels", blocked = true, action = true)
         usageRecorder.onSnapshot(pkg, null)
         throttles[pkg]?.onZoneLeft()
         if (!wasShown && feedShield.isShown) {
@@ -359,6 +386,7 @@ class ZoneEnforcer(
         const val TOAST_INTERVAL_MS = 3_000L
         const val MAX_NODES = 800
         const val MAX_NODES_DIAGNOSTIC = 2_000
+        const val FALLBACK_INTERVAL_MS = 5_000L
     }
 }
 
@@ -377,7 +405,8 @@ class AccessibilitySnapshot private constructor(
             val nodes = ArrayList<UiNode>()
             val infos = ArrayList<AccessibilityNodeInfo>()
             val stack = ArrayDeque<Pair<AccessibilityNodeInfo, Int>>().apply { addLast(root to 0) }
-            while (stack.isNotEmpty() && nodes.size < maxNodes) {
+            var visited = 0
+            while (stack.isNotEmpty() && visited++ < maxNodes) {
                 val (node, depth) = stack.removeLast()
                 val visible = node.isVisibleToUser
                 if (!visible && !includeInvisible) continue
@@ -392,7 +421,8 @@ class AccessibilitySnapshot private constructor(
                     visible = visible,
                 )
                 infos += node
-                for (i in node.childCount - 1 downTo 0) node.getChild(i)?.let { stack.addLast(it to depth + 1) }
+                val remaining = (maxNodes - visited - stack.size).coerceAtLeast(0)
+                for (i in minOf(node.childCount, remaining) - 1 downTo 0) node.getChild(i)?.let { stack.addLast(it to depth + 1) }
             }
             return AccessibilitySnapshot(nodes, infos)
         }

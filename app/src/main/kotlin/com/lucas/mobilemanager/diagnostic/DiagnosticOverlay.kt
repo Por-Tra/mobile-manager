@@ -21,6 +21,7 @@ import com.lucas.mobilemanager.R
 class DiagnosticOverlay(
     private val service: AccessibilityService,
     private val onCapture: () -> Unit,
+    @androidx.annotation.StringRes private val actionLabel: Int = R.string.diagnostic_capture,
 ) {
     private val windowManager = service.getSystemService(WindowManager::class.java)
     private val density = service.resources.displayMetrics.density
@@ -29,7 +30,7 @@ class DiagnosticOverlay(
     private val status = TextView(service).apply {
         setTextColor(Color.WHITE)
         textSize = 13f
-        text = service.getString(R.string.diagnostic_overlay_waiting)
+        text = service.applicationContext.getString(R.string.diagnostic_overlay_waiting)
     }
 
     private val root = LinearLayout(service).apply {
@@ -42,7 +43,7 @@ class DiagnosticOverlay(
         }
         addView(status, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
         addView(Button(service).apply {
-            text = service.getString(R.string.diagnostic_capture)
+            text = service.applicationContext.getString(actionLabel)
             textSize = 12f
             setOnClickListener { onCapture() }
         })
@@ -66,16 +67,26 @@ class DiagnosticOverlay(
         enableDrag()
     }
 
-    fun show() {
-        if (shown) return
-        windowManager.addView(root, params)
-        shown = true
+    fun show(): Boolean {
+        if (shown) return true
+        return try {
+            windowManager.addView(root, params)
+            shown = true
+            true
+        } catch (_: RuntimeException) {
+            false
+        }
     }
 
     fun hide() {
         if (!shown) return
-        windowManager.removeView(root)
-        shown = false
+        try {
+            windowManager.removeView(root)
+        } catch (_: IllegalArgumentException) {
+            // La fenêtre peut déjà avoir été détachée à l'arrêt du service.
+        } finally {
+            shown = false
+        }
     }
 
     fun update(text: String) {

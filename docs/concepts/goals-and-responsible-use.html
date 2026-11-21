@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Goals and responsible digital use - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-root="../" data-page="concepts/goals-and-responsible-use.html">
+<header class="site-header">
+  <a class="brand" href="../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../index.html" class="">Overview</a><a href="architecture.html" class="">Architecture</a><a href="../api/index.html" class="">API reference</a><a href="../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">Documentation</a> <span class="sep">/</span> <span>Goals and responsible digital use</span></nav>
+    <article>
+<h1>Goals and responsible digital use</h1>
+<p>Open <strong>Anti-scroll → Goals</strong> to create a dated personal goal, choose applications and give them a combined daily budget. Add weekly preparation times and enable optional local reminders. The editor, completion, extension and deletion respect the existing trusted PIN or Semi-free wait and are unavailable during a strict session.</p>
+<h2 id="budgets">Budgets and preparation</h2>
+<p><a href="../api/com.lucas.mobilemanager.domain.goals/PersonalGoal.html"><code>PersonalGoal</code></a> remains active through the end of its local due date unless marked complete. Extending or resuming explicitly reactivates it. Preparation times organize reminders; the budget applies for the whole day. Ending a goal removes only its budget. Multiple goal budgets and the existing shared budget are independent candidates: the earliest remaining limit wins, without adding budgets or zone time. System whitelist, Free mode, explicit Allow rules and higher restrictions retain their existing precedence.</p>
+<p>Preferences are stored locally by <a href="../api/com.lucas.mobilemanager.data.repository/DataStoreGoalRepository.html"><code>DataStoreGoalRepository</code></a> as versioned JSON in DataStore. No Room migration or system calendar permission is required. Goal names are user data and remain unchanged when switching language.</p>
+<h2 id="temporary-access">Temporary access</h2>
+<p><a href="../api/com.lucas.mobilemanager.goals/TemporaryAccessManager.html"><code>TemporaryAccessManager</code></a> grants explicit access to one application and all its zones for a user-chosen duration of 1–1,440 minutes. It is available from the block screen and Goals. Settings must be unlocked and no strict session may be running. Usage keeps counting. The rules remain saved, and access can be revoked early. Starting a strict session suspends existing access without extending its deadline.</p>
+<p><a href="../api/com.lucas.mobilemanager.domain.goals/TemporaryAccess.html"><code>TemporaryAccess</code></a> stores civil time, a monotonic deadline and the Android boot count. The first deadline reached ends access; a phone restart invalidates it. The accessibility service clears cached zone decisions and masks on changes and resumes foreground enforcement at expiry. The temporary access also skips the opening pause while active.</p>
+<h2 id="reminders">Optional reminders</h2>
+<p><a href="../api/com.lucas.mobilemanager.goals/GoalReminderWorker.html"><code>GoalReminderWorker</code></a> uses WorkManager every 15 minutes only while reminders and preparation times are configured for an active goal. Notifications require permission. Android may delay or skip delivery. A reminder is eligible near a preparation start, within the smaller of its duration and 30 minutes, and is deduplicated locally by goal, time and date. Free mode suppresses reminders. The existing limit warning can mention a preparation planned for today.</p>
+<h2 id="report">Local report</h2>
+<p><a href="../api/com.lucas.mobilemanager.goals/GoalReportLoader.html"><code>GoalReportLoader</code></a> reads the currently selected apps for the seven completed days ending yesterday and the seven preceding days. Screen-time comparison requires seven recorded days in both periods. Android usage snapshots preserve the existing distinction between missing days and zero usage.</p>
+<p>NetworkStatsManager returns received and sent Wi-Fi/mobile bytes by UID, including background traffic. Shared UIDs are counted once and flagged because their traffic can include other apps. Missing permissions, unresolved packages or query failures produce an unavailable state. Android may aggregate or delay records: zero returned bytes does not guarantee full coverage. This is a descriptive comparison, not proof that the goal caused a reduction. Megabytes are never converted automatically to carbon savings.</p>
+<h2>Whole-phone energy and a recharge scenario</h2>
+<p>The optional measurement uses BatteryManager’s remaining-energy counter in nanowatt-hours: a valid decrease divided by 10<sup>9</sup> gives Wh. It covers the entire phone, not individual apps. Measurement stays in memory while the view is visible and the phone remains unplugged; leaving the view, backgrounding or plugging in cancels it. Unsupported, nonpositive or increasing counters are rejected. No permanent sampling service is added.</p>
+<p><a href="../api/com.lucas.mobilemanager.domain.goals/ResponsibleMetrics.html"><code>ResponsibleMetrics</code></a> can estimate the electricity needed to replace the observed discharge: <code>Wh at battery ÷ charging efficiency</code>. An optional carbon scenario is <code>Wh at outlet ÷ 1,000 × gCO₂e/kWh</code>. Efficiency is an editable assumption, initially 85%; carbon intensity is entered by the user for the place and time of the planned recharge. This does not measure an actual recharge, app emissions, networks or servers. No RTE data or other carbon factor is downloaded; the existing explicit GitHub updater remains the only application network operation.</p>
+<p>Android references: <a href="https://developer.android.com/reference/android/app/usage/UsageStatsManager">UsageStatsManager</a>, <a href="https://developer.android.com/reference/android/app/usage/NetworkStatsManager">NetworkStatsManager</a> and <a href="https://developer.android.com/reference/android/os/BatteryManager">BatteryManager</a>.</p>
+
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>docs/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#budgets">Budgets and preparation</a></li><li><a href="#temporary-access">Temporary access</a></li><li><a href="#reminders">Optional reminders</a></li><li><a href="#report">Local report</a></li></ol></aside>
+</div>
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

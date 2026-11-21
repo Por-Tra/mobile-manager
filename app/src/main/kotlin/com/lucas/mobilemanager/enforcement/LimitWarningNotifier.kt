@@ -20,6 +20,7 @@ class LimitWarningNotifier @Inject constructor(
     private val policy = com.lucas.mobilemanager.domain.rules.LimitWarningPolicy()
 
     fun showIfNeeded(packageName: String, decision: Decision.Allowed, zone: String? = null) {
+        if (coordinator.temporaryRemainingNow(packageName) != null) return
         val key = "$packageName/${zone.orEmpty()}"
         if (!policy.shouldWarn(timeProvider.localNow().toLocalDate(), key, decision.remainingToday,
                 coordinator.preferences.value?.limitWarningsEnabled == true && coordinator.blocksEnabledNow())) return
@@ -27,7 +28,8 @@ class LimitWarningNotifier @Inject constructor(
         val label = try {
             context.packageManager.getApplicationLabel(context.packageManager.getApplicationInfo(packageName, 0)).toString()
         } catch (_: android.content.pm.PackageManager.NameNotFoundException) { packageName }
-        Toast.makeText(context, context.getString(R.string.limit_warning, zone?.let { "$label · $it" } ?: label,
-            Formats.duration(remaining)), Toast.LENGTH_LONG).show()
+        val message = context.getString(R.string.limit_warning, zone?.let { "$label · $it" } ?: label, Formats.duration(remaining))
+        val reminder = coordinator.preparationReminder(packageName)?.let { context.getString(R.string.goal_warning_context, it) }.orEmpty()
+        Toast.makeText(context, message + reminder, Toast.LENGTH_LONG).show()
     }
 }

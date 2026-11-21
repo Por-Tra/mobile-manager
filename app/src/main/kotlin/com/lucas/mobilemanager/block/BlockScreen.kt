@@ -108,7 +108,8 @@ private fun reasonText(reason: BlockReason): String = when (reason) {
         append(stringResource(if (reason.sharedBudget) R.string.block_reason_shared_budget else R.string.block_reason_daily_limit, Formats.duration(reason.limit)))
         reason.profileName?.let { append("\n"); append(stringResource(R.string.block_limit_profile, it)) }
         reason.zone?.let { append("\n"); append(stringResource(R.string.block_limit_zone, it)) }
-        if (!reason.sharedBudget && reason.profileName == null) { append("\n"); append(stringResource(R.string.block_limit_global)) }
+        reason.goalTitle?.let { append("\n"); append(stringResource(R.string.goal_budget_reason, it)) }
+        if (!reason.sharedBudget && reason.profileName == null && reason.goalTitle == null) { append("\n"); append(stringResource(R.string.block_limit_global)) }
     }
 }
 

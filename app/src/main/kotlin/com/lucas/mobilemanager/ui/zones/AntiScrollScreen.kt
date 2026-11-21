@@ -19,19 +19,22 @@ import com.lucas.mobilemanager.ui.settings.WellbeingPreferences
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AntiScrollScreen(onOpenDefaultRules: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
+fun AntiScrollScreen(onOpenDefaultRules: () -> Unit, onEditGoal: (String) -> Unit, openGoalsRequest: Int = 0, viewModel: SettingsViewModel = hiltViewModel()) {
     var section by rememberSaveable { mutableIntStateOf(0) }
+    LaunchedEffect(openGoalsRequest) { if (openGoalsRequest > 0) section = 2 }
     val session by viewModel.sessionRunning.collectAsStateWithLifecycle()
     val lock by viewModel.lockStatus.collectAsStateWithLifecycle()
     Scaffold(topBar = { PageTopBar(stringResource(R.string.antiscroll_title)) }) { padding ->
         Column(Modifier.padding(padding)) {
             SecondaryTabRow(selectedTabIndex = section, containerColor = MaterialTheme.colorScheme.background) {
-                listOf(R.string.antiscroll_zones, R.string.antiscroll_habits).forEachIndexed { index, label ->
+                listOf(R.string.antiscroll_zones, R.string.antiscroll_habits, R.string.goals_title).forEachIndexed { index, label ->
                     Tab(selected = section == index, onClick = { section = index }, text = { Text(stringResource(label)) })
                 }
             }
             if (section == 0) {
                 ZoneRulesScreen(onBack = {}, onOpenDefaultRules = onOpenDefaultRules, showTopBar = false)
+            } else if (section == 2) {
+                com.lucas.mobilemanager.ui.goals.GoalsScreen(onEdit = onEditGoal)
             } else {
                 Column(Modifier.verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                     PageIntro(stringResource(R.string.habits_heading), stringResource(R.string.habits_intro), com.lucas.mobilemanager.ui.components.SceneKind.BALANCE)

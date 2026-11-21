@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.toRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.lucas.mobilemanager.R
 import androidx.compose.runtime.Composable
@@ -73,6 +74,9 @@ data object LockSettingsRoute
 data object DiagnosticRoute
 
 @Serializable
+data object ProtectionTestRoute
+
+@Serializable
 data object DashboardRoute
 
 @Serializable
@@ -81,14 +85,21 @@ data object ProfilesRoute
 @Serializable
 data object AntiScrollRoute
 
+@Serializable
+data class GoalEditRoute(val goalId: String = "")
+
 /** Édition d'un profil (`profileId = 0` : nouveau) ou des règles par défaut. */
 @Serializable
 data class ProfileEditRoute(val profileId: Long = 0, val defaultRules: Boolean = false)
 
 @Composable
-fun MobileManagerNavHost(startDestination: Any, openDiagnostic: Boolean = false) {
+fun MobileManagerNavHost(startDestination: Any, openDiagnostic: Boolean = false, openGoalsRequest: Int = 0, openProtectionTestRequest: Int = 0) {
     val navController = rememberNavController()
     LaunchedEffect(openDiagnostic) { if (openDiagnostic) navController.navigate(DiagnosticRoute) }
+    LaunchedEffect(openGoalsRequest) { if (openGoalsRequest > 0) navController.navigate(AntiScrollRoute) { launchSingleTop = true } }
+    LaunchedEffect(openProtectionTestRequest) {
+        if (openProtectionTestRequest > 0) navController.navigate(ProtectionTestRoute) { launchSingleTop = true }
+    }
 
     val entry by navController.currentBackStackEntryAsState()
     val destination = entry?.destination
@@ -101,7 +112,7 @@ fun MobileManagerNavHost(startDestination: Any, openDiagnostic: Boolean = false)
         navController.navigate(route) {
             popUpTo<HomeRoute> { saveState = true }
             launchSingleTop = true
-            restoreState = true
+            restoreState = route != HomeRoute
         }
     }
     Scaffold(contentWindowInsets = WindowInsets(0, 0, 0, 0), bottomBar = {
@@ -159,6 +170,7 @@ fun MobileManagerNavHost(startDestination: Any, openDiagnostic: Boolean = false)
         NavHost(navController = navController, startDestination = startDestination, modifier = Modifier.padding(shellPadding).consumeWindowInsets(shellPadding)) {
             composable<OnboardingRoute> {
                 OnboardingScreen(
+                    onOpenTest = { navController.navigate(ProtectionTestRoute) },
                     onFinished = {
                         if (navController.previousBackStackEntry != null) {
                             navController.popBackStack()
@@ -179,6 +191,7 @@ fun MobileManagerNavHost(startDestination: Any, openDiagnostic: Boolean = false)
                     onOpenProfiles = { openPrimary(ProfilesRoute) },
                     onOpenAntiScroll = { openPrimary(AntiScrollRoute) },
                     onOpenDashboard = { openPrimary(DashboardRoute) },
+                    onOpenProtectionTest = { navController.navigate(ProtectionTestRoute) },
                 )
             }
             composable<DashboardRoute> {
@@ -192,7 +205,12 @@ fun MobileManagerNavHost(startDestination: Any, openDiagnostic: Boolean = false)
                 )
             }
             composable<AntiScrollRoute> {
-                AntiScrollScreen(onOpenDefaultRules = { navController.navigate(ProfileEditRoute(defaultRules = true)) })
+                AntiScrollScreen(onOpenDefaultRules = { navController.navigate(ProfileEditRoute(defaultRules = true)) },
+                    onEditGoal = { navController.navigate(GoalEditRoute(it)) }, openGoalsRequest = openGoalsRequest)
+            }
+            composable<GoalEditRoute> { entry ->
+                val route = entry.toRoute<GoalEditRoute>()
+                com.lucas.mobilemanager.ui.goals.GoalEditScreen(route.goalId, onBack = { navController.popBackStack() })
             }
             composable<ProfileEditRoute> {
                 ProfileEditScreen(onBack = { navController.popBackStack() })
@@ -211,6 +229,7 @@ fun MobileManagerNavHost(startDestination: Any, openDiagnostic: Boolean = false)
                     onOpenPermissions = { navController.navigate(OnboardingRoute) },
                     onOpenLock = { navController.navigate(LockSettingsRoute) },
                     onOpenDiagnostic = { navController.navigate(DiagnosticRoute) },
+                    onOpenProtectionTest = { navController.navigate(ProtectionTestRoute) },
                 )
             }
             composable<ZoneRulesRoute> {
@@ -224,6 +243,13 @@ fun MobileManagerNavHost(startDestination: Any, openDiagnostic: Boolean = false)
             }
             composable<DiagnosticRoute> {
                 DiagnosticScreen(onBack = { navController.popBackStack() })
+            }
+            composable<ProtectionTestRoute> {
+                com.lucas.mobilemanager.ui.diagnostic.ProtectionTestScreen(
+                    onBack = { navController.popBackStack() },
+                    onOpenPermissions = { navController.navigate(OnboardingRoute) },
+                    onOpenAdvanced = { navController.navigate(DiagnosticRoute) },
+                )
             }
         }
     }

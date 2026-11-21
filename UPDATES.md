@@ -12,6 +12,16 @@ Les mises à jour sont indisponibles pendant une session stricte ou lorsque le c
 
 La version locale remplace le passage automatique des Reels par un écran qui couvre tout le fil recommandé Instagram, photos comprises, lorsque la règle Reels bloque ou que son quota est atteint. La navigation et les messages restent accessibles. Le bouton « Voir les comptes suivis » ouvre le fil natif « Suivi(e) »/« Following », qui reste disponible, vidéos intégrées comprises ; le lecteur Reels plein écran conserve le blocage habituel. Aucun schéma ni autorisation supplémentaire, aucune collecte d’abonnements. Les détecteurs personnalisés restent prioritaires pour la détection des zones ; leurs anciens champs de défilement sont encore pris en charge. La couverture du fil recommandé s’applique tant qu’une zone `reels` existe dans ces détecteurs. Le masque ne garantit pas l’arrêt du son.
 
+## Version 0.5.0 — BETA (21 novembre 2026)
+
+Tag `v0.5.0`, code Android `5000`, publication GitHub marquée **Pre-release / BETA**, sans remplacer la dernière stable `v0.4.1`. Le statut bêta est porté par GitHub ; la version affichée dans Android reste `0.5.0`. Le workflow signé existant est conservé. La recherche de mise à jour intégrée utilise le canal stable et ne propose donc pas cette bêta : les testeurs téléchargent volontairement `app-release.apk` depuis sa page GitHub et confirment la mise à jour Android, sans désinstaller l’app. Toute distribution suivante doit dépasser le code `5000` ; une future stable `0.5.1` / `5001` pourra ainsi être proposée aux testeurs.
+
+Nouveau test guidé : **Réglages › Protection › Tester l’anti-scroll**. Choix de l’app et de la zone, observation locale de 60 s maximum, réapplication des options du service et repli de lecture borné lorsque les identifiants sont disponibles. Le bilan distingue service déconnecté ou muet, écran inaccessible, zone inconnue, zone autorisée, entrée masquée et action de protection. Confirmation visuelle nécessaire ; une entrée masquée ne valide pas le lecteur. Bilan technique copiable sans contenu d’écran ni envoi automatique. Vérification proposée pendant l’onboarding et après installation/mise à jour ; les autorisations réinitialisées doivent être réactivées par l’utilisateur.
+
+Anti-scroll › Objectifs : objectifs datés, créneaux hebdomadaires de préparation, budget quotidien commun aux apps choisies et rappels locaux facultatifs (Android peut les retarder ou les omettre). Terminer un objectif ou arriver à la fin de sa date retire son budget ; prolongation explicite disponible. Les autres règles restent en place. L’accès temporaire d’une application et de ses zones est proposé pour 1–1 440 min, avec les protections AppLock habituelles, sans dérogation pendant une session stricte. L’usage reste comptabilisé ; le redémarrage du téléphone met fin à cet accès.
+
+Bilan local : temps sur 7 journées terminées, comparaison à la semaine précédente seulement si les deux périodes sont renseignées ; volumes Wi-Fi/mobile Android par UID avec indication des limites de couverture et UID partagés. Mesure volontaire de décharge du téléphone entier si son compteur le permet, et scénario de recharge facultatif avec rendement et intensité carbone saisis par l’utilisateur. Aucun facteur distant, aucune conversion automatique des Mo en CO₂e, aucune attribution des émissions aux apps. Pas de nouvelle permission, de migration Room ou d’accès au calendrier Android. Données en DataStore local ; aucune collecte externe.
+
 ## Version 0.4.1 (14 novembre 2026)
 
 Code Android `4001`. Cette version regroupe les changements testés localement en 0.4.0 / code 4000 et permet aussi leur mise à jour. Refonte claire lavande/violet/menthe, logo vectoriel assorti, navigation Menu / Statistiques / Profils / Anti-scroll / Réglages. Profils et règles globales ont un accès direct ; Anti-scroll regroupe les zones et les habitudes ; Réglages propose Protection / Application / Avancé. Aucune migration de données ni nouvelle permission. Les entrées des fonctions principales prennent un à trois appuis depuis les onglets ; formulaires, confirmations et déverrouillages gardent leurs étapes.
@@ -41,9 +51,11 @@ Publier une Release avec un tag stable `v0.2.1`, par exemple. Le workflow `andro
 
 Le workflow installe `platform-tools` explicitement : le paquet historique `tools` n'est plus disponible. Après correction d'un échec CI, utiliser Actions › Signed Android release › Run workflow depuis `main`, avec `release_tag` égal au tag existant. Le code compilé provient de ce tag ; le workflow de relance provient de `main`. Il n'est pas nécessaire de déplacer le tag ou de recréer la Release.
 
-La version doit augmenter. Le code Android est calculé ainsi : `major × 1 000 000 + minor × 1 000 + patch`, avec minor et patch entre 0 et 999. La version de distribution est `v0.4.1`, code `4001`, après `v0.3.5` (code `3005`) et les tests locaux `0.4.0` (code `4000`). Une future mise à jour devra avoir un code supérieur à `4001`.
+La version doit augmenter. Le code Android est calculé ainsi : `major × 1 000 000 + minor × 1 000 + patch`, avec minor et patch entre 0 et 999. La préversion BETA courante est `v0.5.0`, code `5000`. La dernière stable reste `v0.4.1` / `4001`, après `v0.3.5` / `3005` et les tests locaux `0.4.0` / `4000`. Toute prochaine distribution doit avoir un code supérieur à `5000`.
 
 ## Contrôles avant installation
+
+Après installation ou mise à jour, au prochain lancement, le Menu propose une vérification de protection (identifiée par le code de version et la date de mise à jour Android). Ouvrir **Réglages › Protection › Tester l’anti-scroll**, contrôler les autorisations réellement présentes, puis choisir Instagram/YouTube (ou une app à détecteurs personnalisés) et la zone. Le test dure au plus 60 s et ne lève aucune restriction. Les droits peuvent devoir être réactivés manuellement ; l’app ne peut pas les accorder. Un service « connecté » peut être muet : le bilan vérifie aussi les événements reçus. Une action acceptée par Android doit être confirmée visuellement par le testeur. Le bouton **Copier le bilan technique** fournit versions, téléphone/Android, statuts et preuves agrégées, sans contenu d’écran. Rien n’est transmis automatiquement. Les preuves disparaissent avec le processus ; la cible et la prise de connaissance de cette installation sont conservées localement.
 
 - Un seul asset `app-release.apk`, de 1 à 200 Mio, avec le digest SHA-256 fourni par GitHub.
 - Téléchargement HTTPS, source dans le dépôt attendu, redirections vers les hôtes GitHub autorisés uniquement.
@@ -59,7 +71,7 @@ Définir `ANDROID_KEYSTORE_PATH` (chemin absolu), `ANDROID_KEYSTORE_PASSWORD`, `
 
 ```powershell
 $env:JAVA_HOME = 'C:/Program Files/Android/Android Studio/jbr'
-./gradlew.bat :core:domain:test :app:lintRelease :app:assembleRelease '-PreleaseVersionName=0.4.1' '-PreleaseVersionCode=4001'
+./gradlew.bat :core:domain:test :app:lintRelease :app:assembleRelease '-PreleaseVersionName=0.5.0' '-PreleaseVersionCode=5000'
 ```
 
 Sans configuration de signature, le build release local produit un APK non signé, qui ne doit pas être publié comme mise à jour. Aucune clé ni Release n'a été créée automatiquement dans le dépôt distant.

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GoalReportLoader Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.goals/GoalReportLoader.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.goals</a> <span class="sep">/</span> <span>GoalReportLoader</span></nav>
+    <article>
+<h1>GoalReportLoader <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.goals</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L33">GoalReportLoader.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">class</span> GoalReportLoader @Inject <span class="kw">constructor</span>(@ApplicationContext <span class="kw">private</span> <span class="kw">val</span> context: Context, <span class="kw">private</span> <span class="kw">val</span> time: <a href="../com.lucas.mobilemanager.domain.time/TimeProvider.html">TimeProvider</a>, <span class="kw">private</span> <span class="kw">val</span> usage: <a href="../com.lucas.mobilemanager.domain.repository/DailyUsageRepository.html">DailyUsageRepository</a>, <span class="kw">private</span> <span class="kw">val</span> snapshots: <a href="../com.lucas.mobilemanager.dashboard/DailyUsageSnapshotter.html">DailyUsageSnapshotter</a>, <span class="kw">private</span> <span class="kw">val</span> permissions: <a href="../com.lucas.mobilemanager.permissions/PermissionChecker.html">PermissionChecker</a>)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="GoalReportLoader.html#m-context"><code>context</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="GoalReportLoader.html#m-time"><code>time</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="GoalReportLoader.html#m-usage"><code>usage</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="GoalReportLoader.html#m-snapshots"><code>snapshots</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="GoalReportLoader.html#m-permissions"><code>permissions</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="GoalReportLoader.html#m-load"><code>load</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="GoalReportLoader.html#m-network"><code>network</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-context">
+<h3>context <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@ApplicationContext
+<span class="kw">private</span> <span class="kw">val</span> context: Context</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L34">GoalReportLoader.kt, line 34</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html">GoalReportLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/goals</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L53" title="context.packageManager.getApplicationInfo(pkg, 0).uid">53</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L55" title="val shared = uids.any { context.packageManager.getPackagesForUid(it).orEmpty().size &gt; 1 }">55</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L57" title="val resolved = packages.all { pkg -&gt; runCatching { context.packageManager.getApplicationInfo(pkg, 0) }.isSuccess }">57</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L66" title="val manager = context.getSystemService(NetworkStatsManager::class.java)">66</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-time">
+<h3>time <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> time: <a href="../com.lucas.mobilemanager.domain.time/TimeProvider.html">TimeProvider</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L35">GoalReportLoader.kt, line 35</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">6 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html">GoalReportLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/goals</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L11" title="import com.lucas.mobilemanager.domain.time.TimeProvider">11</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L16" title="import java.time.Duration">16</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L17" title="import java.time.LocalDate">17</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L41" title="val today = time.localNow().toLocalDate()">41</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L69" title="manager.querySummary(type, null, from.atStartOfDay(time.zone()).toInstant().toEpochMilli(),">69</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L70" title="to.atStartOfDay(time.zone()).toInstant().toEpochMilli()).use { stats -&gt;">70</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-usage">
+<h3>usage <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> usage: <a href="../com.lucas.mobilemanager.domain.repository/DailyUsageRepository.html">DailyUsageRepository</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L36">GoalReportLoader.kt, line 36</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html">GoalReportLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/goals</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L3" title="import android.app.usage.NetworkStats">3</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L4" title="import android.app.usage.NetworkStatsManager">4</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L46" title="val days = if (granted) usage.usageBetween(previousFrom, today.minusDays(1)) else emptyMap()">46</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-snapshots">
+<h3>snapshots <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> snapshots: <a href="../com.lucas.mobilemanager.dashboard/DailyUsageSnapshotter.html">DailyUsageSnapshotter</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L37">GoalReportLoader.kt, line 37</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html">GoalReportLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/goals</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L45" title="if (granted) snapshots.ensureSnapshots()">45</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-permissions">
+<h3>permissions <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> permissions: <a href="../com.lucas.mobilemanager.permissions/PermissionChecker.html">PermissionChecker</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L38">GoalReportLoader.kt, line 38</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html">GoalReportLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/goals</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L12" title="import com.lucas.mobilemanager.permissions.PermissionChecker">12</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L44" title="val granted = permissions.status(PermissionKind.USAGE_STATS) == PermissionStatus.GRANTED">44</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-load">
+<h3>load <span class="badge">method</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">suspend</span> <span class="kw">fun</span> load(packages: Set&lt;String&gt;): <a href="GoalReport.html">GoalReport</a></code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L40">GoalReportLoader.kt, line 40</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/goals/GoalsViewModel.kt.html">GoalsViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/goals</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/goals/GoalsViewModel.kt.html#L58" title="try { report.value = reports.load(goal.packages) }">58</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-network">
+<h3>network <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code>@Suppress( )
+<span class="kw">private</span> <span class="kw">fun</span> network(uids: Set&lt;Int&gt;, from: LocalDate, to: LocalDate): <a href="NetworkVolume.html">NetworkVolume</a>?</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L65">GoalReportLoader.kt, line 65</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html">GoalReportLoader.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/goals</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L58" title="val network = if (granted &amp;&amp; resolved) network(uids, from, today) else null">58</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L59" title="val previousNetwork = if (granted &amp;&amp; resolved) network(uids, previousFrom, from) else null">59</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/GoalReportLoader.kt.html#L61" title="total(previous).takeIf { current.size == 7 &amp;&amp; previous.size == 7 }, network, previousNetwork, shared)">61</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/goals/GoalsViewModel.kt.html">GoalsViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/goals</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/goals/GoalsViewModel.kt.html#L10" title="import com.lucas.mobilemanager.goals.GoalReportLoader">10</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/goals/GoalsViewModel.kt.html#L26" title="private val reports: GoalReportLoader,">26</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>docs/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

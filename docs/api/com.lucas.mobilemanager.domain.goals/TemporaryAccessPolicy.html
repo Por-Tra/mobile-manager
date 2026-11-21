@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TemporaryAccessPolicy Object - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.domain.goals/TemporaryAccessPolicy.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.domain.goals</a> <span class="sep">/</span> <span>TemporaryAccessPolicy</span></nav>
+    <article>
+<h1>TemporaryAccessPolicy <span class="h1-kind">object</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.domain.goals</a></span><span>Module: :core:domain</span><span>Source: <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoal.kt.html#L60">PersonalGoal.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">object</span> TemporaryAccessPolicy</code></pre></div>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="TemporaryAccessPolicy.html#m-canRequest"><code>canRequest</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-canRequest">
+<h3>canRequest <span class="badge">method</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">fun</span> canRequest(minutes: Int, unlocked: Boolean, strictSessionRunning: Boolean): Boolean</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/domain/src/main/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoal.kt.html#L61">PersonalGoal.kt, line 61</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">7 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/TemporaryAccessManager.kt.html">TemporaryAccessManager.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/goals</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/TemporaryAccessManager.kt.html#L42" title="if (packageName.isBlank() || bootCount() &lt; 0 || !com.lucas.mobilemanager.domain.goals.TemporaryAccessPolicy.canRequest(">42</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html">PersonalGoalTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html#L87" title="assertTrue(TemporaryAccessPolicy.canRequest(1, true, false))">87</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html#L88" title="assertTrue(TemporaryAccessPolicy.canRequest(1440, true, false))">88</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html#L89" title="assertFalse(TemporaryAccessPolicy.canRequest(0, true, false))">89</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html#L90" title="assertFalse(TemporaryAccessPolicy.canRequest(1441, true, false))">90</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html#L91" title="assertFalse(TemporaryAccessPolicy.canRequest(5, false, false))">91</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html#L92" title="assertFalse(TemporaryAccessPolicy.canRequest(5, true, true))">92</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">7 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/TemporaryAccessManager.kt.html">TemporaryAccessManager.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/goals</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/goals/TemporaryAccessManager.kt.html#L42" title="if (packageName.isBlank() || bootCount() &lt; 0 || !com.lucas.mobilemanager.domain.goals.TemporaryAccessPolicy.canRequest(">42</a></td></tr><tr><td><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html">PersonalGoalTest.kt</a> <span class="tag test">test</span><div class="path">core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals</div></td><td>:core:domain (tests)</td><td class="lines"><a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html#L87" title="assertTrue(TemporaryAccessPolicy.canRequest(1, true, false))">87</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html#L88" title="assertTrue(TemporaryAccessPolicy.canRequest(1440, true, false))">88</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html#L89" title="assertFalse(TemporaryAccessPolicy.canRequest(0, true, false))">89</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html#L90" title="assertFalse(TemporaryAccessPolicy.canRequest(1441, true, false))">90</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html#L91" title="assertFalse(TemporaryAccessPolicy.canRequest(5, false, false))">91</a>, <a href="../../src/core/domain/src/test/kotlin/com/lucas/mobilemanager/domain/goals/PersonalGoalTest.kt.html#L92" title="assertFalse(TemporaryAccessPolicy.canRequest(5, true, true))">92</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>docs/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#functions">Functions</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

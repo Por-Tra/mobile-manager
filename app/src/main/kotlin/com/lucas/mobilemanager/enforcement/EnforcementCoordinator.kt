@@ -57,7 +57,21 @@ class EnforcementCoordinator @Inject constructor(
     private val whitelistProvider: SystemWhitelistProvider,
     private val eventLogRepository: EventLogRepository,
     private val zoneUsageRecorder: ZoneUsageRecorder,
+    goalRepository: com.lucas.mobilemanager.domain.goals.GoalRepository,
+    private val temporaryAccess: com.lucas.mobilemanager.goals.TemporaryAccessManager,
 ) {
+    val goals = goalRepository.goals.stateIn(appScope, SharingStarted.Eagerly, null)
+    val goalChanges = combine(goals.filterNotNull(), temporaryAccess.access.filterNotNull()) { goals, access -> goals to access }
+
+    fun temporaryRemainingNow(packageName: String): Duration? =
+        if (runningSession() == null) temporaryAccess.remainingNow(packageName) else null
+
+    fun preparationReminder(packageName: String): String? {
+        val now = timeProvider.localNow()
+        return goals.value.orEmpty().filter { it.remindersEnabled && it.isActive(now.toLocalDate()) && packageName in it.packages }
+            .mapNotNull { goal -> goal.nextPreparation(now)?.takeIf { it.toLocalDate() == now.toLocalDate() }?.let { goal.title to it } }
+            .minByOrNull { it.second }?.first
+    }
     val preferences = preferencesRepository.preferences
         .stateIn(appScope, SharingStarted.Eagerly, initialValue = null)
     val preferenceChanges = preferences.filterNotNull().distinctUntilChanged()
@@ -93,6 +107,9 @@ class EnforcementCoordinator @Inject constructor(
         val atMs: Long,
     )
     @Volatile private var lastBudgetUsage: BudgetUsage? = null
+    private data class GoalUsage(val date: java.time.LocalDate, val foreground: String,
+        val usage: Map<String, Duration>, val atMs: Long)
+    @Volatile private var lastGoalUsage: GoalUsage? = null
 
     /** Enveloppe pour distinguer « pas encore chargée » (`null`) de « aucune session ». */
     private data class SessionSnapshot(val session: StrictSession?)
@@ -146,6 +163,7 @@ class EnforcementCoordinator @Inject constructor(
     private suspend fun engineDecision(request: AppRequest): Decision {
         val snapshot = rules.filterNotNull().first()
         currentSession.filterNotNull().first() // attend le premier chargement après un démarrage
+        if (runningSession() == null) temporaryAccess.remaining(request.packageName)?.let { return Decision.Allowed(it) }
         val now = timeProvider.localNow()
         val policy = profileResolver.resolve(
             profiles = snapshot.profiles,
@@ -171,7 +189,20 @@ class EnforcementCoordinator @Inject constructor(
                 Duration.ofMinutes(preferences.sharedBudgetMinutes.toLong()),
                 used)
         } else null
-        return ruleEngine.evaluate(policy, request, whitelistProvider.current(), now, currentMode().effectiveMode, budget)
+        val activeGoals = goals.filterNotNull().first().filter { it.isActive(now.toLocalDate()) && request.packageName in it.packages }
+        val goalBudgets = if (activeGoals.isEmpty()) emptyList() else {
+            val atMs = SystemClock.elapsedRealtime()
+            val cached = lastGoalUsage
+            val usage = if (request.zone != null && cached != null && cached.date == now.toLocalDate() &&
+                cached.foreground == request.packageName && atMs - cached.atMs <= APP_USAGE_REUSE_MS) {
+                cached.usage + (request.packageName to ((cached.usage[request.packageName] ?: Duration.ZERO) + Duration.ofMillis(atMs - cached.atMs)))
+            } else usageStatsReader.usageByPackageOn(now.toLocalDate()).orEmpty().also {
+                lastGoalUsage = GoalUsage(now.toLocalDate(), request.packageName, it, atMs)
+            }
+            activeGoals.map { goal -> com.lucas.mobilemanager.domain.goals.GoalBudget(goal,
+                goal.packages.filterNot(::isWhitelisted).fold(Duration.ZERO) { total, pkg -> total + (usage[pkg] ?: Duration.ZERO) }) }
+        }
+        return ruleEngine.evaluate(policy, request, whitelistProvider.current(), now, currentMode().effectiveMode, budget, goalBudgets)
     }
 
     suspend fun recordZoneRedirect(packageName: String, zone: String) {

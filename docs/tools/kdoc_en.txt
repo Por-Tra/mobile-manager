@@ -1,5 +1,25 @@
 # English translations of the KDoc comments (written in French in the code).
 @@ fr
+Preuves techniques d'un test explicite, sans contenu de l'écran ni changement de règle.
+@@ en
+Technical evidence from an explicit test, without screen content or rule changes.
+
+@@ fr
+Seuls le choix de cible et l'installation examinée sont persistés. Preuves en mémoire.
+@@ en
+Only the selected target and reviewed installation persist. Evidence stays in memory.
+
+@@ fr
+Sonde bornée, indépendante du suivi d'activité : elle peut révéler un suivi muet.
+@@ en
+Bounded probe independent of activity tracking, able to reveal silent tracking.
+
+@@ fr
+Réapplique uniquement les options déjà déclarées ; n'accorde aucune autorisation.
+@@ en
+Reapplies only previously declared settings; grants no permissions.
+
+@@ fr
 Connexion effective dans ce processus, distincte de l'autorisation d'accessibilité.
 @@ en
 Actual connection in this process, separate from accessibility permission.
@@ -1913,3 +1933,23 @@ Scroll this container forward without leaving the application.
 Une sortie acceptée peut révéler un autre Reel : conserver le délai, oublier les échecs.
 @@ en
 An accepted exit may reveal another Reel: preserve the interval and reset failed attempts.
+
+@@ fr
+Mesure volontaire, uniquement tant que cette vue reste visible et le téléphone débranché.
+@@ en
+Optional measurement, only while this view stays visible and the phone stays unplugged.
+
+@@ fr
+Dérogation conservatrice : un redémarrage ou un recul de l'horloge la rend caduque.
+@@ en
+Conservative temporary access: restarting the phone or setting the clock before its start invalidates it.
+
+@@ fr
+Réserve un rappel de façon atomique, afin de ne pas le répéter.
+@@ en
+Atomically claims a reminder to prevent duplicate delivery.
+
+@@ fr
+Énergie de décharge du téléphone entier ; aucune attribution à une application.
+@@ en
+Whole-phone discharge energy, without attribution to any application.

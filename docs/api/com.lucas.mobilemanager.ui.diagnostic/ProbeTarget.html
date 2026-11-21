@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProbeTarget Data Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.ui.diagnostic/ProbeTarget.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.ui.diagnostic</a> <span class="sep">/</span> <span>ProbeTarget</span></nav>
+    <article>
+<h1>ProbeTarget <span class="h1-kind">data class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.ui.diagnostic</a></span><span>Module: :app</span><span>Source: <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L27">ProtectionTestViewModel.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">data</span> <span class="kw">class</span> ProbeTarget(<span class="kw">val</span> packageName: String, <span class="kw">val</span> zoneId: String, <span class="kw">val</span> label: String)</code></pre></div>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="ProbeTarget.html#m-packageName"><code>packageName</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="ProbeTarget.html#m-zoneId"><code>zoneId</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="ProbeTarget.html#m-label"><code>label</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-packageName">
+<h3>packageName <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> packageName: String</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L27">ProtectionTestViewModel.kt, line 27</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">9 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html">ProtectionTestViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L50" title="if (context.packageManager.getLaunchIntentForPackage(app.packageName) == null) emptyList()">50</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L53" title="context.packageManager.getApplicationInfo(app.packageName, 0)).toString() }.getOrDefault(app.packageName)">53</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L54" title="app.zones.map { ProbeTarget(app.packageName, it.id, &quot;$label · ${it.label}&quot;) }">54</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L67" title="store.select(target.packageName, target.zoneId)">67</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L68" title="selected.value = target.packageName to target.zoneId">68</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L75" title="val app = target?.let { withContext(Dispatchers.Default) { coordinator.evaluate(it.packageName) } }">75</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L76" title="val zone = target?.let { withContext(Dispatchers.Default) { coordinator.evaluateZone(it.packageName, it.zoneId) } }">76</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L77" title="if (target == null || selected.value == (target.packageName to target.zoneId)) {">77</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L94" title="store.start(target.packageName, target.zoneId)">94</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-zoneId">
+<h3>zoneId <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> zoneId: String</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L27">ProtectionTestViewModel.kt, line 27</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html">ProtectionTestViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L67" title="store.select(target.packageName, target.zoneId)">67</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L68" title="selected.value = target.packageName to target.zoneId">68</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L76" title="val zone = target?.let { withContext(Dispatchers.Default) { coordinator.evaluateZone(it.packageName, it.zoneId) } }">76</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L77" title="if (target == null || selected.value == (target.packageName to target.zoneId)) {">77</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L94" title="store.start(target.packageName, target.zoneId)">94</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-label">
+<h3>label <span class="badge">property</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> label: String</code></pre></div>
+<p class="defined">Defined in <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L27">ProtectionTestViewModel.kt, line 27</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html">ProtectionTestViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L52" title="val label = runCatching { context.packageManager.getApplicationLabel(">52</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L54" title="app.zones.map { ProbeTarget(app.packageName, it.id, &quot;$label · ${it.label}&quot;) }">54</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">4 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html">ProtectionTestViewModel.kt</a><div class="path">app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic</div></td><td>:app</td><td class="lines"><a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L54" title="app.zones.map { ProbeTarget(app.packageName, it.id, &quot;$label · ${it.label}&quot;) }">54</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L65" title="fun select(target: ProbeTarget) {">65</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L73" title="fun refreshDecision(target: ProbeTarget?) {">73</a>, <a href="../../src/app/src/main/kotlin/com/lucas/mobilemanager/ui/diagnostic/ProtectionTestViewModel.kt.html#L84" title="fun start(target: ProbeTarget, launch: () -&gt; Unit) {">84</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>docs/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#properties">Properties</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

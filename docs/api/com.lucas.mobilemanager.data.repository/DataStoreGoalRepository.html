@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DataStoreGoalRepository Class - Mobile Manager documentation</title>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body data-root="../../" data-page="api/com.lucas.mobilemanager.data.repository/DataStoreGoalRepository.html">
+<header class="site-header">
+  <a class="brand" href="../../index.html"><span class="logo" aria-hidden="true"></span>Mobile Manager <span class="brand-sub">Docs</span></a>
+  <nav class="top-links"><a href="../../index.html" class="">Overview</a><a href="../../concepts/architecture.html" class="">Architecture</a><a href="../index.html" class="active">API reference</a><a href="../../src/index.html" class="">Source files</a></nav>
+  <div class="search">
+    <input id="search" type="search" placeholder="Search classes, functions, files" autocomplete="off" aria-label="Search">
+    <div id="search-results" class="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <aside class="toc" aria-label="Table of contents">
+    <input id="toc-filter" type="search" placeholder="Filter by title" aria-label="Filter by title">
+    <nav id="toc"></nav>
+  </aside>
+  <main class="content">
+    <nav class="breadcrumb"><a href="../index.html">API reference</a> <span class="sep">/</span> <a href="index.html">com.lucas.mobilemanager.data.repository</a> <span class="sep">/</span> <span>DataStoreGoalRepository</span></nav>
+    <article>
+<h1>DataStoreGoalRepository <span class="h1-kind">class</span></h1>
+<div class="meta"><span>Package: <a href="index.html">com.lucas.mobilemanager.data.repository</a></span><span>Module: :core:data</span><span>Source: <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L17">DataStoreGoalRepository.kt</a></span></div>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">class</span> DataStoreGoalRepository @Inject <span class="kw">constructor</span>(<span class="kw">private</span> <span class="kw">val</span> store: DataStore&lt;Preferences&gt;) : <a href="../com.lucas.mobilemanager.domain.goals/GoalRepository.html">GoalRepository</a></code></pre></div>
+<h2 id="inheritance">Inheritance</h2>
+<table class="kv"><tbody><tr><th>Extends / implements</th><td><a href="../com.lucas.mobilemanager.domain.goals/GoalRepository.html"><code>GoalRepository</code></a></td></tr></tbody></table>
+<h2 id="properties">Properties</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DataStoreGoalRepository.html#m-store"><code>store</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-goals"><code>goals</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-temporaryAccess"><code>temporaryAccess</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="functions">Functions</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DataStoreGoalRepository.html#m-save"><code>save</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-delete"><code>delete</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-grant"><code>grant</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-revoke"><code>revoke</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-claimReminder"><code>claimReminder</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-decodeGoals"><code>decodeGoals</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-encode"><code>encode</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-decodeAccess"><code>decodeAccess</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-encodeAccess"><code>encodeAccess</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-objects"><code>objects</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-strings"><code>strings</code></a> <span class=tag>private</span></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="companion-members">Companion members</h2>
+<table class="summary"><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><a href="DataStoreGoalRepository.html#m-GOALS"><code>GOALS</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-ACCESS"><code>ACCESS</code></a></td><td><span class="muted">—</span></td></tr><tr><td><a href="DataStoreGoalRepository.html#m-REMINDERS"><code>REMINDERS</code></a></td><td><span class="muted">—</span></td></tr></tbody></table>
+<h2 id="member-details">Member details</h2>
+<section class="member" id="m-store">
+<h3>store <span class="badge">property</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">val</span> store: DataStore&lt;Preferences&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L17">DataStoreGoalRepository.kt, line 17</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">7 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html">DataStoreGoalRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L18" title="override val goals = store.data.map { decodeGoals(it[GOALS]) }">18</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L19" title="override val temporaryAccess = store.data.map { decodeAccess(it[ACCESS]) }">19</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L22" title="store.edit { prefs -&gt;">22</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L29" title="store.edit { prefs -&gt; prefs[GOALS] = JSONArray().apply {">29</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L35" title="store.edit { prefs -&gt;">35</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L42" title="store.edit { it[ACCESS] = encodeAccess(decodeAccess(it[ACCESS]).filterNot { a -&gt; a.packageName == packageName }) }">42</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L47" title="store.edit {">47</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-goals">
+<h3>goals <span class="badge">property</span><span class="badge vis">override</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">val</span> goals</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L18">DataStoreGoalRepository.kt, line 18</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 2 files.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html">DataModule.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/di</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L83" title="abstract fun bindGoalRepository(impl: com.lucas.mobilemanager.data.repository.DataStoreGoalRepository): com.lucas.mobilemanager.domain.goals.GoalRepository">83</a></td></tr><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html">DataStoreGoalRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L7" title="import com.lucas.mobilemanager.domain.goals.*">7</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-temporaryAccess">
+<h3>temporaryAccess <span class="badge">property</span><span class="badge vis">override</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">val</span> temporaryAccess</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L19">DataStoreGoalRepository.kt, line 19</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-save">
+<h3>save <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> save(goal: <a href="../com.lucas.mobilemanager.domain.goals/PersonalGoal.html">PersonalGoal</a>)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L21">DataStoreGoalRepository.kt, line 21</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-delete">
+<h3>delete <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> delete(id: String)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L28">DataStoreGoalRepository.kt, line 28</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-grant">
+<h3>grant <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> grant(access: <a href="../com.lucas.mobilemanager.domain.goals/TemporaryAccess.html">TemporaryAccess</a>)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L34">DataStoreGoalRepository.kt, line 34</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-revoke">
+<h3>revoke <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> revoke(packageName: String)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L41">DataStoreGoalRepository.kt, line 41</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-claimReminder">
+<h3>claimReminder <span class="badge">method</span><span class="badge vis">override</span><span class="badge vis">suspend</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">override</span> <span class="kw">suspend</span> <span class="kw">fun</span> claimReminder(key: String, date: LocalDate): Boolean</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L45">DataStoreGoalRepository.kt, line 45</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="muted refs-none">No reference found outside its declaration.</p></details>
+</section>
+<section class="member" id="m-decodeGoals">
+<h3>decodeGoals <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> decodeGoals(raw: String?): List&lt;<a href="../com.lucas.mobilemanager.domain.goals/PersonalGoal.html">PersonalGoal</a>&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L57">DataStoreGoalRepository.kt, line 57</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html">DataStoreGoalRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L18" title="override val goals = store.data.map { decodeGoals(it[GOALS]) }">18</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L23" title="val all = decodeGoals(prefs[GOALS]).filterNot { it.id == goal.id } + goal">23</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L30" title="decodeGoals(prefs[GOALS]).filterNot { it.id == id }.forEach { put(encode(it)) }">30</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-encode">
+<h3>encode <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> encode(g: <a href="../com.lucas.mobilemanager.domain.goals/PersonalGoal.html">PersonalGoal</a>)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L65">DataStoreGoalRepository.kt, line 65</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html">DataStoreGoalRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L24" title="prefs[GOALS] = JSONArray().apply { all.forEach { put(encode(it)) } }.toString()">24</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L30" title="decodeGoals(prefs[GOALS]).filterNot { it.id == id }.forEach { put(encode(it)) }">30</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-decodeAccess">
+<h3>decodeAccess <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> decodeAccess(raw: String?)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L71">DataStoreGoalRepository.kt, line 71</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html">DataStoreGoalRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L19" title="override val temporaryAccess = store.data.map { decodeAccess(it[ACCESS]) }">19</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L36" title="val all = decodeAccess(prefs[ACCESS]).filter { it.packageName != access.packageName &amp;&amp; it.until &gt; access.startedAt } + access">36</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L42" title="store.edit { it[ACCESS] = encodeAccess(decodeAccess(it[ACCESS]).filterNot { a -&gt; a.packageName == packageName }) }">42</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-encodeAccess">
+<h3>encodeAccess <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> encodeAccess(all: List&lt;<a href="../com.lucas.mobilemanager.domain.goals/TemporaryAccess.html">TemporaryAccess</a>&gt;)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L76">DataStoreGoalRepository.kt, line 76</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html">DataStoreGoalRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L37" title="prefs[ACCESS] = encodeAccess(all)">37</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L42" title="store.edit { it[ACCESS] = encodeAccess(decodeAccess(it[ACCESS]).filterNot { a -&gt; a.packageName == packageName }) }">42</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-objects">
+<h3>objects <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> objects(raw: String?): List&lt;JSONObject&gt;</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L81">DataStoreGoalRepository.kt, line 81</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">3 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html">DataStoreGoalRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L57" title="private fun decodeGoals(raw: String?): List&lt;PersonalGoal&gt; = objects(raw).mapNotNull { o -&gt; runCatching {">57</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L60" title="objects(o.optJSONArray(&quot;slots&quot;)?.toString()).map { s -&gt; PreparationSlot(">60</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L71" title="private fun decodeAccess(raw: String?) = objects(raw).mapNotNull { o -&gt; runCatching {">71</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-strings">
+<h3>strings <span class="badge">method</span><span class="badge vis">private</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">private</span> <span class="kw">fun</span> strings(array: JSONArray)</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L85">DataStoreGoalRepository.kt, line 85</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html">DataStoreGoalRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L59" title="strings(o.getJSONArray(&quot;packages&quot;)).toSet(), o.getInt(&quot;minutes&quot;),">59</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L61" title="strings(s.getJSONArray(&quot;days&quot;)).map(DayOfWeek::valueOf).toSet(), LocalTime.parse(s.getString(&quot;start&quot;)), s.getInt(&quot;minutes&quot;)) },">61</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-GOALS">
+<h3>GOALS <span class="badge">property</span><span class="badge vis">companion</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> GOALS</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L88">DataStoreGoalRepository.kt, line 88</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">5 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html">DataStoreGoalRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L18" title="override val goals = store.data.map { decodeGoals(it[GOALS]) }">18</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L23" title="val all = decodeGoals(prefs[GOALS]).filterNot { it.id == goal.id } + goal">23</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L24" title="prefs[GOALS] = JSONArray().apply { all.forEach { put(encode(it)) } }.toString()">24</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L29" title="store.edit { prefs -&gt; prefs[GOALS] = JSONArray().apply {">29</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L30" title="decodeGoals(prefs[GOALS]).filterNot { it.id == id }.forEach { put(encode(it)) }">30</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-ACCESS">
+<h3>ACCESS <span class="badge">property</span><span class="badge vis">companion</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> ACCESS</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L89">DataStoreGoalRepository.kt, line 89</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">4 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html">DataStoreGoalRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L19" title="override val temporaryAccess = store.data.map { decodeAccess(it[ACCESS]) }">19</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L36" title="val all = decodeAccess(prefs[ACCESS]).filter { it.packageName != access.packageName &amp;&amp; it.until &gt; access.startedAt } + access">36</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L37" title="prefs[ACCESS] = encodeAccess(all)">37</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L42" title="store.edit { it[ACCESS] = encodeAccess(decodeAccess(it[ACCESS]).filterNot { a -&gt; a.packageName == packageName }) }">42</a></td></tr></tbody></table></details>
+</section>
+<section class="member" id="m-REMINDERS">
+<h3>REMINDERS <span class="badge">property</span><span class="badge vis">companion</span></h3>
+<p class="muted">No description.</p>
+<div class="code"><div class="code-header"><span>Kotlin</span><button class="copy" type="button">Copy</button></div><pre><code><span class="kw">val</span> REMINDERS</code></pre></div>
+<p class="defined">Defined in <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L90">DataStoreGoalRepository.kt, line 90</a></p>
+<details class="refs-box"><summary>Referenced in</summary><p class="refs-count">2 references in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html">DataStoreGoalRepository.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L48" title="val existing = runCatching { JSONObject(it[REMINDERS] ?: &quot;{}&quot;) }.getOrDefault(JSONObject())">48</a>, <a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/repository/DataStoreGoalRepository.kt.html#L52" title="it[REMINDERS] = kept.toString()">52</a></td></tr></tbody></table></details>
+</section>
+<h2 id="referenced-in">Referenced in</h2>
+<p class="refs-count">1 reference in 1 file.</p><table class="refs"><thead><tr><th>File</th><th>Module</th><th>Lines</th></tr></thead><tbody><tr><td><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html">DataModule.kt</a><div class="path">core/data/src/main/kotlin/com/lucas/mobilemanager/data/di</div></td><td>:core:data</td><td class="lines"><a href="../../src/core/data/src/main/kotlin/com/lucas/mobilemanager/data/di/DataModule.kt.html#L83" title="abstract fun bindGoalRepository(impl: com.lucas.mobilemanager.data.repository.DataStoreGoalRepository): com.lucas.mobilemanager.domain.goals.GoalRepository">83</a></td></tr></tbody></table>
+    </article>
+    <footer class="page-footer">Generated from the source code by <code>docs/tools/gen_docs.py</code>. Do not edit generated pages by hand.</footer>
+  </main>
+  <aside class="on-page"><h2>In this article</h2><ol><li><a href="#inheritance">Inheritance</a></li><li><a href="#properties">Properties</a></li><li><a href="#functions">Functions</a></li><li><a href="#companion-members">Companion members</a></li><li><a href="#member-details">Member details</a></li><li><a href="#referenced-in">Referenced in</a></li></ol></aside>
+</div>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/site.js"></script>
+</body>
+</html>
